@@ -2,11 +2,8 @@ import { shallowMount } from '@vue/test-utils';
 import Chat from '@/components/chat/Chat.vue';
 
 describe('Chat.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(Chat, {
-      props: { msg },
-    });
-    expect(wrapper.text()).toMatch(msg);
+  it('Jest test', () => {
+    const wrapper = shallowMount(Chat);
+    expect(wrapper.text()).toMatch('There will be a chatbox soon...');
   });
 });
