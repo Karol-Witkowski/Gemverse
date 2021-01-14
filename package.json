@@ -1,20 +1,21 @@
 {
-  "name": "gemverse",
-  "version": "0.0.1",
-  "description": "Gemverse Chat Application",
-  "scripts": {
-      "seed:data": "npm run seed --prefix server",
-      "client:test": "npm run test --prefix client",
-      "server:test:watch": "npm run test:watch --prefix server",
-      "server:test:ci": "npm run test:ci --prefix server",
-      "test": "npm run test --prefix client && npm run server:test:ci",
-      "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-      "build": "npm run build --prefix client",
-      "start": "npm run start --prefix server",
-      "heroku-postbuild": "npm install --prefix client && npm install --prefix server && npm run build --prefix client"
-  },
-  "repository": {
-      "type": "git",
-      "url": "https://github.com/Karol-Witkowski/Gemverse"
-  }
+    "name": "gemverse",
+    "version": "0.0.1",
+    "description": "Gemverse Chat Application",
+    "scripts": {
+        "seed:data": "npm run seed --prefix server",
+        "client:test": "npm run test --prefix client",
+        "server:test:watch": "npm run test:watch --prefix server",
+        "server:test:ci": "npm run test:ci --prefix server",
+        "test": "npm run test --prefix client && npm run server:test:ci",
+        "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+        "build": "npm run build --prefix client",
+        "start": "npm run start --prefix server",
+        "heroku-postbuild": "npm install --prefix client && npm install --prefix server && npm run build --prefix client"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Karol-Witkowski/Gemverse"
+    },
+    "dependencies": {}
 }
