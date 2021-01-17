@@ -1,5 +1,4 @@
 <template>
-  <v-main>
     <v-container
       fluid
       mt-16
@@ -29,5 +28,4 @@
         </v-card>
       </v-flex>
     </v-container>
-  </v-main>
 </template>
