@@ -1,7 +1,7 @@
 <template>
   <v-container
-    class="ml-6"
     cols='8'
+    ml-6
   >
     <v-list three-line>
       <template v-for="(item, index) in items">

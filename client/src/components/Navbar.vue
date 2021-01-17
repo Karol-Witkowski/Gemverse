@@ -5,8 +5,6 @@
     max-height="65"
   >
     <v-tabs
-      app
-      centered
       color="blue lighten-3"
     >
       <v-tab to="/">rooms</v-tab>
@@ -46,3 +44,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-tab:first-of-type {
+  margin-left: 80px;
+}
+</style>

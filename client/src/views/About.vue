@@ -24,6 +24,7 @@
             <v-btn
               color="blue lighten-2"
               href="https://github.com/Karol-Witkowski"
+              outlined
             >
               GitHub
             </v-btn>

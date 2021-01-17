@@ -16,6 +16,7 @@
           elevation="1"
           icon
           text
+          outlined
         >
           X
         </v-btn>
