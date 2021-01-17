@@ -1,4 +1,5 @@
 # Gemverse
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b579256de9794b9dadf521dded359088)](https://www.codacy.com/gh/Karol-Witkowski/Gemverse/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Karol-Witkowski/Gemverse&amp;utm_campaign=Badge_Grade)
 
 <p align="center"><code><img height="90" title="Gemverse logo" src="client\src\assets\img\logo.png" alt="Gemverse logo"></code></p>
 
