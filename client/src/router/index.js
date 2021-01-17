@@ -1,21 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/views/Home.vue';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Chat from '../views/Chat.vue';
+
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Chat',
+    component: Chat,
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import('@/views/About.vue'),
+    component: () => import('../views/About.vue'),
   },
 ];
 
-const router = createRouter({
-  history: createWebHistory(),
+const router = new VueRouter({
   routes,
 });
 

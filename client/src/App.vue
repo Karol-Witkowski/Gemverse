@@ -1,25 +1,20 @@
 <template>
-  <main>
+  <v-app>
     <Navbar />
+    <SideMenu />
     <router-view />
-  </main>
+  </v-app>
 </template>
 
 <script>
-import Navbar from '@/components/navbar/Navbar.vue';
+import Navbar from './components/Navbar.vue';
+import SideMenu from './components/SideMenu.vue';
 
 export default {
+  name: 'App',
   components: {
     Navbar,
+    SideMenu,
   },
 };
 </script>
-
-<style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:200,300,400,500,600,700&display=swap');
-
-main {
-  font-family: 'Josefin Sans', Arial, sans-serif;
-  text-align: center;
-}
-</style>
