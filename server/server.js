@@ -8,7 +8,7 @@ const io = require('socket.io');
 const http = require('http');
 
 app.get('/', (req, res) => {
-  res.send('Testing express test');
+  res.send('Express backend test');
 })
 
 app.listen(port, () => {
