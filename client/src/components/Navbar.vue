@@ -13,7 +13,7 @@
       <v-tab to="/about">about</v-tab>
     </v-tabs>
     <v-tab
-      class="mt-1 mr-2"
+      class="mt-1 mr-2 d-none d-sm-flex"
       disabled
       style="font-size: 16px"
     >
