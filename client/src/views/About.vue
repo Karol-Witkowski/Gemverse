@@ -50,5 +50,7 @@ h3 {
 p {
   @extend h3;
   font-size: 1em;
+  text-align: justify;
+  text-justify: inter-word;
 }
 </style>

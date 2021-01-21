@@ -7,7 +7,7 @@
     <v-tabs
       color="blue lighten-3"
     >
-      <v-tab to="/">rooms</v-tab>
+      <v-tab to="/">home</v-tab>
       <v-tab to="/about">about</v-tab>
     </v-tabs>
     <v-tab
