@@ -1,14 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Rooms from '../views/Rooms.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Rooms',
-    component: Rooms,
+    name: 'Home',
+    component: () => import('../views/Home.vue'),
   },
   {
     path: '/about',
@@ -16,9 +15,18 @@ const routes = [
     component: () => import('../views/About.vue'),
   },
   {
-    path: '/chat',
-    name: 'Chat',
-    component: () => import('../views/Chat.vue'),
+    path: '/room',
+    name: 'Room',
+    component: () => import('../components/room/Room.vue'),
+  },
+  {
+    path: '/roomlist',
+    name: 'RoomList',
+    component: () => import('../components/room/RoomList.vue'),
+  },
+  {
+    path: '*',
+    component: () => import('@/components/error/NotFound.vue'),
   },
 ];
 

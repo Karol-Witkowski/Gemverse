@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import ChatBox from '@/components/ChatBox.vue';
+import Room from '@/components/room/Room.vue';
 
-describe('Chatbox.vue', () => {
+describe('Room.vue', () => {
   it('Test - development', () => {
-    const wrapper = shallowMount(ChatBox);
+    const wrapper = shallowMount(Room);
     expect(wrapper.text()).toMatch('Welcome');
   });
 });

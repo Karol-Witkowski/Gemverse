@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue';
-import SideMenu from './components/SideMenu.vue';
+import Navbar from './components/layout/Navbar.vue';
+import SideMenu from './components/layout/SideMenu.vue';
 
 export default {
   name: 'App',

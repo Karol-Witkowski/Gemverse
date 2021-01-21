@@ -9,30 +9,28 @@
         <v-card>
           <v-card-title>
             <h3 class="mb-2">
-              About app
+              Gemverse - a real-time chat
             </h3>
             <p>
-              Gemverse is created by combining Vue, Vuetify, Express, Socket.io,
-              MongoDB and more. The app aims to provide an alternative for friends
-              to hang around and chat. The app is based on rooms - organized channels
-              allow you to talk about programming, hobbies, games and more.
-              Check my profile at GitHub.
+              Gemverse is a chat app that keeps you connected with coworker and
+              friends wherever you are. User can create own rooms or join to one already made.
+              To get started click the button below.
             </p>
           </v-card-title>
           <v-card-actions>
             <v-btn
               color="blue lighten-2"
-              href="https://github.com/Karol-Witkowski"
+              to="/roomlist"
               outlined
             >
-              GITHUB PROFILE
+              START CHATTING
             </v-btn>
           </v-card-actions>
           <v-card-actions class="justify-end">
             <v-img
-              max-width="45%"
-              min-width="300px"
-              src="..\assets\img\aboutBanner.png"
+              max-width="60%"
+              min-width="400px"
+              src="..\assets\img\homeBanner.png"
             />
           </v-card-actions>
         </v-card>

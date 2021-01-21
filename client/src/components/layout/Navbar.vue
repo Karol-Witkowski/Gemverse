@@ -28,7 +28,7 @@
     >
       <v-img
         max-width="40"
-        src="..\assets\img\logo.png"
+        src="..\..\assets\img\logo.png"
       />
     </v-btn>
   </v-app-bar>

@@ -72,3 +72,9 @@
       </v-flex>
     </v-container>
 </template>
+
+<script>
+export default {
+  name: 'RoomList',
+};
+</script>

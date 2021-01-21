@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import ChatBox from '@/components/ChatBox.vue';
-import ChatInput from '@/components/ChatInput.vue';
+import ChatBox from '@/components/chat/ChatBox.vue';
+import ChatInput from '@/components/chat/ChatInput.vue';
 
 export default {
-  name: 'Chat',
+  name: 'Room',
   components: {
     ChatBox,
     ChatInput,
