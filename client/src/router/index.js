@@ -15,14 +15,19 @@ const routes = [
     component: () => import('../views/About.vue'),
   },
   {
-    path: '/room',
-    name: 'Room',
-    component: () => import('../components/room/Room.vue'),
+    path: '/roomlist/addroom',
+    name: 'AddRoom',
+    component: () => import('../components/room/AddRoom.vue'),
   },
   {
     path: '/roomlist',
     name: 'RoomList',
     component: () => import('../components/room/RoomList.vue'),
+  },
+  {
+    path: '/room',
+    name: 'Room',
+    component: () => import('../components/room/Room.vue'),
   },
   {
     path: '*',
