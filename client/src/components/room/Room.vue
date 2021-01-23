@@ -1,18 +1,18 @@
 <template>
   <v-main>
-    <ChatBox />
+    <ChatMessages />
     <ChatInput />
   </v-main>
 </template>
 
 <script>
-import ChatBox from '@/components/chat/ChatBox.vue';
+import ChatMessages from '@/components/chat/ChatMessages.vue';
 import ChatInput from '@/components/chat/ChatInput.vue';
 
 export default {
   name: 'Room',
   components: {
-    ChatBox,
+    ChatMessages,
     ChatInput,
   },
 };

@@ -1,6 +1,6 @@
 <template>
     <v-container
-      class="ml-7 mt-16"
+      class="ml-7 mt-12"
       fluid
     >
       <v-flex
@@ -8,26 +8,36 @@
       >
         <v-card>
           <v-card-title>
-            <h3 class="mb-2">
+            <h3 class="grey--text text--darken-2 mb-2">
               Gemverse - a real-time chat
             </h3>
-            <p>
+            <span class="grey--text text--darken-2">
               Gemverse is a chat app that keeps you connected with coworker and
               friends wherever you are. User can create own rooms or join to one already made.
               To get started click the button below.
-            </p>
+            </span>
           </v-card-title>
           <v-card-actions>
             <v-btn
-              class="ml-2"
+              class="ml-2 mr-4"
               color="blue lighten-2"
               to="/login"
               outlined
             >
-              START CHATTING
+              Sign in
+            </v-btn>
+            <span class="grey--text text--darken-2">or</span>
+            <v-btn
+              class="ml-4"
+              color="blue lighten-2"
+              to="/register"
+              outlined
+            >
+              Sign up
             </v-btn>
           </v-card-actions>
           <v-img
+            alt="Group of people chatting via multi-platform app"
             class="ml-auto mt-6"
             max-width="60%"
             min-width="320px"
@@ -39,16 +49,14 @@
 </template>
 
 <style lang="scss">
-
 h3 {
-  color: rgb(100, 98, 98);
   word-break: normal;
 }
 
-p {
-  @extend h3;
+span {
   font-size: 1em;
   text-align: justify;
   text-justify: inter-word;
+  word-break: normal;
 }
 </style>

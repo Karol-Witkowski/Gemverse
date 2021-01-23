@@ -1,6 +1,6 @@
 <template>
     <v-container
-      class="ml-7 mt-4"
+      class="mt-4 ml-7"
       fluid
     >
       <v-flex
@@ -8,13 +8,14 @@
       >
         <v-card>
           <v-card-title class="justify-center pt-6">
-            <h1>
+            <h1 class="grey--text mx-auto text--darken-1">
               404
             </h1>
           </v-card-title>
           <v-card-actions class="justify-center">
           <v-img
-            class="ml-auto mr-auto"
+            alt="People holding a disconnected wire"
+            class="mx-auto"
             max-width="35%"
             min-width="330px"
             src="..\..\assets\img\notFound.jpg"
@@ -26,7 +27,7 @@
               to="/"
               outlined
             >
-              BACK TO HOME PAGE
+              Back to home page
             </v-btn>
           </v-card-actions>
         </v-card>

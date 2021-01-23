@@ -1,58 +1,64 @@
 <template>
-  <v-card  cols="12">
-    <v-card-title>
-      <span class="headline grey--text text--lighten-1">Login to start chatting</span>
-    </v-card-title>
-    <v-card-text>
-      <v-container>
-        <v-row>
-          <v-col cols="12">
-            <v-text-field
-              hint="Required"
-              label="Username"
-              persistent-hint
-              required
-            />
-          </v-col>
-          <v-col cols="12">
-            <v-text-field
-              hint="Not required"
-              label="Password (Optional) **disabled - dev**"
-              type="password"
-              persistent-hint
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer />
+  <v-container pl-16>
+    <v-card
+      class="mt-12 mx-auto"
+      max-width="500px"
+    >
+      <v-card-title>
+        <span class="headline grey--text text--darken-2">Sign in to start chatting</span>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                label="Username"
+                required
+              />
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                label="Password"
+                required
+                type="password"
+              />
+            </v-col>
+          </v-row>
+          All fields are case-sensitive
+        </v-container>
+      </v-card-text>
+      <v-card-actions class="pb-4">
+        <v-btn
+          color="blue lighten-2"
+          text
+          to="/"
+          outlined
+        >
+          Close
+        </v-btn>
+        <v-spacer />
+        <v-btn
+          color="blue lighten-2"
+          text
+          to="/roomlist"
+          outlined
+        >
+          Sign in
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <div class="mt-6 text-center">
+      <h4 class="grey--text mx-auto mb-2 text--darken-1">New to Gemverse? Create a new account</h4>
       <v-btn
-        color="blue lighten-2"
+        color="blue lighten-1"
         text
+        to="/register"
         outlined
-        v-on:click="$emit('close-dialog')"
       >
-        Register
+        Sign up
       </v-btn>
-      <v-btn
-        color="blue lighten-2"
-        text
-        outlined
-        v-on:click="$emit('close-dialog')"
-      >
-        Close
-      </v-btn>
-      <v-btn
-        color="blue lighten-2"
-        text
-        outlined
-        v-on:click="$emit('close-dialog')"
-      >
-        Login
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+    </div>
+  </v-container>
 </template>
 
 <script>

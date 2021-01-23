@@ -1,21 +1,18 @@
 <template>
     <v-form cols='12'>
       <v-container>
-        <v-row>
-          <v-col>
-            <v-text-field
-              clearable
-              clear-icon="x"
-              @click:clear="clearMessage"
-              @enter:append-outer="sendMessage"
-              filled
-              label="Message"
-              placeholder="Type message..."
-              type="text"
-              v-model="message"
-            />
-          </v-col>
-        </v-row>
+        <v-text-field
+          append-icon="=>"
+          clearable
+          clear-icon="x"
+          @click:clear="clearMessage"
+          @enter:append-outer="sendMessage"
+          filled
+          label="Message"
+          placeholder="Type message..."
+          type="text"
+          v-model="message"
+        />
       </v-container>
     </v-form>
 </template>

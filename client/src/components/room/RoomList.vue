@@ -59,6 +59,7 @@
           <v-list-item-action>
             <v-btn
               color="red lighten-2"
+              to="/room"
               outlined
             >
               Join

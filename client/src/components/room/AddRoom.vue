@@ -1,7 +1,7 @@
 <template>
   <v-card  cols="12">
     <v-card-title>
-      <span class="headline grey--text text--lighten-1">ADD NEW ROOM</span>
+      <span class="headline grey--text text--lighten-1">Add new room</span>
     </v-card-title>
     <v-card-text>
       <v-container>
@@ -16,8 +16,8 @@
           </v-col>
           <v-col cols="12">
             <v-text-field
-              hint="Not required"
-              label="Password (Optional) **disabled - dev**"
+              disabled
+              label="Password (optional)"
               type="password"
               persistent-hint
             />
@@ -25,8 +25,7 @@
         </v-row>
       </v-container>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer />
+    <v-card-actions class="pb-4">
       <v-btn
         color="blue lighten-2"
         text
@@ -35,6 +34,7 @@
       >
         Close
       </v-btn>
+      <v-spacer />
       <v-btn
         color="blue lighten-2"
         text

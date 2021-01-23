@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'ChatBox',
+  name: 'ChatMessages',
   data() {
     return {
       drawerToggle: false,
@@ -43,7 +43,7 @@ export default {
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
           title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-          message: '<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I\'m out of town this weekend.',
+          message: '<span class="text--primary">Antonio Muaer</span> &mdash; Wish I could come, but I\'m out of town this weekend.',
         },
         { divider: true, inset: true },
         {

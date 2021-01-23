@@ -1,6 +1,6 @@
 <template>
     <v-container
-      class="ml-7 mt-16"
+      class="mt-12 ml-7"
       fluid
     >
       <v-flex
@@ -8,27 +8,30 @@
       >
         <v-card>
           <v-card-title>
-            <h3 class="mb-2">
+            <h3 class="grey--text mb-2 text--darken-1">
               About app
             </h3>
-            <p>
+            <span class="grey--text text--darken-1">
               Gemverse is created by combining Vue, Vuetify, Express, Socket.io,
               MongoDB and more. The app aims to provide an alternative for friends
               to hang around and chat. The app is based on rooms - organized channels
               allow you to talk about programming, hobbies, games and more.
               Check my profile at GitHub.
-            </p>
+            </span>
           </v-card-title>
           <v-card-actions>
             <v-btn
+              class="ml-2"
               color="blue lighten-2"
               href="https://github.com/Karol-Witkowski"
+              target="_blank"
               outlined
             >
               GITHUB PROFILE
             </v-btn>
           </v-card-actions>
           <v-img
+            alt="Desktop computer screen"
             class="ml-auto mt-6"
             max-width="45%"
             min-width="320px"
@@ -42,14 +45,14 @@
 <style lang="scss">
 
 h3 {
-  color: rgb(100, 98, 98);
   word-break: normal;
 }
 
-p {
-  @extend h3;
+span {
   font-size: 1em;
   text-align: justify;
   text-justify: inter-word;
+  word-break: normal;
+
 }
 </style>
