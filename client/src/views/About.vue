@@ -28,13 +28,12 @@
               GITHUB PROFILE
             </v-btn>
           </v-card-actions>
-          <v-card-actions class="justify-end">
-            <v-img
-              max-width="45%"
-              min-width="300px"
-              src="..\assets\img\aboutBanner.png"
-            />
-          </v-card-actions>
+          <v-img
+            class="ml-auto mt-6"
+            max-width="45%"
+            min-width="320px"
+            src="..\assets\img\aboutBanner.png"
+          />
         </v-card>
       </v-flex>
     </v-container>

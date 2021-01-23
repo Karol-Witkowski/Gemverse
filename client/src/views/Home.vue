@@ -19,20 +19,20 @@
           </v-card-title>
           <v-card-actions>
             <v-btn
+              class="ml-2"
               color="blue lighten-2"
-              to="/roomlist"
+              to="/login"
               outlined
             >
               START CHATTING
             </v-btn>
           </v-card-actions>
-          <v-card-actions class="justify-end">
-            <v-img
-              max-width="60%"
-              min-width="400px"
-              src="..\assets\img\homeBanner.png"
-            />
-          </v-card-actions>
+          <v-img
+            class="ml-auto mt-6"
+            max-width="60%"
+            min-width="320px"
+            src="..\assets\img\homeBanner.png"
+          />
         </v-card>
       </v-flex>
     </v-container>

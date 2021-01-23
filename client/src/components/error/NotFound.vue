@@ -13,11 +13,12 @@
             </h1>
           </v-card-title>
           <v-card-actions class="justify-center">
-            <v-img
-              max-width="35%"
-              min-width="400px"
-              src="..\..\assets\img\notFound.jpg"
-            />
+          <v-img
+            class="ml-auto mr-auto"
+            max-width="35%"
+            min-width="330px"
+            src="..\..\assets\img\notFound.jpg"
+          />
           </v-card-actions>
           <v-card-actions class="justify-center pb-10">
             <v-btn
