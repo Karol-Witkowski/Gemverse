@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "node ./bin/www",
-    "dev:watch": "nodemon ./bin/www"
+    "dev:watch": "nodemon ./bin/wwww",
+    "build": "node build/build.js"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
