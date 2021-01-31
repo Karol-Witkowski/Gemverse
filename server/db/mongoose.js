@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
+require('dotenv').config();
 
 mongoose.Promise = require('bluebird');
 

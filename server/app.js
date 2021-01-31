@@ -28,13 +28,15 @@ app.use(helmet());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
-app.use('/room', express.static(path.join(__dirname, 'dist')));
+app.use('/rooms', express.static(path.join(__dirname, 'dist')));
 app.use('/api/room', room);
 app.use('/api/messages', messages);
 
-/** Handle errors */
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  var err = new Error('404 Not Found');
+  err.status = 404;
+  next(err);
 });
 
 app.use(function(err, req, res, next) {

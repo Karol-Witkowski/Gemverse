@@ -20,7 +20,7 @@ const routes = [
     component: () => import('@/components/auth/Register.vue'),
   },
   {
-    path: '/login',
+    path: '/login/:id',
     name: 'Login',
     component: () => import('../components/auth/Login.vue'),
   },
@@ -35,7 +35,7 @@ const routes = [
     component: () => import('../components/room/RoomList.vue'),
   },
   {
-    path: '/room',
+    path: '/roomlist/room/:id/:user',
     name: 'Room',
     component: () => import('../components/room/Room.vue'),
   },
