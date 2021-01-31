@@ -2,10 +2,10 @@
   "name": "gemverse-backend",
   "version": "1.0.0",
   "description": "Backend for Gemverse app",
-  "main": "server.js",
+  "main": "www",
   "scripts": {
     "dev": "node ./bin/www",
-    "dev:watch": "nodemon ./bin/wwww",
+    "dev:watch": "nodemon ./bin/www",
     "build": "node build/build.js"
   },
   "dependencies": {

@@ -1,9 +1,12 @@
+/** Dotenv variables */
+require('dotenv').config();
+
 /** Express */
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
-const favicon = require('serve-favicon');
 
 /** Connect to MongoDB */
 const mongoose = require('mongoose');
@@ -18,11 +21,11 @@ const app = express();
 
 /** Middleware */
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(helmet());
-app.use(favicon());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */

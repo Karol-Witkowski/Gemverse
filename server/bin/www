@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+const chalk = require('chalk');
 
 /** Crucial dependencies */
 const app = require('../app');
@@ -9,10 +9,13 @@ const http = require('http');
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/** Create and handle server */
+/** Server - create, normalize and handle errors */
 const server = http.createServer(app);
 
-server.listen(port);
+server.listen(port, function () {
+  console.log(chalk.bold.green(`http://localhost:${port}`));
+});
+
 server.on('error', onError);
 server.on('listening', onListening);
 
