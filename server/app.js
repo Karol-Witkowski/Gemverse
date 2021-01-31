@@ -16,7 +16,7 @@ require('./db/mongoose');
 const logger = require('morgan');
 
 const room = require('./routes/room');
-const chat = require('./routes/chat');
+const messages = require('./routes/messages');
 const app = express();
 
 /** Middleware */
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 /** Routes */
 app.use('/rooms', express.static(path.join(__dirname, 'dist')));
 app.use('/api/room', room);
-app.use('/api/chat', chat);
+app.use('/api/messages', messages);
 
 /** Handle errors */
 app.use(function(req, res, next) {
