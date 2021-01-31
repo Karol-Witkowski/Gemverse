@@ -21,7 +21,6 @@ const app = express();
 
 /** Middleware */
 app.use(logger('dev'));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -29,7 +28,7 @@ app.use(helmet());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
-app.use('/rooms', express.static(path.join(__dirname, 'dist')));
+app.use('/room', express.static(path.join(__dirname, 'dist')));
 app.use('/api/room', room);
 app.use('/api/messages', messages);
 
@@ -40,10 +39,8 @@ app.use(function(req, res, next) {
 
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   res.status(err.status || 500);
-  res.send(err.status);
+  res.sendStatus(err.status);
 });
 
 module.exports = app;

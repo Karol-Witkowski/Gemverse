@@ -7,12 +7,12 @@ const RoomSchema = new mongoose.Schema({
     trim: true,
     unique: true,
     minlength: ['3', 'Room name must be greater than 3 characters'],
-    maxlength: ['20', 'Room name must be less than 10 characters']
+    maxlength: ['10', 'Room name must be less than 10 characters']
   },
   createdDate: {
     type: Date,
     default: Date.now
   }
-})
+});
 
-module.exports = mongoose.model('Message', RoomSchema);
+module.exports = mongoose.model('Room', RoomSchema);
