@@ -1,7 +1,7 @@
 <template>
   <v-container
     fluid
-    class="mt-16 ml-7"
+    class="ml-7"
   >
     <v-flex
       centered
@@ -95,6 +95,7 @@ export default {
     closeDialog() {
       this.dialog = false;
     },
+
     join(id) {
       this.$router.push({
         name: 'Room',
