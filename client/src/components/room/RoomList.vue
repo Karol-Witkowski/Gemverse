@@ -29,7 +29,10 @@
                </v-btn>
              </v-list-item-action>
            </v-list-item>
-           <v-list v-if="errors && errors.length" cols="16">
+           <v-list
+             cols="16"
+             v-if="errors && errors.length"
+            >
              <v-list-item>
                <v-list-item-content>
                  {{errors}}
@@ -41,6 +44,7 @@
       </v-card>
       <v-dialog
         max-width="600px"
+        persistent
         v-model="dialog"
       >
         <template
@@ -58,7 +62,7 @@
             Add new room
           </v-btn>
         </template>
-        <AddRoom v-on:close-dialog="closeDialog"/>
+        <AddRoom @close-dialog="closeDialog" />
       </v-dialog>
     </v-flex>
   </v-container>

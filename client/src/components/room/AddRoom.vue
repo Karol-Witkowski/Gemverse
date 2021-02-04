@@ -4,47 +4,48 @@
       <span class="headline grey--text text--lighten-1">Add new room</span>
     </v-card-title>
     <v-card-text>
-      <v-container @submit="onSubmit">
-        <v-row>
+      <v-container>
+        <v-form v-model="isFormValid">
           <v-col cols="12">
             <v-text-field
-              hint="Required (3-15 characters)"
+              :counter="15"
+              hint="Required"
               id="name"
               label="Room Name"
               persistent-hint
               required
-              v-model.trim="room.name"
+              :rules="nameRules"
+              v-model="room.name"
             />
           </v-col>
           <v-col cols="12">
             <v-text-field
-              disabled
               hint ="Optional"
-              label="Password"
-              type="password"
+              label="Password - DISABLED (alpha)"
               persistent-hint
+              type="password"
             />
           </v-col>
-        </v-row>
+        </v-form>
       </v-container>
     </v-card-text>
     <v-card-actions class="pb-4">
       <v-btn
+        @click="closeDialog"
         color="blue lighten-2"
         text
         outlined
-        v-on:click="$emit('close-dialog')"
       >
         Close
       </v-btn>
       <v-spacer />
       <v-btn
+        @click.prevent="[createRoom(), closeDialog()]"
+        :disabled="!isFormValid"
         color="blue lighten-2"
         text
         outlined
         type="submit"
-        variant="primary"
-        v-on:click="$emit('close-dialog')"
       >
         Save
       </v-btn>
@@ -59,24 +60,29 @@ export default {
   name: 'AddRoom',
   data() {
     return {
-      room: {},
+      isFormValid: false,
+      nameRules: [
+        (value) => !!value || 'Required.',
+        (value) => (value && value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+      ],
+      room: {
+        name: '',
+      },
     };
   },
+
   methods: {
     closeDialog() {
       this.$emit('close-dialog');
     },
 
-    onSubmit(evt) {
-      evt.preventDefault();
+    createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
-      // eslint-disable-next-line no-unused-vars
-        .then((response) => {
-          this.$router.push({
-            name: 'RoomList',
-          });
+        .then(() => {
+          if (this.$route.path !== '/roomlist') this.$router.push('/roomlist');
         })
         .catch((e) => {
+          // REMINDER Later add handle error message
           this.errors.push(e);
         });
     },
