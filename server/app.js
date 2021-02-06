@@ -9,7 +9,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 /** Connect to MongoDB */
-const mongoose = require('mongoose');
 require('./db/mongoose');
 
 /** Logging */
@@ -39,7 +38,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);

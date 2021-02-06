@@ -69,8 +69,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AddRoom from '@/components/room/AddRoom.vue';
+import axios from 'axios';
+import io from 'socket.io-client';
 
 export default {
   name: 'RoomList',
@@ -80,8 +81,9 @@ export default {
   data() {
     return {
       dialog: false,
-      rooms: [],
       errors: [],
+      rooms: [],
+      socket: io('http://localhost:8080/#/roomlist'),
     };
   },
 
@@ -90,9 +92,16 @@ export default {
       .then((response) => {
         this.rooms = response.data;
       })
+      // REMINDER Later add handle error message
       .catch((e) => {
         this.errors.push(e);
       });
+
+    this.socket.on('getNewRooms', (data) => {
+      if (data.room.name === this.$route.params) {
+        this.chats.push(data.room);
+      }
+    });
   },
 
   methods: {

@@ -55,6 +55,7 @@
 
 <script>
 import axios from 'axios';
+import io from 'socket.io-client';
 
 export default {
   name: 'AddRoom',
@@ -68,6 +69,7 @@ export default {
       room: {
         name: '',
       },
+      socket: io('http://localhost:8080/#/roomlist'),
     };
   },
 
@@ -79,6 +81,7 @@ export default {
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
         .then(() => {
+          this.socket.emit('createRoom', { room: this.room.name, created_date: new Date() });
           if (this.$route.path !== '/roomlist') this.$router.push('/roomlist');
         })
         .catch((e) => {
