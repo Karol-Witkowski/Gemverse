@@ -55,21 +55,20 @@
 
 <script>
 import axios from 'axios';
-import io from 'socket.io-client';
+import * as io from 'socket.io-client';
 
 export default {
   name: 'AddRoom',
   data() {
     return {
+      error: [],
       isFormValid: false,
       nameRules: [
         (value) => !!value || 'Required.',
         (value) => (value && value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
       ],
-      room: {
-        name: '',
-      },
-      socket: io('http://localhost:8080/#/roomlist'),
+      room: {},
+      socket: io('http://localhost:3000'),
     };
   },
 
@@ -80,13 +79,13 @@ export default {
 
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
-        .then(() => {
-          this.socket.emit('createRoom', { room: this.room.name, created_date: new Date() });
-          if (this.$route.path !== '/roomlist') this.$router.push('/roomlist');
+        .then((response) => {
+          io.socket.emit('createRoom', response.data);
+          this.room.name = '';
         })
         .catch((e) => {
           // REMINDER Later add handle error message
-          this.errors.push(e);
+          this.error.push(e);
         });
     },
   },

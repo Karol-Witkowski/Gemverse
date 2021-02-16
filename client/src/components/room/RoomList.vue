@@ -71,7 +71,7 @@
 <script>
 import AddRoom from '@/components/room/AddRoom.vue';
 import axios from 'axios';
-import io from 'socket.io-client';
+import * as io from 'socket.io-client';
 
 export default {
   name: 'RoomList',
@@ -83,7 +83,7 @@ export default {
       dialog: false,
       errors: [],
       rooms: [],
-      socket: io('http://localhost:8080/#/roomlist'),
+      socket: io.connect('http://localhost:3000'),
     };
   },
 
@@ -97,23 +97,15 @@ export default {
         this.errors.push(e);
       });
 
-    this.socket.on('getNewRooms', (data) => {
-      if (data.room.name === this.$route.params) {
-        this.chats.push(data.room);
-      }
+    this.socket.on('newRoom', function (data) {
+      this.rooms.push(data);
+      console.log('roomlist work');
     });
   },
 
   methods: {
     closeDialog() {
       this.dialog = false;
-    },
-
-    join(id) {
-      this.$router.push({
-        name: 'Room',
-        params: { id },
-      });
     },
   },
 };

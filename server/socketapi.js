@@ -1,15 +1,23 @@
-const io = require( "socket.io" )();
-const socketapi = {
-    io: io
-};
+const chalk = require('chalk');
+const socketio = require('socket.io');
+const io = socketio({
+  cors: {
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
+const socketApi = {};
 
-io.on('connection', socket =>  {
-  socket.broadcast.emit(
-    'updateRoomList',
-    JSON.stringify({
-      room: Room.name.find({})
-    })
-  );
+socketApi.io = io;
+
+io.on('connect', function (socket) {
+  console.log(chalk.bold.green('Socket connection established'));
+
+  socket.on('createRoom', (data) => {
+    console.log("workwork");
+    io.emit('newRoom',  data)
+  });
 });
 
-module.exports = socketapi;
+module.exports = socketApi;

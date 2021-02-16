@@ -4,7 +4,6 @@ const chalk = require('chalk');
 const app = require('../app');
 const debug = require('debug')('express-test:server');
 const http = require('http');
-const socketapi = require("../socketapi");
 
 /** Set port */
 const port = normalizePort(process.env.PORT || '3000');
@@ -14,10 +13,11 @@ app.set('port', port);
 const server = http.createServer(app);
 
 /** Establish socket.io connection */
-socketapi.io.attach(server);
+const socketApi = require('../socketApi');
+socketApi.io.attach(server);
 
 server.listen(port, function () {
-  console.log(chalk.bold.green(`http://localhost:${port}`));
+  console.log(chalk.bold.green(`Server run on http://localhost:${port}`));
 });
 
 server.on('error', onError);
