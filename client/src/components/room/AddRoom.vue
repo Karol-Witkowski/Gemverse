@@ -9,6 +9,7 @@
           <v-col cols="12">
             <v-text-field
               :counter="15"
+              v-on:keyup.enter="validation()"
               hint="Required"
               id="name"
               label="Room Name"
@@ -40,7 +41,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click.prevent="[createRoom(), closeDialog()]"
+        @click.prevent="[validation()]"
         :disabled="!isFormValid"
         color="blue lighten-2"
         text
@@ -67,7 +68,9 @@ export default {
         (value) => !!value || 'Required.',
         (value) => (value && value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
       ],
-      room: {},
+      room: {
+        name: '',
+      },
       socket: io('http://localhost:3000'),
     };
   },
@@ -87,6 +90,13 @@ export default {
           // REMINDER Later add handle error message
           this.error.push(e);
         });
+    },
+
+    validation() {
+      if (this.isFormValid) {
+        this.createRoom();
+        this.closeDialog();
+      }
     },
   },
 };
