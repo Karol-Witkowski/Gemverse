@@ -44,10 +44,10 @@
         <v-btn
           color="blue lighten-2"
           text
-          to="/login"
+          to="/"
           outlined
         >
-          Back
+          Close
         </v-btn>
         <v-spacer />
         <v-btn

@@ -20,7 +20,7 @@ const routes = [
     component: () => import('@/components/auth/Register.vue'),
   },
   {
-    path: '/login/:id',
+    path: '/login',
     name: 'Login',
     component: () => import('../components/auth/Login.vue'),
   },
@@ -47,6 +47,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
 });
 

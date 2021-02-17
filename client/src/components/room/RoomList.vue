@@ -108,6 +108,13 @@ export default {
     closeDialog() {
       this.dialog = false;
     },
+
+    join(id) {
+      this.$router.push({
+        name: 'Room',
+        params: { id },
+      });
+    },
   },
 };
 </script>
