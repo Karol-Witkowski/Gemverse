@@ -97,9 +97,10 @@ export default {
         this.errors.push(e);
       });
 
-    this.socket.on('newRoom', function (data) {
-      this.rooms.push(data);
-      console.log('roomlist work');
+    this.socket.on('newRoom', (data) => {
+      if (data.room === this.$route.params.id) {
+        this.rooms.push({ name: data });
+      }
     });
   },
 

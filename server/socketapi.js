@@ -14,9 +14,13 @@ socketApi.io = io;
 io.on('connect', function (socket) {
   console.log(chalk.bold.green('Socket connection established'));
 
+  /** Delete this when finished */
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
   socket.on('createRoom', (data) => {
-    console.log("workwork");
-    io.emit('newRoom',  data)
+    io.emit('newRoom', data)
   });
 });
 

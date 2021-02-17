@@ -79,8 +79,8 @@ export default {
 
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
-        .then((response) => {
-          io.socket.emit('createRoom', response.data);
+        .then(() => {
+          this.socket.emit('createRoom', this.room.name);
           this.room.name = '';
         })
         .catch((e) => {
