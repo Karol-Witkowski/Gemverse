@@ -53,8 +53,8 @@
         <v-btn
           color="blue lighten-2"
           text
-          outlined
           to="/roomlist"
+          outlined
         >
           Sign up
         </v-btn>

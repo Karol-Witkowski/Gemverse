@@ -1,5 +1,13 @@
 <template>
   <v-main>
+    <v-btn
+      class="alignBtn mr-6 mt-4"
+      color="blue lighten-2"
+      to="/roomlist"
+      outlined
+    >
+      Leave room
+    </v-btn>
     <ChatMessages />
     <ChatInput />
   </v-main>
@@ -17,3 +25,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.alignBtn {
+  float: right;
+}
+</style>

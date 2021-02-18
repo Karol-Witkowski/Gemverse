@@ -9,7 +9,7 @@
           <v-col cols="12">
             <v-text-field
               :counter="15"
-              v-on:keyup.enter="validation()"
+              v-on:keyup.enter="nameValidation()"
               hint="Required"
               id="name"
               label="Room Name"
@@ -41,7 +41,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click.prevent="[validation()]"
+        @click.prevent="[nameValidation()]"
         :disabled="!isFormValid"
         color="blue lighten-2"
         text
@@ -92,7 +92,7 @@ export default {
         });
     },
 
-    validation() {
+    nameValidation() {
       if (this.isFormValid) {
         this.createRoom();
         this.closeDialog();
