@@ -1,30 +1,28 @@
 <template>
-  <v-container
-    cols='8'
-    ml-6
-  >
-    <v-list three-line>
+  <v-main class="mb-4 pl-0">
+    <v-list
+      class="scrollBar overflow-y-auto"
+      color="rgb(248, 248, 248)"
+      three-line
+    >
       <template v-for="(item, index) in items">
         <v-divider
+          class="msgDivider"
           :inset="item.inset"
           :key="index"
-          v-if="item.divider"
         />
-        <v-list-item
-          :key="item.tittle"
-          v-else
-        >
+        <v-list-item :key="item.username">
           <v-list-item-avatar>
             <v-img :src="item.avatar" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title v-html="item.tittle" />
-            <v-list-item-subtitle v-html="item.message" />
+            <v-list-item-title v-html="item.username" />
+            <v-list-item-subusername v-html="item.message" />
           </v-list-item-content>
         </v-list-item>
       </template>
     </v-list>
-  </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -36,41 +34,50 @@ export default {
       items: [
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Brunch this weekend?',
-          message: '<span class="text--primary">Ali Connors</span> &mdash; I\'ll be in your neighborhood doing errands this weekend. Do you want to hang out?',
+          username: 'Ali Connors',
+          message: 'I\'ll be in your neighborhood doing errands this weekend. Do you want to hang out?',
         },
-        { divider: true, inset: true },
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-          message: '<span class="text--primary">Antonio Muaer</span> &mdash; Wish I could come, but I\'m out of town this weekend.',
+          username: 'Antonio Muaer',
+          message: 'Wish I could come, but I\'m out of town this weekend.',
         },
-        { divider: true, inset: true },
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          title: 'Oui oui',
-          message: '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
+          username: 'Sandra Adams',
+          message: 'Have you ever been?',
         },
-        { divider: true, inset: true },
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          title: 'Birthday gift',
-          message: '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
+          username: 'Ana Hansen',
+          message: 'Have any ideas about what we should get Heidi for her birthday?',
         },
-        { divider: true, inset: true },
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          title: 'Recipe to try',
-          message: '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+          username: 'Britta Holt',
+          message: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
         },
-        { divider: true, inset: true },
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          title: 'Recipe dizaster',
-          message: '<span class="text--primary">Britta Holt</span> &mdash; Banana, chilli, kimchi and eggs, fells good.',
+          username: 'Britta Holt',
+          message: 'Banana, chilli, kimchi and eggs, fells good.',
+        },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          username: 'Ana Hansen',
+          message: 'Gemverse is a chat app that keeps you connected with coworker and friends wherever you are. User can create own rooms or join to one already made. Gemverse is created by combining Vue, Vuetify, Express, Socket.io, MongoDB and more. The app aims to provide an alternative for friends to hang around and chat. The app is based on rooms - organized channels allow you to talk about programming, hobbies, games and more. Check my profile at GitHub.',
         },
       ],
     };
   },
 };
 </script>
+<style lang="scss">
+.scrollBar {
+  max-height: 31em;
+
+  .msgDivider:first-of-type {
+    display: none;
+  }
+}
+</style>

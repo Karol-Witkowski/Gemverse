@@ -1,8 +1,8 @@
 <template>
-    <v-form cols='12'>
+    <v-form cols='16'>
       <v-container>
         <v-text-field
-          append-icon="=>"
+          append-icon="➡️"
           clearable
           clear-icon="x"
           @click:clear="clearMessage"
