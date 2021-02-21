@@ -13,6 +13,10 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  private: {
+    type: Boolean,
+    default: false
+  },
   createdDate: {
     type: Date,
     default: Date.now
@@ -30,6 +34,7 @@ RoomSchema.pre('save', function(next) {
         this.password = response;
         next();
       });
+      this.private = true;
     });
   } else {
     next();
