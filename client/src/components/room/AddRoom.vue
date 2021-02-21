@@ -9,7 +9,6 @@
           <v-col cols="12">
             <v-text-field
               :counter="15"
-              v-on:keyup.enter="nameValidation()"
               hint="Required"
               id="name"
               label="Room Name"
@@ -17,14 +16,17 @@
               required
               :rules="nameRules"
               v-model="room.name"
+              v-on:keyup.enter="nameValidation()"
             />
           </v-col>
           <v-col cols="12">
             <v-text-field
               hint ="Optional"
-              label="Password - DISABLED (alpha)"
+              label="Password"
               persistent-hint
               type="password"
+              v-model.trim="room.password"
+              v-on:keyup.enter="nameValidation()"
             />
           </v-col>
         </v-form>
@@ -71,6 +73,7 @@ export default {
       room: {
         name: '',
       },
+      roomPassword: null,
       socket: io('http://localhost:3000'),
     };
   },
@@ -83,8 +86,9 @@ export default {
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
         .then(() => {
-          this.socket.emit('createRoom', this.room.name);
+          this.socket.emit('createRoom', this.room.name, this.room.password);
           this.room.name = '';
+          this.room.password = '';
         })
         .catch((e) => {
           // REMINDER Later add handle error message

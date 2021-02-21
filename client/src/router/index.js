@@ -35,7 +35,6 @@ const routes = [
     component: () => import('../components/room/RoomList.vue'),
   },
   {
-    // later put below /roomlist/room/:id/:user
     path: '/room/:id',
     name: 'Room',
     component: () => import('../components/room/Room.vue'),

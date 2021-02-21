@@ -17,7 +17,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title v-html="item.username" />
-            <v-list-item-subusername v-html="item.message" />
+            <v-list-item-subtitle v-html="item.message" />
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -54,7 +54,7 @@ export default {
         },
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          username: 'Britta Holt',
+          username: 'Britta Holtt',
           message: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
         },
         {
@@ -64,7 +64,7 @@ export default {
         },
         {
           avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          username: 'Ana Hansen',
+          username: 'Ana Hanseń',
           message: 'Gemverse is a chat app that keeps you connected with coworker and friends wherever you are. User can create own rooms or join to one already made. Gemverse is created by combining Vue, Vuetify, Express, Socket.io, MongoDB and more. The app aims to provide an alternative for friends to hang around and chat. The app is based on rooms - organized channels allow you to talk about programming, hobbies, games and more. Check my profile at GitHub.',
         },
       ],
