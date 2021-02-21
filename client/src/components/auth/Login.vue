@@ -1,5 +1,5 @@
 <template>
-  <v-container pl-16>
+  <v-container class="mt-12">
     <v-card
       class="mt-12 mx-auto"
       max-width="500px"

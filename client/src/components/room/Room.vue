@@ -5,7 +5,7 @@
       justify="space-around"
     >
       <v-btn
-        class="mb-4 mt-4"
+        class="mt-4"
         color="blue lighten-2"
         small
         to="/roomlist"
@@ -15,6 +15,7 @@
       </v-btn>
     </v-row>
     <ChatMessages />
+    <SideMenu />
     <ChatInput />
   </v-main>
 </template>
@@ -22,12 +23,14 @@
 <script>
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import ChatInput from '@/components/chat/ChatInput.vue';
+import SideMenu from '@/components/layout/SideMenu.vue';
 
 export default {
   name: 'Room',
   components: {
     ChatMessages,
     ChatInput,
+    SideMenu,
   },
 };
 </script>

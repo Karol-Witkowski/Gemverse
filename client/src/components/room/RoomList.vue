@@ -1,7 +1,7 @@
 <template>
   <v-container
+    class="mt-16"
     fluid
-    class="ml-7"
   >
     <v-flex
       centered
@@ -11,7 +11,7 @@
         <v-card-title>List of rooms</v-card-title>
         <v-divider />
         <v-list
-          cols="16"
+          cols="12"
           :key="room._id"
           v-for="room in rooms"
          >
@@ -30,7 +30,7 @@
              </v-list-item-action>
            </v-list-item>
            <v-list
-             cols="16"
+             cols="12"
              v-if="errors && errors.length"
             >
              <v-list-item>

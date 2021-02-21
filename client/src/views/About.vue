@@ -1,6 +1,6 @@
 <template>
     <v-container
-      class="mt-12 ml-7"
+      class="mt-16 pt-16"
       fluid
     >
       <v-flex
