@@ -16,13 +16,11 @@
           v-for="room in rooms"
          >
            <v-list-item>
-             <v-list-item-content>
-               {{ room.name }}
-             </v-list-item-content>
+             <v-list-item-content>{{ room.name }}</v-list-item-content>
              <v-list-item-action>
                <v-btn
                  @click.stop="join(room._id)"
-                 color="blue lighten-2"
+                 :class="{ privateRoom: room.private, publicRoom: !room.private }"
                  outlined
                >
                  Join
@@ -34,9 +32,7 @@
              v-if="errors && errors.length"
             >
              <v-list-item>
-               <v-list-item-content>
-                 {{ errors }}
-               </v-list-item-content>
+               <v-list-item-content>{{ errors }}</v-list-item-content>
              </v-list-item>
            </v-list>
            <v-divider />
@@ -80,6 +76,7 @@ export default {
   },
   data() {
     return {
+      color: '',
       dialog: false,
       errors: [],
       rooms: [],
@@ -98,9 +95,7 @@ export default {
       });
 
     this.socket.on('newRoom', (data) => {
-      if (data.room === this.$route.params.id) {
-        this.rooms.push({ name: data });
-      }
+      this.rooms.push({ name: data });
     });
   },
 
@@ -121,5 +116,11 @@ export default {
 <style lang="scss">
 .v-list:last-of-type > hr {
   display: none;
+}
+.privateRoom {
+  color: red!important;
+}
+.publicRoom {
+  color: rgb(142, 176, 250)!important;
 }
 </style>
