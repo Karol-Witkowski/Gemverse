@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const socketio = require('socket.io');
 const io = socketio({
   cors: {
@@ -11,9 +10,9 @@ const socketApi = {};
 
 socketApi.io = io;
 
-io.on('connect', function (socket) {
-  socket.on('createRoom', (data) => {
-    io.emit('newRoom', data)
+io.on('connection', (socket) => {
+  socket.on('createRoom', (roomName, roomPassword) => {
+    io.emit('newRoom', roomName, roomPassword)
   });
 });
 

@@ -20,7 +20,7 @@
              <v-list-item-action>
                <v-btn
                  @click.stop="join(room._id)"
-                 :class="{ privateRoom: room.private, publicRoom: !room.private }"
+                 :color="(room.password) ? 'red' : 'blue'"
                  outlined
                >
                  Join
@@ -76,7 +76,6 @@ export default {
   },
   data() {
     return {
-      color: '',
       dialog: false,
       errors: [],
       rooms: [],
@@ -94,8 +93,8 @@ export default {
         this.errors.push(e);
       });
 
-    this.socket.on('newRoom', (data) => {
-      this.rooms.push({ name: data });
+    this.socket.on('newRoom', (roomName, roomPassword) => {
+      this.rooms.push({ name: roomName, password: roomPassword });
     });
   },
 
@@ -117,7 +116,7 @@ export default {
 .v-list:last-of-type > hr {
   display: none;
 }
-.privateRoom {
+.protectedRoom {
   color: red!important;
 }
 .publicRoom {

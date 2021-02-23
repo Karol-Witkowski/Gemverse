@@ -13,28 +13,24 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  private: {
-    type: Boolean,
-    default: false
-  },
   createdDate: {
     type: Date,
     default: Date.now
   }
 });
 
-RoomSchema.methods.isValidPassword = function(password) {
+RoomSchema.methods.isValidPassword = (password) => {
   return bcrypt.compare(password, this.room.password);
 };
 
-RoomSchema.pre('save', function(next) {
+RoomSchema.pre('save', (next) => {
   if (this.password !== '') {
     bcrypt.genSalt(10, (error, salt) => {
       bcrypt.hash(this.password, salt, (error, response) => {
         this.password = response;
         next();
       });
-      this.private = true;
+      this.protected = true;
     });
   } else {
     next();

@@ -72,8 +72,8 @@ export default {
       ],
       room: {
         name: '',
+        password: null,
       },
-      roomPassword: null,
       socket: io('http://localhost:3000'),
     };
   },
@@ -86,7 +86,7 @@ export default {
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
         .then(() => {
-          this.socket.emit('createRoom', this.room.name, this.room.password, this.room.private);
+          this.socket.emit('createRoom', this.room.name, this.room.password);
           this.room.name = '';
           this.room.password = '';
         })
