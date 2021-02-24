@@ -23,7 +23,7 @@ RoomSchema.methods.isValidPassword = (password) => {
   return bcrypt.compare(password, this.room.password);
 };
 
-RoomSchema.pre('save', (next) => {
+RoomSchema.pre('save', function(next) {
   if (this.password !== '') {
     bcrypt.genSalt(10, (error, salt) => {
       bcrypt.hash(this.password, salt, (error, response) => {

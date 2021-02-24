@@ -31,13 +31,13 @@ app.use('/api/room', room);
 app.use('/api/messages', messages);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   const error = new Error('404 Not Found');
   error.status = 404;
   next(error);
 });
 
-app.use(function(error, req, res, next) {
+app.use((error, req, res, next) => {
   res.locals.message = error.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(error.status || 500);

@@ -18,8 +18,8 @@
            <v-list-item>
              <v-list-item-content>{{ room.name }}</v-list-item-content>
              <v-list-item-action>
-               <router-link :to="{ name: 'Room', params:
-               { name: room.name.toLowerCase().replace(/\s/g,'') } }">
+               <router-link :to="{ name: 'Room',
+               params: { name: room.name.toLowerCase().replace(/\s/g,'') } }">
                 <v-btn
                   :color="(room.password) ? 'red lighten-1' : 'blue lighten-2'"
                   outlined
@@ -90,7 +90,6 @@ export default {
       .then((response) => {
         this.rooms = response.data;
       })
-      // REMINDER Later add handle error message
       .catch((e) => {
         this.errors.push(e);
       });

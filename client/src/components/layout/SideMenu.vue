@@ -12,7 +12,7 @@
       </v-list-item-avatar>
       <v-list-item-title class="userName">Ana Mikovič</v-list-item-title>
       <v-btn
-        @click.stop="mini = !mini"
+        @click="mini = !mini"
         color="blue lighten-3"
         elevation="1"
         icon
