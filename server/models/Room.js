@@ -30,7 +30,6 @@ RoomSchema.pre('save', (next) => {
         this.password = response;
         next();
       });
-      this.protected = true;
     });
   } else {
     next();

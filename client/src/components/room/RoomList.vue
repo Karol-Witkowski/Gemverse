@@ -18,13 +18,15 @@
            <v-list-item>
              <v-list-item-content>{{ room.name }}</v-list-item-content>
              <v-list-item-action>
-               <v-btn
-                 @click.stop="join(room._id)"
-                 :color="(room.password) ? 'red' : 'blue'"
-                 outlined
-               >
-                 Join
-               </v-btn>
+               <router-link :to="{ name: 'Room', params:
+               { name: room.name.toLowerCase().replace(/\s/g,'') } }">
+                <v-btn
+                  :color="(room.password) ? 'red lighten-1' : 'blue lighten-2'"
+                  outlined
+                >
+                  Join
+                </v-btn>
+              </router-link>
              </v-list-item-action>
            </v-list-item>
            <v-list
@@ -102,24 +104,11 @@ export default {
     closeDialog() {
       this.dialog = false;
     },
-
-    join(id) {
-      this.$router.push({
-        name: 'Room',
-        params: { id },
-      });
-    },
   },
 };
 </script>
 <style lang="scss">
 .v-list:last-of-type > hr {
   display: none;
-}
-.protectedRoom {
-  color: red!important;
-}
-.publicRoom {
-  color: rgb(142, 176, 250)!important;
 }
 </style>
