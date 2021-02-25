@@ -14,11 +14,18 @@
           cols="12"
           :key="room._id"
           v-for="room in rooms"
-         >
-           <v-list-item>
-             <v-list-item-content>{{ room.name }}</v-list-item-content>
-             <v-list-item-action>
-               <router-link :to="{ name: 'Room', params: { name: room.name.replace(/\s/g,'') } }">
+        >
+          <v-list-item>
+            <v-list-item-content>{{ room.name }}</v-list-item-content>
+            <v-img
+              alt="Red lock icon"
+              class="mx-auto"
+              max-width="25px"
+              src="..\..\assets\img\privacyAlertIcon.png"
+              v-if="room.password"
+            />
+            <v-list-item-action>
+              <router-link :to="{ name: 'Room', params: { name: room.name.replace(/\s/g,'') } }">
                 <v-btn
                   :color="(room.password) ? 'red lighten-1' : 'blue lighten-2'"
                   outlined
