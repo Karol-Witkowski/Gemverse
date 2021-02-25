@@ -1,5 +1,5 @@
 <template>
-  <v-main class="mb-4 pt-4 pl-0">
+  <v-main class="mb-4 pl-0 pt-4">
     <v-list
       class="scrollBar overflow-y-auto"
       color="rgb(248, 248, 248)"

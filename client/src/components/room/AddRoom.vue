@@ -45,11 +45,11 @@
       <v-spacer />
       <v-btn
         @click.prevent="[formValidation()]"
-        :disabled="!isFormValid"
         color="blue lighten-2"
+        :disabled="!isFormValid"
         text
-        outlined
         type="submit"
+        outlined
       >
         Save
       </v-btn>

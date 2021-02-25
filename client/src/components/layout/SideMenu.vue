@@ -1,10 +1,9 @@
 <template>
   <v-navigation-drawer
     app
-    :mini-variant.sync="mini"
+    :mini-variant.sync="drawer"
     permanent
     width="170"
-    v-model="drawer"
   >
     <v-list-item class="ma-1 px-1">
       <v-list-item-avatar>
@@ -12,7 +11,7 @@
       </v-list-item-avatar>
       <v-list-item-title class="userName">Ana Mikovič</v-list-item-title>
       <v-btn
-        @click="mini = !mini"
+        @click="drawer = !drawer"
         color="blue lighten-3"
         elevation="1"
         icon
@@ -24,7 +23,7 @@
       </v-btn>
     </v-list-item>
     <v-divider />
-    <v-container v-if="!mini">
+    <v-container v-if="!drawer">
       <v-list-item-title class="ml-7 mt-1 text-uppercase">Users list</v-list-item-title>
       <v-list>
         <v-list-item
@@ -66,7 +65,6 @@ export default {
           name: 'User3',
         },
       ],
-      mini: true,
     };
   },
 };

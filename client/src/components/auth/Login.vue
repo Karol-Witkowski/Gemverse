@@ -5,7 +5,7 @@
       max-width="500px"
     >
       <v-card-title>
-        <span class="headline grey--text text--darken-2">Sign in to start chatting</span>
+        <span class="headline grey--text text--darken-2">Sign in to start chatting *disabled*</span>
       </v-card-title>
       <v-card-text>
         <v-container>

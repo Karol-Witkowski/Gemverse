@@ -20,9 +20,9 @@
       elevation="6"
       icon
       large
-      outlined
       text
       to="/"
+      outlined
     >
       <v-img
         alt="App logo - fractured gem"

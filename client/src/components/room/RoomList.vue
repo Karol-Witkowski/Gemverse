@@ -11,6 +11,7 @@
         <v-card-title>List of rooms</v-card-title>
         <v-divider />
         <v-list
+          class="py-0"
           cols="12"
           :key="room._id"
           v-for="room in rooms"
@@ -33,17 +34,17 @@
                   Join
                 </v-btn>
               </router-link>
-             </v-list-item-action>
-           </v-list-item>
-           <v-list
-             cols="12"
-             v-if="errors && errors.length"
-            >
-             <v-list-item>
-               <v-list-item-content>{{ errors }}</v-list-item-content>
-             </v-list-item>
-           </v-list>
-           <v-divider />
+            </v-list-item-action>
+          </v-list-item>
+          <v-list
+            cols="12"
+            v-if="errors && errors.length"
+          >
+            <v-list-item>
+              <v-list-item-content>{{ errors }}</v-list-item-content>
+            </v-list-item>
+          </v-list>
+          <v-divider />
         </v-list>
       </v-card>
       <v-dialog
@@ -52,7 +53,7 @@
         v-model="dialog"
       >
         <template
-          mb-16
+          class="mb-16"
           v-slot:activator="{ on, attrs }"
         >
           <v-btn
