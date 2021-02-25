@@ -15,7 +15,7 @@
               persistent-hint
               required
               :rules="nameRules"
-              v-model="room.name"
+              v-model.trim="room.name"
               v-on:keyup.enter="nameValidation()"
             />
           </v-col>
@@ -24,9 +24,10 @@
               hint ="Optional"
               label="Password"
               persistent-hint
+              :rules="passwordRules"
               type="password"
               v-model.trim="room.password"
-              v-on:keyup.enter="nameValidation()"
+              v-on:keyup.enter="formValidation()"
             />
           </v-col>
         </v-form>
@@ -43,7 +44,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click.prevent="[nameValidation()]"
+        @click.prevent="[formValidation()]"
         :disabled="!isFormValid"
         color="blue lighten-2"
         text
@@ -69,10 +70,15 @@ export default {
       nameRules: [
         (value) => !!value || 'Required.',
         (value) => (value && value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
+      ],
+      passwordRules: [
+        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
+        (value) => (value.length <= 128) || 'Maximum password length is 128 characters',
       ],
       room: {
         name: '',
-        password: null,
+        password: '',
       },
       socket: io('http://localhost:3000'),
     };
@@ -96,7 +102,7 @@ export default {
         });
     },
 
-    nameValidation() {
+    formValidation() {
       if (this.isFormValid) {
         this.createRoom();
         this.closeDialog();

@@ -25,7 +25,7 @@
               v-if="room.password"
             />
             <v-list-item-action>
-              <router-link :to="{ name: 'Room', params: { name: room.name.replace(/\s/g,'') } }">
+              <router-link :to="{name: 'Room', params: { name: room.name }}">
                 <v-btn
                   :color="(room.password) ? 'red lighten-1' : 'blue lighten-2'"
                   outlined
