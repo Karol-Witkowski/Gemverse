@@ -26,14 +26,13 @@
               v-if="room.password"
             />
             <v-list-item-action>
-              <router-link :to="{name: 'Room', params: { name: room.name }}">
-                <v-btn
-                  :color="(room.password) ? 'red lighten-1' : 'blue lighten-2'"
-                  outlined
-                >
-                  Join
-                </v-btn>
-              </router-link>
+              <v-btn
+                @click="join(room.name)"
+                :color="(room.password) ? 'red lighten-1' : 'blue lighten-2'"
+                outlined
+              >
+                Join
+              </v-btn>
             </v-list-item-action>
           </v-list-item>
           <v-list
@@ -109,6 +108,13 @@ export default {
   methods: {
     closeDialog() {
       this.dialog = false;
+    },
+
+    join(roomName) {
+      this.$router.push({
+        name: 'Room',
+        params: { name: roomName },
+      });
     },
   },
 };
