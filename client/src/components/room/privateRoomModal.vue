@@ -8,7 +8,7 @@
         <v-form v-model="isFormValid">
           <v-col cols="12">
             <v-text-field
-              label="Password"
+              label="Room password"
               required
               :rules="passwordRules"
               type="password"
@@ -55,14 +55,15 @@ export default {
       password: '',
       passwordRules: [
         (value) => !!value || 'Required.',
-        (value) => (value.length <= 128) || 'Maximum password length is 128 characters',
+        (value) => (value.length <= 128) || 'Given string must be less or equal to 128 characters',
       ],
     };
   },
 
   methods: {
     checkPassword() {
-      axios.post('http://localhost:3000/api/room', this.room)
+      // HANDLE COMPARE later
+      axios.post('http://localhost:3000/api/room')
         .then(() => {
         })
         .catch((e) => {

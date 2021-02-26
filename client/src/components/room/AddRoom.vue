@@ -21,9 +21,7 @@
           </v-col>
           <v-col cols="12">
             <v-text-field
-              hint ="Optional"
-              label="Password"
-              persistent-hint
+              label="Password - optional"
               :rules="passwordRules"
               type="password"
               v-model.trim="room.password"
@@ -69,12 +67,12 @@ export default {
       isFormValid: false,
       nameRules: [
         (value) => !!value || 'Required.',
-        (value) => (value && value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
       ],
       passwordRules: [
+        (value) => ((value.length === 0 || value.length >= 6) && value.length <= 128) || 'Password must be at least 6 characters long',
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
-        (value) => (value.length <= 128) || 'Maximum password length is 128 characters',
       ],
       room: {
         name: '',
