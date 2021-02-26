@@ -25,14 +25,37 @@
               src="..\..\assets\img\privacyAlertIcon.png"
               v-if="room.password"
             />
-            <v-list-item-action>
+            <v-list-item-action v-if="!room.password">
               <v-btn
                 @click="join(room.name)"
-                :color="(room.password) ? 'red lighten-1' : 'blue lighten-2'"
+                :color="'blue lighten-2'"
                 outlined
               >
                 Join
               </v-btn>
+            </v-list-item-action>
+            <v-list-item-action v-if="room.password">
+              <v-dialog
+                max-width="600px"
+                persistent
+                v-model="privateRoomModal"
+              >
+                <template
+                  class="mb-16"
+                  v-slot:activator="{ on, attrs }"
+                >
+                  <v-btn
+                    color="red lighten-1"
+                    type="submit"
+                    outlined
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Join
+                  </v-btn>
+                </template>
+                <privateRoomModal @close-modal="closeModals" />
+              </v-dialog>
             </v-list-item-action>
           </v-list-item>
           <v-list
@@ -49,7 +72,7 @@
       <v-dialog
         max-width="600px"
         persistent
-        v-model="dialog"
+        v-model="addRoomModal"
       >
         <template
           class="mb-16"
@@ -66,7 +89,7 @@
             Add new room
           </v-btn>
         </template>
-        <AddRoom @close-dialog="closeDialog" />
+        <AddRoom @close-modal="closeModals" />
       </v-dialog>
     </v-flex>
   </v-container>
@@ -74,6 +97,7 @@
 
 <script>
 import AddRoom from '@/components/room/AddRoom.vue';
+import privateRoomModal from '@/components/room/privateRoomModal.vue';
 import axios from 'axios';
 import * as io from 'socket.io-client';
 
@@ -81,11 +105,13 @@ export default {
   name: 'RoomList',
   components: {
     AddRoom,
+    privateRoomModal,
   },
   data() {
     return {
-      dialog: false,
+      addRoomModal: false,
       errors: [],
+      privateRoomModal: false,
       rooms: [],
       socket: io.connect('http://localhost:3000'),
     };
@@ -106,8 +132,9 @@ export default {
   },
 
   methods: {
-    closeDialog() {
-      this.dialog = false;
+    closeModals() {
+      this.addRoomModal = false;
+      this.privateRoomModal = false;
     },
 
     join(roomName) {
