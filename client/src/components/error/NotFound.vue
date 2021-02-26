@@ -23,7 +23,7 @@
         </v-card-actions>
         <v-card-actions class="justify-center pb-10">
           <v-btn
-            color="blue lighten-2"
+            color="primary"
             to="/"
             outlined
           >

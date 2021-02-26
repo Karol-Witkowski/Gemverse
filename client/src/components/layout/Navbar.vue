@@ -25,7 +25,7 @@
       outlined
     >
       <v-img
-        alt="App logo - fractured gem"
+        alt="Fractured gem"
         max-width="40"
         src="..\..\assets\img\logo.png"
       />

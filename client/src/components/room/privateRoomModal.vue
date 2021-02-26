@@ -1,7 +1,7 @@
 <template>
   <v-card  cols="12">
     <v-card-title>
-      <span class="headline grey--text text--lighten-1">Type password to proceed</span>
+      <span class="headline grey--text text--darken-2">Type password to proceed</span>
     </v-card-title>
     <v-card-text>
       <v-container>
@@ -10,7 +10,7 @@
             <v-text-field
               label="Room password"
               required
-              :rules="passwordRules"
+              :rules="rules"
               type="password"
               v-model="password"
               v-on:keyup.enter="passwordValidation()"
@@ -31,7 +31,7 @@
       <v-spacer />
       <v-btn
         @click.prevent="[passwordValidation()]"
-        color="blue lighten-2"
+        color="primary"
         :disabled="!isFormValid"
         text
         type="submit"
@@ -53,9 +53,9 @@ export default {
       error: [],
       isFormValid: false,
       password: '',
-      passwordRules: [
-        (value) => !!value || 'Required.',
+      rules: [
         (value) => (value.length <= 128) || 'Given string must be less or equal to 128 characters',
+        (value) => !!value || 'Required',
       ],
     };
   },
@@ -73,6 +73,7 @@ export default {
     },
 
     closeModal() {
+      this.password = '';
       this.$emit('close-modal');
     },
 

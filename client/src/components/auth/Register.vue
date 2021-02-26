@@ -37,12 +37,12 @@
               />
             </v-col>
           </v-row>
-          All fields are required and case-sensitive
+          <span>All fields are required and case-sensitive</span>
         </v-container>
       </v-card-text>
       <v-card-actions class="pb-4">
         <v-btn
-          color="blue lighten-2"
+          color="primary"
           text
           to="/"
           outlined
@@ -51,7 +51,7 @@
         </v-btn>
         <v-spacer />
         <v-btn
-          color="blue lighten-2"
+          color="primary"
           text
           to="/roomlist"
           outlined
@@ -80,12 +80,12 @@ export default {
   data() {
     return {
       rules: {
-        counter: (value) => (value.length <= 40 && value.length >= 6) || 'At least 6 character password',
+        counter: (value) => (value.length <= 40 && value.length >= 6) || 'Password must be at least 6 characters long',
         email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || 'Invalid e-mail.';
+          return pattern.test(value) || 'Invalid e-mail';
         },
-        required: (value) => !!value || 'Required.',
+        required: (value) => !!value || 'Required',
       },
     };
   },

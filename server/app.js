@@ -1,22 +1,18 @@
-/** Dotenv variables */
+/** Enable .global variables */
 require('dotenv').config();
 
 /** Express */
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
-
-/** Connect to MongoDB */
-require('./db/mongoose');
-
-/** Logging */
 const logger = require('morgan');
+const path = require('path');
 
-const room = require('./routes/room');
-const messages = require('./routes/messages');
 const app = express();
+
+
+require('./db/mongoose');
 
 /** Middleware */
 app.use(logger('dev'));
@@ -27,10 +23,13 @@ app.use(helmet());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
+const room = require('./routes/room');
+const messages = require('./routes/messages');
+
 app.use('/api/room', room);
 app.use('/api/messages', messages);
 
-// catch 404 and forward to error handler
+/** Errors handler */
 app.use((req, res, next) => {
   const error = new Error('404 Not Found');
   error.status = 404;

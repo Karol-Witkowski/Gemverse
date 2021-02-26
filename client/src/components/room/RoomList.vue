@@ -28,7 +28,7 @@
             <v-list-item-action v-if="!room.password">
               <v-btn
                 @click="join(room.name)"
-                :color="'blue lighten-2'"
+                color="primary"
                 outlined
               >
                 Join
@@ -45,7 +45,7 @@
                   v-slot:activator="{ on, attrs }"
                 >
                   <v-btn
-                    color="red lighten-1"
+                    color="secondary"
                     type="submit"
                     outlined
                     v-bind="attrs"
@@ -79,7 +79,7 @@
           v-slot:activator="{ on, attrs }"
         >
           <v-btn
-            color="blue lighten-2"
+            color="primary"
             large
             type="submit"
             outlined

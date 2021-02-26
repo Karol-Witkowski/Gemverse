@@ -1,7 +1,7 @@
 <template>
   <v-card  cols="12">
     <v-card-title>
-      <span class="headline grey--text text--lighten-1">Add new room</span>
+      <span class="headline grey--text text--darken-2">Add new room</span>
     </v-card-title>
     <v-card-text>
       <v-container>
@@ -34,7 +34,7 @@
     <v-card-actions class="pb-4">
       <v-btn
         @click="closeModal"
-        color="blue lighten-2"
+        color="primary"
         text
         outlined
       >
@@ -43,7 +43,7 @@
       <v-spacer />
       <v-btn
         @click.prevent="[formValidation()]"
-        color="blue lighten-2"
+        color="primary"
         :disabled="!isFormValid"
         text
         type="submit"
@@ -66,13 +66,13 @@ export default {
       error: [],
       isFormValid: false,
       nameRules: [
-        (value) => !!value || 'Required.',
         (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
+        (value) => !!value || 'Required.',
       ],
       passwordRules: [
-        (value) => ((value.length === 0 || value.length >= 6) && value.length <= 128) || 'Password must be at least 6 characters long',
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
+        (value) => ((value.length === 0 || value.length >= 6) && value.length <= 128) || 'Password must be at least 6 characters long',
       ],
       room: {
         name: '',

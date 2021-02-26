@@ -24,12 +24,12 @@
               />
             </v-col>
           </v-row>
-          All fields are case-sensitive
+          <span>All fields are case-sensitive</span>
         </v-container>
       </v-card-text>
       <v-card-actions class="pb-4">
         <v-btn
-          color="blue lighten-2"
+          color="primary"
           text
           to="/"
           outlined
@@ -38,7 +38,7 @@
         </v-btn>
         <v-spacer />
         <v-btn
-          color="blue lighten-2"
+          color="primary"
           text
           to="/roomlist"
           outlined

@@ -2,9 +2,9 @@
   <v-form>
     <v-container>
       <v-row>
-        <v-col cols="16">
+        <v-col cols="12">
           <v-text-field
-            color="blue lighten-2"
+            color="primary"
             clearable
             clear-icon="x"
             label="Message"
@@ -12,15 +12,13 @@
             outlined
             v-model="message"
           >
-            <template v-slot:append>
-              <v-fade-transition leave-absolute>
-                <img
-                  alt="Arrow in circle"
-                  height="30"
-                  src="..\..\assets\img\sendCircleIcon.png"
-                  width="30"
-                >
-              </v-fade-transition>
+            <template v-slot:append-outer>
+              <v-btn
+                color="primary"
+                outlined
+              >
+                Send
+              </v-btn>
             </template>
           </v-text-field>
         </v-col>

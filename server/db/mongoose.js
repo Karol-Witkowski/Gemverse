@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 const chalk = require('chalk');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 mongoose.Promise = require('bluebird');
