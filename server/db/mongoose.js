@@ -6,7 +6,7 @@ mongoose.Promise = require('bluebird');
 
 const dbConnect = () => {
   mongoose.connect(process.env.DATABASE_URL, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() =>  console.log(chalk.bold.green('Connection with MongoDB Atlas established')))
+    .then(() =>  console.log(chalk.bold.green('Connected to MongoDB cluster')))
     .catch((err) => console.error(err));
 }
 

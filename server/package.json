@@ -1,6 +1,6 @@
 {
   "name": "gemverse-backend",
-  "version": "1.0.1",
+  "version": "0.2.1",
   "description": "Backend for Gemverse app",
   "main": "www",
   "scripts": {
@@ -23,7 +23,7 @@
     "passport-google-oauth": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "serve-favicon": "^2.5.0",
-    "socket.io": "^3.1.1"
+    "socket.io": "^3.1.2"
   },
   "devDependencies": {
     "chalk": "^4.1.0",

@@ -46,6 +46,7 @@
                 >
                   <v-btn
                     color="secondary"
+                    @click="$emit(room.name)"
                     type="submit"
                     outlined
                     v-bind="attrs"

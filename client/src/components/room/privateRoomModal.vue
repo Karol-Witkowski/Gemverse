@@ -37,7 +37,7 @@
         type="submit"
         outlined
       >
-        Enter
+        Enter <!-- THIS WILL GO TO V-BTN ABOVE: @click.prevent="[passwordValidation()]" -->
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -54,7 +54,7 @@ export default {
       isFormValid: false,
       password: '',
       rules: [
-        (value) => (value.length <= 128) || 'Given string must be less or equal to 128 characters',
+        (value) => value.length <= 128 || 'Given string must be less or equal to 128 characters',
         (value) => !!value || 'Required',
       ],
     };
@@ -63,7 +63,7 @@ export default {
   methods: {
     passwordVerification() {
       axios.post('/api/room/verification', {
-        name: this.$refs.privateRoom.modalData.room.name,
+        name: this.roomName,
         password: this.privateRoomPassword,
       })
         .then((response) => {
@@ -71,7 +71,7 @@ export default {
             this.error = response.data.errors;
             this.privateRoomPassword = '';
           } else if (response.data.success) {
-            this.enterRoom(this.$refs.privateRoom.modalData.room);
+            this.join();
           }
           setTimeout(() => {
             this.errors = [];
@@ -85,10 +85,10 @@ export default {
       this.$emit('close-modal');
     },
 
-    join(roomName) {
+    join() {
       this.$router.push({
         name: 'Room',
-        params: { name: roomName },
+        params: { name: this.$refs.room.name },
       });
     },
     passwordValidation() {
