@@ -54,7 +54,7 @@
                     Join
                   </v-btn>
                 </template>
-                <privateRoomModal @close-modal="closeModals" />
+                <PrivateRoomModal @close-modal="closeModals" />
               </v-dialog>
             </v-list-item-action>
           </v-list-item>
@@ -89,23 +89,23 @@
             Add new room
           </v-btn>
         </template>
-        <AddRoom @close-modal="closeModals" />
+        <AddRoomModal @close-modal="closeModals" />
       </v-dialog>
     </v-flex>
   </v-container>
 </template>
 
 <script>
-import AddRoom from '@/components/room/AddRoom.vue';
-import privateRoomModal from '@/components/room/privateRoomModal.vue';
+import AddRoomModal from '@/components/room/AddRoomModal.vue';
+import PrivateRoomModal from '@/components/room/PrivateRoomModal.vue';
 import axios from 'axios';
 import * as io from 'socket.io-client';
 
 export default {
   name: 'RoomList',
   components: {
-    AddRoom,
-    privateRoomModal,
+    AddRoomModal,
+    PrivateRoomModal,
   },
   data() {
     return {

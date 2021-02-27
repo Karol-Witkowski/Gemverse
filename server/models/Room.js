@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 
 const RoomSchema = new mongoose.Schema({
   name: {
@@ -13,8 +13,8 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     default: '',
     minlengthValidator: {
-      validator: (val) => {
-          return value.length >= 10 || val.length === 0
+      validator: (value) => {
+          return value.length >= 10 || value.length === 0
       },
       message: () => `Password must be at least 6 characters long`
     },

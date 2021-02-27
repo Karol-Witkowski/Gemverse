@@ -25,11 +25,6 @@ const routes = [
     component: () => import('../components/auth/Login.vue'),
   },
   {
-    path: '/roomlist/addroom',
-    name: 'AddRoom',
-    component: () => import('../components/room/AddRoom.vue'),
-  },
-  {
     path: '/roomlist',
     name: 'RoomList',
     component: () => import('../components/room/RoomList.vue'),

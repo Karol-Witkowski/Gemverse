@@ -22,7 +22,7 @@
     <v-card-actions class="pb-4">
       <v-btn
         @click="closeModal"
-        color="blue lighten-2"
+        color="primary"
         text
         outlined
       >
@@ -37,7 +37,7 @@
         type="submit"
         outlined
       >
-        Save
+        Enter
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -47,7 +47,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'AddRoom',
+  name: 'PrivateRoomModal',
   data() {
     return {
       error: [],
@@ -61,15 +61,23 @@ export default {
   },
 
   methods: {
-    checkPassword() {
-      // HANDLE COMPARE later
-      axios.post('http://localhost:3000/api/room')
-        .then(() => {
+    passwordVerification() {
+      axios.post('/api/room/verification', {
+        name: this.$refs.privateRoom.modalData.room.name,
+        password: this.privateRoomPassword,
+      })
+        .then((response) => {
+          if (response.data.errors) {
+            this.error = response.data.errors;
+            this.privateRoomPassword = '';
+          } else if (response.data.success) {
+            this.enterRoom(this.$refs.privateRoom.modalData.room);
+          }
+          setTimeout(() => {
+            this.errors = [];
+          }, 1500);
         })
-        .catch((e) => {
-          // REMINDER Later add handle error message
-          this.error.push(e);
-        });
+        .catch((error) => console.log(error));
     },
 
     closeModal() {
@@ -77,6 +85,12 @@ export default {
       this.$emit('close-modal');
     },
 
+    join(roomName) {
+      this.$router.push({
+        name: 'Room',
+        params: { name: roomName },
+      });
+    },
     passwordValidation() {
       if (this.isFormValid) {
         this.closeModal();

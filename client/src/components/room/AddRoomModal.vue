@@ -60,7 +60,7 @@ import axios from 'axios';
 import * as io from 'socket.io-client';
 
 export default {
-  name: 'AddRoom',
+  name: 'AddRoomModal',
   data() {
     return {
       error: [],
