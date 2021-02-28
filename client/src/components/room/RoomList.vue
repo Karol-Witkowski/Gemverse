@@ -46,7 +46,6 @@
                 >
                   <v-btn
                     color="secondary"
-                    @click="$emit(room.name)"
                     type="submit"
                     outlined
                     v-bind="attrs"
@@ -55,7 +54,10 @@
                     Join
                   </v-btn>
                 </template>
-                <PrivateRoomModal @close-modal="closeModals" />
+                <PrivateRoomModal
+                  @close-modal="closeModals"
+                  :privateRoomName="room.name"
+                />
               </v-dialog>
             </v-list-item-action>
           </v-list-item>

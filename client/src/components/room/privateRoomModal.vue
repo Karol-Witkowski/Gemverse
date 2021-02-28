@@ -30,7 +30,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click.prevent="[passwordValidation()]"
+        @click="join(privateRoomName)"
         color="primary"
         :disabled="!isFormValid"
         text
@@ -59,11 +59,18 @@ export default {
       ],
     };
   },
+  props: {
+    privateRoomName: String,
+  },
+
+  updated() {
+    console.log(this.privateRoomName);
+  },
 
   methods: {
     passwordVerification() {
       axios.post('/api/room/verification', {
-        name: this.roomName,
+        name: this.privateRoomName,
         password: this.privateRoomPassword,
       })
         .then((response) => {
@@ -85,12 +92,13 @@ export default {
       this.$emit('close-modal');
     },
 
-    join() {
+    join(roomName) {
       this.$router.push({
         name: 'Room',
-        params: { name: this.$refs.room.name },
+        params: { name: roomName },
       });
     },
+
     passwordValidation() {
       if (this.isFormValid) {
         this.closeModal();
