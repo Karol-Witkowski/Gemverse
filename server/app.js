@@ -1,5 +1,8 @@
-/** Enable .global variables */
+/** Enable env variables */
 require('dotenv').config();
+
+/** Node dependencies */
+const path = require('path');
 
 /** Express */
 const express = require('express');
@@ -7,11 +10,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const logger = require('morgan');
-const path = require('path');
 
 const app = express();
 
-
+/** Connect to MongoDB cluster */
 require('./db/mongoose');
 
 /** Middleware */

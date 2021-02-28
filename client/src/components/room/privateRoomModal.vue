@@ -12,11 +12,12 @@
               required
               :rules="rules"
               type="password"
-              v-model="password"
+              v-model="roomPassword"
               v-on:keyup.enter="passwordValidation()"
             />
           </v-col>
         </v-form>
+        <span v-if="error">{{ error }}</span>
       </v-container>
     </v-card-text>
     <v-card-actions class="pb-4">
@@ -30,14 +31,14 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click="join(privateRoomName)"
+        @click.prevent="passwordValidation()"
         color="primary"
         :disabled="!isFormValid"
         text
         type="submit"
         outlined
       >
-        Enter <!-- THIS WILL GO TO V-BTN ABOVE: @click.prevent="[passwordValidation()]" -->
+        Enter
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -50,9 +51,9 @@ export default {
   name: 'PrivateRoomModal',
   data() {
     return {
-      error: [],
+      error: '',
       isFormValid: false,
-      password: '',
+      roomPassword: '',
       rules: [
         (value) => value.length <= 128 || 'Given string must be less or equal to 128 characters',
         (value) => !!value || 'Required',
@@ -63,25 +64,21 @@ export default {
     privateRoomName: String,
   },
 
-  updated() {
-    console.log(this.privateRoomName);
-  },
-
   methods: {
     passwordVerification() {
       axios.post('/api/room/verification', {
         name: this.privateRoomName,
-        password: this.privateRoomPassword,
+        password: this.roomPassword,
       })
         .then((response) => {
           if (response.data.errors) {
             this.error = response.data.errors;
-            this.privateRoomPassword = '';
+            this.password = '';
           } else if (response.data.success) {
-            this.join();
+            this.join(this.privateRoomName);
           }
           setTimeout(() => {
-            this.errors = [];
+            this.error = [];
           }, 1500);
         })
         .catch((error) => console.log(error));
