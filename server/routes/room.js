@@ -26,6 +26,42 @@ router.post('/', (req, res, next) => {
   });
 });
 
+/** Password verification */
+router.post('/verification', async (req, res) => {
+  if (!req.body.password === true) {
+    return res.json({
+      errors: createErrorObject([
+        {
+          param: 'password_required',
+          msg: 'Password is required'
+        }
+      ])
+    });
+  }
+
+  const room = await Room.findOne({ name: req.body.name }).exec();
+
+  if (room) {
+    const verified = await room.isValidPassword(req.body.password);
+
+    if (verified === true) {
+      await room.save();
+      return res.status(200).json({ success: true });
+    } else {
+      return res.json({
+        errors: createErrorObject([
+          {
+            param: 'invalid_password',
+            msg: 'Invalid Password'
+          }
+        ])
+      });
+    }
+  } else {
+    return res.status(404).json({ errors: `No room with name ${req.params.name} found` });
+  }
+});
+
 /** Update room */
 router.put('/:id', (req, res, next) => {
   Room.findByIdAndUpdate(req.params.id, req.body, (error, room) => {

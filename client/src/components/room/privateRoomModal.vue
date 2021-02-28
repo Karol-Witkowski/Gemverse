@@ -4,21 +4,23 @@
       <span class="headline grey--text text--darken-2">Type password to proceed</span>
     </v-card-title>
     <v-card-text>
-      <v-container>
-        <v-form v-model="isFormValid">
-          <v-col cols="12">
-            <v-text-field
-              label="Room password"
-              required
-              :rules="rules"
-              type="password"
-              v-model="roomPassword"
-              v-on:keyup.enter="passwordValidation()"
-            />
-          </v-col>
-        </v-form>
-        <span v-if="error">{{ error }}</span>
-      </v-container>
+      <v-form
+        type="submit"
+        onSubmit="return false"
+        v-model="isFormValid"
+      >
+        <v-col cols="12">
+          <v-text-field
+            label="Room password"
+            required
+            :rules="rules"
+            type="password"
+            v-model="roomPassword"
+            v-on:keyup.enter="passwordValidation()"
+          />
+        </v-col>
+      </v-form>
+      <span v-if="error">{{ error }}</span>
     </v-card-text>
     <v-card-actions class="pb-4">
       <v-btn
@@ -71,15 +73,12 @@ export default {
         password: this.roomPassword,
       })
         .then((response) => {
-          if (response.data.errors) {
-            this.error = response.data.errors;
-            this.password = '';
-          } else if (response.data.success) {
+          if (response.errors) {
+            this.roomPassword = '';
+            console.log('error z ifa');
+          } else {
             this.join(this.privateRoomName);
           }
-          setTimeout(() => {
-            this.error = [];
-          }, 1500);
         })
         .catch((error) => console.log(error));
     },
@@ -99,6 +98,7 @@ export default {
     passwordValidation() {
       if (this.isFormValid) {
         this.closeModal();
+        this.passwordVerification();
       }
     },
   },

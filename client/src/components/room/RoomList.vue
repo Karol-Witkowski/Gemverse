@@ -38,6 +38,7 @@
               <v-dialog
                 max-width="600px"
                 persistent
+                :retain-focus="false"
                 v-model="privateRoomModal"
               >
                 <template

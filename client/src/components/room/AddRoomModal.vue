@@ -4,32 +4,30 @@
       <span class="headline grey--text text--darken-2">Add new room</span>
     </v-card-title>
     <v-card-text>
-      <v-container>
-        <v-form v-model="isFormValid">
-          <v-col cols="12">
-            <v-text-field
-              :counter="15"
-              hint="Required"
-              id="name"
-              label="Room Name"
-              persistent-hint
-              required
-              :rules="nameRules"
-              v-model.trim="room.name"
-              v-on:keyup.enter="formValidation()"
-            />
-          </v-col>
-          <v-col cols="12">
-            <v-text-field
-              label="Password - optional"
-              :rules="passwordRules"
-              type="password"
-              v-model.trim="room.password"
-              v-on:keyup.enter="formValidation()"
-            />
-          </v-col>
-        </v-form>
-      </v-container>
+      <v-form v-model="isFormValid">
+        <v-col cols="12">
+          <v-text-field
+            :counter="15"
+            hint="Required"
+            id="name"
+            label="Room Name"
+            persistent-hint
+            required
+            :rules="nameRules"
+            v-model.trim="room.name"
+            v-on:keyup.enter="formValidation()"
+          />
+        </v-col>
+        <v-col cols="12">
+          <v-text-field
+            label="Password - optional"
+            :rules="passwordRules"
+            type="password"
+            v-model.trim="room.password"
+            v-on:keyup.enter="formValidation()"
+          />
+        </v-col>
+      </v-form>
     </v-card-text>
     <v-card-actions class="pb-4">
       <v-btn
@@ -42,7 +40,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click.prevent="[formValidation()]"
+        @click.prevent="formValidation()"
         color="primary"
         :disabled="!isFormValid"
         text
