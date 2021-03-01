@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const Room = require('../models/Room');
 
 /** Get all rooms */
@@ -22,12 +23,12 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Room.create(req.body, (error, room) => {
     if (error) return res.status(404).json({ error: `Desired name already taken` });
-    res.status(200).json(room);
+    res.status(200).json({ success: true });
   });
 });
 
 /** Password verification */
-router.post('/verification', async (req, res) => {
+router.post('/verify', async (req, res, next) => {
   if (!req.body.password === true) {
     return res.json({
       errors: createErrorObject([
@@ -44,21 +45,21 @@ router.post('/verification', async (req, res) => {
   if (room) {
     const verified = await room.isValidPassword(req.body.password);
 
-    if (verified === true) {
-      await room.save();
-      return res.status(200).json({ success: true });
-    } else {
-      return res.json({
-        errors: createErrorObject([
-          {
-            param: 'invalid_password',
-            msg: 'Invalid Password'
-          }
-        ])
-      });
-    }
+      if (verified === true) {
+        await room.save();
+        return res.status(200).json();
+      } else {
+          return res.json({
+            errors: createErrorObject([
+              {
+                param: 'invalid_password',
+                msg: 'Invalid Password'
+                }
+            ])
+        });
+      }
   } else {
-    return res.status(404).json({ errors: `No room with name ${req.params.name} found` });
+      return res.status(404).json({ errors: `No room with name ${req.params.name} found` });
   }
 });
 

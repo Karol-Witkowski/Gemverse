@@ -15,7 +15,7 @@
             required
             :rules="rules"
             type="password"
-            v-model="roomPassword"
+            v-model="privateRoomPassword"
             v-on:keyup.enter="passwordValidation()"
           />
         </v-col>
@@ -55,7 +55,7 @@ export default {
     return {
       error: '',
       isFormValid: false,
-      roomPassword: '',
+      privateRoomPassword: '',
       rules: [
         (value) => value.length <= 128 || 'Given string must be less or equal to 128 characters',
         (value) => !!value || 'Required',
@@ -68,15 +68,14 @@ export default {
 
   methods: {
     passwordVerification() {
-      axios.post('/api/room/verification', {
+      axios.post('/api/room/verify', {
         name: this.privateRoomName,
-        password: this.roomPassword,
+        password: this.privateRoomName,
       })
         .then((response) => {
-          if (response.errors) {
-            this.roomPassword = '';
+          if (response.data.errors) {
             console.log('error z ifa');
-          } else {
+          } else if (response.data.success) {
             this.join(this.privateRoomName);
           }
         })
@@ -84,8 +83,8 @@ export default {
     },
 
     closeModal() {
-      this.password = '';
       this.$emit('close-modal');
+      this.privateRoomPassword = '';
     },
 
     join(roomName) {
@@ -97,8 +96,8 @@ export default {
 
     passwordValidation() {
       if (this.isFormValid) {
-        this.closeModal();
         this.passwordVerification();
+        this.closeModal();
       }
     },
   },
