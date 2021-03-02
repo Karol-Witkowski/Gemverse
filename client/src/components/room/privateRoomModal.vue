@@ -68,9 +68,9 @@ export default {
 
   methods: {
     passwordVerification() {
-      axios.post('/api/room/verify', {
+      axios.post('http://localhost:3000/api/room/verification', {
         name: this.privateRoomName,
-        password: this.privateRoomName,
+        password: this.privateRoomPassword,
       })
         .then((response) => {
           if (response.data.errors) {

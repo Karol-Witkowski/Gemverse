@@ -14,7 +14,7 @@ const RoomSchema = new mongoose.Schema({
     default: '',
     minlengthValidator: {
       validator: (value) => {
-          return value.length >= 6 || value.length === 0
+        return value.length >= 6 || value.length === 0
       },
       message: () => `Password must be at least 6 characters long`
     },
@@ -25,6 +25,10 @@ const RoomSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+RoomSchema.methods.isValidPassword = function(password) {
+  bcrypt.compare(password, this.password);
+};
 
 RoomSchema.pre('save', function(next) {
   if (this.password !== '') {
@@ -38,9 +42,5 @@ RoomSchema.pre('save', function(next) {
     next();
   }
 });
-
-RoomSchema.methods.isValidPassword = (password) => {
-  bcrypt.compare(password, this.password);
-};
 
 module.exports = mongoose.model('Room', RoomSchema);
