@@ -46,6 +46,7 @@
                   v-slot:activator="{ on, attrs }"
                 >
                   <v-btn
+                    @click="$store.commit('setRoomName', room.name);"
                     color="secondary"
                     type="submit"
                     outlined
@@ -55,10 +56,7 @@
                     Join
                   </v-btn>
                 </template>
-                <PrivateRoomModal
-                  @close-modal="closeModals"
-                  :privateRoomName="room.name"
-                />
+                <PrivateRoomModal @close-modal="closeModals"/>
               </v-dialog>
             </v-list-item-action>
           </v-list-item>

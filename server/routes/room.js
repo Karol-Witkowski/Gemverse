@@ -1,6 +1,6 @@
+const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
-
 const Room = require('../models/Room');
 
 /** Get all rooms */
@@ -27,24 +27,21 @@ router.post('/', (req, res, next) => {
   });
 });
 
-
 /** Password verification */
 router.post('/verification', async (req, res) => {
 
   const room = await Room.findOne({ name: req.body.name })
 
   if (room) {
-    const verify = await room.isValidPassword(req.body.password);
-
-      if (verify === true) {
+      if (await bcrypt.compare(req.body.password, room.password)
+      .catch((error)=>console.error(error))) {
         await room.save();
         return res.status(200).json({ success: true });
-      } else return res.status(404).json({ errors: `Invalid password ${req.body.password}` }); // remove PASSWORD!
+      } else return res.status(404).json({ errors: `Invalid password` });
   } else {
       return res.status(404).json({ errors: `No room with name ${req.body.name} found` });
   }
 });
-
 
 /** Update room */
 router.put('/:id', (req, res, next) => {

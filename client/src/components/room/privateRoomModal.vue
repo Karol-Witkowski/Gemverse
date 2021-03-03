@@ -62,21 +62,18 @@ export default {
       ],
     };
   },
-  props: {
-    privateRoomName: String,
-  },
 
   methods: {
     passwordVerification() {
       axios.post('http://localhost:3000/api/room/verification', {
-        name: this.privateRoomName,
+        name: this.$store.state.privateRoomName,
         password: this.privateRoomPassword,
       })
         .then((response) => {
-          if (response.data.errors) {
+          if (response.errors) {
             console.log('error z ifa');
-          } else if (response.data.success) {
-            this.join(this.privateRoomName);
+          } else {
+            this.join(this.$store.state.privateRoomName);
           }
         })
         .catch((error) => console.log(error));

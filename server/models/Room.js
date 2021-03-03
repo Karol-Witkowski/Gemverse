@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const RoomSchema = new mongoose.Schema({
   name: {
@@ -26,18 +26,12 @@ const RoomSchema = new mongoose.Schema({
   }
 });
 
-RoomSchema.methods.isValidPassword = function(password) {
-  bcrypt.compare(password, this.password);
-};
-
 RoomSchema.pre('save', function(next) {
-  if (this.password !== '') {
-    bcrypt.genSalt(10, (error, salt) => {
-      bcrypt.hash(this.password, salt, (error, response) => {
-        this.password = response;
-        next();
+  if (this.password !== '' && this.isModified('password')) {
+    bcrypt.hash(this.password, 10, (error, response) => {
+      this.password = response;
+      next();
       });
-    });
   } else {
     next();
   }

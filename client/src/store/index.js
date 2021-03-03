@@ -5,5 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    privateRoomName: '',
+  },
+  mutations: {
+    setRoomName(state, name) {
+      state.privateRoomName = name;
+    },
   },
 });
