@@ -20,7 +20,7 @@
           />
         </v-col>
       </v-form>
-      <span v-if="error">{{ error }}</span>
+      <span v-if="errors">{{ errors }}</span>
     </v-card-text>
     <v-card-actions class="pb-4">
       <v-btn
@@ -53,7 +53,7 @@ export default {
   name: 'PrivateRoomModal',
   data() {
     return {
-      error: '',
+      errors: [],
       isFormValid: false,
       privateRoomPassword: '',
       rules: [
@@ -70,7 +70,7 @@ export default {
         password: this.privateRoomPassword,
       })
         .then((response) => {
-          if (response.errors) {
+          if (response.error) {
             console.log('error z ifa');
           } else {
             this.join(this.$store.state.privateRoomName);

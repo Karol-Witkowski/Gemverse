@@ -1,61 +1,61 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
-const router = express.Router();
 const Room = require('../models/Room');
+const router = express.Router();
 
 /** Get all rooms */
-router.get('/', (req, res, next) => {
+router.get('/', (request, response, next) => {
   Room.find(function(error, rooms) {
-    if (error) return res.status(404).json({ error: 'Rooms not found' });
-    res.status(200).json(rooms);
+    if (error) return response.status(404).json({ error: 'Rooms not found' });
+    response.status(200).json(rooms);
   });
 });
 
 /** Get single room by name */
-router.get('/:name', (req, res, next) => {
-  Room.findById(req.params.id, function (error, room) {
-    if (error) return res.status(404).json({ error: `${req.params.name} not found` });
-    res.status(200).json(room);
+router.get('/:name', (request, response, next) => {
+  Room.findById(request.params.id, function (error, room) {
+    if (error) return response.status(404).json({ error: `${request.params.name} not found` });
+    response.status(200).json(room);
   });
 });
 
 /** Save room */
-router.post('/', (req, res, next) => {
-  Room.create(req.body, (error, room) => {
-    if (error) return res.status(404).json({ error: `Desired name already taken` });
-    res.status(200).json(room);
+router.post('/', (request, response, next) => {
+  Room.create(request.body, (error, room) => {
+    if (error) return response.status(404).json({ error: `Desired name already taken` });
+    response.status(200).json(room);
   });
 });
 
 /** Password verification */
-router.post('/verification', async (req, res) => {
+router.post('/verification', async (request, response, next) => {
 
-  const room = await Room.findOne({ name: req.body.name })
+  const room = await Room.findOne({ name: request.body.name })
 
   if (room) {
-      if (await bcrypt.compare(req.body.password, room.password)
+      if (await bcrypt.compare(request.body.password, room.password)
       .catch((error)=>console.error(error))) {
         await room.save();
-        return res.status(200).json({ success: true });
-      } else return res.status(404).json({ errors: `Invalid password` });
+        return response.status(200).json({ success: true });
+      } else return response.status(404).json({ error: `Invalid password` });
   } else {
-      return res.status(404).json({ errors: `No room with name ${req.body.name} found` });
+      return response.status(404).json({ error: `No room with name ${request.body.name} found` });
   }
 });
 
 /** Update room */
-router.put('/:id', (req, res, next) => {
-  Room.findByIdAndUpdate(req.params.id, req.body, (error, room) => {
-    if (error) return res.status(404).json({ error: 'Room not found' });
-    res.status(200).json(room);
+router.put('/:id', (request, response, next) => {
+  Room.findByIdAndUpdate(request.params.id, request.body, (error, room) => {
+    if (error) return response.status(404).json({ error: 'Room not found' });
+    response.status(200).json(room);
   });
 });
 
 /** Delete room */
-router.delete('/:id', (req, res, next) => {
-  Room.findByIdAndRemove(req.params.id, req.body, (error, room) => {
-    if (error) return res.status(404).json({ error: `${req.params.name} not found` });
-    res.status(200).json(room);
+router.delete('/:id', (request, response, next) => {
+  Room.findByIdAndRemove(request.params.id, request.body, (error, room) => {
+    if (error) return response.status(404).json({ error: `${request.params.name} not found` });
+    response.status(200).json(room);
   });
 });
 

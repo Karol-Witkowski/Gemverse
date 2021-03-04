@@ -1,5 +1,5 @@
-const mongoose = require('mongoose'), Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 const RoomSchema = new mongoose.Schema({
   name: {

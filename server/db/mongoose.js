@@ -7,7 +7,7 @@ mongoose.Promise = require('bluebird');
 const dbConnect = () => {
   mongoose.connect(process.env.DATABASE_URL, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true })
     .then(() =>  console.log(chalk.bold.green('Connected to MongoDB cluster')))
-    .catch((err) => console.error(err));
+    .catch((error) => console.error(error));
 }
 
 dbConnect();
