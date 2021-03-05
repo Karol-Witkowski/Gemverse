@@ -24,6 +24,14 @@
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
+                    label="E-mail address"
+                    required
+                    :rules="generalRules.concat(emailRules)"
+                    v-model="emailAdress"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
                     hint="Minimum length - 6 characters"
                     label="Password"
                     persistent-hint
