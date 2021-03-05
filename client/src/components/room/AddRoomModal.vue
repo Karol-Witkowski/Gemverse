@@ -4,7 +4,10 @@
       <span class="headline grey--text text--darken-2">Add new room</span>
     </v-card-title>
     <v-card-text>
-      <v-form v-model="isFormValid">
+      <v-form
+        ref="form"
+        v-model="isFormValid"
+      >
         <v-col cols="12">
           <v-text-field
             :counter="15"
@@ -89,6 +92,7 @@ export default {
       this.error = '';
       this.room.name = '';
       this.room.password = '';
+      this.$refs.form.resetValidation();
     },
 
     createRoom() {

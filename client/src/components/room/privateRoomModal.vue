@@ -6,6 +6,7 @@
     <v-card-text>
       <v-form
         type="submit"
+        ref="form"
         onSubmit="return false"
         v-model="isFormValid"
       >
@@ -65,6 +66,13 @@ export default {
   },
 
   methods: {
+    closeModal() {
+      this.$emit('close-modal');
+      this.error = '';
+      this.privateRoomPassword = '';
+      this.$refs.form.resetValidation();
+    },
+
     passwordVerification() {
       axios.post('http://localhost:3000/api/room/verification', {
         name: this.$store.state.privateRoomName,
@@ -79,12 +87,6 @@ export default {
           console.log(error);
           this.error = error.response.data.error;
         });
-    },
-
-    closeModal() {
-      this.$emit('close-modal');
-      this.error = '';
-      this.privateRoomPassword = '';
     },
 
     join(roomName) {
