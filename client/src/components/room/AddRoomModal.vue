@@ -8,6 +8,7 @@
         <v-col cols="12">
           <v-text-field
             :counter="15"
+            :error-messages="error"
             hint="Required"
             id="name"
             label="Room Name"
@@ -15,6 +16,7 @@
             required
             :rules="nameRules"
             v-model.trim="room.name"
+            v-on:keyup="error = ''"
             v-on:keyup.enter="formValidation"
           />
         </v-col>
@@ -73,6 +75,7 @@ export default {
         (value) => ((value.length === 0 || value.length >= 6) && value.length <= 128) || 'Password must be at least 6 characters long',
       ],
       room: {
+        error: '',
         name: '',
         password: '',
       },
@@ -83,25 +86,30 @@ export default {
   methods: {
     closeModal() {
       this.$emit('close-modal');
+      this.error = '';
+      this.room.name = '';
+      this.room.password = '';
     },
 
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
-        .then(() => {
+        .then((response) => {
           this.socket.emit('createRoom', this.room.name, this.room.password);
           this.room.name = '';
           this.room.password = '';
+          if (response.status === 200) {
+            this.closeModal();
+          }
         })
-        .catch((e) => {
-          // REMINDER Later add handle error message
-          this.error.push(e);
+        .catch((error) => {
+          console.log(error);
+          this.error = error.response.data.error;
         });
     },
 
     formValidation() {
       if (this.isFormValid) {
         this.createRoom();
-        this.closeModal();
       }
     },
   },

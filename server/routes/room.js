@@ -22,8 +22,8 @@ router.get('/:name', (request, response, next) => {
 /** Save room */
 router.post('/', (request, response, next) => {
   Room.create(request.body, (error, room) => {
-    if (error) return response.status(404).json({ error: `Desired name already taken` });
-    response.status(200).json(room);
+    if (error) return response.status(404).json({ error: `This room name is already taken` });
+    return response.status(200).json(room);
   });
 });
 
@@ -37,11 +37,11 @@ router.post('/verification', async (request, response, next) => {
       return response.status(200).json({ success: true });
     } else return response.status(404).json({ error: "Invalid password" });
   } else {
-      return response.status(404).json({ error: `No room with name ${request.body.name} found` });
+    return response.status(404).json({ error: `No room with name ${request.body.name} found` });
   }
 });
 
-/** Update room */
+/** Update room LATER MAYBE REMOVE UPDAT */
 router.put('/:id', (request, response, next) => {
   Room.findByIdAndUpdate(request.params.id, request.body, (error, room) => {
     if (error) return response.status(404).json({ error: 'Room not found' });
