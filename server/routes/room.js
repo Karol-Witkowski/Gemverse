@@ -41,14 +41,6 @@ router.post('/verification', async (request, response, next) => {
   }
 });
 
-/** Update room LATER MAYBE REMOVE UPDAT */
-router.put('/:id', (request, response, next) => {
-  Room.findByIdAndUpdate(request.params.id, request.body, (error, room) => {
-    if (error) return response.status(404).json({ error: 'Room not found' });
-    response.status(200).json(room);
-  });
-});
-
 /** Delete room */
 router.delete('/:id', (request, response, next) => {
   Room.findByIdAndRemove(request.params.id, request.body, (error, room) => {
