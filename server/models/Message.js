@@ -1,10 +1,11 @@
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 const MessageSchema = new mongoose.Schema({
-  content: {
+  message: {
     type: String,
     required: true,
-    trim: true
+    minlength: ['1', 'Message must be at least 1 characters long'],
+    maxlength: ['4000', 'Message must be less or equal to 4000 characters']
   },
   room: {
     type: Schema.Types.ObjectId,
