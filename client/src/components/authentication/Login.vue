@@ -16,10 +16,10 @@
             <v-row>
               <v-col cols="12">
                 <v-text-field
-                  label="Username"
+                  label="E-mail adress"
                   required
-                  :rules="generalRules.concat(usernameRules)"
-                  v-model="username"
+                  :rules="generalRules.concat(emailRules)"
+                  v-model="email"
                 />
               </v-col>
               <v-col cols="12">
@@ -77,10 +77,10 @@ export default {
   data() {
     return {
       password: '',
-      username: '',
+      email: '',
       isFormValid: false,
-      usernameRules: [
-        (value) => value.length <= 128 || 'Username must be less or equal to 128 characters',
+      emailRules: [
+        (value) => value.length <= 128 || 'E-mail adress must be less or equal to 128 characters',
       ],
       passwordRules: [
         (value) => value.length <= 128 || 'Password must be less or equal to 128 characters',
