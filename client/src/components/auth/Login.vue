@@ -9,22 +9,31 @@
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-                label="Username"
-                required
-              />
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                label="Password"
-                required
-                type="password"
-              />
-            </v-col>
-          </v-row>
-          <span>All fields are case-sensitive</span>
+          <v-form
+            ref="form"
+            v-model="isFormValid"
+          >
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  label="Username"
+                  required
+                  :rules="generalRules.concat(usernameRules)"
+                  v-model="username"
+                />
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Password"
+                  required
+                  :rules="generalRules.concat(passwordRules)"
+                  type="password"
+                  v-model="password"
+                />
+              </v-col>
+            </v-row>
+            <span>All fields are case-sensitive</span>
+          </v-form>
         </v-container>
       </v-card-text>
       <v-card-actions class="pb-4">
@@ -39,6 +48,7 @@
         <v-spacer />
         <v-btn
           color="primary"
+          :disabled="!isFormValid"
           text
           to="/roomlist"
           outlined
@@ -64,5 +74,21 @@
 <script>
 export default {
   name: 'Login',
+  data() {
+    return {
+      password: '',
+      username: '',
+      isFormValid: false,
+      usernameRules: [
+        (value) => value.length <= 128 || 'Username must be less or equal to 128 characters',
+      ],
+      passwordRules: [
+        (value) => value.length <= 128 || 'Password must be less or equal to 128 characters',
+      ],
+      generalRules: [
+        (value) => !!value || 'Required',
+      ],
+    };
+  },
 };
 </script>

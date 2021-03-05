@@ -16,14 +16,6 @@
             <v-row class="mb-2">
                 <v-col cols="12">
                   <v-text-field
-                    label="E-mail address"
-                    required
-                    :rules="generalRules.concat(emailRules)"
-                    v-model="emailAdress"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
                     label="Username"
                     required
                     :rules="generalRules.concat(usernameRules)"
@@ -58,6 +50,7 @@
         <v-spacer />
         <v-btn
           color="primary"
+          :disabled="!isFormValid"
           text
           to="/roomlist"
           outlined
