@@ -15,7 +15,7 @@
             required
             :rules="nameRules"
             v-model.trim="room.name"
-            v-on:keyup.enter="formValidation()"
+            v-on:keyup.enter="formValidation"
           />
         </v-col>
         <v-col cols="12">
@@ -24,7 +24,7 @@
             :rules="passwordRules"
             type="password"
             v-model.trim="room.password"
-            v-on:keyup.enter="formValidation()"
+            v-on:keyup.enter="formValidation"
           />
         </v-col>
       </v-form>
@@ -40,7 +40,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click.prevent="formValidation()"
+        @click.prevent="formValidation"
         color="primary"
         :disabled="!isFormValid"
         text

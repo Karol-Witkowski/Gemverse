@@ -6,7 +6,7 @@
     >
       <v-btn
         class="mt-4"
-        color="blue lighten-2"
+        color="primary"
         small
         to="/roomlist"
         outlined

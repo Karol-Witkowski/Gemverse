@@ -29,15 +29,13 @@ router.post('/', (request, response, next) => {
 
 /** Password verification */
 router.post('/verification', async (request, response, next) => {
-
   const room = await Room.findOne({ name: request.body.name })
 
   if (room) {
-      if (await bcrypt.compare(request.body.password, room.password)
-      .catch((error)=>console.error(error))) {
-        await room.save();
-        return response.status(200).json({ success: true });
-      } else return response.status(404).json({ error: `Invalid password` });
+    if (await bcrypt.compare(request.body.password, room.password)) {
+      await room.save();
+      return response.status(200).json({ success: true });
+    } else return response.status(404).json({ error: "Invalid password" });
   } else {
       return response.status(404).json({ error: `No room with name ${request.body.name} found` });
   }

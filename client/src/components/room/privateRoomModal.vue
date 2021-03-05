@@ -11,16 +11,17 @@
       >
         <v-col cols="12">
           <v-text-field
+            :error-messages="error"
             label="Room password"
             required
             :rules="rules"
             type="password"
             v-model="privateRoomPassword"
-            v-on:keyup.enter="passwordValidation()"
+            v-on:keyup="error = ''"
+            v-on:keyup.enter="passwordValidation"
           />
         </v-col>
       </v-form>
-      <span v-if="errors">{{ errors }}</span>
     </v-card-text>
     <v-card-actions class="pb-4">
       <v-btn
@@ -33,7 +34,7 @@
       </v-btn>
       <v-spacer />
       <v-btn
-        @click.prevent="passwordValidation()"
+        @click.prevent="passwordValidation"
         color="primary"
         :disabled="!isFormValid"
         text
@@ -53,7 +54,7 @@ export default {
   name: 'PrivateRoomModal',
   data() {
     return {
-      errors: [],
+      error: '',
       isFormValid: false,
       privateRoomPassword: '',
       rules: [
@@ -70,17 +71,19 @@ export default {
         password: this.privateRoomPassword,
       })
         .then((response) => {
-          if (response.error) {
-            console.log('error z ifa');
-          } else {
+          if (response.data.success) {
             this.join(this.$store.state.privateRoomName);
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          this.error = error.response.data.error;
+        });
     },
 
     closeModal() {
       this.$emit('close-modal');
+      this.error = '';
       this.privateRoomPassword = '';
     },
 
@@ -94,7 +97,6 @@ export default {
     passwordValidation() {
       if (this.isFormValid) {
         this.passwordVerification();
-        this.closeModal();
       }
     },
   },
