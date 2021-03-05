@@ -9,35 +9,41 @@
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-                label="E-mail address"
-                required
-                :rules="[rules.required, rules.email]"
-                value=""
-              />
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                label="Username"
-                required
-                :rules="[rules.required]"
-                value=""
-              />
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                hint="At least 6 character password"
-                label="Password"
-                required
-                :rules="[rules.counter, rules.required]"
-                type="password"
-                value=""
-              />
-            </v-col>
-          </v-row>
-          <span>All fields are required and case-sensitive</span>
+          <v-form
+            ref="form"
+            v-model="isFormValid"
+          >
+            <v-row class="mb-2">
+                <v-col cols="12">
+                  <v-text-field
+                    label="E-mail address"
+                    required
+                    :rules="generalRules.concat(emailRules)"
+                    v-model="emailAdress"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Username"
+                    required
+                    :rules="generalRules.concat(usernameRules)"
+                    v-model="username"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    hint="Minimum length - 6 characters"
+                    label="Password"
+                    persistent-hint
+                    required
+                    :rules="generalRules.concat(passwordRules)"
+                    type="password"
+                    v-model="password"
+                  />
+                </v-col>
+            </v-row>
+            <span>All fields are required and case-sensitive</span>
+          </v-form>
         </v-container>
       </v-card-text>
       <v-card-actions class="pb-4">
@@ -79,14 +85,27 @@ export default {
   name: 'Register',
   data() {
     return {
-      rules: {
-        counter: (value) => (value.length <= 40 && value.length >= 6) || 'Password must be at least 6 characters long',
-        email: (value) => {
+      emailAdress: '',
+      password: '',
+      username: '',
+      isFormValid: false,
+      emailRules: [
+        (value) => (value.length >= 5 && value.length <= 128) || 'E-mail adress must be at least 5 characters long',
+        (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail';
         },
-        required: (value) => !!value || 'Required',
-      },
+      ],
+      usernameRules: [
+        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+      ],
+      passwordRules: [
+        (value) => (value.length >= 6 && value.length <= 128) || 'Password must be at least 6 characters long',
+      ],
+      generalRules: [
+        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
+        (value) => !!value || 'Required',
+      ],
     };
   },
 };
