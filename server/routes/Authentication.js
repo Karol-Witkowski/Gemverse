@@ -10,13 +10,11 @@ router.post('/register', (request, response) => {
 
   User.findOne({ email: request.body.email }).then(user => {
     if (user) {
-      errors.push({ param: 'email', msg: 'Email is already taken' });
+      error.push('Email is already taken');
 
       if (user.username === request.body.username) {
-        errors.push({ param: 'username', msg: 'Username is already taken' });
+        error.push('Username is already taken');
       }
-
-      response.send({errors: createErrorObject(errors)}).end();
     } else {
       newUser.save().then(() => {
         const token = jwt.sign(user, process.env.JWT, {
@@ -30,7 +28,7 @@ router.post('/register', (request, response) => {
         });
       })
       .catch(errors => {
-        response.send({errors, error: 'Error - check all fields and try again'});
+        response.send('Error - check all fields and try again');
       });
     }
   });
@@ -46,7 +44,7 @@ router.post('/login', checkLoginFields, async (request, response) => {
 
   const token = jwt.sign(user.toObject(), process.env.JWT_SECRET, { expireTime: 24000 });
 
-  response.status(200).send({ auth: true, token: `Bearer ${token}`, user });
+  response.status(200).send({ auth: true, token: `Owner ${token}`, user });
 });
 
 /** Logout user */

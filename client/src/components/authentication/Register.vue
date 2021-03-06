@@ -14,39 +14,40 @@
             v-model="isFormValid"
           >
             <v-row class="mb-2">
-                <v-col cols="12">
-                  <v-text-field
-                    autofocus
-                    label="Username"
-                    required
-                    :rules="generalRules.concat(usernameRules)"
-                    v-model="user.username"
-                    v-on:keyup.enter="formValidation"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    label="E-mail address"
-                    required
-                    :rules="generalRules.concat(emailRules)"
-                    v-model="user.email"
-                    v-on:keyup.enter="formValidation"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    hint="Minimum length - 6 characters"
-                    label="Password"
-                    persistent-hint
-                    required
-                    :rules="generalRules.concat(passwordRules)"
-                    type="password"
-                    v-model="user.password"
-                    v-on:keyup.enter="formValidation"
-                  />
-                </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  autofocus
+                  label="Username"
+                  required
+                  :rules="generalRules.concat(usernameRules)"
+                  v-model="user.username"
+                  v-on:keyup.enter="formValidation"
+                />
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="E-mail address"
+                  required
+                  :rules="generalRules.concat(emailRules)"
+                  v-model="user.email"
+                  v-on:keyup.enter="formValidation"
+                />
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  hint="Minimum length - 6 characters"
+                  label="Password"
+                  persistent-hint
+                  required
+                  :rules="generalRules.concat(passwordRules)"
+                  type="password"
+                  v-model="user.password"
+                  v-on:keyup.enter="formValidation"
+                />
+              </v-col>
             </v-row>
-            <span>All fields are required and case-sensitive</span>
+            <p v-if="error">{{ error }}</p>
+            <p>All fields are required and case-sensitive</p>
           </v-form>
         </v-container>
       </v-card-text>
@@ -93,7 +94,7 @@ export default {
   name: 'Register',
   data() {
     return {
-      error: [],
+      error: '',
       isFormValid: false,
       emailRules: [
         (value) => (value.length >= 5 && value.length <= 128) || 'E-mail adress must be at least 5 characters long',
@@ -122,7 +123,11 @@ export default {
 
   methods: {
     createUser() {
-      axios.post('http://localhost:3000/api/room', this.user)
+      axios.post('http://localhost:3000/api/user', {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      })
         .then(() => {
         })
         .catch((error) => {
@@ -133,6 +138,7 @@ export default {
 
     formValidation() {
       if (this.isFormValid) {
+        this.error = '';
         this.createUser();
       }
     },
