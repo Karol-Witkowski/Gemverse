@@ -28,7 +28,7 @@ const RoomSchema = new mongoose.Schema({
 
 RoomSchema.pre('save', function(next) {
   if (this.password !== '' && this.isModified('password')) {
-    bcrypt.hash(this.password, 10, (response) => {
+    bcrypt.hash(this.password, 10, (error, response) => {
       this.password = response;
       next();
       });

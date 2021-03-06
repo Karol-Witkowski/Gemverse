@@ -23,7 +23,7 @@ router.get('/:name', (request, response, next) => {
 router.post('/', (request, response, next) => {
   Room.create(request.body, (error, room) => {
     if (error) return response.status(404).json({ error: `This room name is already taken` });
-    return response.status(200).json(room);
+    response.status(200).json(room);
   });
 });
 

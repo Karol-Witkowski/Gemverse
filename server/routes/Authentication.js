@@ -10,10 +10,10 @@ router.post('/register', (request, response) => {
 
   User.findOne({ email: request.body.email }).then(user => {
     if (user) {
-      error.push('Email is already taken');
+      response.status(404).json({ error: 'Email is already taken' })
 
       if (user.username === request.body.username) {
-        error.push('Username is already taken');
+        response.status(404).json({ error: 'Username is already taken' });
       }
     } else {
       newUser.save().then(() => {
@@ -27,8 +27,9 @@ router.post('/register', (request, response) => {
           user
         });
       })
-      .catch(errors => {
-        response.send('Error - check all fields and try again');
+      .catch(error => {
+        console.log(error);
+        this.error = error.response.data.error;
       });
     }
   });
