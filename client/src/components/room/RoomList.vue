@@ -120,23 +120,27 @@ export default {
   },
 
   created() {
-    axios.get('http://localhost:3000/api/room')
-      .then((response) => {
-        this.rooms = response.data;
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
-
-    this.socket.on('newRoom', (roomName, roomPassword) => {
-      this.rooms.push({ name: roomName, password: roomPassword });
-    });
+    this.getRoomList();
   },
 
   methods: {
     closeModals() {
       this.addRoomModal = false;
       this.privateRoomModal = false;
+    },
+
+    getRoomList() {
+      axios.get('http://localhost:3000/api/room')
+        .then((response) => {
+          this.rooms = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+
+      this.socket.on('newRoom', (roomName, roomPassword) => {
+        this.rooms.push({ name: roomName, password: roomPassword });
+      });
     },
 
     join(roomName) {

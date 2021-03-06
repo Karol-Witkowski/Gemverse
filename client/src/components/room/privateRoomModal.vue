@@ -12,6 +12,7 @@
       >
         <v-col cols="12">
           <v-text-field
+            autofocus
             :error-messages="error"
             label="Room password"
             required

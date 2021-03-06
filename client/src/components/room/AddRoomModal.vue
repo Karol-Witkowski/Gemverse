@@ -10,6 +10,7 @@
       >
         <v-col cols="12">
           <v-text-field
+            autofocus
             :counter="15"
             :error-messages="error"
             hint="Required"
@@ -90,8 +91,7 @@ export default {
     closeModal() {
       this.$emit('close-modal');
       this.error = '';
-      this.room.name = '';
-      this.room.password = '';
+      this.resetData();
       this.$refs.form.resetValidation();
     },
 
@@ -99,8 +99,7 @@ export default {
       axios.post('http://localhost:3000/api/room', this.room)
         .then((response) => {
           this.socket.emit('createRoom', this.room.name, this.room.password);
-          this.room.name = '';
-          this.room.password = '';
+          this.resetData();
           if (response.status === 200) {
             this.closeModal();
           }
@@ -115,6 +114,11 @@ export default {
       if (this.isFormValid) {
         this.createRoom();
       }
+    },
+
+    resetData() {
+      this.room.name = '';
+      this.room.password = '';
     },
   },
 };

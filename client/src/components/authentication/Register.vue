@@ -5,7 +5,7 @@
       max-width="500px"
     >
       <v-card-title>
-        <span class="headline grey--text text--darken-2">Create account *disabled*</span>
+        <span class="headline grey--text text--darken-2">Create account</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -16,10 +16,12 @@
             <v-row class="mb-2">
                 <v-col cols="12">
                   <v-text-field
+                    autofocus
                     label="Username"
                     required
                     :rules="generalRules.concat(usernameRules)"
-                    v-model="username"
+                    v-model="user.username"
+                    v-on:keyup.enter="formValidation"
                   />
                 </v-col>
                 <v-col cols="12">
@@ -27,7 +29,8 @@
                     label="E-mail address"
                     required
                     :rules="generalRules.concat(emailRules)"
-                    v-model="emailAdress"
+                    v-model="user.email"
+                    v-on:keyup.enter="formValidation"
                   />
                 </v-col>
                 <v-col cols="12">
@@ -38,7 +41,8 @@
                     required
                     :rules="generalRules.concat(passwordRules)"
                     type="password"
-                    v-model="password"
+                    v-model="user.password"
+                    v-on:keyup.enter="formValidation"
                   />
                 </v-col>
             </v-row>
@@ -53,10 +57,11 @@
           to="/"
           outlined
         >
-          Close
+          Back
         </v-btn>
         <v-spacer />
         <v-btn
+          @click.prevent="formValidation"
           color="primary"
           :disabled="!isFormValid"
           text
@@ -82,13 +87,13 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Register',
   data() {
     return {
-      emailAdress: '',
-      password: '',
-      username: '',
+      error: [],
       isFormValid: false,
       emailRules: [
         (value) => (value.length >= 5 && value.length <= 128) || 'E-mail adress must be at least 5 characters long',
@@ -107,7 +112,30 @@ export default {
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
         (value) => !!value || 'Required',
       ],
+      user: {
+        username: '',
+        email: '',
+        password: '',
+      },
     };
+  },
+
+  methods: {
+    createUser() {
+      axios.post('http://localhost:3000/api/room', this.user)
+        .then(() => {
+        })
+        .catch((error) => {
+          console.log(error);
+          this.error = error.response.data.error;
+        });
+    },
+
+    formValidation() {
+      if (this.isFormValid) {
+        this.createUser();
+      }
+    },
   },
 };
 </script>

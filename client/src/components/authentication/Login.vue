@@ -16,6 +16,7 @@
             <v-row>
               <v-col cols="12">
                 <v-text-field
+                  autofocus
                   label="E-mail adress"
                   required
                   :rules="generalRules.concat(emailRules)"
@@ -43,7 +44,7 @@
           to="/"
           outlined
         >
-          Close
+          Back
         </v-btn>
         <v-spacer />
         <v-btn
