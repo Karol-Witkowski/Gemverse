@@ -18,12 +18,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlengthValidator: {
-      validator: (value) => {
-        return value.length >= 6 || value.length === 0
-      },
-      message: () => `Password must be at least 6 characters long`
-    },
+    minlength: ['6', 'Password address must be at least 5 characters long'],
     maxlength: ['128', 'Password must be less or equal to 128 characters']
   },
   createdDate: {
@@ -34,7 +29,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function(next) {
   if (this.password !== '' && this.isModified('password')) {
-    bcrypt.hash(this.password, 10, (response) => {
+    bcrypt.hash(this.password, 10, (error, response) => {
       this.password = response;
       next();
       });

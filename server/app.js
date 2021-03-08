@@ -11,6 +11,7 @@ const path = require('path');
 
 const app = express();
 
+/* Connect to MongoDB cluster */
 require('./db/mongoose');
 
 /** Middleware */
@@ -23,9 +24,11 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
 const room = require('./routes/room');
+const authentication = require('./routes/authentication');
 const messages = require('./routes/messages');
 
 app.use('/api/room', room);
+app.use('/api/authentication', authentication);
 app.use('/api/messages', messages);
 
 /** Errors handler */

@@ -12,4 +12,4 @@ const dbConnect = () => {
 
 dbConnect();
 
-module.exports = {mongoose, dbConnect};
+module.exports = { mongoose, dbConnect };

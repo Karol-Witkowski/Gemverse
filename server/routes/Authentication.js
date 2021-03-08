@@ -6,18 +6,20 @@ const router = express.Router();
 
 /** Save user */
 router.post('/register', (request, response) => {
-  let errors = [];
 
-  User.findOne({ email: request.body.email }).then(user => {
+  User.findOne({ username: request.body.username }).then(user => {
     if (user) {
-      response.status(404).json({ error: 'Email is already taken' })
-
-      if (user.username === request.body.username) {
-        response.status(404).json({ error: 'Username is already taken' });
-      }
+      if (user.username === request.body.username) response.status(404).json({ error: 'Username is already taken' })
+      if (user.email === request.body.email) response.status(404).json({ error: 'E-mail adress is already taken' })
     } else {
-      newUser.save().then(() => {
-        const token = jwt.sign(user, process.env.JWT, {
+      const establishUser = new User({
+        username: request.body.username,
+        email: request.body.email,
+        password: request.body.password,
+      });
+
+      establishUser.save().then(() => {
+        const token = jwt.sign(user, process.env.JWT_KEY, {
           expireTime: 24000
         });
 
@@ -29,23 +31,22 @@ router.post('/register', (request, response) => {
       })
       .catch(error => {
         console.log(error);
-        this.error = error.response.data.error;
       });
     }
   });
 });
 
 /** Login user */
-router.post('/login', checkLoginFields, async (request, response) => {
+router.post('/login', async (request, response) => {
   const user = await User.findOne({ email: request.body.email }).select('-password');
 
   if (!user) {
-    return response.status(404).send({error: `${request.params.username} not found`});
+    return response.status(404).send({ error: `${request.params.username} not found` });
   }
 
-  const token = jwt.sign(user.toObject(), process.env.JWT_SECRET, { expireTime: 24000 });
+  const token = jwt.sign(user.toObject(), process.env.JWT_KEY, { expireTime: 24000 });
 
-  response.status(200).send({ auth: true, token: `Owner ${token}`, user });
+  response.status(200).send({ auth: true, token: `Bearer ${token}`, user });
 });
 
 /** Logout user */
@@ -53,7 +54,7 @@ router.post('/logout', async (request, response) => {
   const user = await User.findOne({ username: request.body.username }).select('-password');
 
   if (!user) {
-    return response.status(404).send({error: `${request.params.username} not found`});
+    return response.status(404).send({ error: `${request.params.username} not found` });
   }
 
     response.status(200).send({ success: true });

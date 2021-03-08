@@ -17,10 +17,11 @@
               <v-col cols="12">
                 <v-text-field
                   autofocus
+                  :counter="15"
                   label="Username"
                   required
                   :rules="generalRules.concat(usernameRules)"
-                  v-model="user.username"
+                  v-model.trim="username"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
@@ -29,7 +30,7 @@
                   label="E-mail address"
                   required
                   :rules="generalRules.concat(emailRules)"
-                  v-model="user.email"
+                  v-model.trim="email"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
@@ -41,12 +42,17 @@
                   required
                   :rules="generalRules.concat(passwordRules)"
                   type="password"
-                  v-model="user.password"
+                  v-model.trim="password"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
             </v-row>
-            <p v-if="error">{{ error }}</p>
+            <p
+              class="respondError"
+              v-if="error"
+            >
+              {{ error.join(' ') }}
+            </p>
             <p>All fields are required and case-sensitive</p>
           </v-form>
         </v-container>
@@ -66,7 +72,6 @@
           color="primary"
           :disabled="!isFormValid"
           text
-          to="/roomlist"
           outlined
         >
           Sign up
@@ -94,17 +99,20 @@ export default {
   name: 'Register',
   data() {
     return {
-      error: '',
+      username: '',
+      email: '',
+      password: '',
+      error: [],
       isFormValid: false,
+      usernameRules: [
+        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+      ],
       emailRules: [
         (value) => (value.length >= 5 && value.length <= 128) || 'E-mail adress must be at least 5 characters long',
         (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail';
         },
-      ],
-      usernameRules: [
-        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
       ],
       passwordRules: [
         (value) => (value.length >= 6 && value.length <= 128) || 'Password must be at least 6 characters long',
@@ -113,35 +121,40 @@ export default {
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
         (value) => !!value || 'Required',
       ],
-      user: {
-        username: '',
-        email: '',
-        password: '',
-      },
     };
   },
 
   methods: {
     createUser() {
-      axios.post('http://localhost:3000/api/user', {
+      axios.post('http://localhost:3000/api/authentication/register', {
         username: this.username,
         email: this.email,
         password: this.password,
       })
-        .then(() => {
+        .then((response) => {
+          if (response.data.success) {
+            this.$router.push({
+              name: 'RoomList',
+            });
+          }
         })
         .catch((error) => {
           console.log(error);
-          this.error = error.response.data.error;
+          this.error.push(error.response.data.error);
         });
     },
 
     formValidation() {
       if (this.isFormValid) {
-        this.error = '';
+        this.error = [];
         this.createUser();
       }
     },
   },
 };
 </script>
+<style lang="scss">
+.respondError {
+  color: rgb(207, 58, 58);
+}
+</style>
