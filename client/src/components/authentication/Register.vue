@@ -47,12 +47,12 @@
                 />
               </v-col>
             </v-row>
-            <p
-              class="respondError"
-              v-if="error"
-            >
-              {{ error.join(' ') }}
-            </p>
+              <p
+                class="respondError"
+                v-if="errors"
+              >
+                {{ errors.join(' ') }}
+              </p>
             <p>All fields are required and case-sensitive</p>
           </v-form>
         </v-container>
@@ -102,7 +102,7 @@ export default {
       username: '',
       email: '',
       password: '',
-      error: [],
+      errors: [],
       isFormValid: false,
       usernameRules: [
         (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
@@ -139,14 +139,14 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
-          this.error.push(error.response.data.error);
+          console.log(error.response.data.errors);
+          this.errors.push(error.response.data.errors);
         });
     },
 
     formValidation() {
       if (this.isFormValid) {
-        this.error = [];
+        this.errors = [];
         this.createUser();
       }
     },

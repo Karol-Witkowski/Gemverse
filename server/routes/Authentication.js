@@ -8,9 +8,15 @@ const router = express.Router();
 router.post('/register', (request, response) => {
 
   User.findOne({ username: request.body.username }).then(user => {
+    let errors = [];
     if (user) {
-      if (user.username === request.body.username) response.status(404).json({ error: 'Username is already taken' })
-      if (user.email === request.body.email) response.status(404).json({ error: 'E-mail adress is already taken' })
+        errors.push(`${request.body.username} is already taken`);
+
+        if (user.email === request.body.email) {
+            errors.push(`${request.body.email} is already taken`);
+        }
+
+        response.status(404).send({ errors }).end();
     } else {
       const establishUser = new User({
         username: request.body.username,
@@ -41,7 +47,7 @@ router.post('/login', async (request, response) => {
   const user = await User.findOne({ email: request.body.email }).select('-password');
 
   if (!user) {
-    return response.status(404).send({ error: `${request.params.username} not found` });
+    return response.status(404).send({ error: `${request.body.username} not found` });
   }
 
   const token = jwt.sign(user.toObject(), process.env.JWT_KEY, { expireTime: 24000 });
@@ -54,7 +60,7 @@ router.post('/logout', async (request, response) => {
   const user = await User.findOne({ username: request.body.username }).select('-password');
 
   if (!user) {
-    return response.status(404).send({ error: `${request.params.username} not found` });
+    return response.status(404).send({ error: `${request.body.username} not found` });
   }
 
     response.status(200).send({ success: true });
