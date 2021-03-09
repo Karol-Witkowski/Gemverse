@@ -9,15 +9,13 @@ router.post('/register', async (request, response) => {
 
   await User.findOne().or([{ username: request.body.username }, { email: request.body.email }]).then(user => {
     let errors = [];
+    let usernameError = [];
+    let emailError = [];
     if (user) {
-      if (user.username === request.body.username) errors.push(`${request.body.username} is already taken`);
-      if (user.email === request.body.email) errors.push(`${request.body.email} address is already taken`);
+      if (user.email === request.body.email) emailError.push(`${ request.body.email } address is already taken`);
+      if (user.username === request.body.username) usernameError.push(`${ request.body.username } is already taken`);
 
-      //if ((user.username === request.body.username) && (user.email === request.body.email)) errors.push(`${request.body.username} and ${request.body.email} are already taken`);
-      //else if (user.username === request.body.username) errors.push(`${request.body.email} address is already taken`);
-      //else errors.push(`${request.body.email} address is already taken`);
-
-      response.status(404).send({ errors });
+      response.status(404).send({ emailError, usernameError });
     } else {
       const establishUser = new User({
         username: request.body.username,

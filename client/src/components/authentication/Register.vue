@@ -17,20 +17,26 @@
               <v-col cols="12">
                 <v-text-field
                   autofocus
+                  :error-messages="usernameError.join('')"
                   :counter="15"
                   label="Username"
+                  ref="username"
                   required
                   :rules="generalRules.concat(usernameRules)"
                   v-model.trim="username"
+                  v-on:keyup="usernameError = []"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
               <v-col cols="12">
                 <v-text-field
+                  :error-messages="emailError.join('')"
                   label="E-mail address"
+                  ref="email"
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model.trim="email"
+                  v-on:keyup="emailError = []"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
@@ -47,12 +53,6 @@
                 />
               </v-col>
             </v-row>
-              <p
-                class="respondError"
-                v-if="errors"
-              >
-                {{ errors.join(' ') }}
-              </p>
             <p>All fields are required and case-sensitive</p>
           </v-form>
         </v-container>
@@ -102,7 +102,9 @@ export default {
       username: '',
       email: '',
       password: '',
-      errors: [],
+      errors: {},
+      usernameError: [],
+      emailError: [],
       isFormValid: false,
       usernameRules: [
         (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
@@ -140,21 +142,16 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.errors.push(error.response.data.errors);
+          this.emailError.push(error.response.data.emailError);
+          this.usernameError.push(error.response.data.usernameError);
         });
     },
 
     formValidation() {
       if (this.isFormValid) {
-        this.errors = [];
         this.createUser();
       }
     },
   },
 };
 </script>
-<style lang="scss">
-.respondError {
-  color: rgb(207, 58, 58);
-}
-</style>
