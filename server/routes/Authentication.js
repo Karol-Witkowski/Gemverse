@@ -5,18 +5,19 @@ const User = require('../models/User');
 const router = express.Router();
 
 /** Save user */
-router.post('/register', (request, response) => {
+router.post('/register', async (request, response) => {
 
-  User.findOne({ username: request.body.username }).then(user => {
+  await User.findOne().or([{ username: request.body.username }, { email: request.body.email }]).then(user => {
     let errors = [];
     if (user) {
-        errors.push(`${request.body.username} is already taken`);
+      if (user.username === request.body.username) errors.push(`${request.body.username} is already taken`);
+      if (user.email === request.body.email) errors.push(`${request.body.email} address is already taken`);
 
-        if (user.email === request.body.email) {
-            errors.push(`${request.body.email} is already taken`);
-        }
+      //if ((user.username === request.body.username) && (user.email === request.body.email)) errors.push(`${request.body.username} and ${request.body.email} are already taken`);
+      //else if (user.username === request.body.username) errors.push(`${request.body.email} address is already taken`);
+      //else errors.push(`${request.body.email} address is already taken`);
 
-        response.status(404).send({ errors }).end();
+      response.status(404).send({ errors });
     } else {
       const establishUser = new User({
         username: request.body.username,
@@ -25,7 +26,7 @@ router.post('/register', (request, response) => {
       });
 
       establishUser.save().then(() => {
-        const token = jwt.sign(user, process.env.JWT_KEY, {
+        const token = jwt.sign(user.toJSON(), process.env.JWT_KEY, {
           expireTime: 24000
         });
 

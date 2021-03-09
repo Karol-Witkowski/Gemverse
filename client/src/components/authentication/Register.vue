@@ -139,7 +139,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error.response.data.errors);
+          console.log(error);
           this.errors.push(error.response.data.errors);
         });
     },
