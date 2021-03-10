@@ -134,11 +134,10 @@ export default {
         password: this.password,
       })
         .then((response) => {
-          if (response.data.success) {
-            this.$router.push({
-              name: 'RoomList',
-            });
-          }
+          localStorage.setItem('authenticationToken', response.data.token);
+          this.$router.push({
+            name: 'RoomList',
+          });
         })
         .catch((error) => {
           console.log(error);

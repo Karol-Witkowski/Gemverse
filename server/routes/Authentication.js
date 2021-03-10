@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -15,7 +16,7 @@ router.post('/register', async (request, response) => {
       if (user.email === request.body.email) emailError.push(`${ request.body.email } address is already taken`);
       if (user.username === request.body.username) usernameError.push(`${ request.body.username } is already taken`);
 
-      response.status(404).send({ emailError, usernameError });
+      response.status(403).send({ emailError, usernameError });
     } else {
       const establishUser = new User({
         username: request.body.username,
@@ -28,9 +29,10 @@ router.post('/register', async (request, response) => {
           expireTime: 24000
         });
 
-        response.status(200).send({
+        response.status(201).send({
+          success: true,
           auth: true,
-          token: token,
+          token: `Bearer ${token}`,
           user
         });
       })

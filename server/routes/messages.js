@@ -14,7 +14,7 @@ router.get('/:id', (request, response, next) => {
 router.post('/', (request, response, next) => {
   Message.create(request.body, (error, message) => {
     if (error) return response.status(404).json({ error: `Message can not be empty` });
-    response.status(200).json(message);
+    response.status(201).json(message);
   });
 });
 

@@ -14,7 +14,7 @@ router.get('/', (request, response, next) => {
 /** Get single room by name */
 router.get('/:name', (request, response, next) => {
   Room.findById(request.params.id, function (error, room) {
-    if (error) return response.status(404).json({ error: `${request.params.name} not found` });
+    if (error) return response.status(404).json({ error: `${ request.body.name } not found` });
     response.status(200).json(room);
   });
 });
@@ -22,8 +22,8 @@ router.get('/:name', (request, response, next) => {
 /** Save room */
 router.post('/', (request, response, next) => {
   Room.create(request.body, (error, room) => {
-    if (error) return response.status(404).json({ error: `This room name is already taken` });
-    response.status(200).json(room);
+    if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
+    response.status(201).json(room);
   });
 });
 
