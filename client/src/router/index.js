@@ -30,7 +30,7 @@ const routes = [
     component: () => import('../components/room/RoomList.vue'),
   },
   {
-    path: '/room/:name',
+    path: '/room/:slug',
     name: 'Room',
     component: () => import('../components/room/Room.vue'),
   },

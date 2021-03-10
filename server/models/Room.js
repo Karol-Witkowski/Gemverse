@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
+const URLSlugs = require('mongoose-url-slugs');
 
 const RoomSchema = new mongoose.Schema({
   name: {
@@ -25,6 +26,8 @@ const RoomSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+RoomSchema.plugin(URLSlugs('name', { field: 'slug' }));
 
 RoomSchema.pre('save', function(next) {
   if (this.password !== '' && this.isModified('password')) {

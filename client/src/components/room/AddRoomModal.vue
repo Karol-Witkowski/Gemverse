@@ -71,7 +71,6 @@ export default {
       isFormValid: false,
       nameRules: [
         (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
-        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
         (value) => !!value || 'Required.',
       ],
       passwordRules: [
@@ -82,6 +81,7 @@ export default {
         error: '',
         name: '',
         password: '',
+        slug: '',
       },
       socket: io('http://localhost:3000'),
     };
@@ -98,9 +98,9 @@ export default {
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
         .then((response) => {
-          this.socket.emit('createRoom', this.room.name, this.room.password);
+          this.socket.emit('createRoom', this.room.name, this.room.password, response.data.slug);
           this.resetData();
-          if (response.status === 200) {
+          if (response.status === 201) {
             this.closeModal();
           }
         })

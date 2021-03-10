@@ -20,11 +20,11 @@ router.get('/:name', (request, response, next) => {
 });
 
 /** Save room */
-router.post('/', (request, response, next) => {
-  Room.create(request.body, (error, room) => {
+router.post('/', async (request, response, next) => {
+  await Room.create(request.body, (error, room) => {
     if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
-    response.status(201).json(room);
-  });
+    return response.status(201).send(room);
+  })
 });
 
 /** Password verification */
@@ -34,7 +34,7 @@ router.post('/verification', async (request, response, next) => {
   if (room) {
     if (await bcrypt.compare(request.body.password, room.password)) {
       await room.save();
-      return response.status(200).json({ success: true });
+      return response.status(200).send(room);
     } else return response.status(404).json({ error: "Invalid password" });
   } else {
     return response.status(404).json({ error: `No room with name ${request.body.name} found` });

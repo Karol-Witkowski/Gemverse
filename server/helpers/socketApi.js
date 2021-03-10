@@ -11,8 +11,9 @@ const socketApi = {};
 socketApi.io = io;
 
 io.on('connection', (socket) => {
-  socket.on('createRoom', (roomName, roomPassword) => {
-    io.emit('newRoom', roomName, roomPassword)
+  socket.on('createRoom', (roomName, roomPassword, roomSlug) => {
+    let locked = (roomPassword !== '');
+    io.emit('newRoom', roomName, locked, roomSlug)
   });
 });
 

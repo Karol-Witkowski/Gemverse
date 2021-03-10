@@ -12,7 +12,6 @@
       >
         <v-col cols="12">
           <v-text-field
-            autofocus
             :error-messages="error"
             label="Room password"
             required
@@ -80,8 +79,8 @@ export default {
         password: this.privateRoomPassword,
       })
         .then((response) => {
-          if (response.data.success) {
-            this.join(this.$store.state.privateRoomName);
+          if (response.data.slug) {
+            this.join(response.data.slug);
           }
         })
         .catch((error) => {
@@ -90,10 +89,10 @@ export default {
         });
     },
 
-    join(roomName) {
+    join(roomSlug) {
       this.$router.push({
         name: 'Room',
-        params: { name: roomName },
+        params: { slug: roomSlug },
       });
     },
 

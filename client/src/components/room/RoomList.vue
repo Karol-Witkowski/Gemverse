@@ -27,7 +27,7 @@
             />
             <v-list-item-action v-if="!room.password">
               <v-btn
-                @click="join(room.name)"
+                @click="join(room.slug)"
                 color="primary"
                 outlined
               >
@@ -138,15 +138,15 @@ export default {
           this.errors.push(e);
         });
 
-      this.socket.on('newRoom', (roomName, roomPassword) => {
-        this.rooms.push({ name: roomName, password: roomPassword });
+      this.socket.on('newRoom', (roomName, locked, roomSlug) => {
+        this.rooms.push({ name: roomName, password: locked, slug: roomSlug });
       });
     },
 
-    join(roomName) {
+    join(roomSlug) {
       this.$router.push({
         name: 'Room',
-        params: { name: roomName },
+        params: { slug: roomSlug },
       });
     },
   },
