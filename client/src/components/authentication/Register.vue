@@ -135,6 +135,8 @@ export default {
       })
         .then((response) => {
           localStorage.setItem('authenticationToken', response.data.token);
+          this.setAuthToken(response.data.token);
+
           if (response.status === 201) {
             this.$router.push({
               name: 'RoomList',
@@ -152,6 +154,11 @@ export default {
       if (this.isFormValid) {
         this.createUser();
       }
+    },
+
+    setAuthToken(token) {
+      if (token) axios.defaults.headers.common.Authorization = token;
+      else delete axios.defaults.headers.common.Authorization;
     },
   },
 };
