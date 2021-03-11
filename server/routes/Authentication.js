@@ -2,8 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const User = require('../models/User');
 const router = express.Router();
+const User = require('../models/User');
+
+/** Middleware */
+// const registrationValidation= require('../middleware/valiation');
 
 /** Save user */
 router.post('/register', async (request, response) => {
@@ -31,8 +34,8 @@ router.post('/register', async (request, response) => {
       const user = UserCollection.toObject();
       const token = jwt.sign(
         { id: request.body.id },
-        process.env.JWT_KEY,
-        { expiresIn: 24000 }
+        { expiresIn: 24000 },
+        process.env.JWT_KEY
     )
 
       response.status(201).send({
@@ -51,13 +54,11 @@ router.post('/register', async (request, response) => {
 /** Login user */
 router.post('/login', async (request, response) => {
   const user = await User.findOne({ email: request.body.email }).select('-password');
+  const token = jwt.sign(user.toObject(), process.env.JWT_KEY, { expireTime: 24000 });
 
   if (!user) {
     return response.status(404).send({ error: `${request.body.username} not found` });
   }
-
-  const token = jwt.sign(user.toObject(), process.env.JWT_KEY, { expireTime: 24000 });
-
   response.status(200).send({ auth: true, token: `Bearer ${token}`, user });
 });
 
@@ -68,8 +69,7 @@ router.post('/logout', async (request, response) => {
   if (!user) {
     return response.status(404).send({ error: `${request.body.username} not found` });
   }
-
-    response.status(200).send({ success: true });
+  response.status(200).send({ success: true });
 });
 
 module.exports = router;

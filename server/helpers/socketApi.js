@@ -1,9 +1,9 @@
 const socketio = require('socket.io');
 const io = socketio({
   cors: {
-    origin: "http://localhost:8080",
+    credentials: true,
     methods: ["GET", "POST"],
-    credentials: true
+    origin: "http://localhost:8080"
   }
 });
 const socketApi = {};
@@ -13,7 +13,7 @@ socketApi.io = io;
 io.on('connection', (socket) => {
   socket.on('createRoom', (roomName, roomPassword, roomSlug) => {
     let locked = (roomPassword !== '');
-    io.emit('newRoom', roomName, locked, roomSlug)
+    io.emit('newRoom', roomName, locked, roomSlug);
   });
 });
 

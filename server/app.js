@@ -23,13 +23,13 @@ app.use(helmet());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
-const room = require('./routes/room');
 const authentication = require('./routes/authentication');
 const messages = require('./routes/messages');
+const room = require('./routes/room');
 
-app.use('/api/room', room);
 app.use('/api/authentication', authentication);
 app.use('/api/messages', messages);
+app.use('/api/room', room);
 
 /** Errors handler */
 app.use((request, response, next) => {

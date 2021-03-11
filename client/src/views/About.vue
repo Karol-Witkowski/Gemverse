@@ -53,6 +53,5 @@ span {
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;
-
 }
 </style>

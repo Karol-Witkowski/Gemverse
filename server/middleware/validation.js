@@ -1,3 +1,5 @@
+// Need rework before applying
+
 const { User } = require('../models/User');
 
 const registrationValidation = async (request, response, next) => {
@@ -13,16 +15,16 @@ const registrationValidation = async (request, response, next) => {
   .isString()
   .withMessage('Username must be between 3 and 15 characters');
 
-  let errors = request.validationErrors() || [];
+  let validationErrors = request.validationErrors() || [];
   const user = await User.findOne({ username: request.body.username });
 
   if (user) {
-    errors.push({ param: 'username', msg: 'Username already taken' });
+    validationErrors.push({ param: 'username', msg: 'Username already taken' });
   }
 
-  if (errors.length > 0) {
+  if (validationErrors.length > 0) {
     response.send({
-      errors
+      validationErrors
     });
   } else {
     next();
@@ -30,6 +32,11 @@ const registrationValidation = async (request, response, next) => {
 };
 
 const roomValidation = async (request, response, next) => {
+  const emailDB = await User.findOne({ email : request.body.email })
+  const usernameDB = await User.findOne({ username :  { $regex : new RegExp(request.body.username, "i") } });
+  let emailError = '';
+  let usernameError = ''
+
   if (!request.body.name) {
     request.check('name')
     .not()
@@ -50,11 +57,11 @@ const roomValidation = async (request, response, next) => {
     .withMessage('Password should be between 6 and 128 characters');
   }
 
-  const errors = request.validationErrors();
+  const validationErrors = request.validationErrors();
 
-  if (errors) {
+  if (validationErrors) {
     response.send({
-      errors
+      validationErrors
     });
   } else {
     next();

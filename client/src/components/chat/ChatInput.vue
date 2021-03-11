@@ -29,8 +29,10 @@
 
 <script>
 export default {
-  data: () => ({
-    message: '',
-  }),
+  data() {
+    return {
+      message: '',
+    };
+  },
 };
 </script>

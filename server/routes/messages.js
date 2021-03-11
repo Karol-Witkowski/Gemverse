@@ -1,6 +1,6 @@
 const express = require('express');
-const router = express.Router();
 const Message = require('../models/Message');
+const router = express.Router();
 
 /** Get single message by id */
 router.get('/:id', (request, response, next) => {
