@@ -21,10 +21,16 @@ router.get('/:name', (request, response, next) => {
 
 /** Save room */
 router.post('/', async (request, response, next) => {
-  await Room.create(request.body, (error, room) => {
-    if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
-    return response.status(201).send(room);
-  })
+  const room = await Room.findOne( { name :  { $regex : new RegExp(request.body.name, "i") } } )
+
+  if (room !== null) {
+    return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
+  } else {
+    Room.create(request.body, (error, room) => {
+      if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
+      return response.status(201).send(room);
+    })
+  }
 });
 
 /** Password verification */
