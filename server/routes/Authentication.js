@@ -7,17 +7,21 @@ const router = express.Router();
 
 /** Save user */
 router.post('/register', async (request, response) => {
-  User.findOne().or([{ username: request.body.username }, { email: request.body.email }])
+  const emailDB = await User.findOne({ email : request.body.email })
+  const usernameDB = await User.findOne({ username :  { $regex : new RegExp(request.body.username, "i") } })
+  let emailError = '';
+  let usernameError = '';
 
-  .then(user => {
-    let usernameError = '';
-    let emailError = '';
-    if (user) {
-      if (user.email === request.body.email) emailError =`${ request.body.email } address is already taken`;
-      if (user.username === request.body.username) usernameError = `${ request.body.username } is already taken`;
-
-      response.status(403).send({ emailError, usernameError });
-    } else {
+  if (emailDB || usernameDB) {
+    if (emailDB !== null) {
+      emailError =`${ request.body.email } address is already taken`;
+    }
+    if (usernameDB !== null) {
+      usernameError = `${ request.body.username } is already taken`;
+    }
+  console.log(usernameError);
+  response.status(403).send({ emailError, usernameError });
+  } else {
       const establishUser = new User({
         username: request.body.username,
         email: request.body.email,
@@ -40,8 +44,7 @@ router.post('/register', async (request, response) => {
         console.log(error);
       });
     }
-  })
-});
+  });
 
 /** Login user */
 router.post('/login', async (request, response) => {
