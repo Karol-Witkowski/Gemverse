@@ -7,14 +7,14 @@ const router = express.Router();
 
 /** Save user */
 router.post('/register', async (request, response) => {
+  User.findOne().or([{ username: request.body.username }, { email: request.body.email }])
 
-  await User.findOne().or([{ username: request.body.username }, { email: request.body.email }]).then(user => {
-    let errors = [];
-    let usernameError = [];
-    let emailError = [];
+  .then(user => {
+    let usernameError = '';
+    let emailError = '';
     if (user) {
-      if (user.email === request.body.email) emailError.push(`${ request.body.email } address is already taken`);
-      if (user.username === request.body.username) usernameError.push(`${ request.body.username } is already taken`);
+      if (user.email === request.body.email) emailError =`${ request.body.email } address is already taken`;
+      if (user.username === request.body.username) usernameError = `${ request.body.username } is already taken`;
 
       response.status(403).send({ emailError, usernameError });
     } else {
@@ -40,7 +40,7 @@ router.post('/register', async (request, response) => {
         console.log(error);
       });
     }
-  });
+  })
 });
 
 /** Login user */

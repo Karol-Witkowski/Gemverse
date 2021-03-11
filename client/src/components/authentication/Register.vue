@@ -17,26 +17,26 @@
               <v-col cols="12">
                 <v-text-field
                   autofocus
-                  :error-messages="usernameError.join('')"
+                  :error-messages="usernameError"
                   :counter="15"
                   label="Username"
                   ref="username"
                   required
                   :rules="generalRules.concat(usernameRules)"
                   v-model.trim="username"
-                  v-on:keyup="usernameError = []"
+                  v-on:keyup="usernameError = ''"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  :error-messages="emailError.join('')"
+                  :error-messages="emailError"
                   label="E-mail address"
                   ref="email"
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model.trim="email"
-                  v-on:keyup="emailError = []"
+                  v-on:keyup="emailError = ''"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
@@ -103,8 +103,8 @@ export default {
       email: '',
       password: '',
       errors: {},
-      usernameError: [],
-      emailError: [],
+      usernameError: '',
+      emailError: '',
       isFormValid: false,
       usernameRules: [
         (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
@@ -141,8 +141,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.emailError.push(error.response.data.emailError);
-          this.usernameError.push(error.response.data.usernameError);
+          this.emailError = error.response.data.emailError;
+          this.usernameError = error.response.data.usernameError;
         });
     },
 
