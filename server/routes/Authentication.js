@@ -19,32 +19,34 @@ router.post('/register', async (request, response) => {
     if (usernameDB !== null) {
       usernameError = `${ request.body.username } is already taken`;
     }
-  console.log(usernameError);
-  response.status(403).send({ emailError, usernameError });
+    response.status(403).send({ emailError, usernameError });
   } else {
-      const establishUser = new User({
-        username: request.body.username,
-        email: request.body.email,
-        password: request.body.password,
-      });
+    const establishUser = new User({
+      username: request.body.username,
+      email: request.body.email,
+      password: request.body.password,
+    });
 
-      establishUser.save().then(() => {
-        const token = jwt.sign(user.toJSON(), process.env.JWT_KEY, {
-          expireTime: 24000
-        });
+    establishUser.save().then((UserCollection) => {
+      const user = UserCollection.toObject();
+      const token = jwt.sign(
+        { id: request.body.id },
+        process.env.JWT_KEY,
+        { expiresIn: 24000 }
+    )
 
-        response.status(201).send({
-          success: true,
-          auth: true,
-          token: `Bearer ${token}`,
-          user
-        });
-      })
-      .catch(error => {
-        console.log(error);
+      response.status(201).send({
+        success: true,
+        auth: true,
+        token: `Bearer ${token}`,
+        user
       });
-    }
-  });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+});
 
 /** Login user */
 router.post('/login', async (request, response) => {

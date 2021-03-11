@@ -135,9 +135,11 @@ export default {
       })
         .then((response) => {
           localStorage.setItem('authenticationToken', response.data.token);
-          this.$router.push({
-            name: 'RoomList',
-          });
+          if (response.status === 201) {
+            this.$router.push({
+              name: 'RoomList',
+            });
+          }
         })
         .catch((error) => {
           console.log(error);
