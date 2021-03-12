@@ -34,9 +34,9 @@ router.post('/register', async (request, response) => {
       const user = UserCollection.toObject();
       const token = jwt.sign(
         { id: request.body.id },
-        { expiresIn: 24000 },
-        process.env.JWT_KEY
-    )
+        process.env.JWT_KEY,
+        { expiresIn: 24000 }
+      )
 
       response.status(201).send({
         success: true,
