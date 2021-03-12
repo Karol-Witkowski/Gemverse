@@ -21,7 +21,7 @@ router.get('/:name', (request, response, next) => {
 
 /** Save room */
 router.post('/', async (request, response, next) => {
-  const room = await Room.findOne( { name :  { $regex : new RegExp(request.body.name, "i") } } )
+  const room = await Room.findOne( { name :  { $regex : new RegExp(request.body.name, 'i') } } );
 
   if (room !== null) {
     return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
@@ -29,28 +29,28 @@ router.post('/', async (request, response, next) => {
     Room.create(request.body, (error, room) => {
       if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
       return response.status(201).send(room);
-    })
+    });
   }
 });
 
 /** Password verification */
 router.post('/verification', async (request, response, next) => {
-  const room = await Room.findOne({ name: request.body.name })
+  const room = await Room.findOne({ name: request.body.name });
 
   if (room) {
     if (await bcrypt.compare(request.body.password, room.password)) {
       await room.save();
       return response.status(200).send(room);
-    } else return response.status(404).json({ error: "Invalid password" });
+    } else return response.status(404).json({ error: 'Invalid password' });
   } else {
-    return response.status(404).json({ error: `No room with name ${request.body.name} found` });
+    return response.status(404).json({ error: `No room with name ${ request.body.name } found` });
   }
 });
 
 /** Delete room */
 router.delete('/:id', (request, response, next) => {
   Room.findByIdAndRemove(request.params.id, request.body, (error, room) => {
-    if (error) return response.status(404).json({ error: `${request.params.name} not found` });
+    if (error) return response.status(404).json({ error: `${ request.params.name } not found` });
     response.status(200).json(room);
   });
 });

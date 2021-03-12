@@ -1,8 +1,0 @@
-# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.19.0
-ignore: {}
-# patches apply the minimum changes required to fix a vulnerability
-patch:
-  'npm:extend:20180424':
-    - mongoose-url-slugs > extend:
-        patched: '2021-03-10T23:00:31.363Z'

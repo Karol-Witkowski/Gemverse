@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -10,8 +11,8 @@ const User = require('../models/User');
 
 /** Save user */
 router.post('/register', async (request, response) => {
-  const emailDB = await User.findOne({ email : request.body.email })
-  const usernameDB = await User.findOne({ username :  { $regex : new RegExp(request.body.username, "i") } })
+  const emailDB = await User.findOne({ email : request.body.email });
+  const usernameDB = await User.findOne({ username :  { $regex : new RegExp(request.body.username, 'i') } });
   let emailError = '';
   let usernameError = '';
 
@@ -36,12 +37,12 @@ router.post('/register', async (request, response) => {
         { id: request.body.id },
         process.env.JWT_KEY,
         { expiresIn: 24000 }
-      )
+      );
 
       response.status(201).send({
         success: true,
         auth: true,
-        token: `Bearer ${token}`,
+        token: `Bearer ${ token }`,
         user
       });
     })
@@ -57,9 +58,9 @@ router.post('/login', async (request, response) => {
   const token = jwt.sign(user.toObject(), process.env.JWT_KEY, { expireTime: 24000 });
 
   if (!user) {
-    return response.status(404).send({ error: `${request.body.username} not found` });
+    return response.status(404).send({ error: `${ request.body.username } not found` });
   }
-  response.status(200).send({ auth: true, token: `Bearer ${token}`, user });
+  response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
 });
 
 /** Logout user */
@@ -67,7 +68,7 @@ router.post('/logout', async (request, response) => {
   const user = await User.findOne({ username: request.body.username }).select('-password');
 
   if (!user) {
-    return response.status(404).send({ error: `${request.body.username} not found` });
+    return response.status(404).send({ error: `${ request.body.username } not found` });
   }
   response.status(200).send({ success: true });
 });

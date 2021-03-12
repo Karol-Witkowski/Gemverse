@@ -13,7 +13,7 @@ router.get('/:id', (request, response, next) => {
 /** Save message */
 router.post('/', (request, response, next) => {
   Message.create(request.body, (error, message) => {
-    if (error) return response.status(404).json({ error: `Message can not be empty` });
+    if (error) return response.status(404).json({ error: 'Message can not be empty' });
     response.status(201).json(message);
   });
 });

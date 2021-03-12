@@ -2,8 +2,8 @@ const socketio = require('socket.io');
 const io = socketio({
   cors: {
     credentials: true,
-    methods: ["GET", "POST"],
-    origin: "http://localhost:8080"
+    methods: ['GET', 'POST'],
+    origin: 'http://localhost:8080'
   }
 });
 const socketApi = {};

@@ -15,9 +15,9 @@ const RoomSchema = new mongoose.Schema({
     default: '',
     minlengthValidator: {
       validator: (value) => {
-        return value.length >= 6 || value.length === 0
+        return value.length >= 6 || value.length === 0;
       },
-      message: () => `Password must be at least 6 characters long`
+      message: () => 'Password must be at least 6 characters long'
     },
     maxlength: ['128', 'Password must be less or equal to 128 characters']
   },
