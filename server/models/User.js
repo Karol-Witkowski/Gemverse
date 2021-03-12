@@ -33,7 +33,7 @@ UserSchema.pre('save', function(next) {
     bcrypt.hash(this.password, 10, (error, response) => {
       this.password = response;
       next();
-      });
+    });
   } else {
     next();
   }
