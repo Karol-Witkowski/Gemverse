@@ -19,9 +19,9 @@ module.exports = function(passport) {
   passport.deserializeUser((user, done) => {
     User.findById(user.id)
       .select('-password -googleId -facebookId')
-        .then((user) => {
-          done(null, { details: user, _socket: user._socket });
-        });
+      .then((user) => {
+        done(null, { details: user, _socket: user._socket });
+      });
   });
 
   /** JWT passport strategy */
@@ -29,13 +29,13 @@ module.exports = function(passport) {
     new JwtStrategy(opts, (payload, done) => {
       User.findById(payload._id)
         .select('-password')
-          .then(user => {
-            if (user) {
-              return done(null, user);
-            } else {
-              return done(null, false);
-            }
-          });
+        .then((user) => {
+          if (user) {
+            return done(null, user);
+          } else {
+            return done(null, false);
+          }
+        });
     })
   );
 
