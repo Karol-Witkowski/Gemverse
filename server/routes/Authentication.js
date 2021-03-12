@@ -4,7 +4,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const router = express.Router();
-const { User } = require('../models/User');
+const User = require('../models/User');
 
 /** Middleware */
 // const registrationValidation= require('../middleware/valiation');
