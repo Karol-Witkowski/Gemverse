@@ -1,6 +1,5 @@
-require('dotenv').config();
-
 const express = require('express');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const router = express.Router();
@@ -13,17 +12,17 @@ const User = require('../models/User');
 router.post('/register', async (request, response) => {
   const emailDB = await User.findOne({ email : request.body.email });
   const usernameDB = await User.findOne({ username :  { $regex : new RegExp(request.body.username, 'i') } });
-  let emailError = '';
-  let usernameError = '';
+  let email = '';
+  let username = '';
 
   if (emailDB || usernameDB) {
     if (emailDB !== null) {
-      emailError =`${ request.body.email } address is already taken`;
+      email =`${ request.body.email } address is already taken`;
     }
     if (usernameDB !== null) {
-      usernameError = `${ request.body.username } is already taken`;
+      username = `${ request.body.username } is already taken`;
     }
-    response.status(403).send({ emailError, usernameError });
+    response.status(403).send({ email, username });
   } else {
     const establishUser = new User({
       username: request.body.username,
@@ -54,7 +53,7 @@ router.post('/register', async (request, response) => {
 
 /** Login user */
 router.post('/login', async (request, response) => {
-  const user = await User.findOne({ email: request.body.email }).select('-password');
+  const user = await User.findOne({ email: request.body.email });
   const token = jwt.sign(
     { id: request.body.id },
     process.env.JWT_KEY,
@@ -62,9 +61,13 @@ router.post('/login', async (request, response) => {
   );
 
   if (!user) {
-    return response.status(404).send({ error: `${ request.body.user } not found` });
+    return response.status(404).json({ user: 'User not found - Try again' });
+  } else {
+      if (await bcrypt.compare(request.body.password, user.password)) {
+        await user.save();
+        return response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
+      } else return response.status(404).json({ password: 'Invalid password' });
   }
-  response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
 });
 
 /** Logout user */

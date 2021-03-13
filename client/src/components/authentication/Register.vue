@@ -145,8 +145,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.emailError = error.response.data.emailError;
-          this.usernameError = error.response.data.usernameError;
+          this.emailError = error.response.data.email;
+          this.usernameError = error.response.data.username;
         });
     },
 

@@ -17,20 +17,24 @@
               <v-col cols="12">
                 <v-text-field
                   autofocus
+                  :error-messages="userError"
                   label="E-mail adress"
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model="email"
+                  v-on:keyup="[userError = '', passwordError = '']"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Password"
+                  :error-messages="passwordError"
                   required
                   :rules="generalRules.concat(passwordRules)"
                   type="password"
                   v-model="password"
+                  v-on:keyup="passwordError = ''"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
@@ -83,8 +87,9 @@ export default {
     return {
       password: '',
       email: '',
-      error: [],
       isFormValid: false,
+      userError: '',
+      passwordError: '',
       emailRules: [
         (value) => value.length <= 128 || 'E-mail adress must be less or equal to 128 characters',
       ],
@@ -107,7 +112,7 @@ export default {
           localStorage.setItem('authenticationToken', response.data.token);
           this.setAuthToken(response.data.token);
 
-          if (response.status === 201) {
+          if (response.status === 200) {
             this.$router.push({
               name: 'RoomList',
             });
@@ -115,7 +120,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.error = error.response.data.error;
+          this.userError = error.response.data.user;
+          this.passwordError = error.response.data.password;
         });
     },
 
