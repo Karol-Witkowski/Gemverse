@@ -63,10 +63,10 @@ router.post('/login', async (request, response) => {
   if (!user) {
     return response.status(404).json({ user: 'User not found - Try again' });
   } else {
-      if (await bcrypt.compare(request.body.password, user.password)) {
-        await user.save();
-        return response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
-      } else return response.status(404).json({ password: 'Invalid password' });
+    if (await bcrypt.compare(request.body.password, user.password)) {
+      await user.save();
+      return response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
+    } else return response.status(404).json({ password: 'Invalid password' });
   }
 });
 
