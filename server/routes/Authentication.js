@@ -55,10 +55,14 @@ router.post('/register', async (request, response) => {
 /** Login user */
 router.post('/login', async (request, response) => {
   const user = await User.findOne({ email: request.body.email }).select('-password');
-  const token = jwt.sign(user.toObject(), process.env.JWT_KEY, { expireTime: 24000 });
+  const token = jwt.sign(
+    { id: request.body.id },
+    process.env.JWT_KEY,
+    { expiresIn: 24000 }
+  );
 
   if (!user) {
-    return response.status(404).send({ error: `${ request.body.username } not found` });
+    return response.status(404).send({ error: `${ request.body.user } not found` });
   }
   response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
 });

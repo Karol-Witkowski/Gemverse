@@ -5,7 +5,7 @@
       max-width="500px"
     >
       <v-card-title>
-        <span class="headline grey--text text--darken-2">Sign in to start chatting *disabled*</span>
+        <span class="headline grey--text text--darken-2">Sign in to start chatting</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -21,6 +21,7 @@
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model="email"
+                  v-on:keyup.enter="formValidation"
                 />
               </v-col>
               <v-col cols="12">
@@ -30,6 +31,7 @@
                   :rules="generalRules.concat(passwordRules)"
                   type="password"
                   v-model="password"
+                  v-on:keyup.enter="formValidation"
                 />
               </v-col>
             </v-row>
@@ -48,10 +50,10 @@
         </v-btn>
         <v-spacer />
         <v-btn
+          @click.prevent="formValidation"
           color="primary"
           :disabled="!isFormValid"
           text
-          to="/roomlist"
           outlined
         >
           Sign in
@@ -73,12 +75,15 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Login',
   data() {
     return {
       password: '',
       email: '',
+      error: [],
       isFormValid: false,
       emailRules: [
         (value) => value.length <= 128 || 'E-mail adress must be less or equal to 128 characters',
@@ -90,6 +95,40 @@ export default {
         (value) => !!value || 'Required',
       ],
     };
+  },
+
+  methods: {
+    login() {
+      axios.post('http://localhost:3000/api/authentication/login', {
+        email: this.email,
+        password: this.password,
+      })
+        .then((response) => {
+          localStorage.setItem('authenticationToken', response.data.token);
+          this.setAuthToken(response.data.token);
+
+          if (response.status === 201) {
+            this.$router.push({
+              name: 'RoomList',
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.error = error.response.data.error;
+        });
+    },
+
+    formValidation() {
+      if (this.isFormValid) {
+        this.login();
+      }
+    },
+
+    setAuthToken(token) {
+      if (token) axios.defaults.headers.common.Authorization = token;
+      else delete axios.defaults.headers.common.Authorization;
+    },
   },
 };
 </script>
