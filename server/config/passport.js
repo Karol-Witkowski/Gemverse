@@ -1,6 +1,7 @@
 /** Strategies */
 // const FacebookStrategy = require('passport-facebook').Strategy;
 // const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+require('dotenv').config();
 const JwtStrategy = require('passport-jwt').Strategy;
 
 /** User schema and config */
@@ -10,22 +11,24 @@ const User = require('../models/User');
 
 let opts = {
   JtwRequest: JwtExtract.fromAuthHeaderAsBearerToken(),
-  JtwSecret: process.env.JWT_SECRET
+  JtwSecret: process.env.JWT_KEY
 };
 
 module.exports = function(passport) {
-  passport.serializeUser((user, done) => done(null, { id: user.id, _socket: user._socket }));
+/*  passport.serializeUser((user, done) => done(null, { id: user.id,    }));
 
   passport.deserializeUser((user, done) => {
     User.findById(user.id)
-      .select('-password -googleId -facebookId')
+      // ADD LATER
+      // .select('-password -googleId -facebookId')
+      .select('-password')
       .then((user) => {
         done(null, { details: user, _socket: user._socket });
       });
   });
 
   /** JWT passport strategy */
-  passport.use(
+/*  passport.use(
     new JwtStrategy(opts, (payload, done) => {
       User.findById(payload._id)
         .select('-password')
@@ -38,6 +41,28 @@ module.exports = function(passport) {
         });
     })
   );
+*/
+const JwtStrategy = require('passport-jwt').Strategy,
+ExtractJwt = require('passport-jwt').ExtractJwt;
+const opts = {}
+
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = process.env.JWT_KEY;
+opts.issuer = 'http://localhost:3000';
+opts.audience = 'http://localhost:8080';
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+  User.findOne({id: jwt_payload.sub}, function(err, user) {
+    if (err) {
+      return done(err, false);
+    }
+    if (user) {
+      return done(null, user);
+    } else {
+      return done(null, false);
+      // or you could create a new account
+    }
+  });
+}));
 
   /** Google passport strategy */
   /* passport.use(

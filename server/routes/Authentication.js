@@ -35,7 +35,7 @@ router.post('/register', async (request, response) => {
       const token = jwt.sign(
         { id: request.body.id },
         process.env.JWT_KEY,
-        { expiresIn: 24000 }
+        { expiresIn: 900 }
       );
 
       response.status(201).send({
@@ -57,7 +57,7 @@ router.post('/login', async (request, response) => {
   const token = jwt.sign(
     { id: request.body.id },
     process.env.JWT_KEY,
-    { expiresIn: 24000 }
+    { expiresIn: 900 }
   );
 
   if (!user) {

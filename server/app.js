@@ -9,6 +9,10 @@ const helmet = require('helmet');
 const logger = require('morgan');
 const path = require('path');
 
+/** Passport config */
+const passport = require('passport');
+require('./config/passport')(passport);
+
 const app = express();
 
 /* Connect to MongoDB cluster */
@@ -18,6 +22,9 @@ require('./db/mongoose');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+
+
 app.use(cors());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'dist')));
