@@ -19,8 +19,7 @@ module.exports = function(passport) {
   passport.deserializeUser((user, done) => {
     User.findById(user.id)
       // ADD LATER
-      //.select('-password -googleId -facebookId')
-      .select('-password')
+      //.select('-password');
       .then((user) => {
         done(null, { details: user, _socket: user._socket });
       });
@@ -30,7 +29,6 @@ module.exports = function(passport) {
   passport.use(
     new JwtStrategy(opts, (payload, done) => {
       User.findById(payload._id)
-        .select('-password')
         .then((user) => {
           if (user) {
             return done(null, user);
