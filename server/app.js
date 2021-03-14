@@ -23,8 +23,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
-
-
 app.use(cors());
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -37,6 +35,7 @@ const room = require('./routes/room');
 app.use('/api/authentication', authentication);
 app.use('/api/messages', messages);
 app.use('/api/room', room);
+//app.use('/api/user', user);
 
 /** Errors handler */
 app.use((request, response, next) => {
