@@ -17,7 +17,7 @@
             To get started click the button below.
           </span>
         </v-card-title>
-        <v-card-actions>
+        <v-card-actions v-if="!isAuthorized">
           <v-btn
             class="ml-2 mr-4"
             color="blue lighten-2"
@@ -47,6 +47,18 @@
     </v-flex>
   </v-container>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  name: 'Home',
+
+  computed: {
+    ...mapGetters(['isAuthorized']),
+  },
+};
+</script>
 
 <style lang="scss">
 h3 {

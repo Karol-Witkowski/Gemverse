@@ -66,4 +66,27 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth) {
+    if (localStorage.getItem('authenticationToken') === null) {
+      localStorage.clear();
+      next({
+        name: 'Login',
+        params: { message: 'Please login to proceed' },
+      });
+    } else {
+      next();
+    }
+  } else if (!to.meta.requiresAuth) {
+    if (localStorage.getItem('authenticationToken')) {
+      next();
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+  next();
+});
+
 export default router;

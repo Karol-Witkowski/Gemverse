@@ -102,6 +102,10 @@ export default {
     };
   },
 
+  created() {
+    this.setAuthToken();
+  },
+
   methods: {
     login() {
       axios.post('http://localhost:3000/api/authentication/login', {
@@ -111,6 +115,7 @@ export default {
         .then((response) => {
           localStorage.setItem('authenticationToken', response.data.token);
           this.setAuthToken(response.data.token);
+          this.dispatchToken();
 
           if (response.status === 200) {
             this.$router.push({
@@ -128,6 +133,15 @@ export default {
     formValidation() {
       if (this.isFormValid) {
         this.login();
+      }
+    },
+
+    dispatchToken() {
+      if (localStorage.getItem('authenticationToken')) {
+        this.$store.dispatch('remitAuthState', true);
+      } else {
+        localStorage.clear();
+        this.$store.dispatch('remitAuthState', false);
       }
     },
 
