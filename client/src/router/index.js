@@ -32,6 +32,7 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../components/authentication/Login.vue'),
+    props: true,
     meta: {
       requiresAuth: false,
     },

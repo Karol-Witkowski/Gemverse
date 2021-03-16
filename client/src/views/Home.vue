@@ -3,9 +3,7 @@
     class="mt-16 pt-16"
     fluid
   >
-    <v-flex
-      class="xs12 sm12 mx-10"
-    >
+    <v-flex class="xs12 sm12 mx-10">
       <v-card>
         <v-card-title>
           <h3 class="grey--text text--darken-2 mb-2">
@@ -53,7 +51,6 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'Home',
-
   computed: {
     ...mapGetters(['isAuthorized']),
   },

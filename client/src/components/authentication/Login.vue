@@ -1,7 +1,28 @@
 <template>
   <v-container class="mt-12">
+    <v-alert
+      class="mt-8 mx-auto"
+      dense
+      max-width="500"
+      type="error"
+      v-bind:class="[authError ? 'authErrorAlert' : 'whiteSpace']"
+    >
+      <v-row align="center">
+        <v-col class="grow">
+          <strong class="mx-auto">{{ authError }}</strong>
+        </v-col>
+        <v-col class="shrink">
+          <v-btn
+            @click="showAuthError"
+            small
+          >
+            OK
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-alert>
     <v-card
-      class="mt-12 mx-auto"
+      class="mt-8 mx-auto"
       max-width="500px"
     >
       <v-card-title>
@@ -83,13 +104,17 @@ import axios from 'axios';
 
 export default {
   name: 'Login',
+  props: ['message'],
   data() {
     return {
       password: '',
       email: '',
       isFormValid: false,
+      authError: this.message,
       userError: '',
       passwordError: '',
+      authErrorAlert: 'authErrorAlert',
+      placeholder: 'whiteSpace',
       emailRules: [
         (value) => value.length <= 128 || 'E-mail adress must be less or equal to 128 characters',
       ],
@@ -107,6 +132,21 @@ export default {
   },
 
   methods: {
+    dispatchToken() {
+      if (localStorage.getItem('authenticationToken')) {
+        this.$store.dispatch('remitAuthState', true);
+      } else {
+        localStorage.clear();
+        this.$store.dispatch('remitAuthState', false);
+      }
+    },
+
+    formValidation() {
+      if (this.isFormValid) {
+        this.login();
+      }
+    },
+
     login() {
       axios.post('http://localhost:3000/api/authentication/login', {
         email: this.email,
@@ -130,25 +170,26 @@ export default {
         });
     },
 
-    formValidation() {
-      if (this.isFormValid) {
-        this.login();
-      }
-    },
-
-    dispatchToken() {
-      if (localStorage.getItem('authenticationToken')) {
-        this.$store.dispatch('remitAuthState', true);
-      } else {
-        localStorage.clear();
-        this.$store.dispatch('remitAuthState', false);
-      }
-    },
-
     setAuthToken(token) {
       if (token) axios.defaults.headers.common.Authorization = token;
       else delete axios.defaults.headers.common.Authorization;
     },
+
+    showAuthError() {
+      this.authError = '';
+    },
   },
 };
 </script>
+
+<style>
+.whiteSpace {
+  opacity: 0;
+  transition: visibility 0.3s linear,opacity 0.3s linear;
+  visibility: hidden;
+}
+
+.authErrorAlert {
+  visibility: visible;
+}
+</style>
