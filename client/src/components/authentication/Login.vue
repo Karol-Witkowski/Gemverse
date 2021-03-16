@@ -49,8 +49,8 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Password"
                   :error-messages="passwordError"
+                  label="Password"
                   required
                   :rules="generalRules.concat(passwordRules)"
                   type="password"
@@ -107,14 +107,13 @@ export default {
   props: ['message'],
   data() {
     return {
-      password: '',
+      authError: this.message,
       email: '',
       isFormValid: false,
-      authError: this.message,
-      userError: '',
+      password: '',
       passwordError: '',
-      authErrorAlert: 'authErrorAlert',
       placeholder: 'whiteSpace',
+      userError: '',
       emailRules: [
         (value) => value.length <= 128 || 'E-mail adress must be less or equal to 128 characters',
       ],
@@ -183,13 +182,13 @@ export default {
 </script>
 
 <style>
+.authErrorAlert {
+  visibility: visible;
+}
+
 .whiteSpace {
   opacity: 0;
   transition: visibility 0.3s linear,opacity 0.3s linear;
   visibility: hidden;
-}
-
-.authErrorAlert {
-  visibility: visible;
 }
 </style>
