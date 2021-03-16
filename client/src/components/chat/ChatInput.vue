@@ -4,23 +4,16 @@
       <v-row>
         <v-col cols="12">
           <v-text-field
+            :append-outer-icon="'send'"
             color="primary"
             clearable
-            clear-icon="x"
+            clear-icon="cancel"
+            @click:append-outer="sendMessage"
             label="Message"
             type="text"
             outlined
             v-model="message"
-          >
-            <template v-slot:append-outer>
-              <v-btn
-                color="primary"
-                outlined
-              >
-                Send
-              </v-btn>
-            </template>
-          </v-text-field>
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -33,6 +26,12 @@ export default {
     return {
       message: '',
     };
+  },
+
+  methods: {
+    sendMessage() {
+      this.message = '';
+    },
   },
 };
 </script>
