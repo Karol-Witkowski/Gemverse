@@ -14,17 +14,6 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
 
 module.exports = function(passport) {
-  passport.serializeUser((user, done) => done(null, { id: user.id, _socket: user._socket }));
-
-  passport.deserializeUser((user, done) => {
-    User.findById(user.id)
-      // ADD LATER
-      //.select('-password');
-      .then((user) => {
-        done(null, { details: user, _socket: user._socket });
-      });
-  });
-
   /** JWT passport strategy */
   passport.use(
     new JwtStrategy(opts, (payload, done) => {

@@ -94,6 +94,7 @@
 
 <script>
 import axios from 'axios';
+import tokenSetter from '@/utils/authTokenSetter';
 
 export default {
   name: 'Register',
@@ -135,7 +136,7 @@ export default {
       })
         .then((response) => {
           localStorage.setItem('authenticationToken', response.data.token);
-          this.setAuthToken(response.data.token);
+          tokenSetter(response.data.token);
 
           if (response.status === 201) {
             this.$router.push({
@@ -154,11 +155,6 @@ export default {
       if (this.isFormValid) {
         this.createUser();
       }
-    },
-
-    setAuthToken(token) {
-      if (token) axios.defaults.headers.common.Authorization = token;
-      else delete axios.defaults.headers.common.Authorization;
     },
   },
 };

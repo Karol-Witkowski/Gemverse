@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User');
 
@@ -35,7 +34,7 @@ router.post('/register', async (request, response) => {
       const token = jwt.sign(
         { id: request.body.id },
         process.env.JWT_KEY,
-        { expiresIn: 24000 }
+        { expiresIn: 9000 }
       );
 
       response.status(201).send({
@@ -57,7 +56,7 @@ router.post('/login', async (request, response) => {
   const token = jwt.sign(
     { id: request.body.id },
     process.env.JWT_KEY,
-    { expiresIn: 24000 }
+    { expiresIn: 90 }
   );
 
   if (!user) {

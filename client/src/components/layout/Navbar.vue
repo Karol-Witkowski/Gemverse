@@ -56,7 +56,7 @@
       <v-tab to="/about">About</v-tab>
     </v-tabs>
     <v-tab to="/">
-      <span class="grey--text text--darken-2 appName">Gemverse</span>
+      <span class=" appName grey--text text--darken-2">Gemverse</span>
     </v-tab>
     <v-tab
       class="hidden-xs-only mx-2"
