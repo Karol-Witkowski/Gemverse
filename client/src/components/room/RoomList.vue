@@ -5,7 +5,7 @@
   >
     <v-flex
       centered
-      class="xs12 sm12 mt-6 mx-10"
+      class="xs12 sm12 mt-6 mx-6"
     >
       <v-card class="mb-6">
         <v-card-title>List of rooms</v-card-title>

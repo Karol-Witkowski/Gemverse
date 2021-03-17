@@ -1,5 +1,5 @@
 <template>
-  <v-card  cols="12">
+  <v-card cols="12">
     <v-card-title>
       <span class="headline grey--text text--darken-2">Type password to proceed</span>
     </v-card-title>

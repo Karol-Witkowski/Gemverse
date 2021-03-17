@@ -4,7 +4,7 @@
     fluid
   >
     <v-flex
-      class="xs12 sm12 mx-10"
+      class="xs12 sm12 mx-6"
     >
       <v-card>
         <v-card-title class="justify-center pt-6">

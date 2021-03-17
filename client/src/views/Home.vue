@@ -3,7 +3,7 @@
     class="mt-16 pt-16"
     fluid
   >
-    <v-flex class="xs12 sm12 mx-10">
+    <v-flex class="xs12 sm12 mx-6">
       <v-card>
         <v-card-title>
           <h3 class="grey--text text--darken-2 mb-2">
@@ -32,6 +32,16 @@
             outlined
           >
             Sign up
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions v-if="isAuthorized">
+          <v-btn
+              class="ml-2"
+              color="blue lighten-2"
+              to="/roomlist"
+              outlined
+            >
+            Room list
           </v-btn>
         </v-card-actions>
         <v-img

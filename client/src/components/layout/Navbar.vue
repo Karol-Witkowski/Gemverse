@@ -5,46 +5,107 @@
     flat
     max-height="65"
   >
-    <v-tabs color="blue lighten-3">
+    <v-menu
+      align="center"
+      justify="space-around"
+    >
+      <template v-slot:activator="{ on: menu, attrs }">
+        <v-btn
+          class="d-flex d-sm-none mx-auto"
+          color="primary"
+          dark
+          min-width="180"
+          outlined
+          v-bind="attrs"
+          v-on="{ ...menu }"
+        >
+          <v-icon>menu</v-icon>
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item to="/">Home</v-list-item>
+        <v-list-item
+          to="/roomlist"
+          v-if="isAuthorized"
+        >
+          Rooms
+        </v-list-item>
+        <v-list-item to="/about">About</v-list-item>
+        <v-list-item v-if="isAuthorized">
+          <v-btn
+            class="mx-auto"
+            @click.prevent="logout"
+            color="primary"
+            small
+            outlined
+            width="250"
+          >
+            Logout
+          </v-btn>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    <v-tabs class="hidden-xs-only" color="primary">
       <v-tab to="/">Home</v-tab>
+      <v-tab
+        to="/roomlist"
+        v-if="isAuthorized"
+      >
+        Rooms
+      </v-tab>
       <v-tab to="/about">About</v-tab>
     </v-tabs>
-    <v-tab
-      class="d-none d-sm-flex mr-2"
-      disabled
-    >
-      Gemverse
+    <v-tab to="/">
+      <span class="grey--text text--darken-2 appName">Gemverse</span>
     </v-tab>
-    <v-btn
-      color="white"
-      elevation="6"
-      icon
-      large
-      text
-      to="/"
-      outlined
+    <v-tab
+      class="hidden-xs-only mx-2"
+      @click.prevent="logout"
+      v-if="isAuthorized"
     >
-      <v-img
-        alt="Fractured gem"
-        max-width="40"
-        src="..\..\assets\img\logo.png"
-      />
-    </v-btn>
+      Logout
+    </v-tab>
   </v-app-bar>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'Navbar',
+
+  created() {
+    this.dispatchToken();
+  },
+
+  computed: {
+    ...mapActions(['remitAuthState']),
+    ...mapGetters(['isAuthorized']),
+  },
+
+  methods: {
+    dispatchToken() {
+      if (localStorage.getItem('authenticationToken')) {
+        this.$store.dispatch('remitAuthState', true);
+      } else {
+        localStorage.clear();
+        this.$store.dispatch('remitAuthState', false);
+      }
+    },
+
+    logout() {
+      if (localStorage.getItem('authenticationToken')) {
+        localStorage.clear();
+        this.$store.dispatch('remitAuthState', false);
+        this.$router.push({ name: 'Login' });
+      }
+    },
+  },
 };
 </script>
-
-<style>
-.v-tab {
-  font-size: 16px;
-}
-
-.v-tab:first-of-type {
-  margin-left: 15px;
+<style lang="scss">
+.appName {
+  font-size: 1rem;
+  letter-spacing: 4px;
 }
 </style>
