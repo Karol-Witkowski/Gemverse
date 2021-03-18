@@ -1,11 +1,5 @@
 const keys = require('../config/keys');
-/** Strategies */
-// const FacebookStrategy = require('passport-facebook').Strategy;
-// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
-
-/** User schema and config */
-// const { GoogleConfig, FBConfig } = require('../config/config');
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../models/User');
 
@@ -14,6 +8,17 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
 
 module.exports = function(passport) {
+  /* passport.serializeUser((user, done) => done(null, { id: user.id }));
+
+  passport.deserializeUser((user, done) => {
+    User.findById(user.id)
+      // ADD LATER
+      //.select('-password');
+      .then((user) => {
+        done(null, { details: user });
+      });
+  });
+
   /** JWT passport strategy */
   passport.use(
     new JwtStrategy(opts, (payload, done) => {

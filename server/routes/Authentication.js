@@ -32,9 +32,9 @@ router.post('/register', async (request, response) => {
     establishUser.save().then((UserCollection) => {
       const user = UserCollection.toObject();
       const token = jwt.sign(
-        { id: request.body.id },
+        user,
         process.env.JWT_KEY,
-        { expiresIn: 9000 }
+        { expiresIn: 24000 },
       );
 
       response.status(201).send({
@@ -54,9 +54,9 @@ router.post('/register', async (request, response) => {
 router.post('/login', async (request, response) => {
   const user = await User.findOne({ email: request.body.email });
   const token = jwt.sign(
-    { id: request.body.id },
+    user.toObject(),
     process.env.JWT_KEY,
-    { expiresIn: 90 }
+    { expiresIn: 24000 }
   );
 
   if (!user) {

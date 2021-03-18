@@ -8,8 +8,8 @@ import tokenSetter from './utils/authTokenSetter';
 
 Vue.config.productionTip = false;
 
-if (localStorage.authToken) {
-  tokenSetter(localStorage.authToken);
+if (localStorage.authenticationToken) {
+  tokenSetter(localStorage.authenticationToken);
 } else {
   tokenSetter(null);
 }

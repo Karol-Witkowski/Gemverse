@@ -137,6 +137,7 @@ export default {
         .then((response) => {
           localStorage.setItem('authenticationToken', response.data.token);
           tokenSetter(response.data.token);
+          this.dispatchToken();
 
           if (response.status === 201) {
             this.$router.push({
@@ -149,6 +150,15 @@ export default {
           this.emailError = error.response.data.email;
           this.usernameError = error.response.data.username;
         });
+    },
+
+    dispatchToken() {
+      if (localStorage.getItem('authenticationToken')) {
+        this.$store.dispatch('remitAuthState', true);
+      } else {
+        localStorage.clear();
+        this.$store.dispatch('remitAuthState', false);
+      }
     },
 
     formValidation() {

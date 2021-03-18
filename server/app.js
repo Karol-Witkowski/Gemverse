@@ -20,11 +20,11 @@ require('./db/mongoose');
 
 /** Middleware */
 app.use(logger('dev'));
+app.use(helmet());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(cors());
-app.use(helmet());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
