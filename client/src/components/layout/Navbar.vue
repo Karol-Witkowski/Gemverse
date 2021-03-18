@@ -97,6 +97,7 @@ export default {
       if (localStorage.getItem('authenticationToken')) {
         localStorage.clear();
         this.$store.dispatch('remitAuthState', false);
+        this.$store.dispatch('saveUser', '');
         this.$router.push({ name: 'Login' });
       }
     },
