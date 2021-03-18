@@ -52,17 +52,17 @@ router.post('/register', async (request, response) => {
 
 /** Login user */
 router.post('/login', async (request, response) => {
-  const user = await User.findOne({ email: request.body.email });
-  const token = jwt.sign(
-    user.toObject(),
-    process.env.JWT_KEY,
-    { expiresIn: 24000 }
-  );
+  const user = await User.findOne({ email : request.body.email });
 
   if (!user) {
     return response.status(404).json({ user: 'User not found - Try again' });
   } else {
     if (await bcrypt.compare(request.body.password, user.password)) {
+      const token = jwt.sign(
+        user.toObject(),
+        process.env.JWT_KEY,
+        { expiresIn: 24000 }
+      );
       await user.save();
       return response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
     } else return response.status(404).json({ password: 'Invalid password' });
