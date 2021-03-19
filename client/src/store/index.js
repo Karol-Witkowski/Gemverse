@@ -11,7 +11,7 @@ export default new Vuex.Store({
   },
 
   getters: {
-    getUsername: (state) => state.user,
+    getUserInfo: (state) => state.user,
     isAuthorized: (state) => state.authState,
   },
 

@@ -31,11 +31,12 @@ app.use(express.static(path.join(__dirname, 'dist')));
 const authentication = require('./routes/authentication');
 const messages = require('./routes/messages');
 const room = require('./routes/room');
+const user = require('./routes/user');
 
 app.use('/api/authentication', authentication);
 app.use('/api/messages', messages);
 app.use('/api/room', room);
-//app.use('/api/user', user);
+app.use('/api/user', user);
 
 /** Errors handler */
 app.use((request, response, next) => {

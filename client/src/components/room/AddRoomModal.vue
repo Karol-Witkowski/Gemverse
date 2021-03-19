@@ -61,6 +61,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 import * as io from 'socket.io-client';
 
 export default {
@@ -82,12 +83,15 @@ export default {
         name: '',
         password: '',
         slug: '',
+        user: '',
       },
       socket: io('http://localhost:3000'),
     };
   },
 
   methods: {
+    ...mapGetters(['getUsername']),
+
     closeModal() {
       this.$emit('close-modal');
       this.error = '';

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { getUserIdentity, isEmpty } from '../helpers/userIdentity';
 
 Vue.use(VueRouter);
 
@@ -68,6 +69,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  await getUserIdentity(next);
   if (to.meta.requiresAuth) {
     if (localStorage.getItem('authenticationToken') === null) {
       localStorage.clear();
@@ -78,7 +80,7 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next();
     }
-  } else if (!to.meta.requiresAuth) {
+  } else if (!to.meta.requiresAuth && !isEmpty(to.meta)) {
     if (localStorage.getItem('authenticationToken')) {
       next();
     } else {
