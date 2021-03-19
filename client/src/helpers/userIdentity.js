@@ -1,22 +1,22 @@
 import axios from 'axios';
 import store from '@/store';
 
-export function isEmpty(value){
-  return value === undefined ||
-    value === null ||
-    (typeof value === "object" && Object.keys(value).length === 0) ||
-    (typeof value === "string" && value.trim().length === 0)
-};
+export function isEmpty(value) {
+  return value === undefined
+    || value === null
+    || (typeof value === 'object' && Object.keys(value).length === 0)
+    || (typeof value === 'string' && value.trim().length === 0);
+}
 
 export const getUserIdentity = async (next) => {
   if (localStorage.getItem('authenticationToken')) {
     if (isEmpty(store.getters.getUserData)) {
-      const response = await axios.get('/api/user/current');
-        if (response.data) {
-          await store.dispatch('remitAuthStatee', true);
-          await store.dispatch('saveUser', respose.data);
-          next();
-        }
+      const response = await axios.get('http://localhost:3000/api/user/logged');
+      if (response.data) {
+        await store.dispatch('remitAuthState', true);
+        await store.dispatch('saveUser', response.data);
+        next();
+      }
     } else {
       next();
     }
@@ -24,4 +24,3 @@ export const getUserIdentity = async (next) => {
     next();
   }
 };
-
