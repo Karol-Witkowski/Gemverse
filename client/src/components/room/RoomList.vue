@@ -20,7 +20,7 @@
             <v-list-item-content>{{ room.name }}</v-list-item-content>
             <v-img
               alt="Red lock icon"
-              class="mx-auto"
+              class="mr-1"
               max-width="25px"
               src="..\..\assets\img\privacyAlertIcon.png"
               v-if="room.password"
@@ -58,6 +58,16 @@
                 </template>
                 <PrivateRoomModal @close-modal="closeModals"/>
               </v-dialog>
+            </v-list-item-action>
+            <v-list-item-action v-show="room.user && getUserInfo._id === room.user._id">
+              <v-btn
+                @click="console.log(x)"
+                color="secondary"
+                small
+                type="submit"
+              >
+                DELETE
+              </v-btn>
             </v-list-item-action>
           </v-list-item>
           <v-list
@@ -101,6 +111,7 @@
 import AddRoomModal from '@/components/room/AddRoomModal.vue';
 import PrivateRoomModal from '@/components/room/PrivateRoomModal.vue';
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 import * as io from 'socket.io-client';
 
 export default {
@@ -121,6 +132,10 @@ export default {
 
   created() {
     this.getRoomList();
+  },
+
+  computed: {
+    ...mapGetters(['getUserInfo']),
   },
 
   methods: {

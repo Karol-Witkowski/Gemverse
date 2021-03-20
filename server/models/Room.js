@@ -21,9 +21,10 @@ const RoomSchema = new mongoose.Schema({
     },
     maxlength: ['128', 'Password must be less or equal to 128 characters']
   },
-  username: {
+  user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    default: null
   },
   createdDate: {
     type: Date,

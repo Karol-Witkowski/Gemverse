@@ -66,9 +66,11 @@ export default {
     };
   },
 
-  methods: {
+  computed: {
     ...mapGetters(['getPrivateRoomName']),
+  },
 
+  methods: {
     closeModal() {
       this.$emit('close-modal');
       this.error = '';
@@ -78,7 +80,7 @@ export default {
 
     passwordVerification() {
       axios.post('http://localhost:3000/api/room/verification', {
-        name: this.getPrivateRoomName(),
+        name: this.getPrivateRoomName,
         password: this.privateRoomPassword,
       })
         .then((response) => {
