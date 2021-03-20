@@ -17,10 +17,21 @@
           v-for="room in rooms"
         >
           <v-list-item>
-            <v-list-item-content>{{ room.name }}</v-list-item-content>
+            <v-list-item-content class="roomName">
+              {{ room.name }}</v-list-item-content>
+              <v-btn
+                @click="console.log(x)"
+                color="secondary"
+                icon
+                small
+                v-show="getUserInfo._id === room.user"
+              >
+                <v-icon>cancel</v-icon>
+              </v-btn>
+              <v-spacer />
             <v-img
               alt="Red lock icon"
-              class="mr-1"
+              class="mr-2"
               max-width="25px"
               src="..\..\assets\img\privacyAlertIcon.png"
               v-if="room.password"
@@ -58,16 +69,6 @@
                 </template>
                 <PrivateRoomModal @close-modal="closeModals"/>
               </v-dialog>
-            </v-list-item-action>
-            <v-list-item-action v-show="room.user && getUserInfo._id === room.user._id">
-              <v-btn
-                @click="console.log(x)"
-                color="secondary"
-                small
-                type="submit"
-              >
-                DELETE
-              </v-btn>
             </v-list-item-action>
           </v-list-item>
           <v-list
@@ -168,6 +169,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.roomName {
+  flex: none;
+}
 .v-list:last-of-type > hr {
   display: none;
 }

@@ -13,13 +13,10 @@
       <v-btn
         @click="drawer = !drawer"
         color="blue lighten-3"
-        elevation="1"
         icon
         small
-        text
-        outlined
       >
-        X
+        <v-icon>cancel</v-icon>
       </v-btn>
     </v-list-item>
     <v-divider />

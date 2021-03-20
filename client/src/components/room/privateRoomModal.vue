@@ -5,8 +5,8 @@
     </v-card-title>
     <v-card-text>
       <v-form
-        type="submit"
         ref="form"
+        type="submit"
         onSubmit="return false"
         v-model="isFormValid"
       >
