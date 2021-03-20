@@ -61,6 +61,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 import * as io from 'socket.io-client';
 
 export default {
@@ -78,13 +79,16 @@ export default {
         (value) => ((value.length === 0 || value.length >= 6) && value.length <= 128) || 'Password must be at least 6 characters long',
       ],
       room: {
-        error: '',
         name: '',
         password: '',
-        slug: '',
+        user: {},
       },
       socket: io('http://localhost:3000'),
     };
+  },
+
+  computed: {
+    ...mapGetters(['getUserInfo']),
   },
 
   methods: {
@@ -112,6 +116,7 @@ export default {
 
     formValidation() {
       if (this.isFormValid) {
+        this.room.user = this.getUserInfo;
         this.createRoom();
       }
     },

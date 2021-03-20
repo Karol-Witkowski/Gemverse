@@ -23,7 +23,7 @@ export default new Vuex.Store({
     setPrivateRoomName(state, payload) {
       state.privateRoomName = payload;
     },
-    setUsername(state, payload) {
+    setUser(state, payload) {
       state.user = payload;
     },
   },
@@ -36,7 +36,7 @@ export default new Vuex.Store({
       context.commit('setPrivateRoomName', payload);
     },
     saveUser: (context, payload) => {
-      context.commit('setUsername', payload);
+      context.commit('setUser', payload);
     },
   },
 });
