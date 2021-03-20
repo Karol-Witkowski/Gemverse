@@ -152,7 +152,7 @@ export default {
           localStorage.setItem('authenticationToken', response.data.token);
           tokenSetter(response.data.token);
           this.dispatchToken();
-          this.$store.dispatch('saveUser', response.data.user.username);
+          this.$store.dispatch('saveUser', response.data.user);
 
           if (response.status === 200) {
             this.$router.push({

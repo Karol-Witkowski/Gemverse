@@ -6,33 +6,37 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     authState: false,
-    user: '',
     privateRoomName: '',
+    user: {},
   },
 
   getters: {
-    getUserInfo: (state) => state.user,
     isAuthorized: (state) => state.authState,
+    getPrivateRoomName: (state) => state.privateRoomName,
+    getUserInfo: (state) => state.user,
   },
 
   mutations: {
-    setUsername(state, payload) {
-      state.user = payload;
-    },
-    setRoomName(state, payload) {
-      state.privateRoomName = payload;
-    },
     setAuthState(state, payload) {
       state.authState = payload;
+    },
+    setPrivateRoomName(state, payload) {
+      state.privateRoomName = payload;
+    },
+    setUsername(state, payload) {
+      state.user = payload;
     },
   },
 
   actions: {
-    saveUser: (context, payload) => {
-      context.commit('setUsername', payload);
-    },
     remitAuthState: (context, payload) => {
       context.commit('setAuthState', payload);
+    },
+    markPrivateRoom: (context, payload) => {
+      context.commit('setPrivateRoomName', payload);
+    },
+    saveUser: (context, payload) => {
+      context.commit('setUsername', payload);
     },
   },
 });

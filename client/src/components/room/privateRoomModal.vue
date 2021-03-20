@@ -50,6 +50,7 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'PrivateRoomModal',
@@ -66,6 +67,8 @@ export default {
   },
 
   methods: {
+    ...mapGetters(['getPrivateRoomName']),
+
     closeModal() {
       this.$emit('close-modal');
       this.error = '';
@@ -75,7 +78,7 @@ export default {
 
     passwordVerification() {
       axios.post('http://localhost:3000/api/room/verification', {
-        name: this.$store.state.privateRoomName,
+        name: this.getPrivateRoomName(),
         password: this.privateRoomPassword,
       })
         .then((response) => {

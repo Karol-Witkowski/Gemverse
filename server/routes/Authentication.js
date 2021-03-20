@@ -1,11 +1,8 @@
-const express = require('express');
 const bcrypt = require('bcrypt');
+const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
-
-/** Middleware */
-// const registrationValidation= require('../middleware/valiation');
 
 /** Save user */
 router.post('/register', async (request, response) => {
@@ -38,8 +35,8 @@ router.post('/register', async (request, response) => {
       );
 
       response.status(201).send({
-        success: true,
         auth: true,
+        success: true,
         token: `Bearer ${ token }`,
         user
       });

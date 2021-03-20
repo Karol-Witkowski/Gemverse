@@ -8,7 +8,7 @@ const User = require('../models/User');
 router.get('/users', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const onlineUsers = await User.find({}, 'avatar email username').exec();
     if (!onlineUsers) {
-        return response.status(404).json({ error: 'No users found' });
+      return response.status(404).json({ error: 'No users found' });
     } else {
       return response
       .status(200)

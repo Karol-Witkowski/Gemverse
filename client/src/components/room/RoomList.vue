@@ -46,7 +46,7 @@
                   v-slot:activator="{ on, attrs }"
                 >
                   <v-btn
-                    @click="$store.commit('setRoomName', room.name);"
+                    @click="$store.dispatch('markPrivateRoom', room.name);"
                     color="secondary"
                     type="submit"
                     outlined
