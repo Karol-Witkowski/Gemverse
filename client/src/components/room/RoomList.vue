@@ -17,10 +17,9 @@
           v-for="room in rooms"
         >
           <v-list-item>
-            <v-list-item-content class="roomName">
-              {{ room.name }}</v-list-item-content>
+            <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
               <v-btn
-                @click="console.log(x)"
+                @click="deleteRoom(room._id)"
                 color="secondary"
                 icon
                 small
@@ -143,6 +142,15 @@ export default {
     closeModals() {
       this.addRoomModal = false;
       this.privateRoomModal = false;
+    },
+
+    deleteRoom(id) {
+      axios.delete(`http://localhost:3000/api/room/${id}`, {
+        data: this.getUserInfo,
+      })
+        .then(() => {
+        })
+        .catch((error) => console.log(error));
     },
 
     getRoomList() {

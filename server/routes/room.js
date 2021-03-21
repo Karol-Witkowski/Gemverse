@@ -49,11 +49,16 @@ router.post('/verification',  passport.authenticate('jwt', { session: false }), 
 });
 
 /** Delete room */
-router.delete('/:id', passport.authenticate('jwt', { session: false }), (request, response) => {
-  Room.findByIdAndRemove(request.body.id, request.body, (error, room) => {
-    if (error) return response.status(404).json({ error: `${ request.body.name } not found` });
-    response.status(200).json(room);
-  });
+router.delete('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
+  const room = await Room.findById({ _id: request.params.id });
+    if (!room) {
+      return response.status(404).json({ error: `Room not found` });
+    } else {
+      if (request.body._id === room.user.toString()) {
+        response.status(200).json(room);
+        room.delete();
+      } else return response.status(404).json({ error: 'Users are allowed to delete only own rooms' });
+    }
 });
 
 module.exports = router;
