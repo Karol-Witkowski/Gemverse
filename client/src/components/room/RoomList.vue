@@ -202,6 +202,8 @@ export default {
       })
         .then((response) => {
           if (response.status === 200) {
+            // eslint-disable-next-line no-underscore-dangle
+            // this.socket.emit('deleteRoom');
             this.closeModals();
           }
         })

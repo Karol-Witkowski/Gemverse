@@ -101,7 +101,8 @@ export default {
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
         .then((response) => {
-          this.socket.emit('createRoom', response.data.id, this.room.name, this.room.password, response.data.slug, response.data.user);
+          // eslint-disable-next-line no-underscore-dangle
+          this.socket.emit('createRoom', response.data._id, this.room.name, this.room.password, response.data.slug, response.data.user);
           this.resetData();
           if (response.status === 201) {
             this.closeModal();
