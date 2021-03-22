@@ -18,63 +18,64 @@
         >
           <v-list-item>
             <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
-            <v-dialog
-              overlay-opacity="0.05"
-              max-width="600px"
-              persistent
-              :retain-focus="false"
-              v-model="deleteRoomModal"
-            >
-              <template
-                class="mb-16"
-                v-slot:activator="{ on, attrs }"
+            <v-list-item-action v-if="getUserInfo._id === room.user">
+              <v-dialog
+                max-width="600px"
+                persistent
+                :retain-focus="false"
+                overlay-opacity="0.15"
+                v-model="deleteRoomModal"
               >
-                <v-btn
-                  color="secondary"
-                  icon
-                  small
-                  v-bind="attrs"
-                  v-if="getUserInfo._id === room.user"
-                  v-on="on"
+                <template
+                  class="mb-16"
+                  v-slot:activator="{ on, attrs }"
                 >
-                  <v-icon>cancel</v-icon>
-                </v-btn>
-              </template>
-              <v-card>
-                <v-card-title flat class="headline grey--text text--darken-2">
-                  Delete room
-                </v-card-title>
-                <v-card-text>
-                  Click "OK" to delete room. Removed rooms cannot be restored.
-                </v-card-text>
-                <v-card-text
-                  class="errorMsg"
-                  v-if="deleteError"
-                >
-                  {{ deleteError }}
-                </v-card-text>
-                <v-divider  />
-                <v-card-actions>
                   <v-btn
-                    @click="closeModals"
-                    color="primary"
-                    text
-                    outlined
+                    color="secondary"
+                    icon
+                    small
+                    v-bind="attrs"
+                    v-on="on"
                   >
-                    Close
+                    <v-icon>cancel</v-icon>
                   </v-btn>
-                  <v-spacer />
-                  <v-btn
-                    @click="deleteRoom(room._id)"
-                    color="primary"
-                    text
-                    outlined
+                </template>
+                <v-card>
+                  <v-card-title flat class="headline grey--text text--darken-2">
+                    Delete room
+                  </v-card-title>
+                  <v-card-text>
+                    Click "OK" to delete room. Removed rooms cannot be restored.
+                  </v-card-text>
+                  <v-card-text
+                    class="errorMsg"
+                    v-if="deleteError"
                   >
-                    OK
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
+                    {{ deleteError }}
+                  </v-card-text>
+                  <v-divider  />
+                  <v-card-actions>
+                    <v-btn
+                      @click="closeModals"
+                      color="primary"
+                      text
+                      outlined
+                    >
+                      Close
+                    </v-btn>
+                    <v-spacer />
+                    <v-btn
+                      @click="deleteRoom(room._id)"
+                      color="primary"
+                      text
+                      outlined
+                    >
+                      OK
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-list-item-action>
             <v-spacer />
             <v-img
               alt="Red lock icon"
