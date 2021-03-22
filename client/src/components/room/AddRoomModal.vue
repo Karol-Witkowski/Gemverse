@@ -81,7 +81,6 @@ export default {
       room: {
         name: '',
         password: '',
-        user: {},
       },
       socket: io('http://localhost:3000'),
     };
@@ -102,7 +101,7 @@ export default {
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
         .then((response) => {
-          this.socket.emit('createRoom', this.room.name, this.room.password, response.data.slug);
+          this.socket.emit('createRoom', response.data.id, this.room.name, this.room.password, response.data.slug, response.data.user);
           this.resetData();
           if (response.status === 201) {
             this.closeModal();

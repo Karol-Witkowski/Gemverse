@@ -34,18 +34,24 @@
                   icon
                   small
                   v-bind="attrs"
-                  v-show="getUserInfo._id === room.user"
+                  v-if="getUserInfo._id === room.user"
                   v-on="on"
                 >
                   <v-icon>cancel</v-icon>
                 </v-btn>
               </template>
-              <v-card flat>
+              <v-card>
                 <v-card-title flat class="headline grey--text text--darken-2">
                   Delete room
                 </v-card-title>
                 <v-card-text>
                   Click "OK" to delete room. Removed rooms cannot be restored.
+                </v-card-text>
+                <v-card-text
+                  class="errorMsg"
+                  v-if="deleteError"
+                >
+                  {{ deleteError }}
                 </v-card-text>
                 <v-divider  />
                 <v-card-actions>
@@ -164,6 +170,7 @@ export default {
   data() {
     return {
       addRoomModal: false,
+      deleteError: '',
       deleteRoomModal: false,
       errors: [],
       privateRoomModal: false,
@@ -183,6 +190,7 @@ export default {
   methods: {
     closeModals() {
       this.addRoomModal = false;
+      this.deleteError = '';
       this.deleteRoomModal = false;
       this.privateRoomModal = false;
     },
@@ -191,12 +199,14 @@ export default {
       axios.delete(`http://localhost:3000/api/room/${id}`, {
         data: this.getUserInfo,
       })
-        .then(() => {
-          this.deleteRoomModal = false;
+        .then((response) => {
+          if (response.status === 200) {
+            this.closeModals();
+          }
         })
         .catch((error) => {
           console.log(error);
-          this.deleteError = error;
+          this.deleteError = error.response.data.error;
         });
     },
 
@@ -205,12 +215,18 @@ export default {
         .then((response) => {
           this.rooms = response.data;
         })
-        .catch((e) => {
-          this.errors.push(e);
+        .catch((error) => {
+          this.errors.push(error);
         });
 
-      this.socket.on('newRoom', (roomName, locked, roomSlug) => {
-        this.rooms.push({ name: roomName, password: locked, slug: roomSlug });
+      this.socket.on('newRoom', (roomId, roomName, locked, roomSlug, roomCreator) => {
+        this.rooms.push({
+          _id: roomId,
+          name: roomName,
+          password: locked,
+          slug: roomSlug,
+          user: roomCreator,
+        });
       });
     },
 
@@ -226,6 +242,10 @@ export default {
 <style lang="scss">
 .v-dialog {
   box-shadow: none!important;
+}
+
+.errorMsg {
+  color: rgb(194, 57, 57)!important;
 }
 
 .roomName {
