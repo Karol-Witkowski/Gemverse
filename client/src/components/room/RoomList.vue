@@ -18,19 +18,60 @@
         >
           <v-list-item>
             <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
-              <v-btn
-                @click="deleteRoom(room._id)"
-                color="secondary"
-                icon
-                small
-                v-show="getUserInfo._id === room.user"
+            <v-dialog
+              overlay-opacity="0.05"
+              max-width="600px"
+              persistent
+              :retain-focus="false"
+              v-model="deleteRoomModal"
+            >
+              <template
+                class="mb-16"
+                v-slot:activator="{ on, attrs }"
               >
-                <v-icon>cancel</v-icon>
-              </v-btn>
-              <v-spacer />
+                <v-btn
+                  color="secondary"
+                  icon
+                  small
+                  v-bind="attrs"
+                  v-show="getUserInfo._id === room.user"
+                  v-on="on"
+                >
+                  <v-icon>cancel</v-icon>
+                </v-btn>
+              </template>
+              <v-card flat>
+                <v-card-title flat class="headline grey--text text--darken-2">
+                  Delete room
+                </v-card-title>
+                <v-card-text>
+                  Click "OK" to delete room. Removed rooms cannot be restored.
+                </v-card-text>
+                <v-divider  />
+                <v-card-actions>
+                  <v-btn
+                    @click="closeModals"
+                    color="primary"
+                    text
+                    outlined
+                  >
+                    Close
+                  </v-btn>
+                  <v-spacer />
+                  <v-btn
+                    @click="deleteRoom(room._id)"
+                    color="primary"
+                    text
+                    outlined
+                  >
+                    OK
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-spacer />
             <v-img
               alt="Red lock icon"
-              class="mr-2"
               max-width="25px"
               src="..\..\assets\img\privacyAlertIcon.png"
               v-if="room.password"
@@ -123,6 +164,7 @@ export default {
   data() {
     return {
       addRoomModal: false,
+      deleteRoomModal: false,
       errors: [],
       privateRoomModal: false,
       rooms: [],
@@ -141,6 +183,7 @@ export default {
   methods: {
     closeModals() {
       this.addRoomModal = false;
+      this.deleteRoomModal = false;
       this.privateRoomModal = false;
     },
 
@@ -149,8 +192,12 @@ export default {
         data: this.getUserInfo,
       })
         .then(() => {
+          this.deleteRoomModal = false;
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          this.deleteError = error;
+        });
     },
 
     getRoomList() {
@@ -177,6 +224,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.v-dialog {
+  box-shadow: none!important;
+}
+
 .roomName {
   flex: none;
 }

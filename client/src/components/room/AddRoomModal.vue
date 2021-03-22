@@ -1,7 +1,7 @@
 <template>
   <v-card cols="12">
-    <v-card-title>
-      <span class="headline grey--text text--darken-2">Add new room</span>
+    <v-card-title class="headline grey--text text--darken-2">
+      Add new room
     </v-card-title>
     <v-card-text>
       <v-form
