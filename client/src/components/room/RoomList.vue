@@ -7,6 +7,15 @@
       centered
       class="xs12 sm12 mt-6 mx-6"
     >
+      <v-layout>
+        <v-spacer />
+        <v-btn
+          color="primary"
+          small
+        >
+          Filter by name
+        </v-btn>
+      </v-layout>
       <v-card class="mb-6">
         <v-card-title>List of rooms</v-card-title>
         <v-divider />
