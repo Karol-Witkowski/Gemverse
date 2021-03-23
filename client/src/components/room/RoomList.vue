@@ -14,7 +14,7 @@
           class="py-0"
           cols="12"
           :key="room._id"
-          v-for="room in rooms"
+          v-for="room, index in rooms"
         >
           <v-list-item>
             <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
@@ -65,7 +65,7 @@
                     </v-btn>
                     <v-spacer />
                     <v-btn
-                      @click="deleteRoom(room._id)"
+                      @click="deleteRoom(room._id, index)"
                       color="primary"
                       text
                       outlined
@@ -176,7 +176,7 @@ export default {
       errors: [],
       privateRoomModal: false,
       rooms: [],
-      socket: io.connect('http://localhost:3000'),
+      socket: io('http://localhost:3000'),
     };
   },
 
@@ -196,14 +196,14 @@ export default {
       this.privateRoomModal = false;
     },
 
-    deleteRoom(id) {
+    deleteRoom(id, index) {
       axios.delete(`http://localhost:3000/api/room/${id}`, {
         data: this.getUserInfo,
       })
         .then((response) => {
           if (response.status === 200) {
             // eslint-disable-next-line no-underscore-dangle
-            // this.socket.emit('deleteRoom');
+            this.socket.emit('deleteRoom', index);
             this.closeModals();
           }
         })
@@ -217,12 +217,15 @@ export default {
       axios.get('http://localhost:3000/api/room')
         .then((response) => {
           this.rooms = response.data;
+          this.socket.on('removeRoomFromList', (roomIndex) => {
+            this.$delete(this.rooms, roomIndex);
+          });
         })
         .catch((error) => {
           this.errors.push(error);
         });
 
-      this.socket.on('newRoom', (roomId, roomName, locked, roomSlug, roomCreator) => {
+      this.socket.on('updateRoomList', (roomId, roomName, locked, roomSlug, roomCreator) => {
         this.rooms.push({
           _id: roomId,
           name: roomName,
