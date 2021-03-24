@@ -13,7 +13,6 @@
           @click="[toggleSort = !toggleSort, sort()]"
           color="primary"
           small
-          v-model="sort"
         >
           {{ sortBy }}
         </v-btn>
@@ -21,124 +20,126 @@
       <v-card class="mb-6">
         <v-card-title>List of rooms</v-card-title>
         <v-divider />
-        <v-list
-          class="py-0"
-          cols="12"
-          :key="room._id"
-          v-for="room, index in sortedRooms"
-        >
-          <v-list-item>
-            <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
-            <v-list-item-action v-if="getUserInfo._id === room.user">
-              <v-dialog
-                max-width="600px"
-                persistent
-                :retain-focus="false"
-                overlay-opacity="0.15"
-                v-model="deleteRoomModal"
-              >
-                <template
-                  class="mb-16"
-                  v-slot:activator="{ on, attrs }"
-                >
-                  <v-btn
-                    color="secondary"
-                    icon
-                    small
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    <v-icon>cancel</v-icon>
-                  </v-btn>
-                </template>
-                <v-card>
-                  <v-card-title flat class="headline grey--text text--darken-2">
-                    Delete room
-                  </v-card-title>
-                  <v-card-text>
-                    Click "OK" to delete room. Removed rooms cannot be restored.
-                  </v-card-text>
-                  <v-card-text
-                    class="errorMsg"
-                    v-if="deleteError"
-                  >
-                    {{ deleteError }}
-                  </v-card-text>
-                  <v-divider  />
-                  <v-card-actions>
-                    <v-btn
-                      @click="closeModals"
-                      color="primary"
-                      text
-                      outlined
-                    >
-                      Close
-                    </v-btn>
-                    <v-spacer />
-                    <v-btn
-                      @click="deleteRoom(room._id, index)"
-                      color="primary"
-                      text
-                      outlined
-                    >
-                      OK
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-list-item-action>
-            <v-spacer />
-            <v-img
-              alt="Red lock icon"
-              max-width="25px"
-              src="..\..\assets\img\privacyAlertIcon.png"
-              v-if="room.password"
-            />
-            <v-list-item-action v-if="!room.password">
-              <v-btn
-                @click="join(room.slug)"
-                color="primary"
-                outlined
-              >
-                Join
-              </v-btn>
-            </v-list-item-action>
-            <v-list-item-action v-if="room.password">
-              <v-dialog
-                max-width="600px"
-                persistent
-                :retain-focus="false"
-                v-model="privateRoomModal"
-              >
-                <template
-                  class="mb-16"
-                  v-slot:activator="{ on, attrs }"
-                >
-                  <v-btn
-                    @click="$store.dispatch('markPrivateRoom', room.name);"
-                    color="secondary"
-                    type="submit"
-                    outlined
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    Join
-                  </v-btn>
-                </template>
-                <PrivateRoomModal @close-modal="closeModals"/>
-              </v-dialog>
-            </v-list-item-action>
-          </v-list-item>
+        <transition-group name="list" tag="p">
           <v-list
+            class="py-0 list-item"
             cols="12"
-            v-if="errors && errors.length"
+            :key="room._id"
+            v-for="room, index in sortedRooms"
           >
             <v-list-item>
-              <v-list-item-content>{{ errors }}</v-list-item-content>
+              <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
+              <v-list-item-action v-if="getUserInfo._id === room.user">
+                <v-dialog
+                  max-width="600px"
+                  persistent
+                  :retain-focus="false"
+                  overlay-opacity="0.15"
+                  v-model="deleteRoomModal"
+                >
+                  <template
+                    class="mb-16"
+                    v-slot:activator="{ on, attrs }"
+                  >
+                    <v-btn
+                      color="secondary"
+                      icon
+                      small
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>cancel</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title flat class="headline grey--text text--darken-2">
+                      Delete room
+                    </v-card-title>
+                    <v-card-text>
+                      Click "OK" to delete room. Removed rooms cannot be restored.
+                    </v-card-text>
+                    <v-card-text
+                      class="errorMsg"
+                      v-if="deleteError"
+                    >
+                      {{ deleteError }}
+                    </v-card-text>
+                    <v-divider  />
+                    <v-card-actions>
+                      <v-btn
+                        @click="closeModals"
+                        color="primary"
+                        text
+                        outlined
+                      >
+                        Close
+                      </v-btn>
+                      <v-spacer />
+                      <v-btn
+                        @click="deleteRoom(room._id, index)"
+                        color="primary"
+                        text
+                        outlined
+                      >
+                        OK
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-list-item-action>
+              <v-spacer />
+              <v-img
+                alt="Red lock icon"
+                max-width="25px"
+                src="..\..\assets\img\privacyAlertIcon.png"
+                v-if="room.password"
+              />
+              <v-list-item-action v-if="!room.password">
+                <v-btn
+                  @click="join(room.slug)"
+                  color="primary"
+                  outlined
+                >
+                  Join
+                </v-btn>
+              </v-list-item-action>
+              <v-list-item-action v-if="room.password">
+                <v-dialog
+                  max-width="600px"
+                  persistent
+                  :retain-focus="false"
+                  v-model="privateRoomModal"
+                >
+                  <template
+                    class="mb-16"
+                    v-slot:activator="{ on, attrs }"
+                  >
+                    <v-btn
+                      @click="$store.dispatch('markPrivateRoom', room.name);"
+                      color="secondary"
+                      type="submit"
+                      outlined
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      Join
+                    </v-btn>
+                  </template>
+                  <PrivateRoomModal @close-modal="closeModals"/>
+                </v-dialog>
+              </v-list-item-action>
             </v-list-item>
+            <v-list
+              cols="12"
+              v-if="errors && errors.length"
+            >
+              <v-list-item>
+                <v-list-item-content>{{ errors }}</v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-divider />
           </v-list>
-          <v-divider />
-        </v-list>
+        </transition-group>
       </v-card>
       <v-dialog
         max-width="600px"
@@ -273,6 +274,14 @@ export default {
 };
 </script>
 <style lang="scss">
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 .v-dialog {
   box-shadow: none!important;
 }
