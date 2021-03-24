@@ -10,10 +10,12 @@
       <v-layout>
         <v-spacer />
         <v-btn
+          @click="[toggleSort = !toggleSort, sort()]"
           color="primary"
           small
+          v-model="sort"
         >
-          Filter by name
+          {{ sortBy }}
         </v-btn>
       </v-layout>
       <v-card class="mb-6">
@@ -23,7 +25,7 @@
           class="py-0"
           cols="12"
           :key="room._id"
-          v-for="room, index in rooms"
+          v-for="room, index in sortedRooms"
         >
           <v-list-item>
             <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
@@ -186,6 +188,9 @@ export default {
       privateRoomModal: false,
       rooms: [],
       socket: io('http://localhost:3000'),
+      sortBy: 'Sort by given name',
+      sorting: -1,
+      toggleSort: false,
     };
   },
 
@@ -195,6 +200,14 @@ export default {
 
   computed: {
     ...mapGetters(['getUserInfo']),
+    sortedRooms() {
+      if (this.toggleSort) {
+        return this.rooms.slice(0).sort((a, b) => (
+          a.name.toLowerCase() < b.name.toLowerCase() ? this.sorting : -this.sorting
+        ));
+      }
+      return this.rooms;
+    },
   },
 
   methods: {
@@ -250,6 +263,11 @@ export default {
         name: 'Room',
         params: { slug: roomSlug },
       });
+    },
+
+    sort() {
+      if (this.toggleSort) this.sortBy = 'Sort by create date';
+      else this.sortBy = 'Sort by given name';
     },
   },
 };
