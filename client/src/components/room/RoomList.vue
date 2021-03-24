@@ -42,6 +42,7 @@
                     v-slot:activator="{ on, attrs }"
                   >
                     <v-btn
+                      @click="setRoomData(room._id, index)"
                       color="secondary"
                       icon
                       small
@@ -76,7 +77,7 @@
                       </v-btn>
                       <v-spacer />
                       <v-btn
-                        @click="deleteRoom(room._id, index)"
+                        @click="deleteRoom()"
                         color="primary"
                         text
                         outlined
@@ -188,6 +189,8 @@ export default {
       errors: [],
       privateRoomModal: false,
       rooms: [],
+      roomId: '',
+      roomIndex: '',
       socket: io('http://localhost:3000'),
       sortBy: 'Sort by given name',
       sorting: -1,
@@ -219,14 +222,14 @@ export default {
       this.privateRoomModal = false;
     },
 
-    deleteRoom(id, index) {
-      axios.delete(`http://localhost:3000/api/room/${id}`, {
+    deleteRoom() {
+      axios.delete(`http://localhost:3000/api/room/${this.roomId}`, {
         data: this.getUserInfo,
       })
         .then((response) => {
           if (response.status === 200) {
             // eslint-disable-next-line no-underscore-dangle
-            this.socket.emit('deleteRoom', index);
+            this.socket.emit('deleteRoom', this.roomIndex);
             this.closeModals();
           }
         })
@@ -264,6 +267,11 @@ export default {
         name: 'Room',
         params: { slug: roomSlug },
       });
+    },
+
+    setRoomData(roomId, roomIndex) {
+      this.roomIndex = roomIndex;
+      this.roomId = roomId;
     },
 
     sort() {
