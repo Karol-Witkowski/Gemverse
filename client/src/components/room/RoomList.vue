@@ -25,7 +25,7 @@
             class="py-0 list-item"
             cols="12"
             :key="room._id"
-            v-for="room, index in sortedRooms"
+            v-for="room in sortedRooms"
           >
             <v-list-item>
               <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
@@ -42,7 +42,7 @@
                     v-slot:activator="{ on, attrs }"
                   >
                     <v-btn
-                      @click="setRoomData(room._id, index)"
+                      @click="setRoomData(room._id)"
                       color="secondary"
                       icon
                       small
@@ -172,6 +172,7 @@
 import AddRoomModal from '@/components/room/AddRoomModal.vue';
 import PrivateRoomModal from '@/components/room/PrivateRoomModal.vue';
 import axios from 'axios';
+import { remove } from 'lodash';
 import { mapGetters } from 'vuex';
 import * as io from 'socket.io-client';
 
@@ -187,10 +188,9 @@ export default {
       deleteError: '',
       deleteRoomModal: false,
       errors: [],
+      id: '',
       privateRoomModal: false,
       rooms: [],
-      roomId: '',
-      roomIndex: '',
       socket: io('http://localhost:3000'),
       sortBy: 'Sort by given name',
       sorting: -1,
@@ -200,6 +200,20 @@ export default {
 
   created() {
     this.getRoomList();
+    this.socket.on('updateRoomList', (roomId, roomName, locked, roomSlug, roomCreator) => {
+      this.sortedRooms.push({
+        _id: roomId,
+        name: roomName,
+        password: locked,
+        slug: roomSlug,
+        user: roomCreator,
+      });
+    });
+    this.socket.on('removeRoomFromList', (id) => {
+      // eslint-disable-next-line no-underscore-dangle
+      remove(this.sortedRooms, (room) => room._id === id);
+      this.$forceUpdate();
+    });
   },
 
   computed: {
@@ -223,13 +237,12 @@ export default {
     },
 
     deleteRoom() {
-      axios.delete(`http://localhost:3000/api/room/${this.roomId}`, {
+      axios.delete(`http://localhost:3000/api/room/${this.id}`, {
         data: this.getUserInfo,
       })
         .then((response) => {
           if (response.status === 200) {
-            // eslint-disable-next-line no-underscore-dangle
-            this.socket.emit('deleteRoom', this.roomIndex);
+            this.socket.emit('deleteRoom', this.id);
             this.closeModals();
           }
         })
@@ -243,23 +256,10 @@ export default {
       axios.get('http://localhost:3000/api/room')
         .then((response) => {
           this.rooms = response.data;
-          this.socket.on('removeRoomFromList', (roomIndex) => {
-            this.$delete(this.rooms, roomIndex);
-          });
         })
         .catch((error) => {
           this.errors.push(error);
         });
-
-      this.socket.on('updateRoomList', (roomId, roomName, locked, roomSlug, roomCreator) => {
-        this.rooms.push({
-          _id: roomId,
-          name: roomName,
-          password: locked,
-          slug: roomSlug,
-          user: roomCreator,
-        });
-      });
     },
 
     join(roomSlug) {
@@ -269,9 +269,8 @@ export default {
       });
     },
 
-    setRoomData(roomId, roomIndex) {
-      this.roomIndex = roomIndex;
-      this.roomId = roomId;
+    setRoomData(roomId) {
+      this.id = roomId;
     },
 
     sort() {

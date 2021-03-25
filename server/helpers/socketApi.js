@@ -16,8 +16,8 @@ io.on('connection', (socket) => {
     io.emit('updateRoomList', roomId, roomName, locked, roomSlug, roomCreator);
   });
 
-  socket.on('deleteRoom', (roomIndex) => {
-    io.emit('removeRoomFromList', roomIndex);
+  socket.on('deleteRoom', (roomId) => {
+    io.emit('removeRoomFromList', roomId);
 });
 });
 
