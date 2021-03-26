@@ -14,6 +14,7 @@
             type="text"
             outlined
             v-model="message"
+            v-on:keyup="error = ''"
             v-on:keyup.enter="sendMessage"
           />
         </v-col>
