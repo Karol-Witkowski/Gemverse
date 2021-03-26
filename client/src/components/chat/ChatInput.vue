@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form @submit.prevent>
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -11,7 +11,6 @@
             @click:append-outer="sendMessage"
             :error-messages="error"
             label="Message"
-            type="text"
             outlined
             v-model="message"
             v-on:keyup="error = ''"
