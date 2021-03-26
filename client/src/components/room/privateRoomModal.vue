@@ -67,7 +67,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getPrivateRoomName']),
+    ...mapGetters(['getCurrentRoom']),
   },
 
   methods: {
@@ -80,7 +80,7 @@ export default {
 
     passwordVerification() {
       axios.post('http://localhost:3000/api/room/verification', {
-        name: this.getPrivateRoomName,
+        name: this.getCurrentRoom.name,
         password: this.privateRoomPassword,
       })
         .then((response) => {

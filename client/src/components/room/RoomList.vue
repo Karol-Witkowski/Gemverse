@@ -97,7 +97,7 @@
               />
               <v-list-item-action v-if="!room.password">
                 <v-btn
-                  @click="join(room.slug)"
+                  @click="[join(room.slug), $store.dispatch('saveCurrentRoom', room)]"
                   color="primary"
                   outlined
                 >
@@ -116,7 +116,7 @@
                     v-slot:activator="{ on, attrs }"
                   >
                     <v-btn
-                      @click="$store.dispatch('markPrivateRoom', room.name);"
+                      @click="$store.dispatch('saveCurrentRoom', room)"
                       color="secondary"
                       type="submit"
                       outlined

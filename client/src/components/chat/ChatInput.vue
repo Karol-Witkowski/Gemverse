@@ -21,6 +21,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -28,9 +31,27 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters(['getUserInfo']),
+  },
+
   methods: {
     sendMessage() {
-      this.message = '';
+      axios.post('http://localhost:3000/api/messages', {
+        message: this.message,
+        user: this.getUserInfo.username,
+      })
+        .then((response) => {
+          if (response.status === 201) {
+            this.socket.emit('newMessage',
+              this.message,
+              this.getUserInfo.username);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.error = error.response.data.error;
+        });
     },
   },
 };
