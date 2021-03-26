@@ -9,10 +9,12 @@
             clearable
             clear-icon="cancel"
             @click:append-outer="sendMessage"
+            :error-messages="error"
             label="Message"
             type="text"
             outlined
             v-model="message"
+            v-on:keyup.enter="sendMessage"
           />
         </v-col>
       </v-row>
@@ -27,6 +29,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
+      error: '',
       message: '',
       messageData: {
         message: this.message,

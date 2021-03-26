@@ -72,7 +72,7 @@ export default {
       isFormValid: false,
       nameRules: [
         (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
-        (value) => !!value || 'Required.',
+        (value) => !!value || 'Required',
       ],
       passwordRules: [
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
