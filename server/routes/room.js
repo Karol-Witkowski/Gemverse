@@ -55,8 +55,8 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
       return response.status(404).json({ error: `Room not found` });
     } else {
       if (request.body._id === room.user.toString()) {
-        response.status(200).json(room);
         room.delete();
+        response.status(200).json({ message: 'Room deleted'});
       } else return response.status(404).json({ error: 'Users are allowed to delete only own rooms' });
     }
 });

@@ -200,18 +200,12 @@ export default {
 
   created() {
     this.getRoomList();
-    this.socket.on('updateRoomList', (roomId, roomName, locked, roomSlug, roomCreator) => {
-      this.sortedRooms.push({
-        _id: roomId,
-        name: roomName,
-        password: locked,
-        slug: roomSlug,
-        user: roomCreator,
-      });
-    });
     this.socket.on('removeRoomFromList', (id) => {
       // eslint-disable-next-line no-underscore-dangle
       remove(this.sortedRooms, (room) => room._id === id);
+      this.$forceUpdate();
+      // eslint-disable-next-line no-underscore-dangle
+      remove(this.rooms, (room) => room._id === id);
       this.$forceUpdate();
     });
   },
@@ -238,6 +232,7 @@ export default {
 
     deleteRoom() {
       axios.delete(`http://localhost:3000/api/room/${this.id}`, {
+        // eslint-disable-next-line no-underscore-dangle
         data: this.getUserInfo,
       })
         .then((response) => {
@@ -256,6 +251,17 @@ export default {
       axios.get('http://localhost:3000/api/room')
         .then((response) => {
           this.rooms = response.data;
+          this.socket.on('updateRoomList', (roomId, roomName, locked, roomSlug, roomCreator) => {
+            if (roomId !== this.id) {
+              this.rooms.push({
+                _id: roomId,
+                name: roomName,
+                password: locked,
+                slug: roomSlug,
+                user: roomCreator,
+              });
+            }
+          });
         })
         .catch((error) => {
           this.errors.push(error);
@@ -269,8 +275,8 @@ export default {
       });
     },
 
-    setRoomData(roomId) {
-      this.id = roomId;
+    setRoomData(idNumber) {
+      this.id = idNumber;
     },
 
     sort() {

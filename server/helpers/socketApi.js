@@ -18,7 +18,7 @@ io.on('connection', (socket) => {
 
   socket.on('deleteRoom', (roomId) => {
     io.emit('removeRoomFromList', roomId);
-});
+  });
 });
 
 module.exports = socketApi;
