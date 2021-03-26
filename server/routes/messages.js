@@ -14,7 +14,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), (request, r
 /** Save message */
 router.post('/', passport.authenticate('jwt', { session: false }), (request, response) => {
   if (!request.body.message) {
-    return response.status(404).json({ error: 'Message must contain at least one character' });
+    return response.status(404).json({ error: 'Message must be at least 1 characters long' });
   } else {
     Message.create(request.body);
     response.status(201).json(message);

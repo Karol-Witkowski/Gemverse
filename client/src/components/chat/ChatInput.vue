@@ -28,24 +28,24 @@ export default {
   data() {
     return {
       message: '',
+      messageData: {
+        message: this.message,
+        room: this.getCurrentRoom,
+        user: this.getUserInfo,
+      },
     };
   },
 
   computed: {
-    ...mapGetters(['getUserInfo']),
+    ...mapGetters(['getCurrentRoom', 'getUserInfo']),
   },
 
   methods: {
     sendMessage() {
-      axios.post('http://localhost:3000/api/messages', {
-        message: this.message,
-        user: this.getUserInfo.username,
-      })
+      axios.post('http://localhost:3000/api/messages', this.messageData)
         .then((response) => {
           if (response.status === 201) {
-            this.socket.emit('newMessage',
-              this.message,
-              this.getUserInfo.username);
+            this.socket.emit('newMessage', this.messageData);
           }
         })
         .catch((error) => {
