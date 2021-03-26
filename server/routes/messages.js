@@ -13,10 +13,12 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), (request, r
 
 /** Save message */
 router.post('/', passport.authenticate('jwt', { session: false }), (request, response) => {
-  Message.create(request.body, (error, message) => {
-    if (error) return response.status(404).json({ error: 'Message can not be empty' });
+  if (!request.body.message) {
+    return response.status(404).json({ error: 'Message must contain at least one character' });
+  } else {
+    Message.create(request.body);
     response.status(201).json(message);
-  });
+  }
 });
 
 module.exports = router;
