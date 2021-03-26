@@ -172,7 +172,7 @@
 import AddRoomModal from '@/components/room/AddRoomModal.vue';
 import PrivateRoomModal from '@/components/room/PrivateRoomModal.vue';
 import axios from 'axios';
-import { remove } from 'lodash';
+import remove from 'lodash.remove';
 import { mapGetters } from 'vuex';
 import * as io from 'socket.io-client';
 
@@ -203,7 +203,6 @@ export default {
     this.socket.on('removeRoomFromList', (id) => {
       // eslint-disable-next-line no-underscore-dangle
       remove(this.sortedRooms, (room) => room._id === id);
-      this.$forceUpdate();
       // eslint-disable-next-line no-underscore-dangle
       remove(this.rooms, (room) => room._id === id);
       this.$forceUpdate();
@@ -232,7 +231,6 @@ export default {
 
     deleteRoom() {
       axios.delete(`http://localhost:3000/api/room/${this.id}`, {
-        // eslint-disable-next-line no-underscore-dangle
         data: this.getUserInfo,
       })
         .then((response) => {
