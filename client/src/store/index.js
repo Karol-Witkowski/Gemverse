@@ -7,13 +7,11 @@ export default new Vuex.Store({
   state: {
     authState: false,
     currentRoom: {},
-    privateRoomName: '',
     user: {},
   },
 
   getters: {
     isAuthorized: (state) => state.authState,
-    getPrivateRoomName: (state) => state.privateRoomName,
     getCurrentRoom: (state) => state.currentRoom,
     getUserInfo: (state) => state.user,
   },
@@ -21,9 +19,6 @@ export default new Vuex.Store({
   mutations: {
     setAuthState(state, payload) {
       state.authState = payload;
-    },
-    setPrivateRoomName(state, payload) {
-      state.privateRoomName = payload;
     },
     setCurrentRoom(state, payload) {
       state.currentRoom = payload;
@@ -36,9 +31,6 @@ export default new Vuex.Store({
   actions: {
     remitAuthState: (context, payload) => {
       context.commit('setAuthState', payload);
-    },
-    markPrivateRoom: (context, payload) => {
-      context.commit('setPrivateRoomName', payload);
     },
     saveCurrentRoom: (context, payload) => {
       context.commit('setCurrentRoom', payload);
