@@ -16,9 +16,11 @@ router.post('/', passport.authenticate('jwt', { session: false }), (request, res
   if (!request.body.message) {
     return response.status(404).json({ error: 'Message must be at least 1 characters long' });
   } else {
-    Message.create(request.body)
-    response.status(201);
-  };
+    Message.create(request.body, (error, message) => {
+      if (error) return response.status(403).json({ error: 'Validation failed, please login again' });
+      return response.status(201).json(message);
+    });
+  }
 });
 
 module.exports = router;

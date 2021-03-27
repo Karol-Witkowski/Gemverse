@@ -22,7 +22,7 @@ router.get('/:name', passport.authenticate('jwt', { session: false }), async (re
 
 /** Save room */
 router.post('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const room = await Room.findOne( { name :  { $regex : new RegExp(request.body.name, 'i') } } );
+  const room = await Room.findOne({ name :  { $regex : new RegExp(request.body.name, 'i') } });
 
   if (room !== null) {
     return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });

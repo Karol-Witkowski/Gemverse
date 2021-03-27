@@ -3,9 +3,7 @@
     class="mt-16 pt-16"
     fluid
   >
-    <v-flex
-      class="xs12 mx-6"
-    >
+    <v-flex class="xs12 mx-6">
       <v-card>
         <v-card-title>
           <h3 class="grey--text mb-2 text--darken-1">

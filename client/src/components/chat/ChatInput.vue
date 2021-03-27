@@ -9,11 +9,11 @@
             clearable
             clear-icon="cancel"
             @click:append-outer="sendMessage"
-            :error-messages="error"
+            :error-messages="inputError"
             label="Message"
             outlined
             v-model="message"
-            v-on:keyup="error = ''"
+            v-on:keyup="inputError = ''"
             v-on:keyup.enter="sendMessage"
           />
         </v-col>
@@ -29,7 +29,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      error: '',
+      inputError: '',
       message: '',
     };
   },
@@ -47,14 +47,15 @@ export default {
       })
         .then((response) => {
           if (response.status === 201) {
-            this.socket.emit('newMessage',
+            /* this.socket.emit('newMessage',
               this.message,
-              this.getUserInfo);
+              this.getUserInfo); */
+            this.message = '';
           }
         })
         .catch((error) => {
           console.log(error);
-          this.error = error.response.data.error;
+          this.inputError = error.response.data.error;
         });
     },
   },
