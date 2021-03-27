@@ -14,7 +14,7 @@
         Leave room
       </v-btn>
     </v-row>
-    <ChatMessages />
+    <ChatMessages :messages="messages"/>
     <ChatSideMenu />
     <ChatInput />
   </v-main>
@@ -24,6 +24,7 @@
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import ChatInput from '@/components/chat/ChatInput.vue';
 import ChatSideMenu from '@/components/chat/ChatSideMenu.vue';
+import axios from 'axios';
 
 export default {
   name: 'Room',
@@ -31,6 +32,46 @@ export default {
     ChatMessages,
     ChatInput,
     ChatSideMenu,
+  },
+  data() {
+    return {
+      messages: {},
+    };
+  },
+
+  created() {
+    this.getRoomData();
+  },
+
+  methods: {
+    getMessages(roomId) {
+      axios.get(`http://localhost:3000/api/messages/${roomId}`)
+        .then((response) => {
+          this.messages = response.data;
+          /* this.socket.on('messages', (roomId) => {
+          }); */
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getRoomData() {
+      axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
+        .then((response) => {
+          // eslint-disable-next-line no-underscore-dangle
+          this.getMessages(response.data._id);
+          this.$store.dispatch('saveCurrentRoom', response.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.$router.push({
+              name: 'RoomList',
+              params: { message: 'Room not found' },
+            });
+          }
+        });
+    },
   },
 };
 </script>

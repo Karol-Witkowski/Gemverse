@@ -13,16 +13,16 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (request
 });
 
 /** Get single room by name */
-router.get('/:name', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await Room.findById(request.params.id, function (error, room) {
-    if (error) return response.status(404).json({ error: `${ request.body.name } not found` });
+router.get('/:slug', passport.authenticate('jwt', { session: false }), async (request, response) => {
+  await Room.findOne({ slug: request.params.slug }, function (error, room) {
+    if (error) return response.status(404).json({ error: `${ request.params.slug } not found` });
     response.status(200).json(room);
   });
 });
 
 /** Save room */
 router.post('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const room = await Room.findOne({ name :  { $regex : new RegExp(request.body.name, 'i') } });
+  const room = await Room.findOne({ name:  { $regex : new RegExp(request.body.name, 'i') } });
 
   if (room !== null) {
     return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
