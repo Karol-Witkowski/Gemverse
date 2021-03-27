@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'SideMenu',
+  name: 'ChatSideMenu',
   data() {
     return {
       drawer: true,

@@ -11,6 +11,7 @@
             @click:append-outer="sendMessage"
             :error-messages="inputError"
             label="Message"
+            :rules="messageRules"
             outlined
             v-model="message"
             v-on:keyup="inputError = ''"
@@ -29,8 +30,12 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
+      isFormValid: false,
       inputError: '',
       message: '',
+      messageRules: [
+        (value) => (value.length <= 4000) || 'Message must be less or equal to 4000 characters',
+      ],
     };
   },
 
@@ -46,11 +51,11 @@ export default {
         user: this.getUserInfo,
       })
         .then((response) => {
-          if (response.status === 201) {
+          this.message = '';
+          if (response.status === 200) {
             /* this.socket.emit('newMessage',
               this.message,
               this.getUserInfo); */
-            this.message = '';
           }
         })
         .catch((error) => {

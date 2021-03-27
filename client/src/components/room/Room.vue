@@ -15,7 +15,7 @@
       </v-btn>
     </v-row>
     <ChatMessages />
-    <SideMenu />
+    <ChatSideMenu />
     <ChatInput />
   </v-main>
 </template>
@@ -23,14 +23,14 @@
 <script>
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import ChatInput from '@/components/chat/ChatInput.vue';
-import SideMenu from '@/components/layout/SideMenu.vue';
+import ChatSideMenu from '@/components/chat/ChatSideMenu.vue';
 
 export default {
   name: 'Room',
   components: {
     ChatMessages,
     ChatInput,
-    SideMenu,
+    ChatSideMenu,
   },
 };
 </script>

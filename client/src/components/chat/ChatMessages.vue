@@ -3,72 +3,66 @@
     <v-list
       class="scrollBar overflow-y-auto"
       color="rgb(248, 248, 248)"
+      :key="message._id"
       three-line
+      v-for="message in messages"
     >
-      <template v-for="(item, index) in items">
-        <v-divider
-          class="msgDivider"
-          :inset="item.inset"
-          :key="index"
-        />
-        <v-list-item :key="item.username">
+      <template>
+        <v-divider class="msgDivider" :key="message.user" />
+        <v-list-item :key="message._id">
           <v-list-item-avatar>
-            <v-img :src="item.avatar" />
+            AVA
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title v-html="item.username" />
-            <v-list-item-subtitle v-html="item.message" />
+            <v-list-item-title>
+              {{ message.user }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ message.message }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
+      <v-divider />
     </v-list>
   </v-main>
 </template>
 
 <script>
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'ChatMessages',
   data() {
     return {
       drawerToggle: false,
-      items: [
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          username: 'Ali Connors',
-          message: 'I\'ll be in your neighborhood doing errands this weekend. Do you want to hang out?',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          username: 'Antonio Muaer',
-          message: 'Wish I could come, but I\'m out of town this weekend.',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          username: 'Sandra Adams',
-          message: 'Have you ever been?',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          username: 'Ana Hansen',
-          message: 'Have any ideas about what we should get Heidi for her birthday?',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          username: 'Britta Holtt',
-          message: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-          username: 'Britta Holt',
-          message: 'Banana, chilli, kimchi and eggs, fells good.',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          username: 'Ana Hanseń',
-          message: 'Gemverse is a chat app that keeps you connected with coworker and friends wherever you are. User can create own rooms or join to one already made. Gemverse is created by combining Vue, Vuetify, Express, Socket.io, MongoDB and more. The app aims to provide an alternative for friends to hang around and chat. The app is based on rooms - organized channels allow you to talk about programming, hobbies, games and more. Check my profile at GitHub.',
-        },
-      ],
+      messages: {},
     };
+  },
+
+  created() {
+    this.getMessages();
+  },
+
+  computed: {
+    ...mapGetters(['getCurrentRoom']),
+  },
+
+  methods: {
+    getMessages() {
+      // eslint-disable-next-line no-underscore-dangle
+      axios.get(`http://localhost:3000/api/messages/${this.getCurrentRoom._id}`)
+        .then((response) => {
+          this.messages = response.data;
+          console.log(this.messages);
+          /* this.socket.on('messages', (roomId) => {
+          }); */
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
