@@ -31,11 +31,6 @@ export default {
     return {
       error: '',
       message: '',
-      messageData: {
-        message: this.message,
-        room: this.getCurrentRoom,
-        user: this.getUserInfo,
-      },
     };
   },
 
@@ -45,10 +40,16 @@ export default {
 
   methods: {
     sendMessage() {
-      axios.post('http://localhost:3000/api/messages', this.messageData)
+      axios.post('http://localhost:3000/api/messages', {
+        message: this.message,
+        room: this.getCurrentRoom,
+        user: this.getUserInfo,
+      })
         .then((response) => {
           if (response.status === 201) {
-            this.socket.emit('newMessage', this.messageData);
+            this.socket.emit('newMessage',
+              this.message,
+              this.getUserInfo);
           }
         })
         .catch((error) => {

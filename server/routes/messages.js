@@ -16,9 +16,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), (request, res
   if (!request.body.message) {
     return response.status(404).json({ error: 'Message must be at least 1 characters long' });
   } else {
-    Message.create(request.body);
-    response.status(201).json(message);
-  }
+    Message.create(request.body)
+    response.status(201);
+  };
 });
 
 module.exports = router;
