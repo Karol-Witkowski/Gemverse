@@ -7,19 +7,23 @@
   >
     <v-list-item class="ma-1 px-1">
       <v-list-item-avatar>
-        <v-img src="https://randomuser.me/api/portraits/women/27.jpg" />
+        <img :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo._id)}`" />
       </v-list-item-avatar>
-      <v-list-item-title class="userName">Ana Mikovič</v-list-item-title>
-      <v-btn
-        @click="drawer = !drawer"
-        color="blue lighten-3"
-        icon
-        small
-      >
-        <v-icon>cancel</v-icon>
-      </v-btn>
+      <v-list-item-title class="userName">{{ getUserInfo.username }}</v-list-item-title>
     </v-list-item>
     <v-divider />
+    <v-layout>
+      <v-spacer />
+      <v-btn
+        @click="drawer = !drawer"
+        color="primary"
+        icon
+        small
+        v-if="!drawer"
+      >
+          <v-icon>cancel</v-icon>
+      </v-btn>
+    </v-layout>
     <v-container v-if="!drawer">
       <v-list-item-title class="ml-7 mt-1 text-uppercase">Users list</v-list-item-title>
       <v-list>
@@ -29,12 +33,9 @@
         >
           <v-list-item-content>
             <v-avatar>
-              <v-img
-                :src="user.avatar"
-                max-width="45"
-              />
+              <img :src="`data:image/svg+xml;utf8,${generateAvatar(user._id)}`" />
             </v-avatar>
-            <v-list-item-title class="ml-10 mt-1 userName">{{ user.name }}</v-list-item-title>
+            <v-list-item-title class="ml-10 mb-3 mt-1 userName">{{ user.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -43,6 +44,9 @@
 </template>
 
 <script>
+import { generateFromString } from 'generate-avatar';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'ChatSideMenu',
   data() {
@@ -50,24 +54,36 @@ export default {
       drawer: true,
       users: [
         {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+          _id: 'gg0533221feasasa1dabc363a',
           name: 'User1',
         },
         {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+          _id: '6053d3648d69af3e5cb691a3',
           name: 'User2',
         },
         {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          _id: '69xdqqwq614159138c4526ff2',
           name: 'User3',
         },
       ],
     };
+  },
+
+  computed: {
+    ...mapGetters(['getUserInfo']),
+  },
+
+  methods: {
+    generateAvatar(id) {
+      return generateFromString(id);
+    },
   },
 };
 </script>
 <style lang="scss">
 .userName {
   font-size: 12px;
+  font-weight: 550;
+  margin-left: -10px;
 }
 </style>

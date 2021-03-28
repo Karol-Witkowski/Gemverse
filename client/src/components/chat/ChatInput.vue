@@ -2,7 +2,7 @@
   <v-form @submit.prevent>
     <v-container>
       <v-row>
-        <v-col cols="12">
+        <v-col cols="15">
           <v-text-field
             :append-outer-icon="'send'"
             color="primary"
