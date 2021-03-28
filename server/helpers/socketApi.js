@@ -19,6 +19,10 @@ io.on('connection', (socket) => {
   socket.on('deleteRoom', (roomId) => {
     io.emit('removeRoomFromList', roomId);
   });
+
+  socket.on('sendMessage', (messageContent, room, creator) => {
+    io.emit('updateMessages', messageContent, room, creator);
+  });
 });
 
 module.exports = socketApi;

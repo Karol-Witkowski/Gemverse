@@ -24,7 +24,9 @@
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import ChatInput from '@/components/chat/ChatInput.vue';
 import ChatSideMenu from '@/components/chat/ChatSideMenu.vue';
+
 import axios from 'axios';
+import * as io from 'socket.io-client';
 
 export default {
   name: 'Room',
@@ -36,6 +38,7 @@ export default {
   data() {
     return {
       messages: {},
+      socket: io('http://localhost:3000'),
     };
   },
 
@@ -48,8 +51,14 @@ export default {
       axios.get(`http://localhost:3000/api/messages/${roomId}`)
         .then((response) => {
           this.messages = response.data;
-          /* this.socket.on('messages', (roomId) => {
-          }); */
+          this.socket.on('updateMessages', (messageContent, room, creator) => {
+            this.messages.push({
+              // _id: sprawdz czy trzeba,
+              message: messageContent,
+              room,
+              user: creator,
+            });
+          });
         })
         .catch((error) => {
           console.log(error);

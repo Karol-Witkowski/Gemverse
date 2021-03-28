@@ -26,6 +26,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex';
+import * as io from 'socket.io-client';
 
 export default {
   data() {
@@ -36,6 +37,7 @@ export default {
       messageRules: [
         (value) => (value.length <= 4000) || 'Message must be less or equal to 4000 characters',
       ],
+      socket: io('http://localhost:3000'),
     };
   },
 
@@ -52,10 +54,11 @@ export default {
       })
         .then((response) => {
           this.message = '';
-          if (response.status === 200) {
-            /* this.socket.emit('newMessage',
+          if (response.status === 201) {
+            this.socket.emit('sendMessage',
               this.message,
-              this.getUserInfo); */
+              this.getCurrentRoom,
+              this.getUserInfo);
           }
         })
         .catch((error) => {
