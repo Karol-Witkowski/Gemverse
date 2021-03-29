@@ -54,9 +54,11 @@ export default {
       })
         .then((response) => {
           if (response.status === 201) {
-            this.socket.emit('sendMessage',
-              this.message,
-              this.getUserInfo);
+            this.socket.emit('sendMessage', {
+              message: this.message,
+              room: this.getCurrentRoom,
+              user: this.getUserInfo,
+            });
           }
           this.message = '';
         })

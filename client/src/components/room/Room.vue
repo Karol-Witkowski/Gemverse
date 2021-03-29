@@ -44,6 +44,13 @@ export default {
 
   created() {
     this.getRoomData();
+    this.socket.on('updateMessages', (data) => {
+      this.messages.push({
+        message: data.message,
+        room: data.room,
+        user: data.user,
+      });
+    });
   },
 
   methods: {
@@ -51,12 +58,6 @@ export default {
       axios.get(`http://localhost:3000/api/messages/${roomId}`)
         .then((response) => {
           this.messages = response.data;
-          this.socket.on('updateMessages', (messageContent, creator) => {
-            this.messages.push({
-              message: messageContent,
-              user: creator,
-            });
-          });
         })
         .catch((error) => {
           console.log(error);

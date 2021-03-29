@@ -29,8 +29,8 @@ io.on('connection', (socket) => {
     io.emit('removeRoomFromList', roomId);
   });
 
-  socket.on('sendMessage', (messageContent, creator) => {
-    io.to(currentRoom).emit('updateMessages', messageContent, creator);
+  socket.on('sendMessage', (data) => {
+    io.emit('updateMessages', data);
   });
 });
 
