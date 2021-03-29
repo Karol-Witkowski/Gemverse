@@ -26,6 +26,7 @@ import ChatInput from '@/components/chat/ChatInput.vue';
 import ChatSideMenu from '@/components/chat/ChatSideMenu.vue';
 
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 import * as io from 'socket.io-client';
 
 export default {
@@ -53,26 +54,17 @@ export default {
     });
   },
 
-  methods: {
-    getMessages(roomId) {
-      axios.get(`http://localhost:3000/api/messages/${roomId}`)
-        .then((response) => {
-          this.messages = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+  computed: {
+    ...mapGetters(['getCurrentRoom', 'getUserInfo']),
+  },
 
+  methods: {
     getRoomData() {
       axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
         .then((response) => {
-          // eslint-disable-next-line no-underscore-dangle
-          this.getMessages(response.data._id);
           this.$store.dispatch('saveCurrentRoom', response.data);
           this.socket.emit('joinRoom', {
-            message: `User ${this.getUserInfo.username} connected to ${this.getCurrentRoom.name}`,
-            room: this.getCurrentInfo,
+            room: this.getCurrentRoom,
             user: this.getUserData,
           });
         })

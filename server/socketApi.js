@@ -1,5 +1,9 @@
 const socketio = require('socket.io');
 const { handleJoinRoom } = require('./helpers/socketHelpers');
+const {
+  newMessage,
+} = require('./actions/socketActions');
+
 const io = socketio({
   cors: {
     credentials: true,
@@ -29,8 +33,9 @@ io.on('connection', (socket) => {
     io.emit('removeRoomFromList', roomId);
   });
 
-  socket.on('sendMessage', (data) => {
-    io.emit('updateMessages', data);
+  socket.on('sendMessage', async (data) => {
+    const message = await newMessage(data);
+    io.to(data.room._id).emit('updateMessages', JSON.stringify(message));
   });
 });
 

@@ -15,12 +15,16 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), (request, r
 router.post('/', passport.authenticate('jwt', { session: false }), (request, response) => {
   if (!request.body.message) {
     return response.status(404).json({ error: 'Message must be at least 1 characters long' });
-  } else {
-    Message.create(request.body, (error, message) => {
-      if (error) return response.status(403).json({ error: 'Validation failed, please login again' });
-      return response.status(201).json(message);
-    });
   }
+  if (error) return response.status(403).json({ error: 'Validation failed, please login again' });
+
+  const message = new Message({
+    message: request.body.message,
+    user: request.body.user,
+    room: request.body.room,
+  }).save();
+
+  return response.status(201).json(message);
 });
 
 module.exports = router;
