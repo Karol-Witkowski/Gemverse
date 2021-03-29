@@ -102,13 +102,7 @@ export default {
       axios.post('http://localhost:3000/api/room', this.room)
         .then((response) => {
           if (response.status === 201) {
-            this.socket.emit('createRoom',
-            // eslint-disable-next-line no-underscore-dangle
-              response.data._id,
-              this.room.name,
-              this.room.password,
-              response.data.slug,
-              response.data.user);
+            this.socket.emit('createRoom', response.data);
             this.closeModal();
           }
         })

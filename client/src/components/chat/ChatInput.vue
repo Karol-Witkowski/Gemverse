@@ -53,13 +53,12 @@ export default {
         user: this.getUserInfo,
       })
         .then((response) => {
-          this.message = '';
           if (response.status === 201) {
             this.socket.emit('sendMessage',
               this.message,
-              this.getCurrentRoom,
               this.getUserInfo);
           }
+          this.message = '';
         })
         .catch((error) => {
           console.log(error);

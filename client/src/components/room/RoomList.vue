@@ -116,6 +116,7 @@
                     v-slot:activator="{ on, attrs }"
                   >
                     <v-btn
+                      @click="$store.dispatch('saveCurrentRoom', room)"
                       color="secondary"
                       type="submit"
                       outlined
@@ -248,14 +249,17 @@ export default {
       axios.get('http://localhost:3000/api/room')
         .then((response) => {
           this.rooms = response.data;
-          this.socket.on('updateRoomList', (roomId, roomName, locked, roomSlug, roomCreator) => {
-            if (roomId !== this.id) {
+          this.socket.on('updateRoomList', (data) => {
+            console.log(data.name);
+            // eslint-disable-next-line no-underscore-dangle
+            if (data._id !== this.id) {
               this.rooms.push({
-                _id: roomId,
-                name: roomName,
-                password: locked,
-                slug: roomSlug,
-                user: roomCreator,
+                // eslint-disable-next-line no-underscore-dangle
+                _id: data._id,
+                name: data.name,
+                password: data.password,
+                slug: data.slug,
+                user: data.user,
               });
             }
           });
