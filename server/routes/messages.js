@@ -4,11 +4,13 @@ const passport = require('passport');
 const router = express.Router();
 
 /** Get single message by id */
-router.get('/:id', passport.authenticate('jwt', { session: false }), (request, response) => {
-  Message.find({ room: request.params.id }, (error, message) => {
-    if (error) return response.status(404).json({ error: 'Messages not found' });
-    response.status(200).json(message);
-  });
+router.get('/:room_id', passport.authenticate('jwt', { session: false }), async (request, response) => {
+  const messages = await Message.find({ room: request.params.id  });
+    if (messages) {
+        return res.status(200).json(messages);
+    } else {
+        return res.status(404).json({ error: 'Messages not found' });
+    }
 });
 
 /** Save message */

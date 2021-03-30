@@ -11,9 +11,9 @@ export default new Vuex.Store({
   },
 
   getters: {
-    isAuthorized: (state) => state.authState,
     getCurrentRoom: (state) => state.currentRoom,
     getUserInfo: (state) => state.user,
+    isAuthorized: (state) => state.authState,
   },
 
   mutations: {

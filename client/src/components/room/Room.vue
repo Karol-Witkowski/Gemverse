@@ -67,6 +67,16 @@ export default {
             room: this.getCurrentRoom,
             user: this.getUserData,
           });
+          this.socket.on('updateRoom', (data) => {
+            const roomMessages = JSON.parse(data.messages);
+            if (roomMessages) {
+              this.messages = roomMessages;
+            }
+          });
+
+          this.getSocket.on('updateMessages', (message) => {
+            this.messages.push(JSON.parse(message));
+          });
         })
         .catch((error) => {
           if (error.status === 404) {

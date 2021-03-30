@@ -2,18 +2,18 @@ const { Message } = require('../models/Message');
 
 module.exports = {
   newMessage: async (data) => {
-    const message = await new Message({
-      content: data.content,
-      user: data.user._id || null,
+    const createdMessage = await new Message({
+      message: data.message,
+      user: data.user._id,// || null,
       room: data.room._id
     }).save();
 
-    return Message.populate(message, {
+    return Message.populate(createdMessage, {
       path: 'user',
       select: 'username'
     });
   },
-  getMessages: async data => {
+  getMessages: async (data) => {
     return await Message.find({ room: data.room._id }).populate('user', [
       'username',
     ]);

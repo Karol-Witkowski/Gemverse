@@ -250,7 +250,6 @@ export default {
         .then((response) => {
           this.rooms = response.data;
           this.socket.on('updateRoomList', (data) => {
-            console.log(data.name);
             // eslint-disable-next-line no-underscore-dangle
             if (data._id !== this.id) {
               this.rooms.push({

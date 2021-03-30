@@ -1,5 +1,5 @@
 const socketio = require('socket.io');
-const { handleJoinRoom } = require('./helpers/socketHelpers');
+const { handleJoinRoom }  = require('./helpers/socketHelpers');
 const {
   newMessage,
 } = require('./actions/socketActions');
@@ -7,7 +7,7 @@ const {
 const io = socketio({
   cors: {
     credentials: true,
-    methods: ['DELETE', 'GET', 'POST'],
+    methods: ['CREATE', 'DELETE', 'GET', 'POST'],
     origin: 'http://localhost:8080'
   }
 });
@@ -16,7 +16,6 @@ const socketApi = {};
 socketApi.io = io;
 
 io.on('connection', (socket) => {
-  let currentRoom = '';
 
   socket.on('createRoom', (data) => {
     data.password === '';
@@ -24,9 +23,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('joinRoom', (data) => {
-    currentRoom = data.room._id;
     data.socketId = socket.id;
-    HandleJoinRoom(socket, data);
+    handleJoinRoom(socket, data);
   });
 
   socket.on('deleteRoom', (roomId) => {
