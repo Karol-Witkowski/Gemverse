@@ -4,7 +4,7 @@ const passport = require('passport');
 const router = express.Router();
 
 /** Get single message by id */
-router.get('/:room_id', passport.authenticate('jwt', { session: false }), async (request, response) => {
+router.get('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const messages = await Message.find({ room: request.params.id  });
     if (messages) {
         return res.status(200).json(messages);
@@ -20,13 +20,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), (request, res
   }
   if (error) return response.status(403).json({ error: 'Validation failed, please login again' });
 
-  const message = new Message({
+  const createdMessage = new Message({
     message: request.body.message,
     user: request.body.user,
     room: request.body.room,
   }).save();
 
-  return response.status(201).json(message);
+  return response.status(201).json(createdMessage);
 });
 
 module.exports = router;

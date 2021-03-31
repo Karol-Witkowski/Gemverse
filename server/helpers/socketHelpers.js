@@ -1,6 +1,6 @@
 const {
-  newMessage,
-  getMessages,
+  NEW_MESSAGE,
+  GET_MESSAGES,
 } = require('../actions/socketActions');
 
 module.exports = {
@@ -8,12 +8,12 @@ module.exports = {
     socket.join(data.room._id, async () => {
     socket.emit('updateRoom',
       JSON.stringify({
-        messages: await getMessages(data),
-        })
+        messages: await GET_MESSAGES(data),
+      })
     );
     socket.to(data.room._id).emit('updateMessage',
     JSON.stringify(
-      await newMessage({
+      await NEW_MESSAGE({
         message: data.message,
         room: data.room,
         user: false,

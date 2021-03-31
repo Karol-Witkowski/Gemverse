@@ -1,7 +1,7 @@
 const socketio = require('socket.io');
 const { handleJoinRoom }  = require('./helpers/socketHelpers');
 const {
-  newMessage,
+  NEW_MESSAGE,
 } = require('./actions/socketActions');
 
 const io = socketio({
@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sendMessage', async (data) => {
-    const message = await newMessage(data);
+    const message = await NEW_MESSAGE(data);
     io.to(data.room._id).emit('updateMessages', JSON.stringify(message));
   });
 });
