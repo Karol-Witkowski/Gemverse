@@ -7,7 +7,7 @@
   >
     <v-list-item class="ma-1 px-1">
       <v-list-item-avatar>
-        <img :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo._id)}`" />
+        <img :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`" />
       </v-list-item-avatar>
       <v-list-item-title class="userName">{{ getUserInfo.username }}</v-list-item-title>
     </v-list-item>
@@ -28,12 +28,12 @@
       <v-list-item-title class="ml-7 mt-1 text-uppercase">Users list</v-list-item-title>
       <v-list>
         <v-list-item
-          :key="user.name"
+          :key="user.username"
           v-for="user in users"
         >
           <v-list-item-content>
             <v-avatar>
-              <img :src="`data:image/svg+xml;utf8,${generateAvatar(user._id)}`" />
+              <img :src="`data:image/svg+xml;utf8,${generateAvatar(user.username)}`" />
             </v-avatar>
             <v-list-item-title class="ml-10 mb-3 mt-1 userName">{{ user.name }}</v-list-item-title>
           </v-list-item-content>
@@ -54,16 +54,13 @@ export default {
       drawer: true,
       users: [
         {
-          _id: 'gg0533221feasasa1dabc363a',
-          name: 'User1',
+          username: 'User1',
         },
         {
-          _id: '6053d3648d69af3e5cb691a3',
-          name: 'User2',
+          username: 'User2',
         },
         {
-          _id: '69xdqqwq614159138c4526ff2',
-          name: 'User3',
+          username: 'User3',
         },
       ],
     };

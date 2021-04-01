@@ -69,15 +69,13 @@ export default {
           });
           this.socket.on('updateRoom', (data) => {
             console.log(data);
-            const roomMessages = data.messages;
-            if (roomMessages) {
-              this.messages = roomMessages;
+            if (data) {
+              this.messages = data;
             }
           });
-
-          this.socket.on('updateMessages', (message) => {
+          /* this.socket.on('updateMessages', (message) => {
             this.messages.push(JSON.parse(message));
-          });
+          }); */
         })
         .catch((error) => {
           if (error.status === 404) {

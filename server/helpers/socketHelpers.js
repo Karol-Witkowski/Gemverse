@@ -6,12 +6,7 @@ const {
 module.exports = {
   handleJoinRoom: async (socket, data) => {
     socket.join(data.room._id);
-    socket.emit('updateRoom',
-      {
-        messages: await GET_MESSAGES(data),
-      }
-    );
-    console.log(this.messages);
+    socket.emit('updateRoom', await GET_MESSAGES(data));
    /*  socket.to(data.room._id).emit('updateMessage',
     JSON.stringify(
       NEW_MESSAGE({

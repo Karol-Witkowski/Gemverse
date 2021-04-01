@@ -13,7 +13,7 @@ const MessageSchema = new mongoose.Schema({
     ref: 'Room'
   },
   user: {
-    type: Object,
+    type: Schema.Types.ObjectId,
     required: true,
     ref: 'User'
   },

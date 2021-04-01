@@ -9,7 +9,7 @@
     >
         <v-list-item :key="message._id">
           <v-list-item-avatar class="py-0 my-0">
-            <img :src="`data:image/svg+xml;utf8,${generateAvatar(message.user._id)}`" />
+            <img :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`" />
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import axios from 'axios';
-import io from 'socket.io-client';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -14,9 +13,6 @@ if (localStorage.authenticationToken) {
 } else {
   tokenSetter(null);
 }
-
-const socket = io('http://localhost:3000');
-store.dispatch('assignInvidualSocket', socket);
 
 axios.interceptors.request.use(
   (config) => config,
