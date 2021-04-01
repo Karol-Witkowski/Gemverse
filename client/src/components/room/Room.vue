@@ -45,13 +45,13 @@ export default {
 
   created() {
     this.getRoomData();
-    this.socket.on('updateMessages', (data) => {
+    /* this.socket.on('updateMessages', (data) => {
       this.messages.push({
         message: data.message,
         room: data.room,
         user: data.user,
       });
-    });
+    }); */
   },
 
   computed: {
@@ -71,7 +71,7 @@ export default {
             console.log(data);
             const roomMessages = data.messages;
             if (roomMessages) {
-              this.messages.push(JSON.parse(roomMessages));
+              this.messages = roomMessages;
             }
           });
 
