@@ -3,7 +3,7 @@ const Message = require('../models/Message');
 const passport = require('passport');
 const router = express.Router();
 
-/** Get single message by id */
+/** Get all messages by room id */
 router.get('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const messages = await Message.find({ room: request.params.id  });
     if (messages) {

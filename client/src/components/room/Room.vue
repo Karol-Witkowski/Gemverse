@@ -68,7 +68,6 @@ export default {
             user: this.getUserInfo,
           });
           this.socket.on('updateRoom', (data) => {
-            console.log(data);
             if (data) {
               this.messages = data;
             }

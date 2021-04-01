@@ -5,7 +5,7 @@ module.exports = {
   NEW_MESSAGE: async (data) => {
     const createdMessage = await new Message({
       message: data.message,
-      user: data.user._id,// || null,
+      user: data.user._id,
       room: data.room._id
     }).save();
 
