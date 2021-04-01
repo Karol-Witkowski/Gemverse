@@ -23,7 +23,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('joinRoom', (data) => {
-    data.socketId = socket.id;
+    data.socket = socket.id;
     handleJoinRoom(socket, data);
   });
 

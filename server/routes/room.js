@@ -14,7 +14,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (request
 
 /** Get single room by name */
 router.get('/:slug', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await Room.findOne({ slug: request.params.slug }, function (error, room) {
+  await Room.findOne({ id: request.params.id }, function (error, room) {
     if (error) return response.status(404).json({ error: `${ request.params.slug } not found` });
     response.status(200).json(room);
   });

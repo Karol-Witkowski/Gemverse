@@ -65,16 +65,17 @@ export default {
           this.$store.dispatch('saveCurrentRoom', response.data);
           this.socket.emit('joinRoom', {
             room: this.getCurrentRoom,
-            user: this.getUserData,
+            user: this.getUserInfo,
           });
           this.socket.on('updateRoom', (data) => {
-            const roomMessages = JSON.parse(data.messages);
+            console.log(data);
+            const roomMessages = data.messages;
             if (roomMessages) {
-              this.messages = roomMessages;
+              this.messages.push(JSON.parse(roomMessages));
             }
           });
 
-          this.getSocket.on('updateMessages', (message) => {
+          this.socket.on('updateMessages', (message) => {
             this.messages.push(JSON.parse(message));
           });
         })

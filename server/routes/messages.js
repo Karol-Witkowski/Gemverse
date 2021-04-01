@@ -7,9 +7,9 @@ const router = express.Router();
 router.get('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const messages = await Message.find({ room: request.params.id  });
     if (messages) {
-        return res.status(200).json(messages);
+        return response.status(200).json(messages);
     } else {
-        return res.status(404).json({ error: 'Messages not found' });
+        return response.status(404).json({ error: 'Messages not found' });
     }
 });
 

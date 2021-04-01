@@ -4,21 +4,21 @@ const {
 } = require('../actions/socketActions');
 
 module.exports = {
-  handleJoinRoom: (socket, data) => {
-    socket.join(data.room._id, async () => {
-    socket.emit('updateRoom',
+  handleJoinRoom: async (socket, data) => {
+    socket.join(data.room._id);
+    await socket.emit('updateRoom',
       JSON.stringify({
-        messages: await GET_MESSAGES(data),
+        messages: GET_MESSAGES(data),
       })
     );
-    socket.to(data.room._id).emit('updateMessage',
+    console.log(this.messages);
+   /*  socket.to(data.room._id).emit('updateMessage',
     JSON.stringify(
-      await NEW_MESSAGE({
+      NEW_MESSAGE({
         message: data.message,
         room: data.room,
         user: false,
       })
-    ));
-  })
+    )); */
  }
 };
