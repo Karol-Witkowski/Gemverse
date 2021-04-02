@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
     handleJoinRoom(socket, data);
   });
 
-  socket.on('leaveRoom', (data) => { //not sure to keep it!!!
+  socket.on('leaveRoom', (data) => {
     currentRoom = null;
     socket.leave(data._id)
   });
