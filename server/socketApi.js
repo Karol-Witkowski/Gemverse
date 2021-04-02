@@ -14,7 +14,7 @@ const socketApi = {};
 socketApi.io = io;
 
 io.on('connection', (socket) => {
-const actualRoom = '';
+  let currentRoom = null;
 
   socket.on('createRoom', (data) => {
     data.password === '';
@@ -26,9 +26,14 @@ const actualRoom = '';
   });
 
   socket.on('joinRoom', (data) => {
-    actualRoom = data.room_id;
+    currentRoom = data.room._id;
     data.socket = socket.id;
     handleJoinRoom(socket, data);
+  });
+
+  socket.on('leaveRoom', (data) => { //not sure to keep it!!!
+    currentRoom = null;
+    socket.leave(data._id)
   });
 
   socket.on('sendMessage', async (data) => {

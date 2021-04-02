@@ -1,6 +1,6 @@
 const {
-  NEW_MESSAGE,
   GET_MESSAGES,
+  NEW_MESSAGE,
 } = require('../actions/socketActions');
 
 module.exports = {

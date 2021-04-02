@@ -6,6 +6,7 @@
     >
       <v-btn
         class="mt-4"
+        @click="leaveRoom"
         color="primary"
         small
         to="/roomlist"
@@ -84,6 +85,9 @@ export default {
             });
           }
         });
+    },
+    leaveRoom() {
+      this.socket.emit('leaveRoom', this.getCurrentRoom);
     },
   },
 };

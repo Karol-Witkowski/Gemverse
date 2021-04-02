@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const { Message } = require('../models/Message');
 
 module.exports = {
+  GET_MESSAGES: async (data) => {
+    return await Message.find({ room: data.room._id }).populate('user', [
+      'username',
+      'id',
+  ]);
+  },
   NEW_MESSAGE: async (data) => {
     const createdMessage = await new Message({
       message: data.message,
@@ -14,10 +20,4 @@ module.exports = {
       select: 'username'
     });
   },
-  GET_MESSAGES: async (data) => {
-    return await Message.find({ room: data.room._id }).populate('user', [
-      'username',
-      'id',
-  ]);
-},
-  };
+};
