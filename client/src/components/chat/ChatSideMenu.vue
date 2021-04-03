@@ -29,13 +29,15 @@
       <v-list>
         <v-list-item
           :key="user.username"
-          v-for="user in users"
+          v-for="user in activeUsers"
         >
           <v-list-item-content>
             <v-avatar>
               <img :src="`data:image/svg+xml;utf8,${generateAvatar(user.username)}`" />
             </v-avatar>
-            <v-list-item-title class="ml-10 mb-3 mt-1 userName">{{ user.name }}</v-list-item-title>
+            <v-list-item-title class="ml-10 mb-3 mt-1 userName">
+              {{ user.username }}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -49,6 +51,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'ChatSideMenu',
+  props: {
+    activeUsers: {},
+  },
   data() {
     return {
       drawer: true,

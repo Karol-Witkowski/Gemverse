@@ -45,8 +45,8 @@ export default {
   },
 
   methods: {
-    generateAvatar(id) {
-      return generateFromString(id);
+    generateAvatar(username) {
+      return generateFromString(username);
     },
   },
 };

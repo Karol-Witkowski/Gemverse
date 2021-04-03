@@ -1,6 +1,6 @@
 const socketio = require('socket.io');
 const { handleJoinRoom }  = require('./helpers/socketHelpers');
-const { NEW_MESSAGE } = require('./actions/socketActions');
+const { ADD_NEW_MESSAGE } = require('./actions/socketActions');
 
 const io = socketio({
   cors: {
@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sendMessage', async (data) => {
-    const message = await NEW_MESSAGE(data);
+    const message = await ADD_NEW_MESSAGE(data);
     io.to(data.room._id).emit('updateMessages', JSON.stringify(message));
   });
 });

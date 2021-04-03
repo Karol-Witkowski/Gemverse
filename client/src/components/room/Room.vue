@@ -15,8 +15,8 @@
         Leave room
       </v-btn>
     </v-row>
-    <ChatMessages :messages="messages"/>
-    <ChatSideMenu />
+    <ChatMessages :messages="messages" />
+    <ChatSideMenu :activeUsers="activeUsers" />
     <ChatInput />
   </v-main>
 </template>
@@ -39,6 +39,7 @@ export default {
   },
   data() {
     return {
+      activeUsers: [],
       messages: {},
       socket: io('http://localhost:3000'),
     };
@@ -46,13 +47,6 @@ export default {
 
   created() {
     this.getRoomData();
-    /* this.socket.on('updateMessages', (data) => {
-      this.messages.push({
-        message: data.message,
-        room: data.room,
-        user: data.user,
-      });
-    }); */
   },
 
   computed: {
@@ -68,13 +62,16 @@ export default {
             room: this.getCurrentRoom,
             user: this.getUserInfo,
           });
+          this.socket.on('updateActiveUsers', (data) => {
+            this.activeUsers = JSON.parse(data).activeUsers;
+          });
+          this.socket.on('updateMessages', (message) => {
+            this.messages.push(JSON.parse(message));
+          });
           this.socket.on('updateRoom', (data) => {
             if (data) {
               this.messages = data;
             }
-          });
-          this.socket.on('updateMessages', (message) => {
-            this.messages.push(JSON.parse(message));
           });
         })
         .catch((error) => {
