@@ -1,5 +1,5 @@
-const { Message } = require('../models/Message');
-const { Room } = require('../models/Room');
+const Message = require('../models/Message');
+const Room = require('../models/Room');
 
 module.exports = {
   ADD_NEW_MESSAGE: async (data) => {

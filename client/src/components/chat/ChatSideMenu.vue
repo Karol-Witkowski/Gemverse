@@ -60,6 +60,10 @@ export default {
     };
   },
 
+  created() {
+    console.log(this.activeUsers); //Test!!! Remove it
+  },
+
   computed: {
     ...mapGetters(['getUserInfo']),
   },
