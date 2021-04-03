@@ -73,9 +73,9 @@ export default {
               this.messages = data;
             }
           });
-          /* this.socket.on('updateMessages', (message) => {
+          this.socket.on('updateMessages', (message) => {
             this.messages.push(JSON.parse(message));
-          }); */
+          });
         })
         .catch((error) => {
           if (error.status === 404) {
