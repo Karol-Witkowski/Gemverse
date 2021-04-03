@@ -5,8 +5,8 @@ module.exports = {
   ADD_NEW_MESSAGE: async (data) => {
     const createdMessage = await new Message({
       message: data.message,
-      user: data.user._id,
-      room: data.room._id
+      room: data.room._id,
+      user: data.user._id
     }).save();
 
     return Message.populate(createdMessage, {

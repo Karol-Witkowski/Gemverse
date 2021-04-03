@@ -21,7 +21,7 @@
         small
         v-if="!drawer"
       >
-          <v-icon>cancel</v-icon>
+        <v-icon>cancel</v-icon>
       </v-btn>
     </v-layout>
     <v-container v-if="!drawer">
@@ -35,7 +35,7 @@
             <v-avatar>
               <img :src="`data:image/svg+xml;utf8,${generateAvatar(user.username)}`" />
             </v-avatar>
-            <v-list-item-title class="ml-10 mb-3 mt-1 userName">
+            <v-list-item-title class="mb-3 ml-10 mt-1 userName">
               {{ user.username }}
             </v-list-item-title>
           </v-list-item-content>
@@ -57,17 +57,6 @@ export default {
   data() {
     return {
       drawer: true,
-      users: [
-        {
-          username: 'User1',
-        },
-        {
-          username: 'User2',
-        },
-        {
-          username: 'User3',
-        },
-      ],
     };
   },
 
@@ -76,8 +65,8 @@ export default {
   },
 
   methods: {
-    generateAvatar(id) {
-      return generateFromString(id);
+    generateAvatar(username) {
+      return generateFromString(username);
     },
   },
 };
