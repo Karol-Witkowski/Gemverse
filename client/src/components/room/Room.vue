@@ -16,7 +16,7 @@
       </v-btn>
     </v-row>
     <ChatMessages :messages="messages" />
-    <ChatSideMenu :activeUsers="activeUsers" />
+    <ChatSideMenu :usersList="usersList" />
     <ChatInput />
   </v-main>
 </template>
@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      activeUsers: [],
+      usersList: [],
       messages: {},
       socket: io('http://localhost:3000'),
     };
@@ -47,6 +47,7 @@ export default {
 
   created() {
     this.getRoomData();
+    this.usersList;
   },
 
   computed: {
@@ -63,14 +64,20 @@ export default {
             user: this.getUserInfo,
           });
           this.socket.on('updateActiveUsers', (data) => {
-            this.activeUsers = JSON.parse(data).activeUsers;
+            this.usersList = data.activeUsers;
           });
           this.socket.on('updateMessages', (message) => {
             this.messages.push(JSON.parse(message));
           });
           this.socket.on('updateRoom', (data) => {
-            if (data) {
-              this.messages = data;
+            const parsedData = data;
+            if (parsedData.messages) {
+              this.messages = parsedData.messages;
+            }
+            if (parsedData.room) {
+              this.room = parsedData.room;
+              this.usersList = parsedData.room.activeUsers;
+              this.$store.dispatch('saveCurrentRoom', parsedData.room);
             }
           });
         })

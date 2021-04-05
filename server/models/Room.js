@@ -3,6 +3,20 @@ const mongoose = require('mongoose'), Schema = mongoose.Schema;
 const URLSlugs = require('mongoose-url-slugs');
 
 const RoomSchema = new mongoose.Schema({
+  activeUsers: [
+    {
+      _id: false,
+      lookup: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+      },
+      socketId: {
+        type: String,
+        required: true
+      }
+    }
+  ],
   name: {
     type: String,
     required: true,

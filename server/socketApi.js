@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
 const socketio = require('socket.io');
 const { handleJoinRoom }  = require('./helpers/socketHelpers');
-const { ADD_NEW_MESSAGE } = require('./actions/socketActions');
+const { ADD_NEW_MESSAGE, GET_ACTIVE_USERS } = require('./actions/socketActions');
+require('./db/mongoose');
 
 const io = socketio({
   cors: {
@@ -26,7 +28,7 @@ io.on('connection', (socket) => {
 
   socket.on('joinRoom', (data) => {
     currentRoom = data.room._id;
-    data.socket = socket.id;
+    data.socketId = socket.id;
     handleJoinRoom(socket, data);
   });
 
@@ -38,6 +40,16 @@ io.on('connection', (socket) => {
   socket.on('sendMessage', async (data) => {
     const message = await ADD_NEW_MESSAGE(data);
     io.to(data.room._id).emit('updateMessages', JSON.stringify(message));
+  });
+
+  socket.on('disconnect', async () => {
+    if (currentRoom) {
+      socket.broadcast.to(currentRoom).emit('updateActiveUsers', JSON.stringify(
+        GET_ACTIVE_USERS({ room: {
+          _id: mongoose.Types.ObjectId(currentRoom)
+        }})
+      ));
+    };
   });
 });
 

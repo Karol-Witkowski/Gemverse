@@ -29,7 +29,7 @@
       <v-list>
         <v-list-item
           :key="user.username"
-          v-for="user in activeUsers"
+          v-for="user in usersList"
         >
           <v-list-item-content>
             <v-avatar>
@@ -52,16 +52,12 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ChatSideMenu',
   props: {
-    activeUsers: {},
+    usersList: {},
   },
   data() {
     return {
-      drawer: true,
+      drawer: !true, // CHANGE TO TRUE!!!!
     };
-  },
-
-  created() {
-    console.log(this.activeUsers); //Test!!! Remove it
   },
 
   computed: {
