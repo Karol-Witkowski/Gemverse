@@ -28,15 +28,15 @@
       <v-list-item-title class="ml-7 mt-1 text-uppercase">Users list</v-list-item-title>
       <v-list>
         <v-list-item
-          :key="user.username"
-          v-for="user in usersList"
+          :key="user.lookup._id"
+          v-for="user in activeUsers"
         >
           <v-list-item-content>
             <v-avatar>
-              <img :src="`data:image/svg+xml;utf8,${generateAvatar(user.username)}`" />
+              <img :src="`data:image/svg+xml;utf8,${generateAvatar(user.lookup.username)}`" />
             </v-avatar>
             <v-list-item-title class="mb-3 ml-10 mt-1 userName">
-              {{ user.username }}
+              {{ user.lookup.username }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -52,7 +52,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ChatSideMenu',
   props: {
-    usersList: {},
+    activeUsers: {},
   },
   data() {
     return {

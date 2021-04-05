@@ -11,6 +11,6 @@ module.exports = {
       messages: await GET_MESSAGES(data),
       room: await UPDATE_ACTIVE_USERS(data)
     });
-    socket.broadcast.to(data.room._id).emit('updateActiveUsers', JSON.stringify(await GET_ACTIVE_USERS(data)));
+    socket.broadcast.to(data.room._id).emit('updateActiveUsers', await GET_ACTIVE_USERS(data));
   },
 };
