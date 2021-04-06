@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      activeUsers: [],
+      activeUsers: {},
       messages: {},
       socket: io('http://localhost:3000'),
     };
@@ -63,20 +63,21 @@ export default {
             user: this.getUserInfo,
           });
           this.socket.on('updateActiveUsers', (data) => {
-            this.activeUsers = JSON.parse(data).activeUsers;
+            if (data.activeUsers) {
+              this.activeUsers.push(JSON.parse(data).activeUsers);
+            }
           });
           this.socket.on('updateMessages', (message) => {
             this.messages.push(JSON.parse(message));
           });
           this.socket.on('updateRoom', (data) => {
-            const parsedData = data;
-            if (parsedData.messages) {
-              this.messages = parsedData.messages;
+            if (data.messages) {
+              this.messages = data.messages;
             }
-            if (parsedData.room) {
-              this.room = parsedData.room;
-              this.activeUsers = parsedData.room.activeUsers;
-              this.$store.dispatch('saveCurrentRoom', parsedData.room);
+            if (data.room) {
+              this.room = data.room;
+              this.activeUsers = data.room.activeUsers;
+              this.$store.dispatch('saveCurrentRoom', data.room);
             }
           });
         })
