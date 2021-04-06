@@ -30,19 +30,18 @@ module.exports = {
       .populate('activeUsers.lookup', ['username']);
 
     if (room) {
-      if (room.activeUsers && !room.activeUsers.find((user) => user.lookup._id.toString() === data.user._id)) {
+      if (room.activeUsers && !room.activeUsers.find((user) => data.user._id === user.lookup._id.toString())) {
         room.activeUsers.push({
           lookup: mongoose.Types.ObjectId(data.user._id),
           socketId: data.socketId
         });
-        const updatedRoom = await room.save();
-        return await Room.populate(updatedRoom, {
+        return await Room.populate(await room.save(), {
           path: 'user activeUsers.lookup',
           select: 'username'
         });
       } else {
-        const chatUser = room.activeUsers.find((user) => user.lookup._id.toString() === data.user._id);
-        if (chatUser.socketId != data.socketId) {
+        const chatUser = room.activeUsers.find((user) => data.user._id === user.lookup._id.toString());
+        if (chatUser.socketId !== data.socketId) {
           chatUser.socketId = data.socketId;
           await room.save();
         }

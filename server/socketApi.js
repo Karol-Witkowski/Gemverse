@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', async () => {
     if (currentRoom) {
-      socket.broadcast.to(currentRoom).emit('updateActiveUsers', JSON.stringify(
+      socket.to(currentRoom).emit('updateActiveUsers', JSON.stringify(
         GET_ACTIVE_USERS({ room: {
           _id: mongoose.Types.ObjectId(currentRoom)
         }})
