@@ -82,6 +82,7 @@ export default {
           });
         })
         .catch((error) => {
+          console.log(error);
           if (error.status === 404) { // DISPLAY ON LIST
             this.$router.push({
               name: 'RoomList',
@@ -97,11 +98,20 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.socket.emit('leaveRoom', {
-            room: response.data,
+            // eslint-disable-next-line no-underscore-dangle
+            room: response.data._id,
             user: null,
           });
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
+  },
+
+  beforeDestroy() {
+    this.leaveRoom();
+    this.socket.removeListener('joinRoom');
   },
 };
 </script>
