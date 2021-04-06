@@ -67,8 +67,8 @@ export default {
               this.activeUsers.push(JSON.parse(data).activeUsers);
             }
           });
-          this.socket.on('updateMessages', (message) => {
-            this.messages.push(JSON.parse(message));
+          this.socket.on('updateMessages', (data) => {
+            this.messages.push(JSON.parse(data));
           });
           this.socket.on('updateRoom', (data) => {
             if (data.messages) {
@@ -82,7 +82,7 @@ export default {
           });
         })
         .catch((error) => {
-          if (error.status === 404) {
+          if (error.status === 404) { // DISPLAY ON LIST
             this.$router.push({
               name: 'RoomList',
               params: { message: 'Room not found' },
@@ -90,8 +90,17 @@ export default {
           }
         });
     },
+
     leaveRoom() {
-      this.socket.emit('leaveRoom', this.getCurrentRoom);
+      // eslint-disable-next-line no-underscore-dangle
+      axios.post('http://localhost:3000/api/room/remove/online/user', { id: this.getCurrentRoom._id })
+        .then((response) => {
+          this.socket.emit('leaveRoom', {
+            room: response.data,
+            user: null,
+          });
+          this.$router.push({ name: 'RoomList' });
+        });
     },
   },
 };

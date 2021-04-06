@@ -61,4 +61,23 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
     }
 });
 
+/** Remove user on room leave event */
+router.post('/remove/online/user', passport.authenticate('jwt', { session: false }), async (request, response) => {
+  const room = await Room.findById({ _id: request.body.id });
+
+  if (!room) {
+    return response.status(404).json({ error: `No room with id ${ request.body.id } found` });
+  } else {
+    if (room.activeUsers.find((user) => user.lookup.toString() === request.user.id)) {
+      room.activeUsers = room.activeUsers.filter((user) => user.lookup.toString() !== request.user.id);
+      await room.save();
+    }
+    return response.status(200).json(await Room.populate(room, {
+      path: 'user activeUsers.lookup',
+      select: 'username'
+    }));
+  }
+});
+
+
 module.exports = router;
