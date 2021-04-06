@@ -19,8 +19,8 @@
           <v-btn
             class="ml-2 mr-4"
             color="blue lighten-2"
-            to="/login"
             outlined
+            to="/login"
           >
             Sign in
           </v-btn>
@@ -28,8 +28,8 @@
           <v-btn
             class="ml-4"
             color="blue lighten-2"
-            to="/register"
             outlined
+            to="/register"
           >
             Sign up
           </v-btn>
@@ -38,8 +38,8 @@
           <v-btn
               class="ml-2"
               color="blue lighten-2"
-              to="/roomlist"
               outlined
+              to="/roomlist"
             >
             Room list
           </v-btn>

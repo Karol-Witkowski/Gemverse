@@ -8,9 +8,9 @@
         class="mt-4"
         @click="leaveRoom"
         color="primary"
+        outlined
         small
         to="/roomlist"
-        outlined
       >
         Leave room
       </v-btn>
@@ -33,8 +33,8 @@ import * as io from 'socket.io-client';
 export default {
   name: 'Room',
   components: {
-    ChatMessages,
     ChatInput,
+    ChatMessages,
     ChatSideMenu,
   },
   data() {
@@ -95,11 +95,11 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       axios.post('http://localhost:3000/api/room/remove/online/user', { id: this.getCurrentRoom._id })
         .then((response) => {
+          console.log(response.data);
           this.socket.emit('leaveRoom', {
             room: response.data,
             user: null,
           });
-          this.$router.push({ name: 'RoomList' });
         });
     },
   },

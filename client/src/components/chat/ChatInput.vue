@@ -11,8 +11,8 @@
             @click:append-outer="sendMessage"
             :error-messages="inputError"
             label="Message"
-            :rules="messageRules"
             outlined
+            :rules="messageRules"
             v-model="message"
             v-on:keyup="inputError = ''"
             v-on:keyup.enter="sendMessage"
@@ -30,8 +30,8 @@ import * as io from 'socket.io-client';
 export default {
   data() {
     return {
-      isFormValid: false,
       inputError: '',
+      isFormValid: false,
       message: '',
       messageRules: [
         (value) => (value.length <= 4000) || 'Message must be less or equal to 4000 characters',

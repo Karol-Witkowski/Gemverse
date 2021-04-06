@@ -32,9 +32,9 @@
               <v-list-item-action v-if="getUserInfo._id === room.user">
                 <v-dialog
                   max-width="600px"
+                  overlay-opacity="0.15"
                   persistent
                   :retain-focus="false"
-                  overlay-opacity="0.15"
                   v-model="deleteRoomModal"
                 >
                   <template
@@ -70,8 +70,8 @@
                       <v-btn
                         @click="closeModals"
                         color="primary"
-                        text
                         outlined
+                        text
                       >
                         Close
                       </v-btn>
@@ -79,8 +79,8 @@
                       <v-btn
                         @click="deleteRoom()"
                         color="primary"
-                        text
                         outlined
+                        text
                       >
                         OK
                       </v-btn>
@@ -118,8 +118,8 @@
                     <v-btn
                       @click="$store.dispatch('saveCurrentRoom', room)"
                       color="secondary"
-                      type="submit"
                       outlined
+                      type="submit"
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -154,8 +154,8 @@
           <v-btn
             color="primary"
             large
-            type="submit"
             outlined
+            type="submit"
             v-bind="attrs"
             v-on="on"
           >

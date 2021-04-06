@@ -41,9 +41,9 @@ router.post('/verification',  passport.authenticate('jwt', { session: false }), 
   if (!room) {
     return response.status(404).json({ error: `No room with name ${ request.body.name } found` });
   } else {
-      if (await bcrypt.compare(request.body.password, room.password)) {
-        await room.save();
-        return response.status(200).send(room);
+    if (await bcrypt.compare(request.body.password, room.password)) {
+      await room.save();
+      return response.status(200).send(room);
     } else return response.status(404).json({ error: 'Invalid password' });
   }
 });

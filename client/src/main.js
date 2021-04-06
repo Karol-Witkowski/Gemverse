@@ -16,7 +16,7 @@ if (localStorage.authenticationToken) {
 
 axios.interceptors.request.use(
   (config) => config,
-  (err) => Promise.reject(err),
+  (error) => Promise.reject(error),
 );
 
 axios.interceptors.response.use(

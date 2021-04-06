@@ -68,8 +68,8 @@
         <v-btn
           color="primary"
           text
-          to="/"
           outlined
+          to="/"
         >
           Back
         </v-btn>
@@ -78,20 +78,20 @@
           @click.prevent="formValidation"
           color="primary"
           :disabled="!isFormValid"
-          text
           outlined
+          text
         >
           Sign in
         </v-btn>
       </v-card-actions>
     </v-card>
     <div class="mt-6 text-center">
-      <h4 class="grey--text mx-auto mb-2 text--darken-1">New to Gemverse? Create a new account</h4>
+      <h4 class="grey--text mb-2 mx-auto text--darken-1">New to Gemverse? Create a new account</h4>
       <v-btn
         color="blue lighten-1"
+        outlined
         text
         to="/register"
-        outlined
       >
         Sign up
       </v-btn>
@@ -162,8 +162,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.userError = error.response.data.user;
           this.passwordError = error.response.data.password;
+          this.userError = error.response.data.user;
         });
     },
 

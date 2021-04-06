@@ -36,8 +36,8 @@
             class="mx-auto"
             @click.prevent="logout"
             color="primary"
-            small
             outlined
+            small
             width="250"
           >
             Logout

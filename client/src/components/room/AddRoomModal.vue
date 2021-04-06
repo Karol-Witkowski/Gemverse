@@ -39,8 +39,8 @@
       <v-btn
         @click="closeModal"
         color="primary"
-        text
         outlined
+        text
       >
         Close
       </v-btn>
@@ -49,9 +49,9 @@
         @click.prevent="formValidation"
         color="primary"
         :disabled="!isFormValid"
+        outlined
         text
         type="submit"
-        outlined
       >
         Save
       </v-btn>

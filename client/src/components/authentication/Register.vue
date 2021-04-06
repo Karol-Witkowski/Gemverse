@@ -60,9 +60,9 @@
       <v-card-actions class="pb-4">
         <v-btn
           color="primary"
+          outlined
           text
           to="/"
-          outlined
         >
           Back
         </v-btn>
@@ -71,8 +71,8 @@
           @click.prevent="formValidation"
           color="primary"
           :disabled="!isFormValid"
-          text
           outlined
+          text
         >
           Sign up
         </v-btn>
@@ -82,9 +82,9 @@
       <h4 class="grey--text mx-auto mb-2 text--darken-1">Already have an account? Sign in</h4>
       <v-btn
         color="blue lighten-1"
+        outlined
         text
         to="/login"
-        outlined
       >
         Sign in
       </v-btn>
@@ -100,15 +100,16 @@ export default {
   name: 'Register',
   data() {
     return {
-      username: '',
       email: '',
       password: '',
-      errors: {},
-      usernameError: '',
-      emailError: '',
+      username: '',
       isFormValid: false,
-      usernameRules: [
-        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+      errors: {},
+      emailError: '',
+      usernameError: '',
+      generalRules: [
+        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
+        (value) => !!value || 'Required',
       ],
       emailRules: [
         (value) => (value.length >= 5 && value.length <= 128) || 'E-mail adress must be at least 5 characters long',
@@ -120,9 +121,8 @@ export default {
       passwordRules: [
         (value) => (value.length >= 6 && value.length <= 128) || 'Password must be at least 6 characters long',
       ],
-      generalRules: [
-        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
-        (value) => !!value || 'Required',
+      usernameRules: [
+        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
       ],
     };
   },
@@ -130,9 +130,9 @@ export default {
   methods: {
     createUser() {
       axios.post('http://localhost:3000/api/authentication/register', {
-        username: this.username,
         email: this.email,
         password: this.password,
+        username: this.username,
       })
         .then((response) => {
           localStorage.setItem('authenticationToken', response.data.token);

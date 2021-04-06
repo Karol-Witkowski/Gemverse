@@ -3,14 +3,10 @@
     class="mt-16 pt-4"
     fluid
   >
-    <v-flex
-      class="xs12 sm12 mx-6"
-    >
+    <v-flex class="xs12 sm12 mx-6">
       <v-card>
         <v-card-title class="justify-center pt-6">
-          <h1 class="grey--text mx-auto text--darken-1">
-            404
-          </h1>
+          <h1 class="grey--text mx-auto text--darken-1">404</h1>
         </v-card-title>
         <v-card-actions class="justify-center">
           <v-img

@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const socketio = require('socket.io');
 const { handleJoinRoom }  = require('./helpers/socketHelpers');
-const { ADD_NEW_MESSAGE, GET_ACTIVE_USERS } = require('./actions/socketActions');
+const {
+  ADD_NEW_MESSAGE,
+  GET_ACTIVE_USERS
+} = require('./actions/socketActions');
+
 require('./db/mongoose');
 
 const io = socketio({
@@ -44,11 +48,9 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', async () => {
     if (currentRoom) {
-      socket.to(currentRoom).emit('updateActiveUsers',
-        await GET_ACTIVE_USERS({ room: {
-          _id: mongoose.Types.ObjectId(currentRoom)
-        }})
-      );
+      socket.to(currentRoom).emit('updateActiveUsers', await GET_ACTIVE_USERS({ room: {
+        _id: mongoose.Types.ObjectId(currentRoom)
+      }}));
     };
   });
 });

@@ -1,9 +1,9 @@
 {
-    "name": "gemverse",
-    "version": "0.2.1",
-    "description": "Gemverse Chat Application",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Karol-Witkowski/Gemverse"
-    }
+  "name": "gemverse",
+  "version": "0.2.1",
+  "description": "Gemverse Chat Application",
+  "repository": {
+    "type": "git",
+     "url": "https://github.com/Karol-Witkowski/Gemverse"
+  }
 }

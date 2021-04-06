@@ -7,20 +7,20 @@
       three-line
       v-for="message in messages"
     >
-        <v-list-item :key="message._id">
-          <v-list-item-avatar class="py-0 my-0">
-            <img :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`" />
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title>
-              <h5>{{ message.user.username }}</h5>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              {{ message.message }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      <v-divider class="msgDivider" />
+      <v-list-item :key="message._id">
+        <v-list-item-avatar class="py-0 my-0">
+          <img :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`" />
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>
+            <h5>{{ message.user.username }}</h5>
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            {{ message.message }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    <v-divider class="msgDivider" />
     </v-list>
   </v-main>
 </template>

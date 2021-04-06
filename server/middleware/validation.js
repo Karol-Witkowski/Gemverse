@@ -68,7 +68,6 @@ const roomValidation = async (request, response, next) => {
   }
 };
 
-
 module.exports = {
   registrationValidation,
   roomValidation,

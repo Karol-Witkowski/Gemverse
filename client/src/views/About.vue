@@ -22,8 +22,8 @@
             class="ml-2"
             color="blue lighten-2"
             href="https://github.com/Karol-Witkowski"
-            target="_blank"
             outlined
+            target="_blank"
           >
             GITHUB PROFILE
           </v-btn>
