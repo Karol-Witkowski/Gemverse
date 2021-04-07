@@ -16,8 +16,10 @@ module.exports = {
     });
   },
 
-  GET_ACTIVE_USERS: (data) => {
-    return Room.find({ room: data.room._id }).populate('user', ['username'])
+  GET_ACTIVE_USERS: async (data) => {
+    return await Room.findById(data.room._id)
+      .populate('user activeUsers.lookup', ['username'])
+      .select('-password');
   },
 
   GET_MESSAGES: (data) => {
@@ -25,9 +27,7 @@ module.exports = {
   },
 
   UPDATE_ACTIVE_USERS: async (data) => {
-    const room = await Room.findOne({ name: data.room.name })
-      .select('-password')
-      .populate('activeUsers.lookup', ['username']);
+    const room = await Room.findOne({ name: data.room.name }).populate('activeUsers.lookup', ['username']);
 
     if (room) {
       if (room.activeUsers && !room.activeUsers.find((user) => data.user._id === user.lookup._id.toString())) {
@@ -40,9 +40,9 @@ module.exports = {
           select: 'username'
         });
       } else {
-        const chatUser = room.activeUsers.find((user) => data.user._id === user.lookup._id.toString());
-        if (chatUser.socketId !== data.socketId) {
-          chatUser.socketId = data.socketId;
+        const roomUser = room.activeUsers.find((user) => data.user._id === user.lookup._id.toString());
+        if (roomUser.socketId !== data.socketId) {
+          roomUser.socketId = data.socketId;
           await room.save();
         }
         return await Room.populate(room, {

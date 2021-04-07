@@ -63,7 +63,7 @@ export default {
           });
           this.socket.on('updateActiveUsers', (data) => {
             if (data.activeUsers) {
-              this.activeUsers.push(JSON.parse(data).activeUsers);
+              this.activeUsers = JSON.parse(data).activeUsers;
             }
           });
           this.socket.on('updateMessages', (data) => {
@@ -75,8 +75,8 @@ export default {
             }
             if (data.room) {
               this.room = data.room;
-              this.activeUsers = data.room.activeUsers;
-              this.$store.dispatch('saveCurrentRoom', data.room);
+              this.activeUsers = this.room.activeUsers;
+              this.$store.dispatch('saveCurrentRoom', this.room);
             }
           });
         })
@@ -95,10 +95,9 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       axios.post('http://localhost:3000/api/room/remove/online/user', { id: this.getCurrentRoom._id })
         .then((response) => {
-          console.log(response.data);
           this.socket.emit('leaveRoom', {
             // eslint-disable-next-line no-underscore-dangle
-            room: response.data._id,
+            room: response.data,
             user: null,
           });
         })

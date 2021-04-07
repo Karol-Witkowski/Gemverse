@@ -9,8 +9,8 @@ module.exports = {
     socket.join(data.room._id);
     socket.emit('updateRoom', {
       messages: await GET_MESSAGES(data),
-      room: await UPDATE_ACTIVE_USERS(data)
+      room: await UPDATE_ACTIVE_USERS(data) // work
     });
-    socket.to(data.room._id).emit('updateActiveUsers', await GET_ACTIVE_USERS(data));
+    socket.to(data.room._id).emit('updateActiveUsers', JSON.stringify(await GET_ACTIVE_USERS(data))); // dont work
   },
 };

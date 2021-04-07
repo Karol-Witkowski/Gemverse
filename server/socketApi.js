@@ -38,7 +38,8 @@ io.on('connection', (socket) => {
 
   socket.on('leaveRoom', (data) => {
     currentRoom = null;
-    socket.leave(data._id)
+    socket.leave(data.room._id);
+    socket.to(data.room._id).emit('updateRoom', JSON.stringify({ room: data.room }));
   });
 
   socket.on('sendMessage', async (data) => {
