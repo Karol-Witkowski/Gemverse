@@ -6,7 +6,6 @@
     >
       <v-btn
         class="mt-4"
-        @click="leaveRoom"
         color="primary"
         outlined
         small
@@ -106,12 +105,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      this.socket.removeListener('joinRoom');
     },
   },
 
   beforeDestroy() {
     this.leaveRoom();
-    this.socket.removeListener('joinRoom');
   },
 };
 </script>

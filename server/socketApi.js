@@ -47,11 +47,9 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', async () => {
-    if (currentRoom) {
-      socket.to(currentRoom).emit('updateActiveUsers', await GET_ACTIVE_USERS({ room: {
-        _id: mongoose.Types.ObjectId(currentRoom)
-      }}));
-    };
+    socket.to(currentRoom).emit('updateActiveUsers', await GET_ACTIVE_USERS({ room: {
+      _id: mongoose.Types.ObjectId(currentRoom)
+    }}));
   });
 });
 
