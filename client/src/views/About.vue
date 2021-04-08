@@ -9,13 +9,13 @@
           <h3 class="grey--text mb-2 text--darken-1">
             About app
           </h3>
-          <span class="grey--text text--darken-1">
+          <p class="grey--text text--darken-1">
             Gemverse is created by combining Vue, Vuetify, Express, Socket.io,
             MongoDB and more. The app aims to provide an alternative for friends
             to hang around and chat. The app is based on rooms - organized channels
             allow you to talk about programming, hobbies, games and more.
             Check my profile at GitHub.
-          </span>
+          </p>
         </v-card-title>
         <v-card-actions>
           <v-btn
@@ -42,14 +42,10 @@
 
 <style lang="scss">
 
-h3 {
-  word-break: normal;
-}
-
-span {
-  font-size: 1em;
+h3, p {
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;
 }
+
 </style>

@@ -105,11 +105,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.appNavigation {
-  font-size: 1px!important;
-  font-weight: 600;
-}
-
 .appName {
   letter-spacing: 4px;
 }

@@ -15,3 +15,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+* {
+  font-size: 0.98em!important;
+}
+</style>

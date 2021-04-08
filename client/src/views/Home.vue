@@ -3,21 +3,22 @@
     class="mt-16 pt-16"
     fluid
   >
-    <v-flex class="xs12 sm12 mx-6">
+    <v-flex class="xs12 mx-6">
       <v-card>
         <v-card-title>
-          <h3 class="grey--text text--darken-2 mb-2">
+          <h3 class="grey--text mb-2 text--darken-1">
             Gemverse - a real-time chat
           </h3>
-          <span class="grey--text text--darken-2">
+          <p class="grey--text text--darken-1">
             Gemverse is a chat app that keeps you connected with coworker and
-            friends wherever you are. User can create own rooms or join to one already made.
-            To get started click the button below.
-          </span>
+            friends wherever you are. User can create own public and
+            private rooms or join to one already made.
+            To get started click the button below and create a new account.
+          </p>
         </v-card-title>
         <v-card-actions v-if="!isAuthorized">
           <v-btn
-            class="ml-2 mr-4"
+            class="ml-2"
             color="blue lighten-2"
             outlined
             to="/login"
@@ -68,12 +69,7 @@ export default {
 </script>
 
 <style lang="scss">
-h3 {
-  word-break: normal;
-}
-
-span {
-  font-size: 1em;
+h3, p {
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;
