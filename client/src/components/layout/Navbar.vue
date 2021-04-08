@@ -22,13 +22,13 @@
           <v-icon>menu</v-icon>
         </v-btn>
       </template>
-      <v-list>
+      <v-list class="font-weight-bold grey--text menu text-uppercase">
         <v-list-item to="/">Home</v-list-item>
         <v-list-item
           to="/roomlist"
           v-if="isAuthorized"
         >
-          rooms
+          Rooms
         </v-list-item>
         <v-list-item to="/about">About</v-list-item>
         <v-list-item v-if="isAuthorized">
@@ -45,7 +45,10 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-tabs class="hidden-xs-only" color="primary">
+    <v-tabs
+      class="menu hidden-xs-only"
+      color="primary"
+    >
       <v-tab to="/">Home</v-tab>
       <v-tab
         to="/roomlist"
@@ -56,10 +59,10 @@
       <v-tab to="/about">About</v-tab>
     </v-tabs>
     <v-tab to="/">
-      <span class="appName grey--text text--darken-2">gemverse</span>
+      <span class="appName grey--text menu text--darken-2">gemverse</span>
     </v-tab>
     <v-tab
-      class="grey--text hidden-xs-only mx-2 text--darken-2"
+      class="grey--text hidden-xs-only menu mx-2 text--darken-2"
       @click.prevent="logout"
       v-if="isAuthorized"
     >
@@ -107,5 +110,13 @@ export default {
 <style lang="scss">
 .appName {
   letter-spacing: 4px;
+}
+
+.menu {
+  font-size: 0.8em!important;
+}
+
+.v-toolbar__content {
+  height: 45px!important;
 }
 </style>

@@ -9,7 +9,9 @@
       <v-list-item-avatar>
         <img :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`" />
       </v-list-item-avatar>
-      <v-list-item-title class="userName">{{ getUserInfo.username }}</v-list-item-title>
+      <v-list-item-title class="font-weight-medium userName">
+        {{ getUserInfo.username }}
+      </v-list-item-title>
     </v-list-item>
     <v-divider />
     <v-layout>
@@ -25,7 +27,7 @@
       </v-btn>
     </v-layout>
     <v-container v-if="!drawer">
-      <v-list-item-title class="ml-7 mt-1 text-uppercase">Users list</v-list-item-title>
+      <v-list-item-title class="ml-7 mt-1 text-uppercase">users list</v-list-item-title>
       <v-list>
         <v-list-item
           :key="user.lookup._id"
@@ -74,7 +76,6 @@ export default {
 <style lang="scss">
 .userName {
   font-size: 12px;
-  font-weight: 550;
   margin-left: -10px;
 }
 </style>
