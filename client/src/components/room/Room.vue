@@ -90,7 +90,7 @@ export default {
           if (error.status === 404) { // DISPLAY ON LIST
             this.$router.push({
               name: 'RoomList',
-              params: { message: 'Room not found' },
+              params: { message: 'Room deleted by room creator' },
             });
           }
         });

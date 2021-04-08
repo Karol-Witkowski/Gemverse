@@ -12,13 +12,15 @@
         <v-btn
           @click="[toggleSort = !toggleSort, sort()]"
           color="primary"
-          small
+          x-small
         >
           {{ sortBy }}
         </v-btn>
       </v-layout>
       <v-card class="mb-6">
-        <v-card-title>List of rooms</v-card-title>
+        <v-card-title class="py-2">
+          <h2>AVAILABLE ROOMS</h2>
+        </v-card-title>
         <v-divider />
         <transition-group name="list" tag="p">
           <v-list
@@ -45,7 +47,7 @@
                       @click="setRoomData(room._id)"
                       color="secondary"
                       icon
-                      small
+                      x-small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -91,7 +93,7 @@
               <v-spacer />
               <v-img
                 alt="Red lock icon"
-                max-width="25px"
+                max-width="22px"
                 src="..\..\assets\img\privacyAlertIcon.png"
                 v-if="room.password"
               />
@@ -100,6 +102,7 @@
                   @click="join(room.slug)"
                   color="primary"
                   outlined
+                  small
                 >
                   Join
                 </v-btn>
@@ -120,6 +123,7 @@
                       color="secondary"
                       outlined
                       type="submit"
+                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -153,8 +157,8 @@
         >
           <v-btn
             color="primary"
-            large
             outlined
+            small
             type="submit"
             v-bind="attrs"
             v-on="on"
@@ -287,9 +291,14 @@ export default {
 };
 </script>
 <style lang="scss">
+* {
+  font-size: 12px;
+}
+
 .list-enter-active, .list-leave-active {
   transition: all 1s;
 }
+
 .list-enter, .list-leave-to {
   opacity: 0;
   transform: translateY(30px);
@@ -306,6 +315,7 @@ export default {
 .roomName {
   flex: none;
 }
+
 .v-list:last-of-type > hr {
   display: none;
 }
