@@ -28,7 +28,7 @@
           to="/roomlist"
           v-if="isAuthorized"
         >
-          Rooms
+          rooms
         </v-list-item>
         <v-list-item to="/about">About</v-list-item>
         <v-list-item v-if="isAuthorized">
@@ -40,7 +40,7 @@
             small
             width="250"
           >
-            Logout
+            logout
           </v-btn>
         </v-list-item>
       </v-list>
@@ -51,19 +51,19 @@
         to="/roomlist"
         v-if="isAuthorized"
       >
-        Rooms
+        rooms
       </v-tab>
       <v-tab to="/about">About</v-tab>
     </v-tabs>
     <v-tab to="/">
-      <span class="appName grey--text text--darken-2">Gemverse</span>
+      <span class="appName grey--text text--darken-2">gemverse</span>
     </v-tab>
     <v-tab
-      class="hidden-xs-only mx-2"
+      class="grey--text hidden-xs-only mx-2 text--darken-2"
       @click.prevent="logout"
       v-if="isAuthorized"
     >
-      Logout
+      logout
     </v-tab>
   </v-app-bar>
 </template>

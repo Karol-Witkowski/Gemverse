@@ -64,7 +64,7 @@
           text
           to="/"
         >
-          Back
+          back
         </v-btn>
         <v-spacer />
         <v-btn
@@ -74,7 +74,7 @@
           outlined
           text
         >
-          Sign up
+          sign up
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -86,7 +86,7 @@
         text
         to="/login"
       >
-        Sign in
+        sign in
       </v-btn>
     </div>
   </v-container>

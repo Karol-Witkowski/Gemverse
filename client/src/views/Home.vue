@@ -9,7 +9,7 @@
           <h3 class="grey--text mb-2 text--darken-1">
             Gemverse - a real-time chat
           </h3>
-          <p class="grey--text text--darken-1">
+          <p class="grey--text mb-0 text--darken-1">
             Gemverse is a chat app that keeps you connected with coworker and
             friends wherever you are. User can create own public and
             private rooms or join to one already made.
@@ -18,21 +18,21 @@
         </v-card-title>
         <v-card-actions v-if="!isAuthorized">
           <v-btn
-            class="ml-2"
+            class="ml-2 mr-3"
             color="blue lighten-2"
             outlined
             to="/login"
           >
-            Sign in
+            sign in
           </v-btn>
           <span class="grey--text text--darken-2">or</span>
           <v-btn
-            class="ml-4"
+            class="ml-3"
             color="blue lighten-2"
             outlined
             to="/register"
           >
-            Sign up
+            sign up
           </v-btn>
         </v-card-actions>
         <v-card-actions v-if="isAuthorized">

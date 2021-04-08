@@ -11,7 +11,7 @@
         small
         to="/roomlist"
       >
-        Leave room
+        leave room
       </v-btn>
     </v-row>
     <ChatMessages :messages="messages" />

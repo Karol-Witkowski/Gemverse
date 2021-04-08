@@ -16,7 +16,7 @@
             @click="showAuthError"
             small
           >
-            OK
+            ok
           </v-btn>
         </v-col>
       </v-row>
@@ -71,7 +71,7 @@
           outlined
           to="/"
         >
-          Back
+          back
         </v-btn>
         <v-spacer />
         <v-btn
@@ -93,7 +93,7 @@
         text
         to="/register"
       >
-        Sign up
+        sign up
       </v-btn>
     </div>
   </v-container>

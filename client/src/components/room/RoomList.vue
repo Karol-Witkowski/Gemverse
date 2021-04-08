@@ -19,7 +19,9 @@
       </v-layout>
       <v-card class="mb-6">
         <v-card-title class="py-2">
-          <h2 class="grey--text roomList text--darken-2">AVAILABLE ROOMS</h2>
+          <h2 class="grey--text roomList text--darken-2 text-uppercase">
+            available rooms
+          </h2>
         </v-card-title>
         <v-divider />
         <transition-group name="list" tag="p">
@@ -75,7 +77,7 @@
                         outlined
                         text
                       >
-                        Close
+                        close
                       </v-btn>
                       <v-spacer />
                       <v-btn
@@ -84,7 +86,7 @@
                         outlined
                         text
                       >
-                        OK
+                        ok
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -104,7 +106,7 @@
                   outlined
                   small
                 >
-                  Join
+                  join
                 </v-btn>
               </v-list-item-action>
               <v-list-item-action v-if="room.password">
@@ -127,7 +129,7 @@
                       v-bind="attrs"
                       v-on="on"
                     >
-                      Join
+                      join
                     </v-btn>
                   </template>
                   <PrivateRoomModal @close-modal="closeModals"/>
@@ -163,7 +165,7 @@
             v-bind="attrs"
             v-on="on"
           >
-            Add new room
+            add new room
           </v-btn>
         </template>
         <AddRoomModal @close-modal="closeModals" />
@@ -284,8 +286,8 @@ export default {
     },
 
     sort() {
-      if (this.toggleSort) this.sortBy = 'Sort by create date';
-      else this.sortBy = 'Sort by given name';
+      if (this.toggleSort) this.sortBy = 'sort by create date';
+      else this.sortBy = 'sort by given name';
     },
   },
 };

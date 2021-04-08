@@ -12,8 +12,8 @@
           <v-img
             alt="People holding a disconnected wire"
             class="mx-auto"
-            max-width="35%"
-            min-width="330px"
+            max-width="32%"
+            min-width="320px"
             src="..\..\assets\img\notFound.jpg"
           />
         </v-card-actions>
@@ -23,10 +23,16 @@
             to="/"
             outlined
           >
-            Back to home page
+            back to home page
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
   </v-container>
 </template>
+
+<style lang="scss">
+h1 {
+  font-size: 22px!important;
+}
+</style>
