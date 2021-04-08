@@ -12,7 +12,7 @@
           :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`"
         />
       </v-list-item-avatar>
-      <v-list-item-title class="font-weight-medium userName">
+      <v-list-item-title class="font-weight-medium ml-1 userName">
         {{ getUserInfo.username }}
       </v-list-item-title>
     </v-list-item>

@@ -1,21 +1,21 @@
 <template>
   <v-main class="mb-4 pl-0 pt-4">
     <v-list
-      class="scrollBar overflow-y-auto"
+      class="scrollBar overflow-y-auto py-1"
       color="rgb(248, 248, 248)"
       :key="message._id"
       three-line
       v-for="message in messages"
     >
       <v-list-item :key="message._id">
-        <v-list-item-avatar class="py-0 my-0">
+        <v-list-item-avatar class="my-0 py-0">
           <img
             class="userAvatar"
             :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
           />
         </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title>
+        <v-list-item-content class="py-0">
+          <v-list-item-title class="m-0">
             <h5>{{ message.user.username }}</h5>
           </v-list-item-title>
           <v-list-item-subtitle>
@@ -62,11 +62,16 @@ export default {
 
 .v-list-item__content {
   align-items: initial;
-  padding-top: 0px;
+  padding: 0!important;
+  margin: 0!important;
 }
 
 .v-list:last-of-type > hr {
   display: none;
+}
+
+.v-list-item__avatar:first-child {
+  margin-right: 7px!important;
 }
 
 .scrollBar {
