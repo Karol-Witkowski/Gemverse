@@ -63,6 +63,7 @@ export default {
           });
 
           this.socket.on('userMoved', (data) => {
+            console.log(data);
             this.activeUsers = data.activeUsers;
           });
 
