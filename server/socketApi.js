@@ -3,6 +3,7 @@ const socketio = require('socket.io');
 const { handleJoinRoom }  = require('./helpers/socketHelpers');
 const {
   ADD_NEW_MESSAGE,
+  UPDATE_ACTIVE_USERS
 } = require('./actions/socketActions');
 
 require('./db/mongoose');
@@ -29,6 +30,15 @@ io.on('connection', (socket) => {
     io.emit('removeRoomFromList', roomId);
   });
 
+  socket.on('disconnect', async function () { // fix needed
+    if (currentRoom) {
+      console.log(currentRoom);
+      socket.to(currentRoom).emit('userMoved', await UPDATE_ACTIVE_USERS ({
+        room: { id: mongoose.Types.ObjectId(currentRoom) }
+      }));
+    };
+  });
+
   socket.on('joinRoom', (data) => {
     currentRoom = data.room._id;
     data.socketId = socket.id;
@@ -37,7 +47,7 @@ io.on('connection', (socket) => {
 
   socket.on('leaveRoom', (data) => {
     currentRoom = null;
-    socket.to(data._id).emit('userLeft', data);
+    socket.to(data._id).emit('userMoved', data);
     socket.leave(data._id);
   });
 

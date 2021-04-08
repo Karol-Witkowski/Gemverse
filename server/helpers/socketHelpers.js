@@ -10,6 +10,6 @@ module.exports = {
       messages: await GET_MESSAGES(data),
       room: await UPDATE_ACTIVE_USERS(data)
     });
-    socket.to(data.room._id).emit('userJoined', await UPDATE_ACTIVE_USERS(data));
+    socket.to(data.room._id).emit('userMoved', await UPDATE_ACTIVE_USERS(data));
   },
 };

@@ -62,11 +62,7 @@ export default {
             user: this.getUserInfo,
           });
 
-          this.socket.on('userJoined', (data) => {
-            this.activeUsers = data.activeUsers;
-          });
-
-          this.socket.on('userLeft', (data) => {
+          this.socket.on('userMoved', (data) => {
             this.activeUsers = data.activeUsers;
           });
 
