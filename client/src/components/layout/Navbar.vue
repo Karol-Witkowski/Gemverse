@@ -56,7 +56,7 @@
       <v-tab to="/about">About</v-tab>
     </v-tabs>
     <v-tab to="/">
-      <span class=" appName grey--text text--darken-2">Gemverse</span>
+      <span class="appName grey--text text--darken-2">Gemverse</span>
     </v-tab>
     <v-tab
       class="hidden-xs-only mx-2"
@@ -105,8 +105,12 @@ export default {
 };
 </script>
 <style lang="scss">
+.appNavigation {
+  font-size: 1px!important;
+  font-weight: 600;
+}
+
 .appName {
-  font-size: 1rem;
   letter-spacing: 4px;
 }
 </style>

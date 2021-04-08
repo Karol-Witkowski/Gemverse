@@ -19,12 +19,12 @@
       </v-layout>
       <v-card class="mb-6">
         <v-card-title class="py-2">
-          <h2>AVAILABLE ROOMS</h2>
+          <h2 class="grey--text roomList text--darken-2">AVAILABLE ROOMS</h2>
         </v-card-title>
         <v-divider />
         <transition-group name="list" tag="p">
           <v-list
-            class="py-0 list-item"
+            class="py-0 list-item roomList"
             cols="12"
             :key="room._id"
             v-for="room in sortedRooms"
@@ -291,7 +291,7 @@ export default {
 };
 </script>
 <style lang="scss">
-* {
+.roomList {
   font-size: 12px;
 }
 
