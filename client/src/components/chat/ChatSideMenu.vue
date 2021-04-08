@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      drawer: !true, // CHANGE TO TRUE!!!!
+      drawer: true,
     };
   },
 

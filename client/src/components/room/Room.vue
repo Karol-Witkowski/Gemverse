@@ -62,8 +62,11 @@ export default {
             user: this.getUserInfo,
           });
 
+          this.socket.on('userDisconnected', (data) => {
+            this.activeUsers = data.updated.activeUsers;
+          });
+
           this.socket.on('userMoved', (data) => {
-            console.log(data);
             this.activeUsers = data.activeUsers;
           });
 

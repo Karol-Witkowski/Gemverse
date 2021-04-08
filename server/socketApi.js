@@ -33,13 +33,11 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', async () => { // fix needed
     if (currentStatus) {
-      const roomState = await FILTER_ACTIVE_USERS({
+      socket.to(currentStatus.room._id).emit('userDisconnected', await FILTER_ACTIVE_USERS({
         currentRoomId: currentStatus.room._id,
         socketId: socket.id
-    });
-      // socket.to(currentStatus.room._id).emit('userDisconnected', await UPDATE_ACTIVE_USERS(currentStatus));
-      socket.to(currentStatus.room._id).emit('userMoved', await UPDATE_ACTIVE_USERS(currentStatus));
-    };
+      }));
+    }
   });
 
   socket.on('joinRoom', (data) => {

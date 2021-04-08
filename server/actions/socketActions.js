@@ -50,16 +50,13 @@ module.exports = {
   },
 
   FILTER_ACTIVE_USERS: async (data) => {
-    console.log(data.socketId); // user-to-remove id
     const room = await Room.findById(mongoose.Types.ObjectId(data.currentRoomId))
-      .select('-password')
       .populate('activeUsers.lookup', ['username']);
     if (room) {
       room.activeUsers = room.activeUsers.filter((user) => user.socketId !== data.socketId);
-      const filteredSideMenu = await room.save();
-      console.log(filteredSideMenu); // filtered
+      await room.save();
       return {
-        updated: await Room.populate(filteredSideMenu, {
+        updated: await Room.populate(room, {
           path: 'user activeUsers.lookup',
           select: 'username'
         })
