@@ -16,12 +16,6 @@ module.exports = {
     });
   },
 
-  GET_ACTIVE_USERS: async (data) => {
-    return await Room.findById(data.room._id)
-      .populate('user activeUsers.lookup', ['username'])
-      .select('-password');
-  },
-
   GET_MESSAGES: (data) => {
     return Message.find({ room: data.room._id }).populate('user', ['username']);
   },

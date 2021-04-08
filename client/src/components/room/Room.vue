@@ -61,14 +61,19 @@ export default {
             room: this.getCurrentRoom,
             user: this.getUserInfo,
           });
-          this.socket.on('updateActiveUsers', (data) => {
-            if (data.activeUsers) {
-              this.activeUsers = JSON.parse(data).activeUsers;
-            }
+
+          this.socket.on('userJoined', (data) => {
+            this.activeUsers = data.activeUsers;
           });
+
+          this.socket.on('userLeft', (data) => {
+            this.activeUsers = data.activeUsers;
+          });
+
           this.socket.on('updateMessages', (data) => {
             this.messages.push(JSON.parse(data));
           });
+
           this.socket.on('updateRoom', (data) => {
             if (data.messages) {
               this.messages = data.messages;
@@ -95,11 +100,7 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       axios.post('http://localhost:3000/api/room/remove/online/user', { id: this.getCurrentRoom._id })
         .then((response) => {
-          this.socket.emit('leaveRoom', {
-            // eslint-disable-next-line no-underscore-dangle
-            room: response.data,
-            user: null,
-          });
+          this.socket.emit('leaveRoom', response.data);
         })
         .catch((error) => {
           console.log(error);
