@@ -7,7 +7,10 @@
   >
     <v-list-item class="ma-1 px-1">
       <v-list-item-avatar>
-        <img :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`" />
+        <img
+          class="avatars"
+          :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`"
+        />
       </v-list-item-avatar>
       <v-list-item-title class="font-weight-medium userName">
         {{ getUserInfo.username }}
@@ -19,9 +22,9 @@
       <v-btn
         @click="drawer = !drawer"
         color="primary"
-        icon
-        small
+        rounded
         v-if="!drawer"
+        x-small
       >
         <v-icon>cancel</v-icon>
       </v-btn>
@@ -35,7 +38,10 @@
         >
           <v-list-item-content>
             <v-avatar>
-              <img :src="`data:image/svg+xml;utf8,${generateAvatar(user.lookup.username)}`" />
+              <img
+                class="avatars"
+                :src="`data:image/svg+xml;utf8,${generateAvatar(user.lookup.username)}`"
+              />
             </v-avatar>
             <v-list-item-title class="mb-3 ml-10 mt-1 userName">
               {{ user.lookup.username }}
@@ -77,5 +83,10 @@ export default {
 .userName {
   font-size: 12px;
   margin-left: -10px;
+}
+
+.avatars {
+  height: 35px!important;
+  width: 35px!important;
 }
 </style>

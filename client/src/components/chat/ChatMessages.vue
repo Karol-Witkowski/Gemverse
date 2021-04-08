@@ -9,7 +9,10 @@
     >
       <v-list-item :key="message._id">
         <v-list-item-avatar class="py-0 my-0">
-          <img :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`" />
+          <img
+            class="userAvatar"
+            :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
+          />
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>
@@ -52,6 +55,11 @@ export default {
 };
 </script>
 <style lang="scss">
+.userAvatar {
+  height: 30px!important;
+  width: 30px!important;
+}
+
 .v-list-item__content {
   align-items: initial;
   padding-top: 0px;
