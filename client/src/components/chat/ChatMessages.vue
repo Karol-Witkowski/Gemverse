@@ -1,12 +1,18 @@
 <template>
   <v-main class="mb-4 pl-0 pt-4">
     <v-list
-      class="scrollBar overflow-y-auto py-1"
+      class="overflow-y-auto py-1"
       color="rgb(248, 248, 248)"
       :key="message._id"
-      v-for="message in messages"
+      v-for="(message) in messages"
     >
-      <v-list-item :key="message._id">
+      <v-list-item
+        :class="[
+          'd-flex flex-row align-center my-2 message',
+          message.user.username == message.message ?'justify-end': null
+        ]"
+        :key="message._id"
+      >
         <v-list-item-avatar class="my-0 py-0">
           <img
             class="userAvatar"
@@ -20,7 +26,7 @@
           <v-list-item-subtitle>
             {{ message.message }}
             <v-spacer />
-            <span class="font-weight-bold messageTime">
+            <span class="font-weight-bold messageTime mt-3">
               {{ message.createdDate.split('T').join(' ').slice(0, 16) }} CEST
             </span>
           </v-list-item-subtitle>
@@ -46,6 +52,10 @@ export default {
     };
   },
 
+  created() {
+    this.scrollToEnd();
+  },
+
   computed: {
     ...mapGetters(['getCurrentRoom']),
   },
@@ -54,13 +64,24 @@ export default {
     generateAvatar(username) {
       return generateFromString(username);
     },
+
+    scrollToEnd() {
+      this.$nextTick(() => {
+        const container = this.querySelector('.message')
+        container.scrollTop = container.scrollHeight
+      })
+    },
   },
 };
 </script>
 <style lang="scss">
 .userAvatar {
-  height: 30px!important;
-  width: 30px!important;
+  height: 31.5px!important;
+  width: 31.5px!important;
+}
+
+.message {
+  //
 }
 
 .messageTime {
@@ -80,9 +101,5 @@ export default {
 
 .v-list-item__avatar:first-child {
   margin-right: 7px!important;
-}
-
-.scrollBar {
-  max-height: 31em;
 }
 </style>
