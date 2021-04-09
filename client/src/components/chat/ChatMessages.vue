@@ -4,7 +4,6 @@
       class="scrollBar overflow-y-auto py-1"
       color="rgb(248, 248, 248)"
       :key="message._id"
-      three-line
       v-for="message in messages"
     >
       <v-list-item :key="message._id">
@@ -20,6 +19,10 @@
           </v-list-item-title>
           <v-list-item-subtitle>
             {{ message.message }}
+            <v-spacer />
+            <span class="font-weight-bold messageTime">
+              {{ message.createdDate.split('T').join(' ').slice(0, 16) }} CEST
+            </span>
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -58,6 +61,11 @@ export default {
 .userAvatar {
   height: 30px!important;
   width: 30px!important;
+}
+
+.messageTime {
+  float: right;
+  font-size: 10px!important;
 }
 
 .v-list-item__content {
