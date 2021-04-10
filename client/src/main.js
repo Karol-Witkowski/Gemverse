@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import axios from 'axios';
+import VueChatScroll from 'vue-chat-scroll';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import tokenSetter from './utils/authTokenSetter';
+
+Vue.use(VueChatScroll);
 
 Vue.config.productionTip = false;
 

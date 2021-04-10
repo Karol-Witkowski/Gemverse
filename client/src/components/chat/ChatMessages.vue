@@ -1,39 +1,42 @@
 <template>
   <v-main class="mb-4 pl-0 pt-4">
-    <v-list
-      class="overflow-y-auto py-1"
-      color="rgb(248, 248, 248)"
-      :key="message._id"
-      v-for="(message) in messages"
+    <div
+      class="chat m-0 overflow-x-auto"
+      v-chat-scroll
     >
-      <v-list-item
-        :class="[
-          'd-flex flex-row align-center my-2 message',
-          message.user.username == message.message ?'justify-end': null
-        ]"
+      <li
+        class="m-4 p-4 bg-white"
         :key="message._id"
+        v-for="message in messages"
       >
-        <v-list-item-avatar class="my-0 py-0">
-          <img
-            class="userAvatar"
-            :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
-          />
-        </v-list-item-avatar>
-        <v-list-item-content class="py-0">
-          <v-list-item-title class="m-0">
-            <h5>{{ message.user.username }}</h5>
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ message.message }}
-            <v-spacer />
-            <span class="font-weight-bold messageTime mt-3">
-              {{ message.createdDate.split('T').join(' ').slice(0, 16) }} CEST
-            </span>
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    <v-divider class="msgDivider" />
-    </v-list>
+        <v-list-item :key="message._id">
+          <v-list-item-avatar class="my-0 py-0">
+            <img
+              class="userAvatar"
+              :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
+            />
+          </v-list-item-avatar>
+          <v-list-item-content class="py-0">
+            <v-list-item-title class="mt-2">
+              <h5>{{ message.user.username }}</h5>
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ message.message }}
+              <v-spacer />
+              <span class="font-weight-bold messageTime mt-3">
+                {{ message.createdDate
+                  .split('T')
+                  .join(' ')
+                  .slice(0, 16)
+                }}
+                CEST
+              </span>
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
+      </li>
+    </div>
   </v-main>
 </template>
 
@@ -46,15 +49,6 @@ export default {
   props: {
     messages: {},
   },
-  data() {
-    return {
-      drawerToggle: false,
-    };
-  },
-
-  created() {
-    this.scrollToEnd();
-  },
 
   computed: {
     ...mapGetters(['getCurrentRoom']),
@@ -64,29 +58,27 @@ export default {
     generateAvatar(username) {
       return generateFromString(username);
     },
-
-    scrollToEnd() {
-      this.$nextTick(() => {
-        const container = this.querySelector('.message')
-        container.scrollTop = container.scrollHeight
-      })
-    },
   },
 };
 </script>
 <style lang="scss">
-.userAvatar {
-  height: 31.5px!important;
-  width: 31.5px!important;
-}
-
-.message {
-  //
+.chat {
+  height: 68vh!important;
 }
 
 .messageTime {
   float: right;
   font-size: 10px!important;
+}
+
+.scrollBar {
+  max-height: 31em!important;
+}
+
+.userAvatar {
+  height: 31.5px!important;
+  margin-top: -8px!important;
+  width: 31.5px!important;
 }
 
 .v-list-item__content {

@@ -1,19 +1,5 @@
 <template>
   <v-main>
-    <v-row
-      align="center"
-      justify="space-around"
-    >
-      <v-btn
-        class="mt-4"
-        color="primary"
-        outlined
-        small
-        to="/roomlist"
-      >
-        leave room
-      </v-btn>
-    </v-row>
     <ChatMessages :messages="messages" />
     <ChatSideMenu :activeUsers="activeUsers" />
     <ChatInput />
