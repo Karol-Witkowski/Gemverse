@@ -2,7 +2,7 @@
   <v-main class="mb-4 pl-0 pt-2">
     <div
       class="chat m-0 overflow-x-auto"
-      v-chat-scroll
+      v-chat-scroll="{smooth: true, notSmoothOnInit: true}"
     >
       <li
         class="m-4 p-4 bg-white"
