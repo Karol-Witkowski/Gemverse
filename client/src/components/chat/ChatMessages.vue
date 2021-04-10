@@ -4,23 +4,23 @@
       class="chat m-0 overflow-x-auto"
       v-chat-scroll="{smooth: true, notSmoothOnInit: true}"
     >
-      <li
+      <v-list
         class="m-4 p-4 bg-white"
         :key="message._id"
         v-for="message in messages"
       >
         <v-list-item :key="message._id">
-          <v-list-item-avatar class="my-0 py-0">
+          <v-list-item-avatar>
             <img
               class="userAvatar"
               :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
             />
           </v-list-item-avatar>
           <v-list-item-content class="py-0">
-            <v-list-item-title class="mt-2">
+            <v-list-item-title class="mb-1 mt-2 pl-2">
               <h5>{{ message.user.username }}</h5>
             </v-list-item-title>
-            <v-list-item-subtitle>
+            <v-list class="pl-2 userMessage">
               {{ message.message }}
               <v-spacer />
               <span class="font-weight-bold messageTime mt-3">
@@ -31,11 +31,11 @@
                 }}
                 UTC
               </span>
-            </v-list-item-subtitle>
+            </v-list>
           </v-list-item-content>
         </v-list-item>
         <v-divider />
-      </li>
+      </v-list>
     </div>
   </v-main>
 </template>
@@ -64,6 +64,12 @@ export default {
 <style lang="scss">
 .chat {
   height: 75.3vh!important;
+}
+
+.userMessage {
+  text-align: justify!important;
+  text-justify: inter-word!important;
+  word-break: normal!important;
 }
 
 .messageTime {
