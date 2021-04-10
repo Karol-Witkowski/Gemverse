@@ -29,7 +29,7 @@
                   .join(' ')
                   .slice(0, 16)
                 }}
-                CEST
+                UTC
               </span>
             </v-list-item-subtitle>
           </v-list-item-content>

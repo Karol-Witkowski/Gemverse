@@ -5,6 +5,7 @@
         <v-col cols="15">
           <v-text-field
             :append-outer-icon="'send'"
+            class="input"
             color="primary"
             clearable
             clear-icon="cancel"
@@ -56,3 +57,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.v-input__icon {
+  font-size: 1.5em!important;
+}
+
+</style>
