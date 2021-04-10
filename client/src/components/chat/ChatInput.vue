@@ -10,6 +10,7 @@
             clearable
             clear-icon="cancel"
             @click:append-outer="sendMessage"
+            dense
             :error-messages="inputError"
             label="Message"
             outlined

@@ -63,7 +63,7 @@ export default {
 </script>
 <style lang="scss">
 .chat {
-  height: 73vh!important;
+  height: 75.3vh!important;
 }
 
 .messageTime {
