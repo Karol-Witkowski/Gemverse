@@ -1,5 +1,5 @@
 <template>
-  <v-main class="mb-4 pl-0 pt-4">
+  <v-main class="mb-4 pl-0 pt-2">
     <div
       class="chat m-0 overflow-x-auto"
       v-chat-scroll
@@ -63,7 +63,7 @@ export default {
 </script>
 <style lang="scss">
 .chat {
-  height: 68vh!important;
+  height: 73vh!important;
 }
 
 .messageTime {

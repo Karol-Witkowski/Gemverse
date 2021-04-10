@@ -16,21 +16,35 @@
         {{ getUserInfo.username }}
       </v-list-item-title>
     </v-list-item>
+    <div
+      align="center"
+      v-if="!drawer"
+    >
     <v-divider />
-    <v-layout>
-      <v-spacer />
       <v-btn
+        block
         @click="drawer = !drawer"
-        color="primary"
-        rounded
+        elevation="0"
         v-if="!drawer"
         x-small
       >
-        <v-icon>cancel</v-icon>
+        close
       </v-btn>
-    </v-layout>
-    <v-container v-if="!drawer">
-      <v-list-item-title class="ml-7 mt-1 text-uppercase">users list</v-list-item-title>
+      <v-divider />
+      <v-btn
+        block
+        elevation="0"
+        to="/roomlist"
+        x-small
+      >
+        leave room
+      </v-btn>
+    <v-divider />
+      <v-list-item-title
+        class="ax-auto mt-2 font-weight-bold text-uppercase"
+      >
+        users list
+      </v-list-item-title>
       <v-list>
         <v-list-item
           :key="user.lookup._id"
@@ -43,13 +57,13 @@
                 :src="`data:image/svg+xml;utf8,${generateAvatar(user.lookup.username)}`"
               />
             </v-avatar>
-            <v-list-item-title class="mb-3 ml-10 mt-1 userName">
+            <v-list-item-title class="mb-3 ml-1 mt-1 userName">
               {{ user.lookup.username }}
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-container>
+    </div>
   </v-navigation-drawer>
 </template>
 
