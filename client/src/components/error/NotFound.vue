@@ -13,7 +13,7 @@
             alt="People holding a disconnected wire"
             class="mx-auto"
             max-width="32%"
-            min-width="320px"
+            min-width="250px"
             src="..\..\assets\img\notFound.jpg"
           />
         </v-card-actions>

@@ -1,6 +1,6 @@
 <template>
   <v-card cols="12">
-    <v-card-title class="headline grey--text text--darken-2">
+    <v-card-title class="header headline grey--text text--darken-2">
       Type password to proceed
     </v-card-title>
     <v-card-text>
@@ -109,3 +109,10 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.header {
+  text-align: justify!important;
+  text-justify: inter-word!important;
+  word-break: normal!important;
+}
+</style>

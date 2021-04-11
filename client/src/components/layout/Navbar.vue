@@ -14,13 +14,15 @@
           class="d-flex d-sm-none mx-auto"
           color="primary"
           dark
-          min-width="180"
+          max-width="140"
           outlined
+          small
           v-bind="attrs"
           v-on="{ ...menu }"
         >
           <v-icon>menu</v-icon>
         </v-btn>
+        <v-spacer />
       </template>
       <v-list class="font-weight-bold grey--text menu text-uppercase">
         <v-list-item to="/">Home</v-list-item>
