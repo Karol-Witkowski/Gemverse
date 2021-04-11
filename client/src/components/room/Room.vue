@@ -1,7 +1,10 @@
 <template>
   <v-main>
     <ChatMessages :messages="messages" />
-    <ChatSideMenu :activeUsers="activeUsers" />
+    <ChatSideMenu
+      :activeUsers="activeUsers"
+      class="float-left ml-6 mt-6"
+    />
     <ChatInput />
   </v-main>
 </template>
@@ -100,3 +103,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+sideMenu {
+  position: absolute;
+}
+</style>
