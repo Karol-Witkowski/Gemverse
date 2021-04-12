@@ -60,8 +60,10 @@
       </v-tab>
       <v-tab to="/about">About</v-tab>
     </v-tabs>
-    <v-tab to="/">
-      <span class="appName grey--text menu text--darken-2">gemverse</span>
+    <v-tab
+      class="appName grey--text menu text--darken-2" to="/"
+    >
+      gemverse
     </v-tab>
     <v-tab
       class="grey--text hidden-xs-only menu mx-2 text--darken-2"
@@ -111,7 +113,7 @@ export default {
 </script>
 <style lang="scss">
 .appName {
-  letter-spacing: 4px;
+  letter-spacing: 4px!important;
 }
 
 .menu {

@@ -111,8 +111,8 @@ export default {
 </script>
 <style lang="scss">
 .header {
-  text-align: justify!important;
-  text-justify: inter-word!important;
-  word-break: normal!important;
+  text-align: justify;
+  text-justify: inter-word;
+  word-break: normal;
 }
 </style>

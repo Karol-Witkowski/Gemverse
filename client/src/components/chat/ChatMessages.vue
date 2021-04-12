@@ -63,13 +63,13 @@ export default {
 </script>
 <style lang="scss">
 .chat {
-  height: 75.3vh!important;
+  height: 75.3vh;
 }
 
 .userMessage {
-  text-align: justify!important;
-  text-justify: inter-word!important;
-  word-break: normal!important;
+  text-align: justify;
+  text-justify: inter-word;
+  word-break: normal;
 }
 
 .messageTime {
@@ -77,20 +77,16 @@ export default {
   font-size: 10px!important;
 }
 
-.scrollBar {
-  max-height: 31em!important;
-}
-
 .userAvatar {
   height: 31.5px!important;
-  margin-top: -8px!important;
+  margin-top: -8px;
   width: 31.5px!important;
 }
 
 .v-list-item__content {
   align-items: initial;
-  padding: 0!important;
-  margin: 0!important;
+  padding: 0;
+  margin: 0;
 }
 
 .v-list:last-of-type > hr {

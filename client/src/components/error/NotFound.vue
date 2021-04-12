@@ -31,7 +31,7 @@
   </v-container>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 h1 {
   font-size: 22px!important;
 }

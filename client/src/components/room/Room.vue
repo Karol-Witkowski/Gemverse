@@ -3,7 +3,7 @@
     <ChatMessages :messages="messages" />
     <ChatSideMenu
       :activeUsers="activeUsers"
-      class="float-left ml-6 mt-6"
+      class="float-left ml-4 mt-6"
     />
     <ChatInput />
   </v-main>
@@ -103,8 +103,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-sideMenu {
-  position: absolute;
-}
-</style>
