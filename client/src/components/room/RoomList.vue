@@ -1,12 +1,33 @@
 <template>
   <v-container
-    class="mt-16"
+    class="mt-8"
     fluid
   >
     <v-flex
       centered
-      class="xs12 sm12 mt-6 mx-6"
+      class="sm12 mx-6"
     >
+      <v-alert
+        class="mt-5 mb-0 mx-auto"
+        dense
+        max-width="500"
+        type="error"
+        v-bind:class="[roomError ? 'roomErrorAlert' : 'whiteSpace']"
+      >
+        <v-row align="center">
+          <v-col class="grow">
+            <strong class="mx-auto">{{ roomError }}</strong>
+          </v-col>
+          <v-col class="shrink">
+            <v-btn
+              @click="showRoomError"
+              small
+            >
+              ok
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-alert>
       <v-layout>
         <v-spacer />
         <v-btn
@@ -191,6 +212,7 @@ export default {
   data() {
     return {
       addRoomModal: false,
+      roomError: this.$route.params.message,
       deleteError: '',
       deleteRoomModal: false,
       errors: [],
@@ -205,6 +227,7 @@ export default {
   },
 
   created() {
+    console.log(this.roomError);
     this.getRoomList();
     this.socket.on('removeRoomFromList', (id) => {
       // eslint-disable-next-line no-underscore-dangle
@@ -285,6 +308,10 @@ export default {
       this.id = idNumber;
     },
 
+    showRoomError() {
+      this.roomError = '';
+    },
+
     sort() {
       if (this.toggleSort) this.sortBy = 'sort by create date';
       else this.sortBy = 'sort by given name';
@@ -320,5 +347,15 @@ export default {
 
 .v-list:last-of-type > hr {
   display: none;
+}
+
+.roomErrorAlert {
+  visibility: visible;
+}
+
+.whiteSpace {
+  opacity: 0;
+  transition: visibility 0.3s linear,opacity 0.3s linear;
+  visibility: hidden;
 }
 </style>

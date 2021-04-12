@@ -76,12 +76,10 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          if (error.status === 404) { // DISPLAY ON LIST
-            this.$router.push({
-              name: 'RoomList',
-              params: { message: 'Room deleted by room creator' },
-            });
-          }
+          this.$router.push({
+            name: 'RoomList',
+            params: { message: 'Room does not exist' },
+          });
         });
     },
 
