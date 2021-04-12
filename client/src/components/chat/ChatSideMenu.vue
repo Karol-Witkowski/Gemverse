@@ -18,6 +18,7 @@
       <v-list-item class="ma-1 px-1">
         <v-list-item-avatar>
           <img
+            alt="online user avatar"
             class="avatars"
             :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`"
           />
@@ -50,6 +51,7 @@
             <v-list-item-content>
               <v-avatar>
                 <img
+                  alt="online user avatar"
                   class="avatars"
                   :src="`data:image/svg+xml;utf8,${generateAvatar(user.lookup.username)}`"
                 />
@@ -98,7 +100,7 @@ export default {
 }
 
 .avatars {
-  height: 35px!important;
-  width: 35px!important;
+  height: 31px!important;
+  width: 31px!important;
 }
 </style>

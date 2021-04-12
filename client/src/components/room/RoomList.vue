@@ -45,7 +45,7 @@
           </h2>
         </v-card-title>
         <v-divider />
-        <transition-group name="list" tag="p">
+        <transition-group name="list">
           <v-list
             class="py-0 list-item roomList"
             cols="12"
@@ -74,7 +74,7 @@
                       v-bind="attrs"
                       v-on="on"
                     >
-                      <v-icon>cancel</v-icon>
+                      <v-icon alt="x mark">cancel</v-icon>
                     </v-btn>
                   </template>
                   <v-card>
@@ -320,7 +320,8 @@ export default {
 };
 </script>
 <style lang="scss">
-.roomList {
+.v-list
+ {
   font-size: 12px;
 }
 

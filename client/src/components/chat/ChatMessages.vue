@@ -1,17 +1,18 @@
 <template>
   <v-main class="mb-4 pl-0 pt-2">
     <div
-      class="chat m-0 overflow-x-auto"
+      class="chat ma-0 overflow-x-auto"
       v-chat-scroll="{smooth: true, notSmoothOnInit: true}"
     >
       <v-list
-        class="m-4 p-4 bg-white"
+        class="0 bg-white"
         :key="message._id"
         v-for="message in messages"
       >
         <v-list-item :key="message._id">
           <v-list-item-avatar>
             <img
+              alt="user avatar"
               class="userAvatar"
               :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
             />
@@ -66,6 +67,13 @@ export default {
   height: 75.3vh;
 }
 
+.v-list-item__avatar:first-child {
+  height: 31.5px!important;
+  margin-right: 7px!important;
+  margin-top: -8px;
+  width: 31.5px!important;
+}
+
 .userMessage {
   text-align: justify;
   text-justify: inter-word;
@@ -77,12 +85,6 @@ export default {
   font-size: 10px!important;
 }
 
-.userAvatar {
-  height: 31.5px!important;
-  margin-top: -8px;
-  width: 31.5px!important;
-}
-
 .v-list-item__content {
   align-items: initial;
   padding: 0;
@@ -91,9 +93,5 @@ export default {
 
 .v-list:last-of-type > hr {
   display: none;
-}
-
-.v-list-item__avatar:first-child {
-  margin-right: 7px!important;
 }
 </style>

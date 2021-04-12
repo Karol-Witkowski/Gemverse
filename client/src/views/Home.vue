@@ -37,11 +37,11 @@
         </v-card-actions>
         <v-card-actions v-if="isAuthorized">
           <v-btn
-              class="ml-2"
-              color="blue lighten-2"
-              outlined
-              to="/roomlist"
-            >
+            class="ml-2"
+            color="blue lighten-2"
+            outlined
+            to="/roomlist"
+          >
             Room list
           </v-btn>
         </v-card-actions>

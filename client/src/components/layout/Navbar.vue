@@ -20,7 +20,7 @@
           v-bind="attrs"
           v-on="{ ...menu }"
         >
-          <v-icon>menu</v-icon>
+          <v-icon alt="hamburger menu">menu</v-icon>
         </v-btn>
         <v-spacer />
       </template>
