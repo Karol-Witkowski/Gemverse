@@ -62,7 +62,8 @@ router.post('/login', async (request, response) => {
       );
       await user.save();
       return response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
-    } else return response.status(404).json({ password: 'Invalid password' });
+    }
+    response.status(404).json({ password: 'Invalid password' });
   }
 });
 

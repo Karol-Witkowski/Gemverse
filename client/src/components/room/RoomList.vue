@@ -8,9 +8,8 @@
       class="sm12 mx-6"
     >
       <v-alert
-        class="mt-5 mb-0 mx-auto"
-        dense
-        max-width="500"
+        class="mt-5 mb-md-2 mx-auto pa-2"
+        max-width="300"
         type="error"
         v-bind:class="[roomError ? 'roomErrorAlert' : 'whiteSpace']"
       >
@@ -227,7 +226,6 @@ export default {
   },
 
   created() {
-    console.log(this.roomError);
     this.getRoomList();
     this.socket.on('removeRoomFromList', (id) => {
       // eslint-disable-next-line no-underscore-dangle

@@ -17,7 +17,7 @@ router.get('/:slug', passport.authenticate('jwt', { session: false }), async (re
   const room = await Room.findOne({ slug: request.params.slug });
 
   if (!room) return response.status(404).json({ error: 'Room not found' });
-  else return response.status(200).json(room);
+  response.status(200).json(room);
 });
 
 /** Save room */
@@ -29,7 +29,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (reques
   } else {
     Room.create(request.body, (error, room) => {
       if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
-      return response.status(201).send(room);
+      response.status(201).send(room);
     });
   }
 });
@@ -44,7 +44,8 @@ router.post('/verification',  passport.authenticate('jwt', { session: false }), 
     if (await bcrypt.compare(request.body.password, room.password)) {
       await room.save();
       return response.status(200).send(room);
-    } else return response.status(404).json({ error: 'Invalid password' });
+    }
+    response.status(404).json({ error: 'Invalid password' });
   }
 });
 
@@ -57,7 +58,8 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
       if (request.body._id === room.user.toString()) {
         room.delete();
         response.status(200).json({ message: 'Room deleted'});
-      } else return response.status(404).json({ error: 'Users are allowed to delete only own rooms' });
+      }
+      response.status(404).json({ error: 'Users are allowed to delete only own rooms' });
     }
 });
 
@@ -72,7 +74,7 @@ router.post('/remove/online/user', passport.authenticate('jwt', { session: false
       room.activeUsers = room.activeUsers.filter((user) => user.lookup.toString() !== request.user.id);
       await room.save();
     }
-    return response.status(200).json(await Room.populate(room, {
+    response.status(200).json(await Room.populate(room, {
       path: 'user activeUsers.lookup',
       select: 'username'
     }));

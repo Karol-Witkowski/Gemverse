@@ -8,9 +8,8 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), async (requ
   const messages = await Message.find({ room: request.params.id  });
     if (messages) {
       return response.status(200).json(messages);
-    } else {
-      return response.status(404).json({ error: 'Messages not found' });
     }
+    response.status(404).json({ error: 'Messages not found' });
 });
 
 /** Save message */

@@ -8,9 +8,8 @@ router.get('/users', passport.authenticate('jwt', { session: false }), async (re
   const onlineUsers = await User.find({}, 'email username').exec();
     if (!onlineUsers) {
       return response.status(404).json({ error: 'Users not found' });
-    } else {
-      return response.status(200).json(onlineUsers).end();
     }
+      response.status(200).json(onlineUsers).end();
 });
 
 /** Get user data */
