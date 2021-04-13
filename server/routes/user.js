@@ -14,7 +14,9 @@ router.get('/users', passport.authenticate('jwt', { session: false }), async (re
 
 /** Get user data */
 router.get('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await response.status(200).json(request.user);
+  const user = await User.findById({ _id: request.user._id }).select('-password');
+
+  await response.status(200).json(user);
 });
 
 /** Delete user */

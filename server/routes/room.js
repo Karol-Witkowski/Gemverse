@@ -6,15 +6,15 @@ const router = express.Router();
 
 /** Get all rooms */
 router.get('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await Room.find(function(error, rooms) {
-    if (error) return response.status(404).json({ error: 'Rooms not found' });
-    response.status(200).json(rooms);
-  });
+  const rooms = await Room.find().select('-password')
+
+  if (rooms.length < 1) return response.status(404).json({ error: 'Rooms not found' });
+  response.status(200).json(rooms);
 });
 
 /** Get single room by slug */
 router.get('/:slug', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const room = await Room.findOne({ slug: request.params.slug });
+  const room = await Room.findOne({ slug: request.params.slug }).select('-password')
 
   if (!room) return response.status(404).json({ error: 'Room not found' });
   response.status(200).json(room);
@@ -22,11 +22,13 @@ router.get('/:slug', passport.authenticate('jwt', { session: false }), async (re
 
 /** Save room */
 router.post('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const room = await Room.findOne({ name:  { $regex : new RegExp(request.body.name, 'i') } });
+  const room = await Room.findOne({ name: { $regex : new RegExp(request.body.name, 'i') } })
+    .select('-password');
 
   if (room !== null) {
     return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
   } else {
+    request.body.access = request.body.password ? 'private' : 'public',
     Room.create(request.body, (error, room) => {
       if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
       response.status(201).send(room);
@@ -56,8 +58,8 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
       return response.status(404).json({ error: `Room not found` });
     } else {
       if (request.body._id === room.user.toString()) {
-        room.delete();
-        response.status(200).json({ message: 'Room deleted'});
+        await room.delete();
+        return response.status(200).json({ message: 'Room deleted'});
       }
       response.status(404).json({ error: 'Users are allowed to delete only own rooms' });
     }

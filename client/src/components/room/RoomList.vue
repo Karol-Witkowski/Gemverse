@@ -117,9 +117,9 @@
                 alt="Red lock icon"
                 max-width="22px"
                 src="..\..\assets\img\privacyAlertIcon.png"
-                v-if="room.password"
+                v-if="room.access === 'private'"
               />
-              <v-list-item-action v-if="!room.password">
+              <v-list-item-action v-if="room.access === 'public'">
                 <v-btn
                   @click="join(room.slug)"
                   color="primary"
@@ -129,7 +129,7 @@
                   join
                 </v-btn>
               </v-list-item-action>
-              <v-list-item-action v-if="room.password">
+              <v-list-item-action v-if="room.access === 'private'">
                 <v-dialog
                   max-width="600px"
                   persistent
@@ -280,6 +280,7 @@ export default {
             // eslint-disable-next-line no-underscore-dangle
             if (data._id !== this.id) {
               this.rooms.push({
+                access: data.password ? 'private' : 'public',
                 // eslint-disable-next-line no-underscore-dangle
                 _id: data._id,
                 name: data.name,
@@ -291,7 +292,8 @@ export default {
           });
         })
         .catch((error) => {
-          this.errors.push(error);
+          console.log(error);
+          this.roomError = error.response.data.error;
         });
     },
 
