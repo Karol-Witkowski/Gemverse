@@ -15,15 +15,15 @@
       width="170"
       v-model="drawer"
     >
-      <v-list-item class="ma-1 px-1">
+      <v-list-item class="mt-2 px-1">
         <v-list-item-avatar>
           <img
-            alt="online user avatar"
-            class="avatars"
+            alt="online user"
+            height="25"
             :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`"
           />
         </v-list-item-avatar>
-        <v-list-item-title class="font-weight-medium ml-1 userName">
+        <v-list-item-title class="font-weight-bold mb-3 userName">
           {{ getUserInfo.username }}
         </v-list-item-title>
       </v-list-item>
@@ -52,11 +52,11 @@
               <v-avatar>
                 <img
                   alt="online user avatar"
-                  class="avatars"
+                  class="activeUsersAvatars"
                   :src="`data:image/svg+xml;utf8,${generateAvatar(user.lookup.username)}`"
                 />
               </v-avatar>
-              <v-list-item-title class="mb-3 ml-1 mt-1 userName">
+              <v-list-item-title class="mb-3 ml-1 mt-1">
                 {{ user.lookup.username }}
               </v-list-item-title>
             </v-list-item-content>
@@ -96,10 +96,10 @@ export default {
 <style lang="scss">
 .userName {
   font-size: 12px;
-  margin-left: -10px;
+  margin-left: -5px;
 }
 
-.avatars {
+.activeUsersAvatars {
   height: 31px!important;
   width: 31px!important;
 }

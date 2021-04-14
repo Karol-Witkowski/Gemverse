@@ -2,29 +2,29 @@
   <v-main class="mb-4 pl-0 pt-2">
     <div
       class="chat ma-0 overflow-x-auto"
-      v-chat-scroll="{smooth: true, notSmoothOnInit: true}"
+      v-chat-scroll="{ smooth: true, notSmoothOnInit: true }"
     >
       <v-list
         class="0 bg-white"
         :key="message._id"
         v-for="message in messages"
       >
-        <v-list-item :key="message._id">
-          <v-list-item-avatar>
-            <img
-              alt="user avatar"
-              class="userAvatar"
-              :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
-            />
-          </v-list-item-avatar>
+        <v-list-item-avatar class="ml-1 mt-1">
+          <img
+            alt="user avatar"
+            :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
+          />
+        </v-list-item-avatar>
+          <span class="font-weight-bold">{{ message.user.username }}</span>
+        <v-list-item
+          class="pl-3"
+          :key="message._id"
+        >
           <v-list-item-content class="py-0">
-            <v-list-item-title class="mb-1 mt-2 pl-2">
-              <h5>{{ message.user.username }}</h5>
-            </v-list-item-title>
-            <v-list class="pl-2 userMessage">
+            <v-list class="pl-1 pr-4 userMessage">
               {{ message.message }}
               <v-spacer />
-              <span class="font-weight-bold messageTime mt-3">
+              <span class="font-weight-medium messageTime mt-3">
                 {{ message.createdDate
                   .split('T')
                   .join(' ')
@@ -68,13 +68,15 @@ export default {
 }
 
 .v-list-item__avatar:first-child {
-  height: 31.5px!important;
+  height: 28px!important;
   margin-right: 7px!important;
   margin-top: -8px;
-  width: 31.5px!important;
+  width: 28px!important;
 }
 
 .userMessage {
+  display: block;
+  font-size: 1.14em!important;
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;
@@ -82,7 +84,7 @@ export default {
 
 .messageTime {
   float: right;
-  font-size: 10px!important;
+  font-size: 0.86em!important;
 }
 
 .v-list-item__content {
