@@ -54,6 +54,7 @@ module.exports = {
       .populate('activeUsers.lookup', ['username']);
     if (room) {
       room.activeUsers = room.activeUsers.filter((user) => user.socketId !== data.socketId);
+      room.permission.splice(room.permission.indexOf(data.currentUserId), 1);
       await room.save();
       return {
         updated: await Room.populate(room, {

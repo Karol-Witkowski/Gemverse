@@ -4,7 +4,6 @@ const { handleJoinRoom }  = require('./helpers/socketHelpers');
 const {
   ADD_NEW_MESSAGE,
   FILTER_ACTIVE_USERS,
-  UPDATE_ACTIVE_USERS
 } = require('./actions/socketActions');
 
 require('./db/mongoose');
@@ -31,10 +30,11 @@ io.on('connection', (socket) => {
     io.emit('removeRoomFromList', roomId);
   });
 
-  socket.on('disconnect', async () => { // fix needed
+  socket.on('disconnect', async () => {
     if (currentStatus) {
       socket.to(currentStatus.room._id).emit('userDisconnected', await FILTER_ACTIVE_USERS({
         currentRoomId: currentStatus.room._id,
+        currentUserId: currentStatus.user._id,
         socketId: socket.id
       }));
     }

@@ -73,7 +73,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     if (localStorage.getItem('authenticationToken') === null) {
       localStorage.clear();
-      next({
+      router.push({
         name: 'Login',
         params: { message: 'Please login to proceed' },
       });

@@ -39,6 +39,10 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     default: 'public'
   },
+  permission: {
+    type: Array,
+    default: []
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',

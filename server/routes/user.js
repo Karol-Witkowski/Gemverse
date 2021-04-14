@@ -9,7 +9,7 @@ router.get('/users', passport.authenticate('jwt', { session: false }), async (re
     if (!onlineUsers) {
       return response.status(404).json({ error: 'Users not found' });
     }
-      response.status(200).json(onlineUsers).end();
+    response.status(200).json(onlineUsers).end();
 });
 
 /** Get user data */

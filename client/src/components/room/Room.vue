@@ -46,6 +46,18 @@ export default {
       axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
         .then((response) => {
           this.$store.dispatch('saveCurrentRoom', response.data);
+          if (
+            (response.data.access === 'private')
+            // eslint-disable-next-line no-underscore-dangle
+            && (!response.data.permission.includes(this.getUserInfo._id)
+            // eslint-disable-next-line no-underscore-dangle
+            && this.getUserInfo._id !== response.data.user)) {
+            this.$router.push({
+              name: 'RoomList',
+              params: { message: 'Access denied' },
+            });
+          }
+
           this.socket.emit('joinRoom', {
             room: this.getCurrentRoom,
             user: this.getUserInfo,
