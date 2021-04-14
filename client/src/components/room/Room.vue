@@ -47,11 +47,10 @@ export default {
         .then((response) => {
           this.$store.dispatch('saveCurrentRoom', response.data);
           if (
-            (response.data.access === 'private')
+            (response.data.access === 'private'
             // eslint-disable-next-line no-underscore-dangle
-            && (!response.data.permission.includes(this.getUserInfo._id)
-            // eslint-disable-next-line no-underscore-dangle
-            && this.getUserInfo._id !== response.data.user)) {
+            && !response.data.permission.includes(this.getUserInfo._id))
+          ) {
             this.$router.push({
               name: 'RoomList',
               params: { message: 'Access denied' },
