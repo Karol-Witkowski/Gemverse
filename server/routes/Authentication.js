@@ -63,7 +63,7 @@ router.post('/login', async (request, response) => {
       await user.save();
       return response.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
     }
-    response.status(404).json({ password: 'Invalid password' });
+    return response.status(404).json({ password: 'Invalid password' });
   }
 });
 
@@ -73,8 +73,9 @@ router.post('/logout', async (request, response) => {
 
   if (!user) {
     return response.status(404).send({ error: `${ request.body.username } not found` });
+  } else {
+    return response.status(200).send({ success: true });
   }
-  response.status(200).send({ success: true });
 });
 
 module.exports = router;

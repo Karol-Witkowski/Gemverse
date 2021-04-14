@@ -6,8 +6,11 @@ const router = express.Router();
 /** Get all room messages by id */
 router.get('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const messages = await Message.find({ room: request.params.id  });
-    if (!messages) return response.status(404).json({ error: 'Messages not found' })
-    response.status(200).json(messages);
+    if (!messages) {
+      return response.status(404).json({ error: 'Messages not found' });
+    } else {
+      return response.status(200).json(messages);
+    }
 });
 
 /** Save message */
@@ -15,7 +18,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), (request, res
   if (!request.body.message) {
     return response.status(404).json({ error: 'Message must be at least 1 characters long' });
   }
-  if (error) return response.status(403).json({ error: 'Validation failed, please login again' });
+  if (error) {
+    return response.status(403).json({ error: 'Validation failed, please login again' });
+  }
 
   const createdMessage = new Message({
     message: request.body.message,

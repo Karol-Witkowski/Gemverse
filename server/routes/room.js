@@ -6,19 +6,23 @@ const router = express.Router();
 
 /** Get all rooms */
 router.get('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const rooms = await Room.find().select('-password')
+  const rooms = await Room.find().select('-password');
 
-  if (rooms.length < 1) return response.status(404).json({ error: 'Rooms not found' });
-  response.status(200).json(rooms);
+  if (rooms.length < 1) {
+    return response.status(404).json({ error: 'Rooms not found' });
+  } else {
+    return response.status(200).json(rooms);
+  };
 });
 
 /** Get single room by slug */
 router.get('/:slug', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const room = await Room.findOne({ slug: request.params.slug }).select('-password');
 
-  if (!room) return response.status(404).json({ error: 'Room not found' });
-  else {
-    response.status(200).json(room);
+  if (!room) {
+    return response.status(404).json({ error: 'Room not found' });
+  } else {
+    return response.status(200).json(room);
   };
 });
 
@@ -32,8 +36,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (reques
   } else {
     request.body.access = request.body.password ? 'private' : 'public',
     Room.create(request.body, (error, room) => {
-      if (error) return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
-      response.status(201).send(room);
+      if (error) {
+        return response.status(403).json({ error: `Name ${ request.body.name } is already taken` });
+      } else response.status(201).send(room);
     });
   }
 });
@@ -46,11 +51,14 @@ router.post('/verification', passport.authenticate('jwt', { session: false }), a
     return response.status(404).json({ error: `No room with name ${ request.body.name } found` });
   } else {
     if (await bcrypt.compare(request.body.password, room.password)) {
-      if (!room.permission.includes(request.user.id)) room.permission.push(request.user.id);
+      if (!room.permission.includes(request.user.id)) {
+        room.permission.push(request.user.id);
+      }
       await room.save();
       return response.status(200).send(room);
+    } else {
+      return response.status(404).json({ error: 'Invalid password' });
     }
-    response.status(404).json({ error: 'Invalid password' });
   }
 });
 
@@ -63,8 +71,9 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
       if (request.body._id === room.user.toString()) {
         await room.delete();
         return response.status(200).json({ message: 'Room deleted'});
+      } else {
+        return response.status(404).json({ error: 'Users are allowed to delete only own rooms' });
       }
-      response.status(404).json({ error: 'Users are allowed to delete only own rooms' });
     }
 });
 
@@ -77,8 +86,8 @@ router.post('/remove/online/user', passport.authenticate('jwt', { session: false
   } else {
     if (room.activeUsers.find((user) => user.lookup.toString() === request.user.id)) {
       room.activeUsers = room.activeUsers.filter((user) => user.lookup.toString() !== request.user.id);
-      if (room.permission.indexOf(request.user.id) >= 0){
-        room.permission.splice(room.permission.indexOf(request.user.id), 1);
+      if (room.permission.indexOf(request.user.id) >= 0) {
+        return room.permission.splice(room.permission.indexOf(request.user.id), 1);
       }
       await room.save();
     }
