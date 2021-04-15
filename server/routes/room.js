@@ -101,5 +101,4 @@ router.post('/remove/online/user', passport.authenticate('jwt', { session: false
   }
 });
 
-
 module.exports = router;

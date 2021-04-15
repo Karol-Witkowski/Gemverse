@@ -46,6 +46,12 @@ export default {
       axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
         .then((response) => {
           this.$store.dispatch('saveCurrentRoom', response.data);
+          this.socket.on('removeRoomFromList', () => {
+            this.$router.push({
+              name: 'RoomList',
+              params: { message: 'Room has been deleted' },
+            });
+          });
           if (
             (response.data.access === 'private'
             // eslint-disable-next-line no-underscore-dangle
