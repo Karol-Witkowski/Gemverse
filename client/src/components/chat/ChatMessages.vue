@@ -1,5 +1,5 @@
 <template>
-  <v-main class="mb-4 pl-0 pt-2">
+  <v-main class="mb-4 pl-4 pt-2">
     <div
       class="chat ma-0 overflow-x-auto"
       v-chat-scroll="{ smooth: true, notSmoothOnInit: true }"
