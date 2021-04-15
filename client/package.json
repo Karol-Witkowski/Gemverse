@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.10.1",
+    "dayjs": "^1.10.4",
     "generate-avatar": "^1.4.10",
     "lodash.remove": "^4.7.0",
     "material-design-icons-iconfont": "^6.1.0",

@@ -25,12 +25,7 @@
               {{ message.message }}
               <v-spacer />
               <span class="font-weight-medium messageTime mt-3">
-                {{ message.createdDate
-                  .split('T')
-                  .join(' ')
-                  .slice(0, 16)
-                }}
-                UTC
+                {{ utcToLocal(message.createdDate) }}
               </span>
             </v-list>
           </v-list-item-content>
@@ -42,8 +37,13 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 import { generateFromString } from 'generate-avatar';
 import { mapGetters } from 'vuex';
+
+const relativeTime = require('dayjs/plugin/relativeTime');
+
+dayjs.extend(relativeTime);
 
 export default {
   name: 'ChatMessages',
@@ -58,6 +58,10 @@ export default {
   methods: {
     generateAvatar(username) {
       return generateFromString(username);
+    },
+
+    utcToLocal(message) {
+      return dayjs(message).fromNow();
     },
   },
 };
