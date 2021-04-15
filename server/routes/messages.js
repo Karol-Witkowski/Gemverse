@@ -5,7 +5,7 @@ const router = express.Router();
 
 /** Get all room messages by id */
 router.get('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const messages = await Message.find({ room: request.params.id  });
+  const messages = await Message.find({ room: request.params.id });
     if (!messages) {
       return response.status(404).json({ error: 'Messages not found' });
     } else {

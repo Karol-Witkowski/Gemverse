@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const passport = require('passport');
+const Message = require('../models/Message');
 const Room = require('../models/Room');
 const router = express.Router();
 
@@ -69,6 +70,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
       return response.status(404).json({ error: `Room not found` });
     } else {
       if (request.body._id === room.user.toString()) {
+        await Message.deleteMany({ room: request.params.id });
         await room.delete();
         return response.status(200).json({ message: 'Room deleted'});
       } else {
