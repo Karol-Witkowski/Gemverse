@@ -6,6 +6,7 @@ const User = require('../models/User');
 /** Get online users */
 router.get('/users', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const onlineUsers = await User.find({}, 'email username').exec();
+
     if (!onlineUsers) {
       return response.status(404).json({ error: 'Users not found' });
     } else {
@@ -20,10 +21,10 @@ router.get('/logged', passport.authenticate('jwt', { session: false }), async (r
   await response.status(200).json(user);
 });
 
-/** Delete user */
-router.delete('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await User.findOneAndDelete({ id: request.user.id });
-  return response.status(200).json({ success: true });
+/** Remove user data */
+router.put('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
+  await User.findOneAndUpdate({ _id: request.user.id });
+  return response.json({ success: true });
 });
 
 module.exports = router;

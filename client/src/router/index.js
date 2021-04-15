@@ -55,6 +55,14 @@ const routes = [
     },
   },
   {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('../components/profile/Profile.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '*',
     component: () => import('@/components/error/NotFound.vue'),
     meta: {

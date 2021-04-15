@@ -11,7 +11,7 @@
     >
       <template v-slot:activator="{ on: menu, attrs }">
         <v-btn
-          class="d-flex d-sm-none mx-auto"
+          class="d-flex d-md-none mx-auto"
           color="primary"
           dark
           max-width="140"
@@ -25,14 +25,20 @@
         <v-spacer />
       </template>
       <v-list class="font-weight-bold grey--text menu text-uppercase">
-        <v-list-item to="/">Home</v-list-item>
+        <v-list-item to="/">home</v-list-item>
         <v-list-item
           to="/roomlist"
           v-if="isAuthorized"
         >
-          Rooms
+          rooms
         </v-list-item>
-        <v-list-item to="/about">About</v-list-item>
+        <v-list-item
+          to="/profile"
+          v-if="isAuthorized"
+        >
+          profile
+        </v-list-item>
+        <v-list-item to="/about">about</v-list-item>
         <v-list-item v-if="isAuthorized">
           <v-btn
             class="mx-auto"
@@ -48,7 +54,7 @@
       </v-list>
     </v-menu>
     <v-tabs
-      class="menu hidden-xs-only"
+      class="menu d-none d-md-block"
       color="primary"
     >
       <v-tab to="/">Home</v-tab>
@@ -57,6 +63,12 @@
         v-if="isAuthorized"
       >
         rooms
+      </v-tab>
+      <v-tab
+        to="/profile"
+        v-if="isAuthorized"
+      >
+        profile
       </v-tab>
       <v-tab to="/about">About</v-tab>
     </v-tabs>
