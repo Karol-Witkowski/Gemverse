@@ -6,7 +6,7 @@
     <v-flex class="xs12 mx-6">
       <v-card>
         <v-card-title>
-          <h3 class="grey--text mb-2 text--darken-1">About app</h3>
+          <p class="grey--text mb-2 text--darken-2 title">About app</p>
           <p class="grey--text text--darken-1">
             Gemverse is created by combining Vue, Vuetify, Express, Socket.io,
             MongoDB and more. The app aims to provide an alternative for friends
@@ -30,7 +30,7 @@
           alt="Desktop computer screen"
           class="ml-auto mt-6"
           max-width="45%"
-          min-width="320px"
+          min-width="320"
           src="..\assets\img\aboutBanner.png"
         />
       </v-card>
@@ -39,7 +39,7 @@
 </template>
 
 <style lang="scss">
-h3, p {
+p {
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;

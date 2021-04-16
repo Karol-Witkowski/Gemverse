@@ -23,7 +23,7 @@
     </v-alert>
     <v-card
       class="mt-8 mx-auto"
-      max-width="500px"
+      max-width="500"
     >
       <v-card-title>
         <span class="headline grey--text text--darken-2">Sign in to start chatting</span>

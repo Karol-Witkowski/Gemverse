@@ -25,7 +25,7 @@
               {{ message.message }}
               <v-spacer />
               <span class="font-weight-medium messageTime mt-3">
-                {{ utcToLocal(message.createdDate) }}
+                {{ utcToRelative(message.createdDate) }}
               </span>
             </v-list>
           </v-list-item-content>
@@ -60,7 +60,7 @@ export default {
       return generateFromString(username);
     },
 
-    utcToLocal(message) {
+    utcToRelative(message) {
       return dayjs(message).fromNow();
     },
   },

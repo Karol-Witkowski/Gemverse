@@ -39,14 +39,14 @@
       </v-layout>
       <v-card class="mb-6">
         <v-card-title class="py-2">
-          <h2 class="grey--text roomList text--darken-2 text-uppercase">
+          <span class="font-weight-bold grey--text subtitle-2 text--darken-2 text-uppercase">
             available rooms
-          </h2>
+          </span>
         </v-card-title>
         <v-divider />
         <transition-group name="list">
           <v-list
-            class="py-0 list-item roomList"
+            class="list-item py-0 roomList"
             cols="12"
             :key="room._id"
             v-for="room in sortedRooms"
@@ -55,7 +55,7 @@
               <v-list-item-content class="roomName">{{ room.name }}</v-list-item-content>
               <v-list-item-action v-if="getUserInfo._id === room.user">
                 <v-dialog
-                  max-width="600px"
+                  max-width="600"
                   overlay-opacity="0.15"
                   persistent
                   :retain-focus="false"
@@ -115,7 +115,7 @@
               <v-spacer />
               <v-img
                 alt="Red lock icon"
-                max-width="22px"
+                max-width="22"
                 src="..\..\assets\img\privacyAlertIcon.png"
                 v-if="room.access === 'private'"
               />
@@ -131,7 +131,7 @@
               </v-list-item-action>
               <v-list-item-action v-if="room.access === 'private'">
                 <v-dialog
-                  max-width="600px"
+                  max-width="600"
                   persistent
                   :retain-focus="false"
                   v-model="privateRoomModal"
@@ -169,7 +169,7 @@
         </transition-group>
       </v-card>
       <v-dialog
-        max-width="600px"
+        max-width="600"
         persistent
         v-model="addRoomModal"
       >

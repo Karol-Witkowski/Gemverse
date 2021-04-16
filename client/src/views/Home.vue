@@ -6,9 +6,9 @@
     <v-flex class="xs12 mx-6">
       <v-card>
         <v-card-title>
-          <h3 class="grey--text mb-2 text--darken-1">
+          <p class="grey--text mb-2 text--darken-2 title">
             Gemverse - a real-time chat
-          </h3>
+          </p>
           <p class="grey--text mb-0 text--darken-1">
             Gemverse is a chat app that keeps you connected with coworker and
             friends wherever you are. User can create own public and
@@ -49,7 +49,7 @@
           alt="Group of people chatting via multi-platform app"
           class="ml-auto mt-6"
           max-width="60%"
-          min-width="320px"
+          min-width="320"
           src="..\assets\img\homeBanner.png"
         />
       </v-card>
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss">
-h3, p {
+p {
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;
