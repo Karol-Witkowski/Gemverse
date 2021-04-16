@@ -138,11 +138,14 @@ export default {
     },
 
     deleteUser() {
-      axios.delete('/api/user/logged', this.getUserInfo)
+      axios.delete('http://localhost:3000/api/user/logged', this.getUserInfo)
         .then(() => {
           this.$store.dispatch('resetState', true);
           localStorage.clear();
-          this.$router.push({ name: 'Home' });
+          this.$router.push({
+            name: 'Login',
+            params: { message: 'Account deleted' },
+          });
         })
         .catch((error) => {
           console.log(error);

@@ -17,7 +17,7 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    INITIAL_STATE(state) {
+    INITIAL_STATE: (state) => {
       state.authState = false;
       state.currentRoom = {};
       state.user = {};

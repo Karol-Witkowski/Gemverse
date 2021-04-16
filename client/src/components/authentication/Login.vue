@@ -5,15 +5,15 @@
       dense
       max-width="500"
       type="error"
-      v-bind:class="[authError ? 'authErrorAlert' : 'whiteSpace']"
+      v-bind:class="[redirectError ? 'errorAlert' : 'whiteSpace']"
     >
       <v-row align="center">
         <v-col class="grow">
-          <strong class="mx-auto">{{ authError }}</strong>
+          <strong class="mx-auto">{{ redirectError }}</strong>
         </v-col>
         <v-col class="shrink">
           <v-btn
-            @click="showAuthError"
+            @click="showRedirectError"
             small
           >
             ok
@@ -43,7 +43,7 @@
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model="email"
-                  v-on:keyup="[userError = '', passwordError = '']"
+                  v-on:keyup="[userError = '', passwordError = '',]"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
@@ -108,7 +108,7 @@ export default {
   props: ['message'],
   data() {
     return {
-      authError: this.message,
+      redirectError: this.message,
       email: '',
       isFormValid: false,
       password: '',
@@ -167,15 +167,15 @@ export default {
         });
     },
 
-    showAuthError() {
-      this.authError = '';
+    showRedirectError() {
+      this.redirectError = '';
     },
   },
 };
 </script>
 
 <style>
-.authErrorAlert {
+.errorAlert {
   visibility: visible;
 }
 

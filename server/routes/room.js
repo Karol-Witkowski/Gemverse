@@ -69,7 +69,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
     if (!room) {
       return response.status(404).json({ error: `Room not found` });
     } else {
-      if (request.body._id === room.user.toString()) {
+      if (request.body._id === room.user.toString()) { // move it to validation?
         await Message.deleteMany({ room: request.params.id });
         await room.delete();
         return response.status(200).json({ message: 'Room deleted'});

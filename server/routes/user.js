@@ -23,8 +23,8 @@ router.get('/logged', passport.authenticate('jwt', { session: false }), async (r
 
 /** Remove user data */
 router.delete('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await User.findOneAndDelete({ _id: request._id });
-  return response.json({ success: true });
+  await User.findOneAndDelete({ _id: request.user._id });
+  return response.json({ message: 'Account deleted'});
 });
 
 module.exports = router;
