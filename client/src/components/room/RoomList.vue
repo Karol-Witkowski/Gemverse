@@ -84,12 +84,12 @@
                       Click "OK" to delete room. Removed rooms cannot be restored.
                     </v-card-text>
                     <v-card-text
-                      class="errorMsg"
+                      class="errorMessage"
                       v-if="deleteError"
                     >
                       {{ deleteError }}
                     </v-card-text>
-                    <v-divider  />
+                    <v-divider />
                     <v-card-actions>
                       <v-btn
                         @click="closeModals"
@@ -338,7 +338,7 @@ export default {
   box-shadow: none!important;
 }
 
-.errorMsg {
+.errorMessage {
   color: rgb(194, 57, 57)!important;
 }
 

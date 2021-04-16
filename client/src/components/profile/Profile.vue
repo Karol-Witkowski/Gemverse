@@ -17,13 +17,12 @@
           <v-list-item-avatar class="mx-auto">
             <img
               alt="user avatar"
-              height="25"
               :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`"
             />
           </v-list-item-avatar>
         </v-list-item>
         <v-list-item class="mt-6">
-          <v-list-item-content>
+          <v-list-item-content class="mb-0 pb-0">
             <v-list class="grey--text subtitle-1 text--darken-2">
               Email address: <span class="font-weight-bold">{{ getUserInfo.email }}</span>
             </v-list>
@@ -34,25 +33,72 @@
             <v-list class="grey--text subtitle-1 text--darken-2">
               Member since:
               <span class="font-weight-bold">
-                {{ humanizeCreationDate(this.getUserInfo.createdDate) }}
+                {{ showCreationDate(this.getUserInfo.createdDate) }}
               </span>
             </v-list>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item class="mt-16">
+        <v-list-item class="mt-10">
           <v-list-item-content>
-            <v-card-actions>
-              <v-btn
-                @click="console.log(holder)"
-                class="mx-auto"
-                color="secondary"
-                outlined
-                small
-                target="_blank"
-              >
-                delete account*
-              </v-btn>
-            </v-card-actions>
+            <v-list-item-action>
+                <v-dialog
+                  max-width="600"
+                  overlay-opacity="0.15"
+                  persistent
+                  :retain-focus="false"
+                  v-model="deleteUserModal"
+                >
+                  <template
+                    class="mb-16"
+                    v-slot:activator="{ on, attrs }"
+                  >
+                    <v-btn
+                      class="mx-auto"
+                      color="secondary"
+                      outlined
+                      small
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      delete account
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title flat class="headline grey--text text--darken-2">
+                      Delete user account
+                    </v-card-title>
+                    <v-card-text>
+                      Click "OK" to delete account. Removed account cannot be restored.
+                    </v-card-text>
+                    <v-card-text
+                      class="errorMessage"
+                      v-if="deleteError"
+                    >
+                      {{ deleteError }}
+                    </v-card-text>
+                    <v-divider />
+                    <v-card-actions>
+                      <v-btn
+                        @click="closeModals"
+                        color="primary"
+                        outlined
+                        text
+                      >
+                        close
+                      </v-btn>
+                      <v-spacer />
+                      <v-btn
+                        @click="deleteUser()"
+                        color="primary"
+                        outlined
+                        text
+                      >
+                        ok
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-list-item-action>
             <v-list-item class="deleteInfo">
               *Your personal data will be deleted,
               although all messages will be displayed
@@ -66,6 +112,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import dayjs from 'dayjs';
 import { generateFromString } from 'generate-avatar';
 import { mapGetters } from 'vuex';
@@ -75,13 +122,42 @@ export default {
   computed: {
     ...mapGetters(['getUserInfo']),
   },
+  data() {
+    return {
+      deleteRoomModal: false,
+      deleteError: '',
+      deleteUserModal: false,
+      errors: [],
+    };
+  },
 
   methods: {
+    closeModals() {
+      this.deleteError = '';
+      this.deleteUserModal = false;
+    },
+
+    deleteUser() {
+      axios.delete(`http://localhost:3000/api/room/${this.id}`, {
+        data: this.getUserInfo,
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            // this.socket.emit('deleteRoom', this.id);
+            this.closeModals();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.deleteError = error.response.data.error;
+        });
+    },
+
     generateAvatar(username) {
       return generateFromString(username);
     },
 
-    humanizeCreationDate(creationDate) {
+    showCreationDate(creationDate) {
       return dayjs(creationDate).format('dddd, MMMM D YYYY');
     },
   },
@@ -93,5 +169,14 @@ export default {
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;
+}
+
+.errorMessage {
+  color: rgb(194, 57, 57)!important;
+}
+
+.userAvatar {
+  height: 60px!important;
+  width: 60px!important;
 }
 </style>

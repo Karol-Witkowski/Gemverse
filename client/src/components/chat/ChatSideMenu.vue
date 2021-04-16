@@ -19,7 +19,6 @@
         <v-list-item-avatar>
           <img
             alt="online user"
-            height="25"
             :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`"
           />
         </v-list-item-avatar>
@@ -100,7 +99,7 @@ export default {
 }
 
 .activeUsersAvatars {
-  height: 31px!important;
-  width: 31px!important;
+  height: 33px!important;
+  width: 33px!important;
 }
 </style>
