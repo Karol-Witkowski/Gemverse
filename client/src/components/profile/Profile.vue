@@ -138,7 +138,7 @@ export default {
     },
 
     deleteUser() {
-      axios.delete('http://localhost:3000/api/user/logged', this.getUserInfo)
+      axios.put('http://localhost:3000/api/user/logged', this.getUserInfo)
         .then(() => {
           this.$store.dispatch('resetState', true);
           localStorage.clear();

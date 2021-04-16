@@ -12,10 +12,13 @@
         <v-list-item-avatar class="ml-1 mt-1">
           <img
             alt="user avatar"
-            :src="`data:image/svg+xml;utf8,${generateAvatar(message.user.username)}`"
+            :src="`data:image/svg+xml;utf8,
+            ${generateAvatar(message.user ? message.user.username : anonymous)}`"
           />
         </v-list-item-avatar>
-          <span class="font-weight-bold">{{ message.user.username }}</span>
+          <span class="font-weight-bold">
+            {{ message.user ? message.user.username : anonymous }}
+          </span>
         <v-list-item
           class="pl-3"
           :key="message._id"
@@ -53,6 +56,9 @@ export default {
 
   computed: {
     ...mapGetters(['getCurrentRoom']),
+    anonymous() {
+      return ('Anonymous_'.concat(Math.random() * 100)).substring(0, 14);
+    },
   },
 
   methods: {

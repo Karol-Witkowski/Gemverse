@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
+const Message = require('../models/Message');
 const User = require('../models/User');
 
 /** Get online users */
@@ -22,9 +23,11 @@ router.get('/logged', passport.authenticate('jwt', { session: false }), async (r
 });
 
 /** Remove user data */
-router.delete('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await User.findOneAndDelete({ _id: request.user._id });
+router.put('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
+
+  await User.findOneAndUpdate({ username: request.user.username, username : ('Anonymous_'.concat(request.user._id)).substring(0,14)});
+
   return response.json({ message: 'Account deleted'});
-});
+})
 
 module.exports = router;
