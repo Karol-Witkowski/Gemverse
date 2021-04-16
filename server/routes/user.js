@@ -22,8 +22,8 @@ router.get('/logged', passport.authenticate('jwt', { session: false }), async (r
 });
 
 /** Remove user data */
-router.put('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  await User.findOneAndUpdate({ _id: request.user.id });
+router.delete('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
+  await User.findOneAndDelete({ _id: request._id });
   return response.json({ success: true });
 });
 

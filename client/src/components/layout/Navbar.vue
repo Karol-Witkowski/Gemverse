@@ -73,7 +73,8 @@
       <v-tab to="/about">About</v-tab>
     </v-tabs>
     <v-tab
-      class="appName grey--text menu text--darken-2" to="/"
+      class="appName grey--text menu text--darken-2"
+      to="/"
     >
       gemverse
     </v-tab>

@@ -138,14 +138,11 @@ export default {
     },
 
     deleteUser() {
-      axios.delete(`http://localhost:3000/api/room/${this.id}`, {
-        data: this.getUserInfo,
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            // this.socket.emit('deleteRoom', this.id);
-            this.closeModals();
-          }
+      axios.delete('/api/user/logged', this.getUserInfo)
+        .then(() => {
+          this.$store.dispatch('resetState', true);
+          localStorage.clear();
+          this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
           console.log(error);
