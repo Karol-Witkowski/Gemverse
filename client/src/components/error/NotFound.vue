@@ -6,7 +6,7 @@
     <v-flex class="sm12 mx-6">
       <v-card>
         <v-card-title class="justify-center pt-6">
-          <h1 class="grey--text mx-auto text--darken-1">404</h1>
+          <span class="display-2 grey--text mx-auto text--darken-1">404</span>
         </v-card-title>
         <v-card-actions class="justify-center">
           <v-img
@@ -30,9 +30,3 @@
     </v-flex>
   </v-container>
 </template>
-
-<style lang="scss" scoped>
-h1 {
-  font-size: 22px!important;
-}
-</style>

@@ -21,24 +21,27 @@
             />
           </v-list-item-avatar>
         </v-list-item>
-        <v-list-item class="mt-6">
+        <v-list-item>
           <v-list-item-content class="mb-0 pb-0">
-            <v-list class="grey--text subtitle-1 text--darken-2">
-              Email address: <span class="font-weight-bold">{{ getUserInfo.email }}</span>
+            <v-list class="d-flex grey--text justify-center subtitle-1 text--darken-2">
+              Email address:
+              <span class="font-weight-bold pl-1">
+                {{ getUserInfo.email }}
+              </span>
             </v-list>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item class="mt-0">
-          <v-list-item-content>
-            <v-list class="grey--text subtitle-1 text--darken-2">
+        <v-list-item>
+          <v-list-item-content >
+            <v-list class="d-flex grey--text justify-center subtitle-1 text--darken-2">
               Member since:
-              <span class="font-weight-bold">
+              <span class="font-weight-bold pl-1">
                 {{ showCreationDate(this.getUserInfo.createdDate) }}
               </span>
             </v-list>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item class="mt-10">
+        <v-list-item>
           <v-list-item-content>
             <v-list-item-action>
                 <v-dialog
@@ -53,18 +56,18 @@
                     v-slot:activator="{ on, attrs }"
                   >
                     <v-btn
-                      class="mx-auto"
+                      class="mb-2 mx-auto"
                       color="secondary"
                       outlined
                       small
                       v-bind="attrs"
                       v-on="on"
                     >
-                      delete account
+                      delete account*
                     </v-btn>
                   </template>
                   <v-card>
-                    <v-card-title flat class="headline grey--text text--darken-2">
+                    <v-card-title class="headline grey--text text--darken-2">
                       Delete user account
                     </v-card-title>
                     <v-card-text>
@@ -124,8 +127,8 @@ export default {
   },
   data() {
     return {
-      deleteRoomModal: false,
       deleteError: '',
+      deleteRoomModal: false,
       deleteUserModal: false,
       errors: [],
     };
@@ -178,5 +181,9 @@ export default {
 .userAvatar {
   height: 60px!important;
   width: 60px!important;
+}
+
+.v-list__tile__title, .v-list__tile__sub-title {
+  text-align: center!important;
 }
 </style>

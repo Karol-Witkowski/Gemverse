@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-btn
+      class="ml-2"
       @click="drawer = !drawer"
       justify="left"
       color="primary"
@@ -22,7 +23,7 @@
             :src="`data:image/svg+xml;utf8,${generateAvatar(getUserInfo.username)}`"
           />
         </v-list-item-avatar>
-        <v-list-item-title class="font-weight-bold mb-3 userName">
+        <v-list-item-title class="body-2 font-weight-bold mb-3 userName">
           {{ getUserInfo.username }}
         </v-list-item-title>
       </v-list-item>
@@ -94,8 +95,7 @@ export default {
 </script>
 <style lang="scss">
 .userName {
-  font-size: 12px;
-  margin-left: -5px;
+  margin-left: -7px!important;
 }
 
 .activeUsersAvatars {

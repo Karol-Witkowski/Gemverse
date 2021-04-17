@@ -14,9 +14,9 @@
           class="d-flex d-md-none mx-auto"
           color="primary"
           dark
-          max-width="140"
           outlined
           small
+          width="200"
           v-bind="attrs"
           v-on="{ ...menu }"
         >
@@ -24,7 +24,7 @@
         </v-btn>
         <v-spacer />
       </template>
-      <v-list class="font-weight-bold grey--text menu text-uppercase">
+      <v-list class="font-weight-bold grey--text mobileMenu text-uppercase">
         <v-list-item to="/">home</v-list-item>
         <v-list-item
           to="/roomlist"
@@ -129,7 +129,7 @@ export default {
   letter-spacing: 4px!important;
 }
 
-.menu {
+.mobileMenu {
   font-size: 0.8em!important;
 }
 

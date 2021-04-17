@@ -5,7 +5,7 @@
       v-chat-scroll="{ smooth: true, notSmoothOnInit: true }"
     >
       <v-list
-        class="0 bg-white"
+        class="bg-white"
         :key="message._id"
         v-for="message in messages"
       >

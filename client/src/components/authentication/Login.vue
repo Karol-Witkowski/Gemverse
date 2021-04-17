@@ -108,12 +108,12 @@ export default {
   props: ['message'],
   data() {
     return {
-      redirectError: this.message,
       email: '',
       isFormValid: false,
       password: '',
       passwordError: '',
       placeholder: 'whiteSpace',
+      redirectError: this.message,
       userError: '',
       emailRules: [
         (value) => value.length <= 128 || 'E-mail adress must be less or equal to 128 characters',
@@ -174,14 +174,14 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .errorAlert {
   visibility: visible;
 }
 
 .whiteSpace {
   opacity: 0;
-  transition: visibility 0.3s linear,opacity 0.3s linear;
+  transition: visibility 0.3s linear, opacity 0.3s linear;
   visibility: hidden;
 }
 </style>
