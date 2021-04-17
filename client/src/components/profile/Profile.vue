@@ -182,8 +182,4 @@ export default {
   height: 60px!important;
   width: 60px!important;
 }
-
-.v-list__tile__title, .v-list__tile__sub-title {
-  text-align: center!important;
-}
 </style>

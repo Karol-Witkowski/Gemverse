@@ -54,7 +54,7 @@
       </v-list>
     </v-menu>
     <v-tabs
-      class="menu d-none d-md-block"
+      class="d-none d-md-block"
       color="primary"
     >
       <v-tab to="/">Home</v-tab>
