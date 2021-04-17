@@ -1,12 +1,12 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const passport = require('passport');
-const Message = require('../models/Message');
-const Room = require('../models/Room');
-const router = express.Router();
+const Message = require('../../models/Message');
+const Room = require('../../models/Room');
+const room = express.Router();
 
 /** Get all rooms */
-router.get('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
+room.get('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const rooms = await Room.find().select('-password');
 
   if (rooms.length < 1) {
@@ -17,7 +17,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (request
 });
 
 /** Get single room by slug */
-router.get('/:slug', passport.authenticate('jwt', { session: false }), async (request, response) => {
+room.get('/:slug', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const room = await Room.findOne({ slug: request.params.slug }).select('-password');
 
   if (!room) {
@@ -28,7 +28,7 @@ router.get('/:slug', passport.authenticate('jwt', { session: false }), async (re
 });
 
 /** Save room */
-router.post('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
+room.post('/', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const room = await Room.findOne({ name: { $regex : new RegExp(request.body.name, 'i') } })
     .select('-password');
 
@@ -45,7 +45,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (reques
 });
 
 /** Password verification */
-router.post('/verification', passport.authenticate('jwt', { session: false }), async (request, response) => {
+room.post('/verification', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const room = await Room.findOne({ name: request.body.name });
 
   if (!room) {
@@ -64,7 +64,7 @@ router.post('/verification', passport.authenticate('jwt', { session: false }), a
 });
 
 /** Delete room */
-router.delete('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
+room.delete('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const room = await Room.findById({ _id: request.params.id });
     if (!room) {
       return response.status(404).json({ error: `Room not found` });
@@ -80,7 +80,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
 });
 
 /** Remove user on room leave event */
-router.post('/remove/online/user', passport.authenticate('jwt', { session: false }), async (request, response) => {
+room.post('/remove/online/user', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const room = await Room.findOne({ _id: request.body.id });
 
   if (!room) {
@@ -101,4 +101,4 @@ router.post('/remove/online/user', passport.authenticate('jwt', { session: false
   }
 });
 
-module.exports = router;
+module.exports = room;

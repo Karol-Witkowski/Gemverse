@@ -28,15 +28,9 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
-const authentication = require('./routes/authentication');
-const messages = require('./routes/messages');
-const room = require('./routes/room');
-const user = require('./routes/user');
+const apiRouter = require('./routes/index');
 
-app.use('/api/authentication', authentication);
-app.use('/api/messages', messages);
-app.use('/api/room', room);
-app.use('/api/user', user);
+app.use('/api', apiRouter);
 
 /** Errors handler */
 app.use((request, response, next) => {

@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const router = express.Router();
-const User = require('../models/User');
+const authentication = express.Router();
+const User = require('../../models/User');
 
 /** Save user */
-router.post('/register', async (request, response) => {
+authentication.post('/register', async (request, response) => {
   const emailDB = await User.findOne({ email : request.body.email });
   const usernameDB = await User.findOne({ username :  { $regex : new RegExp(request.body.username, 'i') } });
   let email = '';
@@ -48,7 +48,7 @@ router.post('/register', async (request, response) => {
 });
 
 /** Login user */
-router.post('/login', async (request, response) => {
+authentication.post('/login', async (request, response) => {
   const user = await User.findOne({ email : request.body.email });
 
   if (!user) {
@@ -68,7 +68,7 @@ router.post('/login', async (request, response) => {
 });
 
 /** Logout user */
-router.post('/logout', async (request, response) => {
+authentication.post('/logout', async (request, response) => {
   const user = await User.findOne({ username: request.body.username }).select('-password');
 
   if (!user) {
@@ -78,4 +78,4 @@ router.post('/logout', async (request, response) => {
   }
 });
 
-module.exports = router;
+module.exports = authentication;
