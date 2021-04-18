@@ -3,7 +3,6 @@ require('dotenv').config();
 
 /** express */
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const logger = require('morgan');
@@ -22,8 +21,8 @@ require('./db/mongoose');
 app
   .use(logger('dev'))
   .use(helmet())
-  .use(bodyParser.urlencoded({ extended: true }))
-  .use(bodyParser.json())
+  .use(express.urlencoded({ extended: true }))
+  .use(express.json())
   .use(passport.initialize())
   .use(cors())
   .use(express.static(path.join(__dirname, 'dist')));
