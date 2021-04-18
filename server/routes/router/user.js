@@ -13,6 +13,6 @@ router.get('/users', passport.authenticate('jwt', { session: false }), getOnline
 router.get('/logged', passport.authenticate('jwt', { session: false }), getUserById);
 
 /** Remove user data */
-router.put('/remove/logged', passport.authenticate('jwt', { session: false }), removeUser);
+router.delete('/remove/logged', passport.authenticate('jwt', { session: false }), removeUser);
 
 module.exports = router;

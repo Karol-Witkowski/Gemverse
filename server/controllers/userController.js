@@ -17,7 +17,7 @@ const getUserById = async (req, res) => {
 };
 
 const removeUser = async (req, res) => {
-  await User.findOneAndUpdate({ _id: req.user.id, username : ('Anonymous_'.concat(req.user._id)).substring(0,14)});
+  await User.findOneAndDelete({ _id: req.user._id });
 
   return res.json({ message: 'Account deleted'});
 };
