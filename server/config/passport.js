@@ -7,7 +7,7 @@ const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
 
-module.exports = function(passport) {
+module.exports = (passport) => {
   /** JWT passport strategy */
   passport.use(
     new JwtStrategy(opts, (payload, done) => {

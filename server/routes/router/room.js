@@ -1,5 +1,5 @@
+const { requireAuth } = require("../../middlewares/authMiddleware");
 const router = require('express').Router();
-const passport = require('passport');
 const {
   getAllRooms,
   getRoomBySlug,
@@ -10,21 +10,21 @@ const {
 } = require('../../controllers/roomController');
 
 /** Get all rooms */
-router.get('/', passport.authenticate('jwt', { session: false }), getAllRooms);
+router.get('/', requireAuth, getAllRooms);
 
 /** Get single room by slug */
-router.get('/:slug', passport.authenticate('jwt', { session: false }), getRoomBySlug);
+router.get('/:slug', requireAuth, getRoomBySlug);
 
 /** Save room */
-router.post('/', passport.authenticate('jwt', { session: false }), postRoom);
+router.post('/', requireAuth, postRoom);
 
 /** Password verification */
-router.post('/verification', passport.authenticate('jwt', { session: false }), verifyPassword);
+router.post('/verification', requireAuth, verifyPassword);
 
 /** Delete room */
-router.delete('/:id', passport.authenticate('jwt', { session: false }), deleteRoomById);
+router.delete('/:id', requireAuth, deleteRoomById);
 
 /** Remove user on room leave event */
-router.post('/remove/user', passport.authenticate('jwt', { session: false }), setUserOffline);
+router.post('/remove/user', requireAuth, setUserOffline);
 
 module.exports = router;

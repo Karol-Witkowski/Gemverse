@@ -1,14 +1,14 @@
+const { requireAuth } = require("../../middlewares/authMiddleware");
 const router = require('express').Router();
-const passport = require('passport');
 const {
   getMessagesByRoom,
   postMessage,
 } = require('../../controllers/messagesController');
 
 /** Get all room messages by id */
-router.get('/:id', passport.authenticate('jwt', { session: false }), getMessagesByRoom);
+router.get('/:id', requireAuth, getMessagesByRoom);
 
 /** Save message */
-router.post('/', passport.authenticate('jwt', { session: false }), postMessage);
+router.post('/', requireAuth, postMessage);
 
 module.exports = router;

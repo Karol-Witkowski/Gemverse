@@ -1,4 +1,4 @@
-const passport = require('passport');
+const { requireAuth } = require("../../middlewares/authMiddleware");
 const router = require('express').Router();
 const {
   getOnlineUsers,
@@ -7,12 +7,12 @@ const {
 } = require('../../controllers/userController');
 
 /** Get online users */
-router.get('/users', passport.authenticate('jwt', { session: false }), getOnlineUsers);
+router.get('/users', requireAuth, getOnlineUsers);
 
 /** Get user data */
-router.get('/logged', passport.authenticate('jwt', { session: false }), getUserById);
+router.get('/logged', requireAuth, getUserById);
 
 /** Remove user data */
-router.delete('/remove/logged', passport.authenticate('jwt', { session: false }), removeUser);
+router.delete('/remove/logged', requireAuth, removeUser);
 
 module.exports = router;
