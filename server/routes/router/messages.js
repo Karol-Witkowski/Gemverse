@@ -1,10 +1,10 @@
 const express = require('express');
 const Message = require('../../models/Message');
 const passport = require('passport');
-const messages = express.Router();
+const router = express.Router();
 
 /** Get all room messages by id */
-messages.get('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
+router.get('/:id', passport.authenticate('jwt', { session: false }), async (request, response) => {
   const messages = await Message.find({ room: request.params.id });
     if (!messages) {
       return response.status(404).json({ error: 'Messages not found' });
@@ -14,7 +14,7 @@ messages.get('/:id', passport.authenticate('jwt', { session: false }), async (re
 });
 
 /** Save message */
-messages.post('/', passport.authenticate('jwt', { session: false }), (request, response) => {
+router.post('/', passport.authenticate('jwt', { session: false }), (request, response) => {
   if (!request.body.message) {
     return response.status(404).json({ error: 'Message must be at least 1 characters long' });
   }
@@ -31,4 +31,4 @@ messages.post('/', passport.authenticate('jwt', { session: false }), (request, r
   return response.status(201).json(createdMessage);
 });
 
-module.exports = messages;
+module.exports = router;

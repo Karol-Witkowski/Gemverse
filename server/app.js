@@ -19,13 +19,14 @@ const app = express();
 require('./db/mongoose');
 
 /** Middleware */
-app.use(logger('dev'));
-app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(cors());
-app.use(express.static(path.join(__dirname, 'dist')));
+app
+  .use(logger('dev'))
+  .use(helmet())
+  .use(bodyParser.urlencoded({ extended: true }))
+  .use(bodyParser.json())
+  .use(passport.initialize())
+  .use(cors())
+  .use(express.static(path.join(__dirname, 'dist')));
 
 /** Routes */
 const apiRouter = require('./routes/index');

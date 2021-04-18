@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
 const socketio = require('socket.io');
-const { handleJoinRoom }  = require('./helpers/socketHelpers');
+const { handleJoinRoom }  = require('../helpers/socketHelpers');
 const {
   ADD_NEW_MESSAGE,
   FILTER_ACTIVE_USERS,
-} = require('./actions/socketActions');
+} = require('../actions/socketActions');
 
-require('./db/mongoose');
+require('../db/mongoose');
 
 const io = socketio({
   cors: {

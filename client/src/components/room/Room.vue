@@ -102,7 +102,7 @@ export default {
 
     leaveRoom() {
       // eslint-disable-next-line no-underscore-dangle
-      axios.post('http://localhost:3000/api/room/remove/online/user', { id: this.getCurrentRoom._id })
+      axios.post('http://localhost:3000/api/room/remove/user', { id: this.getCurrentRoom._id })
         .then((response) => {
           this.socket.emit('leaveRoom', response.data);
         })

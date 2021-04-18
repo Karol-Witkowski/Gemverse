@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const authentication = express.Router();
+const router = express.Router();
 const User = require('../../models/User');
 
 /** Save user */
-authentication.post('/register', async (request, response) => {
+router.post('/register', async (request, response) => {
   const emailDB = await User.findOne({ email : request.body.email });
   const usernameDB = await User.findOne({ username :  { $regex : new RegExp(request.body.username, 'i') } });
   let email = '';
@@ -48,7 +48,7 @@ authentication.post('/register', async (request, response) => {
 });
 
 /** Login user */
-authentication.post('/login', async (request, response) => {
+router.post('/login', async (request, response) => {
   const user = await User.findOne({ email : request.body.email });
 
   if (!user) {
@@ -68,7 +68,7 @@ authentication.post('/login', async (request, response) => {
 });
 
 /** Logout user */
-authentication.post('/logout', async (request, response) => {
+router.post('/logout', async (request, response) => {
   const user = await User.findOne({ username: request.body.username }).select('-password');
 
   if (!user) {
@@ -78,4 +78,4 @@ authentication.post('/logout', async (request, response) => {
   }
 });
 
-module.exports = authentication;
+module.exports = router;

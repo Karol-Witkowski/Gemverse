@@ -1,32 +1,18 @@
-const express = require('express');
 const passport = require('passport');
-const user = express.Router();
-const User = require('../../models/User');
+const router = require('express').Router();
+const {
+  getOnlineUsers,
+  getUserById,
+  removeUser
+} = require('../../controllers/userController');
 
 /** Get online users */
-user.get('/users', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const onlineUsers = await User.find({}, 'email username').exec();
-
-    if (!onlineUsers) {
-      return response.status(404).json({ error: 'Users not found' });
-    } else {
-      return response.status(200).json(onlineUsers).end();
-    }
-});
+router.get('/users', passport.authenticate('jwt', { session: false }), getOnlineUsers);
 
 /** Get user data */
-user.get('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
-  const user = await User.findById({ _id: request.user._id }).select('-password');
-
-  await response.status(200).json(user);
-});
+router.get('/logged', passport.authenticate('jwt', { session: false }), getUserById);
 
 /** Remove user data */
-user.put('/logged', passport.authenticate('jwt', { session: false }), async (request, response) => {
+router.put('/remove/logged', passport.authenticate('jwt', { session: false }), removeUser);
 
-  await User.findOneAndUpdate({ username: request.user.username, username : ('Anonymous_'.concat(request.user._id)).substring(0,14)});
-
-  return response.json({ message: 'Account deleted'});
-})
-
-module.exports = user;
+module.exports = router;
