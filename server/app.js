@@ -10,7 +10,7 @@ const path = require('path');
 
 /** Passport config */
 const passport = require('passport');
-require('./config/passport')(passport);
+require('./config/passport');
 
 const app = express();
 
@@ -23,7 +23,6 @@ app
   .use(helmet())
   .use(express.urlencoded({ extended: true }))
   .use(express.json())
-  .use(passport.initialize())
   .use(cors())
   .use(express.static(path.join(__dirname, 'dist')));
 

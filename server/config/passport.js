@@ -1,3 +1,5 @@
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const keys = require('../config/keys');
@@ -7,18 +9,16 @@ const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
 
-module.exports = (passport) => {
-  /** JWT passport strategy */
-  passport.use(
-    new JwtStrategy(opts, (payload, done) => {
-      User.findById(payload._id)
-        .then((user) => {
-          if (user) {
-            return done(null, user);
-          } else {
-            return done(null, false);
-          }
-        });
-    })
-  );
-};
+/** JWT passport strategy */
+const jwtLogin = new JwtStrategy(opts, async (payload, done) => {
+  User.findById(payload._id).select('-password')
+  .then(user => {
+    if(user) {
+      return done(null, user);
+    }
+    return done(null, false);
+  })
+  .catch(error => console.error(error));
+});
+
+passport.use(jwtLogin);

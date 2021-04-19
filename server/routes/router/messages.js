@@ -1,4 +1,4 @@
-const { requireAuth } = require("../../middlewares/authMiddleware");
+const { requireAuth } = require("../../middlewares/authMiddlewares");
 const router = require('express').Router();
 const {
   getMessagesByRoom,

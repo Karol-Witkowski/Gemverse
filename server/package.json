@@ -1,6 +1,6 @@
 {
   "name": "gemverse-backend",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Backend for Gemverse app",
   "main": "www",
   "scripts": {
