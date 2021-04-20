@@ -13,7 +13,6 @@ const getAllRooms = async (req, res) => {
 
 const getRoomBySlug = async (req, res) => {
   const room = await Room.findOne({ slug: req.params.slug }).select('-password');
-  console.log(req.user.id);
   if (!room) {
     return res.status(404).json({ error: 'Room not found' });
   } else {

@@ -1,5 +1,7 @@
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const {
+  createJwtToken,
+} = require('../modules/utils');
 
 const signUp = async (req, res) => {
   const emailDB = await User.findOne({ email : req.body.email });
@@ -22,13 +24,8 @@ const signUp = async (req, res) => {
       password: req.body.password,
     });
 
-    establishUser.save().then((UserCollection) => {
-      const user = UserCollection.toObject();
-      const token = jwt.sign(
-        user,
-        process.env.JWT_KEY,
-        { expiresIn: 24000 },
-      );
+    establishUser.save().then((user) => {
+      const token = createJwtToken(user);
 
       res.status(201).send({
         auth: true,
@@ -50,11 +47,7 @@ const signIn = async (req, res) => {
     return res.status(404).json({ user: 'User not found - Try again' });
   } else {
     if (await user.isValidPassword(req.body.password)) {
-      const token = jwt.sign(
-        user.toObject(),
-        process.env.JWT_KEY,
-        { expiresIn: 24000 }
-      );
+      const token = createJwtToken(user);
       await user.save();
       return res.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
     }
