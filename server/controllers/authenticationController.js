@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -50,7 +49,7 @@ const signIn = async (req, res) => {
   if (!user) {
     return res.status(404).json({ user: 'User not found - Try again' });
   } else {
-    if (await bcrypt.compare(req.body.password, user.password)) {
+    if (await user.isValidPassword(req.body.password)) {
       const token = jwt.sign(
         user.toObject(),
         process.env.JWT_KEY,

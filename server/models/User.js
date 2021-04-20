@@ -28,11 +28,17 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
+UserSchema.methods.isValidPassword = function(password) {
+  return bcrypt.compare(password, this.password);
+};
+
 UserSchema.pre('save', function(next) {
   if (this.password !== '' && this.isModified('password')) {
-    bcrypt.hash(this.password, 10, (error, response) => {
-      this.password = response;
+    bcrypt.genSalt(10, (error, salt) => {
+      bcrypt.hash(this.password, salt, (error, res) => {
+        this.password = res;
       next();
+      });
     });
   } else {
     next();

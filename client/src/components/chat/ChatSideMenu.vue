@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn
-      class="ml-2"
+      class="mx-1"
       @click="drawer = !drawer"
       justify="left"
       color="primary"

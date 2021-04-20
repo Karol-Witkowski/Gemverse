@@ -52,16 +52,6 @@ export default {
               params: { message: 'Room has been deleted' },
             });
           });
-          if (
-            (response.data.access === 'private'
-            // eslint-disable-next-line no-underscore-dangle
-            && !response.data.permission.includes(this.getUserInfo._id))
-          ) {
-            this.$router.push({
-              name: 'RoomList',
-              params: { message: 'Access denied' },
-            });
-          }
 
           this.socket.emit('joinRoom', {
             room: this.getCurrentRoom,
@@ -95,7 +85,7 @@ export default {
           console.log(error);
           this.$router.push({
             name: 'RoomList',
-            params: { message: 'Room does not exist' },
+            params: { message: error.response.data.error },
           });
         });
     },

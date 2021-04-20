@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const Message = require('../models/Message');
 const Room = require('../models/Room');
 
@@ -14,11 +13,15 @@ const getAllRooms = async (req, res) => {
 
 const getRoomBySlug = async (req, res) => {
   const room = await Room.findOne({ slug: req.params.slug }).select('-password');
-
+  console.log(req.user.id);
   if (!room) {
     return res.status(404).json({ error: 'Room not found' });
   } else {
-    return res.status(200).json(room);
+    if (room.access === 'private' && !room.permission.includes(req.body._id)) {
+      return res.status(403).json({ error: 'Access denied' });
+    } else {
+      return res.status(200).json(room);
+    }
   };
 };
 
@@ -33,18 +36,20 @@ const postRoom = async (req, res) => {
     Room.create(req.body, (error, room) => {
       if (error) {
         return res.status(403).json({ error: `Name ${ req.body.name } is already taken` });
-      } else res.status(201).send(room);
+      } else {
+        res.status(201).send(room);
+      }
     });
   }
 };
 
-const verifyPassword = async (req, res) => {
+const verify = async (req, res) => {
   const room = await Room.findOne({ name: req.body.name });
 
   if (!room) {
     return res.status(404).json({ error: `No room with name ${ req.body.name } found` });
   } else {
-    if (await bcrypt.compare(req.body.password, room.password)) {
+    if (await room.isValidPassword(req.body.password)) {
       if (!room.permission.includes(req.user.id)) {
         room.permission.push(req.user.id);
       }
@@ -96,7 +101,7 @@ module.exports = {
   getAllRooms,
   getRoomBySlug,
   postRoom,
-  verifyPassword,
+  verify,
   deleteRoomById,
   setUserOffline
 };

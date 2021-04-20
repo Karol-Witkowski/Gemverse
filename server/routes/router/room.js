@@ -4,7 +4,7 @@ const {
   getAllRooms,
   getRoomBySlug,
   postRoom,
-  verifyPassword,
+  verify,
   deleteRoomById,
   setUserOffline
 } = require('../../controllers/roomController');
@@ -19,7 +19,7 @@ router.get('/:slug', requireAuth, getRoomBySlug);
 router.post('/', requireAuth, postRoom);
 
 /** Password verification */
-router.post('/verification', requireAuth, verifyPassword);
+router.post('/verification', requireAuth, verify);
 
 /** Delete room */
 router.delete('/:id', requireAuth, deleteRoomById);

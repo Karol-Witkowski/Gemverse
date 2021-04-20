@@ -9,7 +9,6 @@ const logger = require('morgan');
 const path = require('path');
 
 /** Passport config */
-const passport = require('passport');
 require('./config/passport');
 
 const app = express();
