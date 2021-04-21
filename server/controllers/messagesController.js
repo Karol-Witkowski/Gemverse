@@ -2,6 +2,7 @@ const Message = require('../models/Message');
 
 const getMessagesByRoom = async (req, res) => {
   const messages = await Message.find({ room: req.params.id });
+
     if (!messages) {
       return res.status(404).json({ error: 'Messages not found' });
     } else {

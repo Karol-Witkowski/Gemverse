@@ -24,7 +24,9 @@ const signUp = async (req, res) => {
       password: req.body.password,
     });
 
-    establishUser.save().then((user) => {
+    establishUser.save()
+      .then((user) => {
+
       const token = createJwtToken(user);
 
       res.status(201).send({
@@ -48,6 +50,7 @@ const signIn = async (req, res) => {
   } else {
     if (await user.isValidPassword(req.body.password)) {
       const token = createJwtToken(user);
+
       await user.save();
       return res.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
     }
@@ -56,7 +59,8 @@ const signIn = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-  const user = await User.findOne({ username: req.body.username }).select('-password');
+  const user = await User.findOne({ username: req.body.username })
+    .select('-password');
 
   if (!user) {
     return res.status(404).send({ error: `${ req.body.username } not found` });

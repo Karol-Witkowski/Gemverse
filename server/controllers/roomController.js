@@ -2,7 +2,8 @@ const Message = require('../models/Message');
 const Room = require('../models/Room');
 
 const getAllRooms = async (req, res) => {
-  const rooms = await Room.find().select('-password');
+  const rooms = await Room.find()
+    .select('-password');
 
   if (rooms.length < 1) {
     return res.status(404).json({ error: 'Rooms not found' });
@@ -12,7 +13,9 @@ const getAllRooms = async (req, res) => {
 };
 
 const getRoomBySlug = async (req, res) => {
-  const room = await Room.findOne({ slug: req.params.slug }).select('-password');
+  const room = await Room.findOne({ slug: req.params.slug })
+    .select('-password');
+
   if (!room) {
     return res.status(404).json({ error: 'Room not found' });
   } else {
@@ -32,6 +35,7 @@ const postRoom = async (req, res) => {
     return res.status(403).json({ error: `Name ${ req.body.name } is already taken` });
   } else {
     req.body.access = req.body.password ? 'private' : 'public',
+
     Room.create(req.body, (error, room) => {
       if (error) {
         return res.status(403).json({ error: `Name ${ req.body.name } is already taken` });

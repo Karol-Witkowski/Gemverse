@@ -10,7 +10,8 @@ opts.secretOrKey = keys.secretOrKey;
 
 /** JWT passport strategy */
 const jwtLogin = new JwtStrategy(opts, async (payload, done) => {
-  User.findById(payload._id).select('-password')
+  User.findById(payload._id)
+  .select('-password')
   .then(user => {
     if(user) {
       return done(null, user);

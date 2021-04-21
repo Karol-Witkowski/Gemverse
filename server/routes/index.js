@@ -1,5 +1,4 @@
 const express = require('express');
-
 const authentication = require('./router/authentication');
 const messages = require('./router/messages');
 const room = require('./router/room');

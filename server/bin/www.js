@@ -12,9 +12,10 @@ const server = http.createServer(app);
 /** Establish socket.io connection */
 const socketApi = require('../socket/index');
 const io = socketApi.io;
+
 io.attach(server);
 
-/*Listen to the port and handle errors*/
+/** Listen to the port and handle errors */
 server.listen(port, function () {
   console.log(chalk.bold.green(`http://localhost:${port}`));
 });
@@ -32,7 +33,7 @@ function normalizePort(val) {
     return port;
   }
   return false;
-}
+};
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -55,7 +56,7 @@ function onError(error) {
     default:
       throw error;
   }
-}
+};
 
 function onListening() {
   const addr = server.address();
@@ -63,4 +64,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-}
+};

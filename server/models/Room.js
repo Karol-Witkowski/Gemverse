@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
 const URLSlugs = require('mongoose-url-slugs');
-require('dotenv').config();
 
 const RoomSchema = new mongoose.Schema({
   activeUsers: [
