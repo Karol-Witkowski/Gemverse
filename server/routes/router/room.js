@@ -2,10 +2,10 @@ const { requireAuth } = require("../../middlewares/authMiddlewares");
 const router = require('express').Router();
 const {
   getAllRooms,
-  getRoomBySlug,
+  getRoom,
   postRoom,
   verify,
-  deleteRoomById,
+  deleteRoom,
   setUserOffline
 } = require('../../controllers/roomController');
 
@@ -13,7 +13,7 @@ const {
 router.get('/', requireAuth, getAllRooms);
 
 /** Get single room by slug */
-router.get('/:slug', requireAuth, getRoomBySlug);
+router.get('/:slug', requireAuth, getRoom);
 
 /** Save room */
 router.post('/', requireAuth, postRoom);
@@ -22,7 +22,7 @@ router.post('/', requireAuth, postRoom);
 router.post('/verification', requireAuth, verify);
 
 /** Delete room */
-router.delete('/:id', requireAuth, deleteRoomById);
+router.delete('/:id', requireAuth, deleteRoom);
 
 /** Remove user on room leave event */
 router.post('/remove/user', requireAuth, setUserOffline);

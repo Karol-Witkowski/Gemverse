@@ -46,11 +46,13 @@ export default {
       axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
         .then((response) => {
           this.$store.dispatch('saveCurrentRoom', response.data);
-          this.socket.on('removeRoomFromList', () => {
-            this.$router.push({
-              name: 'RoomList',
-              params: { message: 'Room has been deleted' },
-            });
+          this.socket.on('removeRoomFromList', (slug) => {
+            if (this.$route.path === `/room/${slug}`) {
+              this.$router.push({
+                name: 'RoomList',
+                params: { message: 'Room has been deleted' },
+              });
+            }
           });
 
           this.socket.emit('joinRoom', {
@@ -92,7 +94,7 @@ export default {
 
     leaveRoom() {
       // eslint-disable-next-line no-underscore-dangle
-      axios.post('http://localhost:3000/api/room/remove/user', { id: this.getCurrentRoom._id })
+      axios.post('http://localhost:3000/api/room/remove/user', { slug: this.getCurrentRoom.slug })
         .then((response) => {
           this.socket.emit('leaveRoom', response.data);
         })

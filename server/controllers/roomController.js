@@ -1,9 +1,14 @@
 const Message = require('../models/Message');
 const Room = require('../models/Room');
+const {
+	findAllRooms,
+  findAndRemove,
+  findRoomByName,
+  findRoomBySlug,
+} = require('../services/roomService');
 
 const getAllRooms = async (req, res) => {
-  const rooms = await Room.find()
-    .select('-password');
+  const rooms = await findAllRooms();
 
   if (rooms.length < 1) {
     return res.status(404).json({ error: 'Rooms not found' });
@@ -12,9 +17,8 @@ const getAllRooms = async (req, res) => {
   };
 };
 
-const getRoomBySlug = async (req, res) => {
-  const room = await Room.findOne({ slug: req.params.slug })
-    .select('-password');
+const getRoom = async (req, res) => {
+  const room = await findRoomBySlug(req.params.slug);
 
   if (!room) {
     return res.status(404).json({ error: 'Room not found' });
@@ -28,8 +32,7 @@ const getRoomBySlug = async (req, res) => {
 };
 
 const postRoom = async (req, res) => {
-  const room = await Room.findOne({ name: { $regex : new RegExp(req.body.name, 'i') } })
-    .select('-password');
+  const room = await findRoomByName(req.body.name);
 
   if (room !== null) {
     return res.status(403).json({ error: `Name ${ req.body.name } is already taken` });
@@ -47,7 +50,7 @@ const postRoom = async (req, res) => {
 };
 
 const verify = async (req, res) => {
-  const room = await Room.findOne({ name: req.body.name });
+  const room = await findRoomByName(req.body.name);
 
   if (!room) {
     return res.status(404).json({ error: `No room with name ${ req.body.name } found` });
@@ -64,15 +67,17 @@ const verify = async (req, res) => {
   }
 };
 
-const deleteRoomById = async (req, res) => {
-  const room = await Room.findById({ _id: req.params.id });
+const deleteRoom = async (req, res) => {
+  const room = await findAndRemove(req.params.id);
+
     if (!room) {
       return res.status(404).json({ error: `Room not found` });
     } else {
       if (req.body._id === room.user.toString()) { // move it to validation?
+        const roomSlug = room.slug;
         await Message.deleteMany({ room: req.params.id });
         await room.delete();
-        return res.status(200).json({ message: 'Room deleted'});
+        return res.status(200).json({ slug: roomSlug, message: 'Room deleted' });
       } else {
         return res.status(404).json({ error: 'Users are allowed to delete only own rooms' });
       }
@@ -80,10 +85,10 @@ const deleteRoomById = async (req, res) => {
 };
 
 const setUserOffline = async (req, res) => {
-  const room = await Room.findOne({ _id: req.body.id });
+  const room = await findRoomBySlug(req.body.slug);
 
   if (!room) {
-    return res.status(404).json({ error: `No room with id ${ req.body.id } found` });
+    return res.status(404).json({ error: `Room not found` });
   } else {
     if (room.activeUsers.find((user) => user.lookup.toString() === req.user.id)) {
       room.activeUsers = room.activeUsers.filter((user) => user.lookup.toString() !== req.user.id);
@@ -103,9 +108,9 @@ const setUserOffline = async (req, res) => {
 
 module.exports = {
   getAllRooms,
-  getRoomBySlug,
+  getRoom,
   postRoom,
   verify,
-  deleteRoomById,
+  deleteRoom,
   setUserOffline
 };

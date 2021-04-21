@@ -227,11 +227,11 @@ export default {
 
   created() {
     this.getRoomList();
-    this.socket.on('removeRoomFromList', (id) => {
+    this.socket.on('removeRoomFromList', (slug) => {
       // eslint-disable-next-line no-underscore-dangle
-      remove(this.sortedRooms, (room) => room._id === id);
+      remove(this.sortedRooms, (room) => room.slug === slug);
       // eslint-disable-next-line no-underscore-dangle
-      remove(this.rooms, (room) => room._id === id);
+      remove(this.rooms, (room) => room.slug === slug);
       this.$forceUpdate();
     });
   },
@@ -262,7 +262,7 @@ export default {
       })
         .then((response) => {
           if (response.status === 200) {
-            this.socket.emit('deleteRoom', this.id);
+            this.socket.emit('deleteRoom', response.data.slug);
             this.closeModals();
           }
         })
