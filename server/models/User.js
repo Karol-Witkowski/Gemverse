@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
+require('dotenv').config();
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -34,10 +35,10 @@ UserSchema.methods.isValidPassword = function(password) {
 
 UserSchema.pre('save', function(next) {
   if (this.password !== '' && this.isModified('password')) {
-    bcrypt.genSalt(10, (error, salt) => {
+    bcrypt.genSalt(parseInt(process.env.SALT_WORK_FACTOR), (error, salt) => {
       bcrypt.hash(this.password, salt, (error, res) => {
         this.password = res;
-      next();
+        next();
       });
     });
   } else {

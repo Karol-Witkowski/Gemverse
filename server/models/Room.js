@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
 const URLSlugs = require('mongoose-url-slugs');
+require('dotenv').config();
 
 const RoomSchema = new mongoose.Schema({
   activeUsers: [
@@ -62,10 +63,10 @@ RoomSchema.methods.isValidPassword = function(password) {
 
 RoomSchema.pre('save', function(next) {
   if (this.password !== '' && this.isModified('password')) {
-    bcrypt.genSalt(10, (error, salt) => {
+    bcrypt.genSalt(parseInt(process.env.SALT_WORK_FACTOR), (error, salt) => {
       bcrypt.hash(this.password, salt, (error, res) => {
         this.password = res;
-      next();
+        next();
       });
     });
   } else {
