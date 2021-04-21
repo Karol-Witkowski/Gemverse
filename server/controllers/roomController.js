@@ -19,7 +19,7 @@ const getRoomBySlug = async (req, res) => {
   if (!room) {
     return res.status(404).json({ error: 'Room not found' });
   } else {
-    if (room.access === 'private' && !room.permission.includes(req.body._id)) {
+    if (room.access === 'private' && !room.permission.includes(req.user.id)) {
       return res.status(403).json({ error: 'Access denied' });
     } else {
       return res.status(200).json(room);
