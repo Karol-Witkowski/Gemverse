@@ -1,7 +1,10 @@
-const Message = require('../models/Message');
+const {
+	getMessages,
+	createMessage
+} = require('../services/messageService');
 
 const getMessagesByRoom = async (req, res) => {
-  const messages = await Message.find({ room: req.params.id });
+  const messages = getMessages(req.room.id);
 
     if (!messages) {
       return res.status(404).json({ error: 'Messages not found' });
@@ -18,13 +21,9 @@ const postMessage = async (req, res) => {
     return res.status(403).json({ error: 'Validation failed, please login again' });
   }
 
-  const createdMessage = new Message({
-    message: req.body.message,
-    user: req.body.user,
-    room: req.body.room,
-  }).save();
+  const newMessage = createMessage(req);
 
-  return res.status(201).json(createdMessage);
+  return res.status(201).json(newMessage);
 };
 
 module.exports = {
