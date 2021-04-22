@@ -21,7 +21,11 @@ const postMessage = async (req, res) => {
     return res.status(403).json({ error: 'Validation failed, please login again' });
   }
 
-  const newMessage = createMessage(req);
+  const newMessage = createMessage({
+    message: req.body.message,
+    room: req.body.room,
+    user: req.body.user,
+  });
 
   return res.status(201).json(newMessage);
 };

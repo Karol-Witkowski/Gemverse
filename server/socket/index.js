@@ -1,9 +1,7 @@
 const socketio = require('socket.io');
 const { handleJoinRoom }  = require('../helpers/socketHelpers');
-const {
-  ADD_NEW_MESSAGE,
-  FILTER_ACTIVE_USERS,
-} = require('../actions/socketActions');
+const { emitNewMessage } = require('../repositories/messageRepository');
+const { filterActiveUsers } = require('../repositories/roomRepository');
 
 require('../db/mongoose');
 
@@ -32,7 +30,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', async () => {
     if (currentStatus) {
       socket.to(currentStatus.room._id)
-        .emit('userDisconnected', await FILTER_ACTIVE_USERS({
+        .emit('userDisconnected', await filterActiveUsers({
           currentRoomId: currentStatus.room._id,
           currentUserId: currentStatus.user._id,
           socketId: socket.id
@@ -54,8 +52,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sendMessage', async (data) => {
-    const message = await ADD_NEW_MESSAGE(data);
-    io.to(data.room._id)
+    const message = await emitNewMessage(data);
+    io.to(data.room)
       .emit('updateMessages', JSON.stringify(message));
   });
 });

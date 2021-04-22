@@ -72,6 +72,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .chat {
   height: 75.3vh;

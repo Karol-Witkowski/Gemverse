@@ -1,16 +1,14 @@
-const {
-  GET_MESSAGES,
-  UPDATE_ACTIVE_USERS
-} = require('../actions/socketActions');
+const { emitMessagesToRoom } = require('../repositories/messageRepository');
+const { updateOnlineUsers } = require('../repositories/roomRepository');
 
 module.exports = {
   handleJoinRoom: async (socket, data) => {
     socket.join(data.room._id);
     socket.emit('updateRoom', {
-      messages: await GET_MESSAGES(data),
-      room: await UPDATE_ACTIVE_USERS(data)
+      messages: await emitMessagesToRoom(data.room._id),
+      room: await updateOnlineUsers(data)
     });
     socket.to(data.room._id)
-      .emit('userMoved', await UPDATE_ACTIVE_USERS(data));
+      .emit('userMoved', await updateOnlineUsers(data));
   },
 };

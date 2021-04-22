@@ -50,8 +50,10 @@ export default {
     sendMessage() {
       this.socket.emit('sendMessage', {
         message: this.message,
-        room: this.getCurrentRoom,
-        user: this.getUserInfo,
+        // eslint-disable-next-line no-underscore-dangle
+        room: this.getCurrentRoom._id,
+        // eslint-disable-next-line no-underscore-dangle
+        user: this.getUserInfo._id,
       });
       this.message = '';
     },
@@ -63,5 +65,4 @@ export default {
 .v-input__icon {
   font-size: 1.5em!important;
 }
-
 </style>

@@ -1,14 +1,28 @@
 const Message = require('../models/Message');
 
+const emitMessagesToRoom = async (roomId) => {
+  return Message.find({ room: roomId })
+    .populate('user', ['username']);
+};
+
+const emitNewMessage = async (data) => {
+  const createdMessage = await createMessage(data);
+
+  return Message.populate(createdMessage, {
+    path: 'user',
+    select: 'username'
+  });
+};
+
 const getMessages = async (roomId) => {
 	return await Message.find({ room: roomId });
 };
 
 const createMessage = async (data) => {
-	new Message({
-    message: data.body.message,
-    user: data.body.user,
-    room: data.body.room,
+	return new Message({
+    message: data.message,
+    user: data.user,
+    room: data.room,
   }).save();
 };
 
@@ -19,5 +33,7 @@ const deleteRoomMessages = async (roomId) => {
 module.exports = {
   createMessage,
   deleteRoomMessages,
+  emitMessagesToRoom,
+  emitNewMessage,
 	getMessages
 };
