@@ -1,10 +1,8 @@
-const User = require('../models/User');
 const {
   findAndRemove,
   findOnlineUsers,
-  findUserById,
+  findUserByEmail,
 } = require('../repositories/userRepository');
-
 
 const getOnlineUsers = async (req, res) => {
   const onlineUsers = await findOnlineUsers();
@@ -17,14 +15,14 @@ const getOnlineUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const user = await findUserById(req.user._id);
+  const user = await findUserByEmail(req.user.email);
 
   await res.status(200).json(user);
 };
 
 const removeUser = async (req, res) => {
-  const user = awaitremoveUser(req.user._id);
-  
+  const user = await findAndRemove(req.user._id);
+
   if (!user) {
     return res.status(404).json({ error: 'User not found' });
   } else {

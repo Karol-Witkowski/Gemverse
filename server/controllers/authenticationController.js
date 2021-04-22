@@ -1,9 +1,14 @@
-const User = require('../models/User');
 const { createJwtToken } = require('../modules/utils');
+const {
+  createUser,
+  findUserByQuery,
+  findUserByEmail,
+  saveUser,
+} = require('../repositories/userRepository')
 
 const signUp = async (req, res) => {
-  const emailDB = await User.findOne({ email : req.body.email });
-  const usernameDB = await User.findOne({ username :  { $regex : new RegExp(req.body.username, 'i') } });
+  const emailDB = await findUserByQuery({ email : req.body.email });
+  const usernameDB = await findUserByQuery({ username :  { $regex : new RegExp(req.body.username, 'i') } });
   let email = '';
   let username = '';
 
@@ -16,23 +21,16 @@ const signUp = async (req, res) => {
     }
     res.status(403).send({ email, username });
   } else {
-    const establishUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    });
-
-    establishUser.save()
+    createUser(req)
       .then((user) => {
+        const token = createJwtToken(user);
 
-      const token = createJwtToken(user);
-
-      res.status(201).send({
-        auth: true,
-        success: true,
-        token: `Bearer ${ token }`,
-        user
-      });
+        res.status(201).send({
+          auth: true,
+          success: true,
+          token: `Bearer ${ token }`,
+          user
+        });
     })
       .catch((error) => {
         console.log(error);
@@ -41,7 +39,7 @@ const signUp = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
-  const user = await User.findOne({ email : req.body.email });
+  const user = await findUserByEmail(req.body.email);
 
   if (!user) {
     return res.status(404).json({ user: 'User not found - Try again' });
@@ -49,7 +47,7 @@ const signIn = async (req, res) => {
     if (await user.isValidPassword(req.body.password)) {
       const token = createJwtToken(user);
 
-      await user.save();
+      await saveUser(user);
       return res.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
     }
     return res.status(404).json({ password: 'Invalid password' });
@@ -57,8 +55,7 @@ const signIn = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-  const user = await User.findOne({ username: req.body.username })
-    .select('-password');
+  const user = await findUserByQuery({ email : req.body.email });
 
   if (!user) {
     return res.status(404).send({ error: `${ req.body.username } not found` });
