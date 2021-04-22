@@ -18,7 +18,7 @@ const filterActiveUsers = async (data) => {
       updated: await setOnlineUsers(room)
     };
   }
-}
+};
 
 const findAllRooms = async () => {
 	return Room.find()

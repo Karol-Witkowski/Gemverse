@@ -15,7 +15,7 @@ const emitNewMessage = async (data) => {
 };
 
 const getMessages = async (roomId) => {
-	return await Message.find({ room: roomId });
+	return Message.find({ room: roomId });
 };
 
 const createMessage = async (data) => {
