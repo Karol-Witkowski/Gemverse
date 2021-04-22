@@ -1,4 +1,3 @@
-const Room = require('../models/Room');
 const { deleteRoomMessages } = require('../repositories/messageRepository');
 const {
   createRoom,
@@ -44,11 +43,11 @@ const postRoom = async (req, res) => {
     req.body.access = req.body.password ? 'private' : 'public',
 
     newRoom = await createRoom(req.body);
-      if (!newRoom) {
-        return res.status(403).json({ error: `Something goes wrong - try again` });
-      } else {
-        res.status(201).send(newRoom);
-      }
+    if (!newRoom) {
+      return res.status(403).json({ error: `Something goes wrong - try again` });
+    } else {
+      res.status(201).send(newRoom);
+    }
   }
 };
 
