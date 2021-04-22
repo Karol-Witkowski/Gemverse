@@ -1,7 +1,5 @@
 const User = require('../models/User');
-const {
-  createJwtToken,
-} = require('../modules/utils');
+const { createJwtToken } = require('../modules/utils');
 
 const signUp = async (req, res) => {
   const emailDB = await User.findOne({ email : req.body.email });

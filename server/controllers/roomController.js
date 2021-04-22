@@ -1,11 +1,15 @@
-const Message = require('../models/Message');
 const Room = require('../models/Room');
+const { deleteRoomMessages } = require('../repositories/messageRepository');
 const {
+  createRoom,
 	findAllRooms,
-  findAndRemove,
+  findRoomById,
   findRoomByName,
   findRoomBySlug,
-} = require('../services/roomService');
+  removeRoom,
+  saveRoom,
+  setOnlineUsers,
+} = require('../repositories/roomRepository');
 
 const getAllRooms = async (req, res) => {
   const rooms = await findAllRooms();
@@ -39,13 +43,12 @@ const postRoom = async (req, res) => {
   } else {
     req.body.access = req.body.password ? 'private' : 'public',
 
-    Room.create(req.body, (error, room) => {
-      if (error) {
-        return res.status(403).json({ error: `Name ${ req.body.name } is already taken` });
+    newRoom = await createRoom(req.body);
+      if (!newRoom) {
+        return res.status(403).json({ error: `Something goes wrong - try again` });
       } else {
-        res.status(201).send(room);
+        res.status(201).send(newRoom);
       }
-    });
   }
 };
 
@@ -59,7 +62,7 @@ const verify = async (req, res) => {
       if (!room.permission.includes(req.user.id)) {
         room.permission.push(req.user.id);
       }
-      await room.save();
+      await saveRoom(room);
       return res.status(200).send(room);
     } else {
       return res.status(404).json({ error: 'Invalid password' });
@@ -68,15 +71,16 @@ const verify = async (req, res) => {
 };
 
 const deleteRoom = async (req, res) => {
-  const room = await findAndRemove(req.params.id);
+  const room = await findRoomById(req.params.id);
 
     if (!room) {
       return res.status(404).json({ error: `Room not found` });
     } else {
       if (req.body._id === room.user.toString()) { // move it to validation?
         const roomSlug = room.slug;
-        await Message.deleteMany({ room: req.params.id });
-        await room.delete();
+
+        await deleteRoomMessages(req.params.id);
+        await removeRoom(room);
         return res.status(200).json({ slug: roomSlug, message: 'Room deleted' });
       } else {
         return res.status(404).json({ error: 'Users are allowed to delete only own rooms' });
@@ -96,13 +100,10 @@ const setUserOffline = async (req, res) => {
       if (room.permission.indexOf(req.user.id) >= 0) {
         return room.permission.splice(room.permission.indexOf(req.user.id), 1);
       }
-      await room.save();
+      await saveRoom(room);
     }
 
-    res.status(200).json(await Room.populate(room, {
-      path: 'user activeUsers.lookup',
-      select: 'username'
-    }));
+    res.status(200).json(await setOnlineUsers(room));
   }
 };
 

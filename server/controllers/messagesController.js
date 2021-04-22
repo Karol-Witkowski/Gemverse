@@ -1,7 +1,7 @@
 const {
 	getMessages,
 	createMessage
-} = require('../services/messageService');
+} = require('../repositories/messageRepository');
 
 const getMessagesByRoom = async (req, res) => {
   const messages = getMessages(req.room.id);

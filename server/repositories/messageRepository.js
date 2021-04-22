@@ -12,7 +12,12 @@ const createMessage = async (data) => {
   }).save();
 };
 
+const deleteRoomMessages = async (roomId) => {
+	return Message.deleteMany({ room: roomId });
+};
+
 module.exports = {
   createMessage,
+  deleteRoomMessages,
 	getMessages
 };
