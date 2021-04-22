@@ -2,42 +2,39 @@ const mongoose = require('mongoose');
 const Room = require('../models/Room');
 
 const createRoom = async (roomData) => {
-	return await Room.create(roomData);
+	return Room.create(roomData);
 };
 
 const filterActiveUsers = async (data) => {
-  const room = await Room.findById(mongoose.Types.ObjectId(data.currentRoomId))
-    .populate('activeUsers.lookup', ['username']);
+  const room = await findRoomById(mongoose.Types.ObjectId(data.currentRoomId));
 
+  await setOnlineUsers(room);
   if (room) {
     room.activeUsers = room.activeUsers.filter((user) => user.socketId !== data.socketId);
     room.permission.splice(room.permission.indexOf(data.currentUserId), 1);
-    await room.save();
+    await saveRoom(room);
 
     return {
-      updated: await Room.populate(room, {
-        path: 'user activeUsers.lookup',
-        select: 'username'
-      })
+      updated: await setOnlineUsers(room)
     };
   }
 }
 
 const findAllRooms = async () => {
-	return await Room.find()
+	return Room.find()
     .select('-password');
 };
 
 const findRoomById = async (roomId) => {
-	return await Room.findOne({ _id: roomId })
+	return Room.findOne({ _id: roomId })
 };
 
 const findRoomByName = async (roomName) => {
-	return await Room.findOne({ name: { $regex : new RegExp(roomName, 'i') } })
+	return Room.findOne({ name: { $regex : new RegExp(roomName, 'i') } })
 };
 
 const findRoomBySlug = async (roomSlug) => {
-	return await Room.findOne({ slug: roomSlug })
+	return Room.findOne({ slug: roomSlug })
     .select('-password');
 };
 
@@ -57,9 +54,9 @@ const setOnlineUsers = async (room) => {
 };
 
 const updateOnlineUsers = async (data) => {
-  const room = await Room.findOne({ name: data.room.name })
-    .populate('activeUsers.lookup', ['username']);
+  const room = await findRoomByName(data.room.name);
 
+  setOnlineUsers(room);
   if (room) {
     if (room.activeUsers && !room.activeUsers.find((user) => data.user._id === user.lookup._id.toString())) {
       room.activeUsers.push({
@@ -67,22 +64,16 @@ const updateOnlineUsers = async (data) => {
         socketId: data.socketId
       });
 
-      return await Room.populate(await room.save(), {
-        path: 'user activeUsers.lookup',
-        select: 'username'
-      });
+      return setOnlineUsers(await saveRoom(room));
     } else {
       const roomUser = room.activeUsers.find((user) => data.user._id === user.lookup._id.toString());
 
       if (roomUser.socketId !== data.socketId) {
         roomUser.socketId = data.socketId;
-        await room.save();
+        await saveRoom(room);
       }
 
-      return await Room.populate(room, {
-        path: 'user activeUsers.lookup',
-        select: 'username'
-      });
+      return setOnlineUsers(room);
     }
   } else {
     return;
