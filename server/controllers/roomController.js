@@ -96,8 +96,8 @@ const setUserOffline = async (req, res) => {
     if (room.activeUsers.find((user) => user.lookup.toString() === req.user.id)) {
       room.activeUsers = room.activeUsers.filter((user) => user.lookup.toString() !== req.user.id);
 
-      if (room.permission.indexOf(req.user.id) >= 0) {
-        return room.permission.splice(room.permission.indexOf(req.user.id), 1);
+      if (room.permission.find((user) => user.toString() === req.user.id)) {
+        room.permission = room.permission.filter((user) => user.toString() !== req.user.id);
       }
       await saveRoom(room);
     }
