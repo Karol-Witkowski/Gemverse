@@ -33,7 +33,7 @@ const signUp = async (req, res) => {
         });
     })
       .catch((error) => {
-        console.log(error);
+        res.send({ error, error: 'Something went wrong, Please check the fields again' });
       });
   }
 };
