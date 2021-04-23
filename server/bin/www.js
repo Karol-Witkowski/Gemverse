@@ -1,5 +1,5 @@
-const chalk = require('chalk');
 const app = require('../app');
+const chalk = require('chalk');
 const debug = require('debug')('express-test:server');
 const http = require('http');
 
