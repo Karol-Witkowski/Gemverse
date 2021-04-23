@@ -107,10 +107,10 @@ const setUserOffline = async (req, res) => {
 };
 
 module.exports = {
+  deleteRoom,
   getAllRooms,
   getRoom,
   postRoom,
-  verify,
-  deleteRoom,
-  setUserOffline
+  setUserOffline,
+  verify
 };

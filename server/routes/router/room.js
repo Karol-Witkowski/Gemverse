@@ -1,12 +1,12 @@
 const { requireAuth } = require("../../middlewares/authMiddlewares");
 const router = require('express').Router();
 const {
+  deleteRoom,
   getAllRooms,
   getRoom,
   postRoom,
-  verify,
-  deleteRoom,
-  setUserOffline
+  setUserOffline,
+  verify
 } = require('../../controllers/roomController');
 
 /** Get all rooms */

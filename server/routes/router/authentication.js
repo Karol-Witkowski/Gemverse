@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const {
-  signUp,
+  logoutUser,
   signIn,
-  logoutUser
+  signUp
 } = require('../../controllers/authenticationController');
 
 /** Save user */

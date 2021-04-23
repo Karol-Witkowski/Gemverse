@@ -35,5 +35,5 @@ module.exports = {
   findUserByQuery,
   findOnlineUsers,
   findUserByEmail,
-  saveUser,
+  saveUser
 };

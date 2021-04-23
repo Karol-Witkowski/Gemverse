@@ -45,5 +45,5 @@ module.exports = {
   findRoomBySlug,
   removeRoom,
   saveRoom,
-  setOnlineUsers,
+  setOnlineUsers
 };
