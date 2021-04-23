@@ -1,5 +1,5 @@
 const { emitMessagesToRoom } = require('../repositories/messageRepository');
-const { updateOnlineUsers } = require('../repositories/roomRepository');
+const { updateOnlineUsers } = require('../actions/socketActions');
 
 module.exports = {
   handleJoinRoom: async (socket, data) => {

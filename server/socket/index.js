@@ -1,7 +1,7 @@
 const socketio = require('socket.io');
 const { handleJoinRoom }  = require('../helpers/socketHelpers');
 const { emitNewMessage } = require('../repositories/messageRepository');
-const { filterActiveUsers } = require('../repositories/roomRepository');
+const { filterActiveUsers } = require('../actions/socketActions');
 
 require('../db/mongoose');
 
