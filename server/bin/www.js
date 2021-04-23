@@ -17,7 +17,7 @@ io.attach(server);
 
 /** Listen to the port and handle errors */
 server.listen(port, function () {
-  logger.info(`Server started on port ${process.env.PORT || '3000'}`);
+  logger.info(`[LOG=SERVER] Server started on port ${process.env.PORT || '3000'}`);
 });
 
 server.on('error', onError);
