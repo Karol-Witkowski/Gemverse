@@ -1,14 +1,14 @@
-/** Enable global variables */
 require('dotenv').config();
 
 /** Main packages */
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const logger = require('morgan');
-const path = require('path');
 
 const app = express();
+
+/** Logger */
+const morgan = require('morgan');
 
 /** Passport config */
 require('./config/passport');
@@ -18,12 +18,11 @@ require('./db/mongoose');
 
 /** Middlewares */
 app
-  .use(logger('dev'))
-  .use(helmet())
-  .use(express.urlencoded({ extended: true }))
-  .use(express.json())
   .use(cors())
-  .use(express.static(path.join(__dirname, 'dist')));
+  .use(helmet())
+  .use(morgan('dev'))
+  .use(express.urlencoded({ extended: true }))
+  .use(express.json());
 
 /** Routes */
 const apiRouter = require('./routes/index');

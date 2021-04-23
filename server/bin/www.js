@@ -1,7 +1,7 @@
 const app = require('../app');
-const chalk = require('chalk');
 const debug = require('debug')('express-test:server');
 const http = require('http');
+const { logger } = require('../config/logger');
 
 /** Set port and create server */
 const port = normalizePort(process.env.PORT || '3000');
@@ -17,7 +17,7 @@ io.attach(server);
 
 /** Listen to the port and handle errors */
 server.listen(port, function () {
-  console.log(chalk.bold.green(`http://localhost:${port}`));
+  logger.info(`Server started on port ${process.env.PORT || '3000'}`);
 });
 
 server.on('error', onError);
