@@ -26,7 +26,7 @@ const updateOnlineUsers = async (data) => {
 
   setOnlineUsers(room);
   if (room) {
-    if (room.activeUsers && !room.activeUsers.find((user) => data.user._id === user.lookup._id.toString())) {
+    if (room.activeUsers && !room.activeUsers.find((user) => user.lookup._id.toString() === data.user._id)) {
       room.activeUsers.push({
         lookup: mongoose.Types.ObjectId(data.user._id),
         socketId: data.socketId
@@ -34,7 +34,7 @@ const updateOnlineUsers = async (data) => {
 
       return setOnlineUsers(await saveRoom(room));
     } else {
-      const roomUser = room.activeUsers.find((user) => data.user._id === user.lookup._id.toString());
+      const roomUser = room.activeUsers.find((user) => user.lookup._id.toString() === data.user._id);
 
       if (roomUser.socketId !== data.socketId) {
         roomUser.socketId = data.socketId;
