@@ -4,7 +4,7 @@ const {
   findUserByQuery,
   findUserByEmail,
   saveUser,
-} = require('../repositories/userRepository')
+} = require('../repositories/userRepository');
 
 const signUp = async (req, res) => {
   const emailDB = await findUserByQuery({ email : req.body.email });
