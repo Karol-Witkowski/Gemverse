@@ -1,4 +1,4 @@
-const { requireAuth } = require("../../middlewares/authMiddlewares");
+const { requireAuth } = require("../../middlewares/authMiddleware");
 const router = require('express').Router();
 const {
   getOnlineUsers,
