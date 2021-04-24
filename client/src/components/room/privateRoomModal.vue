@@ -84,13 +84,13 @@ export default {
         password: this.privateRoomPassword,
       })
         .then((response) => {
-          if (response.data.room.slug) {
-            this.join(response.data.room.slug);
+          if (response.data.data.slug) {
+            this.join(response.data.data.slug);
           }
         })
         .catch((error) => {
           console.log(error);
-          this.error = error.response.data.error;
+          this.error = error.response.data.message;
         });
     },
 

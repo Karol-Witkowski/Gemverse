@@ -12,9 +12,9 @@ export const getUserIdentity = async (next) => {
   if (localStorage.getItem('authenticationToken')) {
     if (isEmpty(store.getters.getUserData)) {
       const response = await axios.get('http://localhost:3000/api/user/logged');
-      if (response.data.user) {
+      if (response.data.data) {
         await store.dispatch('remitAuthState', true);
-        await store.dispatch('saveUser', response.data.user);
+        await store.dispatch('saveUser', response.data.data);
         next();
       }
     } else {

@@ -10,14 +10,14 @@ const getOnlineUsers = async (req, res) => {
   if (!onlineUsers) {
     return res.status(404)
       .json({
-        error: 'Users not found',
+        message: 'Users not found',
         success: false
       });
   } else {
     return res.status(200)
       .json({
-        success: true,
-        users: onlineUsers
+        data: onlineUsers,
+        success: true
       });
   }
 };
@@ -28,14 +28,14 @@ const getUserById = async (req, res) => {
   if (!user) {
     return res.status(404)
       .json({
-        error: 'User not found',
+        message: 'User not found',
         success: false
       });
   } else {
     return res.status(200)
       .json({
-        success: true,
-        user
+        data: user,
+        success: true
       });
   }
 };
@@ -46,7 +46,7 @@ const removeUser = async (req, res) => {
   if (!user) {
     return res.status(404)
       .json({
-        error: 'User not found',
+        message: 'User not found',
         success: false
       });
   } else {

@@ -275,7 +275,7 @@ export default {
     getRoomList() {
       axios.get('http://localhost:3000/api/room')
         .then((response) => {
-          this.rooms = response.data.rooms;
+          this.rooms = response.data.data;
           this.socket.on('updateRoomList', (data) => {
             // eslint-disable-next-line no-underscore-dangle
             if (data._id !== this.id) {
@@ -293,7 +293,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.roomError = error.response.data.error;
+          this.roomError = error.response.data.message;
         });
     },
 

@@ -16,13 +16,13 @@ const getAllRooms = async (req, res) => {
   if (rooms.length < 1) {
     return res.status(404)
       .json({
-        error: 'Rooms not found',
+        message: 'Rooms not found',
         success: false
       });
   } else {
     return res.status(200)
       .json({
-        rooms,
+        data: rooms,
         success: true
       });
   };
@@ -34,20 +34,20 @@ const getRoom = async (req, res) => {
   if (!room) {
     return res.status(404)
       .json({
-        error: 'Room not found',
+        message: 'Room not found',
         success: false
       });
   } else {
     if (room.access === 'private' && !room.permission.includes(req.user.id)) {
       return res.status(403)
         .json({
-          error: 'Access denied',
+          message: 'Access denied',
           success: false
         });
     } else {
       return res.status(200)
         .json({
-          room,
+          data: room,
           success: true
         });
     }
@@ -60,7 +60,7 @@ const postRoom = async (req, res) => {
   if (room !== null) {
     return res.status(403)
       .json({
-        error: `Name ${ req.body.name } is already taken`,
+        message: `Name ${ req.body.name } is already taken`,
         success: false
       });
   } else {
@@ -70,7 +70,7 @@ const postRoom = async (req, res) => {
     if (!newRoom) {
       return res.status(403)
         .json({
-          error: `Something goes wrong - try again`,
+          message: `Something goes wrong - try again`,
           success: false
         });
     } else {
@@ -89,14 +89,14 @@ const verify = async (req, res) => {
   if (!room) {
     return res.status(404)
       .json({
-        error: `No room with name ${ req.body.name } found`,
+        message: `No room with name ${ req.body.name } found`,
         success: false
       });
   } else {
     if (await room.isValidPassword(req.body.password) === false) {
       return res.status(404)
         .json({
-          error: 'Invalid password',
+          message: 'Invalid password',
           success: false
         });
     } else {
@@ -106,7 +106,7 @@ const verify = async (req, res) => {
       await saveRoom(room);
       return res.status(200)
         .json({
-          room,
+          data: room,
           success: true
         });
     }
@@ -119,14 +119,14 @@ const deleteRoom = async (req, res) => {
     if (!room) {
       return res.status(404)
         .json({
-          error: `Room not found`,
+          message: `Room not found`,
           success: false
         });
     } else {
       if (req.body._id !== room.user.toString()) { // move to middleware
         return res.status(404)
         .json({
-          error: 'Users are allowed to delete only own rooms',
+          message: 'Users are allowed to delete only own rooms',
           success: false
         });
       } else {
@@ -150,7 +150,7 @@ const setUserOffline = async (req, res) => {
   if (!room) {
     return res.status(404)
       .json({
-        error: `Room not found`,
+        message: `Room not found`,
         success: false
       });
   } else {
@@ -167,7 +167,7 @@ const setUserOffline = async (req, res) => {
 
     res.status(200)
       .json({
-        room: filteredRoom,
+        data: filteredRoom,
         success: true
       });
   }

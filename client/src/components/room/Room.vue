@@ -45,7 +45,7 @@ export default {
     getRoomData() {
       axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
         .then((response) => {
-          this.$store.dispatch('saveCurrentRoom', response.data.room);
+          this.$store.dispatch('saveCurrentRoom', response.data.data);
           this.socket.on('removeRoomFromList', (slug) => {
             if (this.$route.path === `/room/${slug}`) {
               this.$router.push({
@@ -86,7 +86,7 @@ export default {
           console.log(error);
           this.$router.push({
             name: 'RoomList',
-            params: { message: error.response.data.error },
+            params: { message: error.response.data.message },
           });
         });
     },
@@ -95,7 +95,7 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       axios.post('http://localhost:3000/api/room/remove/user', { slug: this.getCurrentRoom.slug })
         .then((response) => {
-          this.socket.emit('leaveRoom', response.data.room);
+          this.socket.emit('leaveRoom', response.data.data);
         })
         .catch((error) => {
           console.log(error);

@@ -35,14 +35,14 @@ const signUp = async (req, res) => {
             auth: true,
             success: true,
             token: `Bearer ${ token }`,
-            user
+            data: user
           });
     })
       .catch((error) => {
         res.status(400)
           .json({
             error,
-            error: 'Something went wrong, Please check the fields again',
+            message: 'Something went wrong, Please check the fields again',
             success: false
           });
       });
@@ -72,9 +72,9 @@ const signIn = async (req, res) => {
     return res.status(200)
       .json({
         auth: true,
+        data: user,
         success: true,
-        token: `Bearer ${ token }`,
-        user
+        token: `Bearer ${ token }`
       });
   }
 };
@@ -85,7 +85,7 @@ const logoutUser = async (req, res) => {
   if (!user) {
     return res.status(404)
       .json({
-        error: `${ req.body.username } not found`,
+        message: `${ req.body.username } not found`,
         success: false
       });
   } else {
