@@ -39,11 +39,11 @@ const signUp = async (req, res) => {
           });
     })
       .catch((error) => {
-        res.status(201)
+        res.status(400)
           .json({
             error,
             error: 'Something went wrong, Please check the fields again',
-            success: true
+            success: false
           });
       });
   }
@@ -59,22 +59,22 @@ const signIn = async (req, res) => {
         user: 'User not found - Try again'
       });
   } else {
-    if (await user.isValidPassword(req.body.password)) {
-      const token = createJwtToken(user);
-
-      await saveUser(user);
-      return res.status(200)
+    if (!await user.isValidPassword(req.body.password)) {
+      return res.status(404)
         .json({
-          auth: true,
-          success: true,
-          token: `Bearer ${ token }`,
-          user
+          password: 'Invalid password',
+          success: false
         });
     }
-    return res.status(404)
+    const token = createJwtToken(user);
+
+    await saveUser(user);
+    return res.status(200)
       .json({
-        password: 'Invalid password',
-        success: false
+        auth: true,
+        success: true,
+        token: `Bearer ${ token }`,
+        user
       });
   }
 };

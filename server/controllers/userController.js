@@ -10,19 +10,34 @@ const getOnlineUsers = async (req, res) => {
   if (!onlineUsers) {
     return res.status(404)
       .json({
-        error: 'Users not found'
+        error: 'Users not found',
+        success: false
       });
   } else {
     return res.status(200)
-      .json(onlineUsers);
+      .json({
+        success: true,
+        users: onlineUsers
+      });
   }
 };
 
 const getUserById = async (req, res) => {
   const user = await findUserByEmail(req.user.email);
 
-  await res.status(200)
-    .json(user);
+  if (!user) {
+    return res.status(404)
+      .json({
+        error: 'User not found',
+        success: false
+      });
+  } else {
+    return res.status(200)
+      .json({
+        success: true,
+        user
+      });
+  }
 };
 
 const removeUser = async (req, res) => {
@@ -31,12 +46,15 @@ const removeUser = async (req, res) => {
   if (!user) {
     return res.status(404)
       .json({
-        error: 'User not found'
+        error: 'User not found',
+        success: false
       });
   } else {
-    return res.json({
-      message: 'Account deleted'
-    });
+    return res.status(200)
+      .json({
+        message: 'Account deleted',
+        success: false
+      });
   }
 };
 
