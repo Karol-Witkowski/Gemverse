@@ -84,8 +84,8 @@ export default {
         password: this.privateRoomPassword,
       })
         .then((response) => {
-          if (response.data.slug) {
-            this.join(response.data.slug);
+          if (response.data.room.slug) {
+            this.join(response.data.room.slug);
           }
         })
         .catch((error) => {

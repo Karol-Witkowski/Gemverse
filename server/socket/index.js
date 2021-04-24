@@ -23,8 +23,8 @@ io.on('connection', (socket) => {
     io.emit('updateRoomList', data);
   });
 
-  socket.on('deleteRoom', (roomSlug) => {
-    io.emit('removeRoomFromList', roomSlug);
+  socket.on('deleteRoom', (data) => {
+    io.emit('removeRoomFromList', data);
   });
 
   socket.on('disconnect', async () => {

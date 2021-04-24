@@ -102,7 +102,7 @@ export default {
       axios.post('http://localhost:3000/api/room', this.room)
         .then((response) => {
           if (response.status === 201) {
-            this.socket.emit('createRoom', response.data);
+            this.socket.emit('createRoom', response.data.data);
             this.closeModal();
           }
         })

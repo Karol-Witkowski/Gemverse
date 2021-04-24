@@ -45,7 +45,7 @@ export default {
     getRoomData() {
       axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
         .then((response) => {
-          this.$store.dispatch('saveCurrentRoom', response.data);
+          this.$store.dispatch('saveCurrentRoom', response.data.room);
           this.socket.on('removeRoomFromList', (slug) => {
             if (this.$route.path === `/room/${slug}`) {
               this.$router.push({
@@ -77,9 +77,8 @@ export default {
               this.messages = data.messages;
             }
             if (data.room) {
-              this.room = data.room;
-              this.activeUsers = this.room.activeUsers;
-              this.$store.dispatch('saveCurrentRoom', this.room);
+              this.activeUsers = data.room.activeUsers;
+              this.$store.dispatch('saveCurrentRoom', data.room);
             }
           });
         })
@@ -96,7 +95,7 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       axios.post('http://localhost:3000/api/room/remove/user', { slug: this.getCurrentRoom.slug })
         .then((response) => {
-          this.socket.emit('leaveRoom', response.data);
+          this.socket.emit('leaveRoom', response.data.room);
         })
         .catch((error) => {
           console.log(error);
