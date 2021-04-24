@@ -9,11 +9,15 @@ const getMessagesByRoom = async (req, res) => {
     if (!messages) {
       return res.status(404)
         .json({
-          error: 'Messages not found'
+          error: 'Messages not found',
+          success: false
         });
     } else {
       return res.status(200)
-        .json(messages);
+        .json({
+          messages,
+          success: true
+        });
     }
 };
 
@@ -21,13 +25,15 @@ const postMessage = async (req, res) => {
   if (!req.body.message) {
     return res.status(404)
       .json({
-        error: 'Message must be at least 1 characters long'
+        error: 'Message must be at least 1 characters long',
+        success: false
       });
   }
   if (error) {
     return res.status(403)
       .json({
-        error: 'Validation failed, please login again'
+        error: 'Validation failed, please login again',
+        success: false
       });
   }
 
@@ -38,7 +44,10 @@ const postMessage = async (req, res) => {
   });
 
   return res.status(201)
-    .json(newMessage);
+    .json({
+      message: newMessage,
+      success: true
+    });
 };
 
 module.exports = {
