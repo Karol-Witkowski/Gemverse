@@ -20,8 +20,10 @@ const signUp = async (req, res) => {
       username = `${ req.body.username } is already taken`;
     }
     res.status(403)
-      .send({
-        email, username
+      .json({
+        email,
+        success: false,
+        username
       });
   } else {
     createUser(req)
@@ -29,7 +31,7 @@ const signUp = async (req, res) => {
         const token = createJwtToken(user);
 
         res.status(201)
-          .send({
+          .json({
             auth: true,
             success: true,
             token: `Bearer ${ token }`,
@@ -38,8 +40,10 @@ const signUp = async (req, res) => {
     })
       .catch((error) => {
         res.status(201)
-          .send({
-            error, error: 'Something went wrong, Please check the fields again'
+          .json({
+            error,
+            error: 'Something went wrong, Please check the fields again',
+            success: true
           });
       });
   }
@@ -51,6 +55,7 @@ const signIn = async (req, res) => {
   if (!user) {
     return res.status(404)
       .json({
+        success: false,
         user: 'User not found - Try again'
       });
   } else {
@@ -59,15 +64,17 @@ const signIn = async (req, res) => {
 
       await saveUser(user);
       return res.status(200)
-        .send({
+        .json({
           auth: true,
+          success: true,
           token: `Bearer ${ token }`,
           user
         });
     }
     return res.status(404)
       .json({
-        password: 'Invalid password'
+        password: 'Invalid password',
+        success: false
       });
   }
 };
@@ -77,12 +84,13 @@ const logoutUser = async (req, res) => {
 
   if (!user) {
     return res.status(404)
-      .send({
-        error: `${ req.body.username } not found`
+      .json({
+        error: `${ req.body.username } not found`,
+        success: false
       });
   } else {
     return res.status(200)
-      .send({
+      .json({
         success: true
       });
   }
