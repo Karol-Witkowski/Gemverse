@@ -19,21 +19,28 @@ const signUp = async (req, res) => {
     if (usernameDB !== null) {
       username = `${ req.body.username } is already taken`;
     }
-    res.status(403).send({ email, username });
+    res.status(403)
+      .send({
+        email, username
+      });
   } else {
     createUser(req)
       .then((user) => {
         const token = createJwtToken(user);
 
-        res.status(201).send({
-          auth: true,
-          success: true,
-          token: `Bearer ${ token }`,
-          user
-        });
+        res.status(201)
+          .send({
+            auth: true,
+            success: true,
+            token: `Bearer ${ token }`,
+            user
+          });
     })
       .catch((error) => {
-        res.send({ error, error: 'Something went wrong, Please check the fields again' });
+        res.status(201)
+          .send({
+            error, error: 'Something went wrong, Please check the fields again'
+          });
       });
   }
 };
@@ -42,15 +49,26 @@ const signIn = async (req, res) => {
   const user = await findUserByEmail(req.body.email);
 
   if (!user) {
-    return res.status(404).json({ user: 'User not found - Try again' });
+    return res.status(404)
+      .json({
+        user: 'User not found - Try again'
+      });
   } else {
     if (await user.isValidPassword(req.body.password)) {
       const token = createJwtToken(user);
 
       await saveUser(user);
-      return res.status(200).send({ auth: true, token: `Bearer ${ token }`, user });
+      return res.status(200)
+        .send({
+          auth: true,
+          token: `Bearer ${ token }`,
+          user
+        });
     }
-    return res.status(404).json({ password: 'Invalid password' });
+    return res.status(404)
+      .json({
+        password: 'Invalid password'
+      });
   }
 };
 
@@ -58,9 +76,15 @@ const logoutUser = async (req, res) => {
   const user = await findUserByQuery({ email : req.body.email });
 
   if (!user) {
-    return res.status(404).send({ error: `${ req.body.username } not found` });
+    return res.status(404)
+      .send({
+        error: `${ req.body.username } not found`
+      });
   } else {
-    return res.status(200).send({ success: true });
+    return res.status(200)
+      .send({
+        success: true
+      });
   }
 };
 
