@@ -1,7 +1,7 @@
 const {
-  findAndRemove,
   findOnlineUsers,
   findUserByEmail,
+  removeAccount
 } = require('../repositories/userRepository');
 
 const getOnlineUsers = async (req, res) => {
@@ -41,7 +41,7 @@ const getUserById = async (req, res) => {
 };
 
 const removeUser = async (req, res) => {
-  const user = await findAndRemove(req.user._id);
+  const user = await findUserByEmail(req.user.email);
 
   if (!user) {
     return res.status(404)
@@ -50,6 +50,14 @@ const removeUser = async (req, res) => {
         success: false
       });
   } else {
+    if (req.user.id !== user.id.toString()) {
+      return res.status(403)
+      .json({
+        message: 'Users are allowed to delete only own accounts',
+        success: false
+      });
+    }
+    await removeAccount(user);
     return res.status(200)
       .json({
         message: 'Account deleted',

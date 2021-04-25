@@ -123,8 +123,8 @@ const deleteRoom = async (req, res) => {
           success: false
         });
     } else {
-      if (req.body._id !== room.user.toString()) { // move to middleware
-        return res.status(404)
+      if (req.body._id !== room.user.toString()) {
+        return res.status(403)
         .json({
           message: 'Users are allowed to delete only own rooms',
           success: false

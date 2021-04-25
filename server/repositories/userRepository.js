@@ -21,8 +21,8 @@ const findUserByEmail = async (userEmail) => {
 	return User.findOne({ email: userEmail });
 };
 
-const findAndRemove = async (userId) => {
-	return User.findOneAndDelete({ _id: userId });
+const removeAccount = async (roomData) => {
+  return roomData.delete();
 };
 
 const saveUser = async (userData) => {
@@ -31,9 +31,9 @@ const saveUser = async (userData) => {
 
 module.exports = {
   createUser,
-  findAndRemove,
   findUserByQuery,
   findOnlineUsers,
   findUserByEmail,
+  removeAccount,
   saveUser
 };
