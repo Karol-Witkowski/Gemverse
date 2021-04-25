@@ -19,7 +19,7 @@ const RoomSchema = new mongoose.Schema({
   ],
   name: {
     type: String,
-    required: true,
+    required: [true, 'Name field is required'],
     unique: true,
     minlength: ['3', 'Room name must be at least 3 characters long'],
     maxlength: ['15', 'Room name must be less or equal to 15 characters']
