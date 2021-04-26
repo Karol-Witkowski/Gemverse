@@ -14,7 +14,10 @@ const deleteRoomMessages = async (roomId) => {
 
 const emitMessagesToRoom = async (roomId) => {
   return Message.find({ room: roomId })
-    .populate('user', ['username']);
+    .populate(
+      'user',
+      ['username']
+    );
 };
 
 const emitNewMessage = async (data) => {

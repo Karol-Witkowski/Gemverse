@@ -93,6 +93,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .userName {
   margin-left: -7px!important;

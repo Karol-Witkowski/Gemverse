@@ -2,7 +2,10 @@
   <v-main class="mb-4 pl-4 pt-2">
     <div
       class="chat ma-0 overflow-x-auto"
-      v-chat-scroll="{ smooth: true, notSmoothOnInit: true }"
+      v-chat-scroll="{
+        smooth: true,
+        notSmoothOnInit: true
+      }"
     >
       <v-list
         class="bg-white"
@@ -57,7 +60,8 @@ export default {
   computed: {
     ...mapGetters(['getCurrentRoom']),
     anonymous() {
-      return ('Anonymous_'.concat(Math.random() * 100)).substring(0, 14);
+      return ('Anonymous_'.concat(Math.random() * 100))
+        .substring(0, 14);
     },
   },
 

@@ -228,9 +228,7 @@ export default {
   created() {
     this.getRoomList();
     this.socket.on('removeRoomFromList', (slug) => {
-      // eslint-disable-next-line no-underscore-dangle
       remove(this.sortedRooms, (room) => room.slug === slug);
-      // eslint-disable-next-line no-underscore-dangle
       remove(this.rooms, (room) => room.slug === slug);
       this.$forceUpdate();
     });
@@ -240,9 +238,10 @@ export default {
     ...mapGetters(['getUserInfo']),
     sortedRooms() {
       if (this.toggleSort) {
-        return this.rooms.slice(0).sort((a, b) => (
-          a.name.toLowerCase() < b.name.toLowerCase() ? this.sorting : -this.sorting
-        ));
+        return this.rooms.slice(0)
+          .sort((a, b) => (
+            a.name.toLowerCase() < b.name.toLowerCase() ? this.sorting : -this.sorting
+          ));
       }
       return this.rooms;
     },
@@ -319,6 +318,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .v-list
  {

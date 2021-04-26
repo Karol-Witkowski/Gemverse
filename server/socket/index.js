@@ -1,7 +1,7 @@
 const socketio = require('socket.io');
-const { handleJoinRoom }  = require('../helpers/socketHelpers');
 const { emitNewMessage } = require('../repositories/messageRepository');
 const { filterActiveUsers } = require('../actions/socketActions');
+const { handleJoinRoom }  = require('../helpers/socketHelpers');
 
 require('../db/mongoose');
 
@@ -13,6 +13,7 @@ const io = socketio({
   }
 });
 const socketApi = {};
+
 socketApi.io = io;
 
 io.on('connection', (socket) => {
@@ -53,6 +54,7 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', async (data) => {
     const message = await emitNewMessage(data);
+
     io.to(data.room)
       .emit('updateMessages', JSON.stringify(message));
   });

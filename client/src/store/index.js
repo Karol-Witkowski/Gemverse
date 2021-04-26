@@ -17,17 +17,20 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    INITIAL_STATE: (state) => {
+    SET_INITIAL_STATE: (state) => {
       state.authState = false;
       state.currentRoom = {};
       state.user = {};
     },
+
     SET_AUTH_STATE(state, payload) {
       state.authState = payload;
     },
+
     SET_CURRENT_ROOM(state, payload) {
       state.currentRoom = payload;
     },
+
     SET_USER(state, payload) {
       state.user = payload;
     },
@@ -37,12 +40,15 @@ export default new Vuex.Store({
     remitAuthState: (context, payload) => {
       context.commit('SET_AUTH_STATE', payload);
     },
+
     resetState: (context) => {
-      context.commit('INITIAL_STATE');
+      context.commit('SET_INITIAL_STATE');
     },
+
     saveCurrentRoom: (context, payload) => {
       context.commit('SET_CURRENT_ROOM', payload);
     },
+
     saveUser: (context, payload) => {
       context.commit('SET_USER', payload);
     },

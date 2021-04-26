@@ -124,6 +124,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .appName {
   letter-spacing: 4px!important;

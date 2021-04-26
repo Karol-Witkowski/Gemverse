@@ -109,6 +109,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .header {
   text-align: justify;
