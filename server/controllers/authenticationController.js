@@ -37,7 +37,7 @@ const signUp = async (req, res) => {
             token: `Bearer ${ token }`,
             data: user
           });
-    })
+      })
       .catch((error) => {
         res.status(400)
           .json({

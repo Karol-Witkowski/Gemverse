@@ -116,32 +116,32 @@ const verify = async (req, res) => {
 const deleteRoom = async (req, res) => {
   const room = await findRoomById(req.params.id);
 
-    if (!room) {
-      return res.status(404)
-        .json({
-          message: `Room not found`,
-          success: false
-        });
-    } else {
-      if (req.body._id !== room.user.toString()) {
-        return res.status(403)
+  if (!room) {
+    return res.status(404)
+      .json({
+        message: `Room not found`,
+        success: false
+      });
+  } else {
+    if (req.body._id !== room.user.toString()) {
+      return res.status(403)
         .json({
           message: 'Users are allowed to delete only own rooms',
           success: false
         });
-      } else {
-        const roomSlug = room.slug;
+    } else {
+      const roomSlug = room.slug;
 
-        await deleteRoomMessages(req.params.id);
-        await removeRoom(room);
-        return res.status(200)
-          .json({
-            message: 'Room deleted',
-            path: roomSlug,
-            success: true
-          });
-      }
+      await deleteRoomMessages(req.params.id);
+      await removeRoom(room);
+      return res.status(200)
+        .json({
+          message: 'Room deleted',
+          path: roomSlug,
+          success: true
+        });
     }
+  }
 };
 
 const setUserOffline = async (req, res) => {

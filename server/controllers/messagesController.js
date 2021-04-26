@@ -6,19 +6,19 @@ const {
 const getMessagesByRoom = async (req, res) => {
   const messages = getMessages(req.room.id);
 
-    if (!messages) {
-      return res.status(404)
-        .json({
-          message: 'Messages not found',
-          success: false
-        });
-    } else {
-      return res.status(200)
-        .json({
-          data: messages,
-          success: true
-        });
-    }
+  if (!messages) {
+    return res.status(404)
+      .json({
+        message: 'Messages not found',
+        success: false
+      });
+  } else {
+    return res.status(200)
+      .json({
+        data: messages,
+        success: true
+      });
+  }
 };
 
 const postMessage = async (req, res) => {
