@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { validateRegister } = require("../../validators/userValidator");
 const {
   logoutUser,
   signIn,
@@ -6,7 +7,10 @@ const {
 } = require('../../controllers/authenticationController');
 
 /** Save user */
-router.post('/register', signUp);
+router.post('/register',
+  validateRegister,
+  signUp
+);
 
 /** Login user */
 router.post('/login', signIn);

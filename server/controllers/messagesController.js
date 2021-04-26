@@ -1,3 +1,4 @@
+const { validatorResult } = require("../validators/validationResult");
 const {
   createMessage,
 	getMessages
@@ -22,31 +23,20 @@ const getMessagesByRoom = async (req, res) => {
 };
 
 const postMessage = async (req, res) => {
-  if (!req.body.message) {
-    return res.status(404)
-      .json({
-        message: 'Message must be at least 1 characters long',
-        success: false
-      });
-  }
-  if (error) {
-    return res.status(403)
-      .json({
-        message: 'Validation failed, please login again',
-        success: false
-      });
-  }
-
   const newMessage = createMessage({
     message: req.body.message,
     room: req.body.room,
     user: req.body.user,
-  });
-
-  return res.status(201)
-    .json({
-      message: newMessage,
-      success: true
+  })
+    .then((res) => {
+      return res.status(201)
+        .json({
+          message: newMessage,
+          success: true
+        });
+    })
+    .catch((error) => {
+      validatorResult(req, res, error);
     });
 };
 

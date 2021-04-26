@@ -112,7 +112,7 @@ export default {
         (value) => !!value || 'Required',
       ],
       emailRules: [
-        (value) => (value.length >= 5 && value.length <= 128) || 'E-mail adress must be at least 5 characters long',
+        (value) => (value.length >= 8 && value.length <= 128) || 'E-mail adress must be at least 8 characters long',
         (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail';
@@ -138,7 +138,7 @@ export default {
           localStorage.setItem('authenticationToken', response.data.token);
           tokenSetter(response.data.token);
           this.dispatchToken();
-          this.$store.dispatch('saveUser', response.data.data);
+          this.$store.dispatch('saveUser', response.data.user);
 
           if (response.status === 201) {
             this.$router.push({
@@ -148,8 +148,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.emailError = error.response.data.email;
-          this.usernameError = error.response.data.username;
+          if (error.response.data.errors.email) {
+            this.emailError = error.response.data.errors.email.msg;
+          }
+
+          if (error.response.data.errors.username.msg) {
+            this.usernameError = error.response.data.errors.username.msg;
+          }
         });
     },
 

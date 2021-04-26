@@ -1,4 +1,5 @@
 const { createJwtToken } = require('../modules/utils');
+const { validatorResult } = require("../validators/validationResult");
 const {
   createUser,
   findUserByQuery,
@@ -7,46 +8,21 @@ const {
 } = require('../repositories/userRepository');
 
 const signUp = async (req, res) => {
-  const emailDB = await findUserByQuery({ email : req.body.email });
-  const usernameDB = await findUserByQuery({ username :  { $regex : new RegExp(req.body.username, 'i') } });
-  let email = '';
-  let username = '';
+  createUser(req)
+    .then((user) => {
+      const token = createJwtToken(user);
 
-  if (emailDB || usernameDB) {
-    if (emailDB !== null) {
-      email =`${ req.body.email } address is already taken`;
-    }
-    if (usernameDB !== null) {
-      username = `${ req.body.username } is already taken`;
-    }
-    res.status(403)
-      .json({
-        email,
-        success: false,
-        username
-      });
-  } else {
-    createUser(req)
-      .then((user) => {
-        const token = createJwtToken(user);
-
-        res.status(201)
-          .json({
-            auth: true,
-            success: true,
-            token: `Bearer ${ token }`,
-            data: user
-          });
-      })
-      .catch((error) => {
-        res.status(400)
-          .json({
-            error,
-            message: 'Something went wrong, Please check the fields again',
-            success: false
-          });
-      });
-  }
+      return res.status(201)
+        .json({
+          auth: true,
+          success: true,
+          token: `Bearer ${ token }`,
+          data: user
+        });
+    })
+    .catch((error) => {
+      validatorResult(req, res, error);
+    });
 };
 
 const signIn = async (req, res) => {
