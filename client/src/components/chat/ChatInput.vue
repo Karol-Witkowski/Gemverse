@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapGetters } from 'vuex';
 import * as io from 'socket.io-client';
 
@@ -48,14 +49,23 @@ export default {
 
   methods: {
     sendMessage() {
-      this.socket.emit('sendMessage', {
+      axios.post(`http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`, {
         message: this.message,
         // eslint-disable-next-line no-underscore-dangle
         room: this.getCurrentRoom._id,
         // eslint-disable-next-line no-underscore-dangle
         user: this.getUserInfo._id,
-      });
-      this.message = '';
+      })
+        .then((response) => {
+          if (response.status === 201) {
+            this.socket.emit('sendMessage', response.data.data);
+            this.message = '';
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.inputError = error.response.data.errors.message.msg;
+        });
     },
   },
 };

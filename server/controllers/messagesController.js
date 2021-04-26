@@ -1,37 +1,16 @@
+const { createMessage } = require('../repositories/messageRepository');
 const { validatorResult } = require("../validators/validationResult");
-const {
-  createMessage,
-	getMessages
-} = require('../repositories/messageRepository');
-
-const getMessagesByRoom = async (req, res) => {
-  const messages = getMessages(req.room.id);
-
-  if (!messages) {
-    return res.status(404)
-      .json({
-        message: 'Messages not found',
-        success: false
-      });
-  } else {
-    return res.status(200)
-      .json({
-        data: messages,
-        success: true
-      });
-  }
-};
 
 const postMessage = async (req, res) => {
-  const newMessage = createMessage({
+  createMessage({
     message: req.body.message,
     room: req.body.room,
     user: req.body.user,
   })
-    .then((res) => {
+    .then((message) => {
       return res.status(201)
         .json({
-          message: newMessage,
+          data: message,
           success: true
         });
     })
@@ -40,7 +19,4 @@ const postMessage = async (req, res) => {
     });
 };
 
-module.exports = {
-  getMessagesByRoom,
-  postMessage,
-};
+module.exports = {  postMessage };

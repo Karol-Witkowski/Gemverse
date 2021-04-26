@@ -69,5 +69,5 @@ const removeUser = async (req, res) => {
 module.exports = {
   getOnlineUsers,
   getUserById,
-  removeUser,
+  removeUser
 };

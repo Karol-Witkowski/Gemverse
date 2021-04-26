@@ -1,7 +1,7 @@
 const Room = require('../models/Room');
 
-const createRoom = async (roomData) => {
-	return Room.create(roomData);
+const createRoom = async (data) => {
+	return Room.create(data);
 };
 
 const findAllRooms = async () => {
@@ -9,29 +9,29 @@ const findAllRooms = async () => {
     .select('-password');
 };
 
-const findRoomById = async (roomId) => {
-	return Room.findOne({ _id: roomId })
+const findRoomById = async (data) => {
+	return Room.findOne({ _id: data })
 };
 
-const findRoomByName = async (roomName) => {
-	return Room.findOne({ name: { $regex : new RegExp(roomName, 'i') } })
+const findRoomByName = async (data) => {
+	return Room.findOne({ name: { $regex : new RegExp(data, 'i') } })
 };
 
-const findRoomBySlug = async (roomSlug) => {
-	return Room.findOne({ slug: roomSlug })
+const findRoomBySlug = async (data) => {
+	return Room.findOne({ slug: data })
     .select('-password');
 };
 
-const removeRoom = async (roomData) => {
-  return roomData.delete();
+const removeRoom = async (data) => {
+  return data.delete();
 };
 
-const saveRoom = async (roomData) => {
-  return roomData.save();
+const saveRoom = async (data) => {
+  return data.save();
 };
 
-const setOnlineUsers = async (room) => {
-  return Room.populate(room, {
+const setOnlineUsers = async (data) => {
+  return Room.populate(data, {
     path: 'user activeUsers.lookup',
     select: 'username'
   })

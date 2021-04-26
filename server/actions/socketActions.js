@@ -3,7 +3,7 @@ const {
   findRoomById,
   findRoomByName,
   saveRoom,
-  setOnlineUsers,
+  setOnlineUsers
 } = require('../repositories/roomRepository');
 
 const filterActiveUsers = async (data) => {

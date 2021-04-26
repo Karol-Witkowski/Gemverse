@@ -7,7 +7,7 @@ const {
   findRoomBySlug,
   removeRoom,
   saveRoom,
-  setOnlineUsers,
+  setOnlineUsers
 } = require('../repositories/roomRepository');
 
 const getAllRooms = async (req, res) => {
@@ -165,7 +165,7 @@ const setUserOffline = async (req, res) => {
 
     const filteredRoom = await setOnlineUsers(room);
 
-    res.status(200)
+    return res.status(200)
       .json({
         data: filteredRoom,
         success: true

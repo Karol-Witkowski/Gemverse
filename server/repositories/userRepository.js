@@ -8,8 +8,8 @@ const createUser = async (data) => {
   }).save();
 };
 
-const findUserByQuery = async (query) => {
-	return User.findOne(query)
+const findUserByQuery = async (data) => {
+	return User.findOne(data)
     .select('-password');
 };
 
@@ -17,16 +17,16 @@ const findOnlineUsers = async () => {
 	return User.find({}, 'email username');
 };
 
-const findUserByEmail = async (userEmail) => {
-	return User.findOne({ email: userEmail });
+const findUserByEmail = async (data) => {
+	return User.findOne({ email: data });
 };
 
-const removeAccount = async (roomData) => {
-  return roomData.delete();
+const removeAccount = async (data) => {
+  return data.delete();
 };
 
-const saveUser = async (userData) => {
-  return userData.save();
+const saveUser = async (data) => {
+  return data.save();
 };
 
 module.exports = {
