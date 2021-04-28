@@ -28,8 +28,8 @@ const validateRegister = [
       .then((user) => {
 				if (user) {
 					return Promise.reject(`Name ${ value } is already in use`);
-				}
-			});
+			  }
+		  });
 	}),
 ];
 

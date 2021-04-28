@@ -37,40 +37,39 @@ export default {
       isFormValid: false,
       message: '',
       messageRules: [
-        value => value.length <= 4000 || 'Message must be less or equal to 4000 characters'
+        (value) => (value.length <= 4000) || 'Message must be less or equal to 4000 characters',
       ],
-      socket: io('http://localhost:3000')
+      socket: io('http://localhost:3000'),
     };
   },
 
   computed: {
-    ...mapGetters(['getCurrentRoom', 'getUserInfo'])
+    ...mapGetters(['getCurrentRoom', 'getUserInfo']),
   },
 
   methods: {
     sendMessage() {
-      axios
-        .post(`http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`, {
-          message: this.message,
-          room: this.getCurrentRoom._id,
-          user: this.getUserInfo._id
-        })
-        .then(response => {
+      axios.post(`http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`, {
+        message: this.message,
+        room: this.getCurrentRoom._id,
+        user: this.getUserInfo._id,
+      })
+        .then((response) => {
           if (response.status === 201) {
             this.socket.emit('sendMessage', response.data.data);
             this.message = '';
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.inputError = error.response.data.errors.message.msg;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .v-input__icon {
-  font-size: 1.5em !important;
+  font-size: 1.5em!important;
 }
 </style>

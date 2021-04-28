@@ -4,7 +4,10 @@
       Add new room
     </v-card-title>
     <v-card-text>
-      <v-form ref="form" v-model="isFormValid">
+      <v-form
+        ref="form"
+        v-model="isFormValid"
+      >
         <v-col cols="12">
           <v-text-field
             autofocus
@@ -35,7 +38,12 @@
       </v-form>
     </v-card-text>
     <v-card-actions class="pb-4">
-      <v-btn @click="closeModal" color="primary" outlined text>
+      <v-btn
+        @click="closeModal"
+        color="primary"
+        outlined
+        text
+      >
         Close
       </v-btn>
       <v-spacer />
@@ -67,25 +75,23 @@ export default {
       nameError: '',
       passwordError: '',
       nameRules: [
-        value => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
-        value => !!value || 'Required'
+        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+        (value) => !!value || 'Required',
       ],
       passwordRules: [
-        value => !/[ ]/.test(value) || 'No blank spaces allowed',
-        value =>
-          ((value.length === 0 || value.length >= 6) && value.length <= 128) ||
-          'Password must be at least 6 characters long'
+        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
+        (value) => ((value.length === 0 || value.length >= 6) && value.length <= 128) || 'Password must be at least 6 characters long',
       ],
       room: {
         name: '',
-        password: ''
+        password: '',
       },
-      socket: io('http://localhost:3000')
+      socket: io('http://localhost:3000'),
     };
   },
 
   computed: {
-    ...mapGetters(['getUserInfo'])
+    ...mapGetters(['getUserInfo']),
   },
 
   methods: {
@@ -98,15 +104,15 @@ export default {
     },
 
     createRoom() {
-      axios
-        .post('http://localhost:3000/api/room', this.room)
-        .then(response => {
+      axios.post('http://localhost:3000/api/room', this.room)
+        .then((response) => {
           if (response.status === 201) {
             this.socket.emit('createRoom', response.data.data);
             this.closeModal();
           }
         })
         .catch((error) => {
+          console.log(error);
           if (error.response.data.errors.name) {
             this.nameError = error.response.data.errors.name.msg;
           }
@@ -127,7 +133,7 @@ export default {
     resetData() {
       this.room.name = '';
       this.room.password = '';
-    }
-  }
+    },
+  },
 };
 </script>

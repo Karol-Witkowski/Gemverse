@@ -10,24 +10,24 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue'),
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue'),
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('@/components/authentication/Register.vue'),
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: '/login',
@@ -35,45 +35,45 @@ const routes = [
     component: () => import('../components/authentication/Login.vue'),
     props: true,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: '/roomlist',
     name: 'RoomList',
     component: () => import('../components/room/RoomList.vue'),
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: '/room/:slug',
     name: 'Room',
     component: () => import('../components/room/Room.vue'),
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: '/profile',
     name: 'Profile',
     component: () => import('../components/profile/Profile.vue'),
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: '*',
     component: () => import('@/components/error/NotFound.vue'),
     meta: {
-      requiresAuth: false
-    }
-  }
+      requiresAuth: false,
+    },
+  },
 ];
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
 });
 
 router.beforeEach(async (to, from, next) => {
@@ -83,7 +83,7 @@ router.beforeEach(async (to, from, next) => {
       localStorage.clear();
       router.push({
         name: 'Login',
-        params: { message: 'Please login to proceed' }
+        params: { message: 'Please login to proceed' },
       });
     } else {
       next();

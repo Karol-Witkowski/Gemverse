@@ -1,6 +1,12 @@
 <template>
-  <v-container class="mt-8" fluid>
-    <v-flex centered class="sm12 mx-6">
+  <v-container
+    class="mt-8"
+    fluid
+  >
+    <v-flex
+      centered
+      class="sm12 mx-6"
+    >
       <v-alert
         class="mt-5 mb-md-2 mx-auto pa-2"
         max-width="300"
@@ -12,7 +18,10 @@
             <strong class="mx-auto">{{ roomError }}</strong>
           </v-col>
           <v-col class="shrink">
-            <v-btn @click="showRoomError" small>
+            <v-btn
+              @click="showRoomError"
+              small
+            >
               ok
             </v-btn>
           </v-col>
@@ -20,7 +29,11 @@
       </v-alert>
       <v-layout>
         <v-spacer />
-        <v-btn @click="[(toggleSort = !toggleSort), sort()]" color="primary" x-small>
+        <v-btn
+          @click="[toggleSort = !toggleSort, sort()]"
+          color="primary"
+          x-small
+        >
           {{ sortBy }}
         </v-btn>
       </v-layout>
@@ -48,7 +61,10 @@
                   :retain-focus="false"
                   v-model="deleteRoomModal"
                 >
-                  <template class="mb-16" v-slot:activator="{ on, attrs }">
+                  <template
+                    class="mb-16"
+                    v-slot:activator="{ on, attrs }"
+                  >
                     <v-btn
                       @click="setRoomData(room._id)"
                       color="secondary"
@@ -67,16 +83,29 @@
                     <v-card-text>
                       Click "OK" to delete room. Removed rooms cannot be restored.
                     </v-card-text>
-                    <v-card-text class="errorMessage" v-if="deleteError">
+                    <v-card-text
+                      class="errorMessage"
+                      v-if="deleteError"
+                    >
                       {{ deleteError }}
                     </v-card-text>
                     <v-divider />
                     <v-card-actions>
-                      <v-btn @click="closeModals" color="primary" outlined text>
+                      <v-btn
+                        @click="closeModals"
+                        color="primary"
+                        outlined
+                        text
+                      >
                         close
                       </v-btn>
                       <v-spacer />
-                      <v-btn @click="deleteRoom()" color="primary" outlined text>
+                      <v-btn
+                        @click="deleteRoom()"
+                        color="primary"
+                        outlined
+                        text
+                      >
                         ok
                       </v-btn>
                     </v-card-actions>
@@ -91,7 +120,12 @@
                 v-if="room.access === 'private'"
               />
               <v-list-item-action v-if="room.access === 'public'">
-                <v-btn @click="join(room.slug)" color="primary" outlined small>
+                <v-btn
+                  @click="join(room.slug)"
+                  color="primary"
+                  outlined
+                  small
+                >
                   join
                 </v-btn>
               </v-list-item-action>
@@ -102,7 +136,10 @@
                   :retain-focus="false"
                   v-model="privateRoomModal"
                 >
-                  <template class="mb-16" v-slot:activator="{ on, attrs }">
+                  <template
+                    class="mb-16"
+                    v-slot:activator="{ on, attrs }"
+                  >
                     <v-btn
                       @click="$store.dispatch('saveCurrentRoom', room)"
                       color="secondary"
@@ -115,11 +152,14 @@
                       join
                     </v-btn>
                   </template>
-                  <PrivateRoomModal @close-modal="closeModals" />
+                  <PrivateRoomModal @close-modal="closeModals"/>
                 </v-dialog>
               </v-list-item-action>
             </v-list-item>
-            <v-list cols="12" v-if="errors && errors.length">
+            <v-list
+              cols="12"
+              v-if="errors && errors.length"
+            >
               <v-list-item>
                 <v-list-item-content>{{ errors }}</v-list-item-content>
               </v-list-item>
@@ -128,9 +168,23 @@
           </v-list>
         </transition-group>
       </v-card>
-      <v-dialog max-width="600" persistent v-model="addRoomModal">
-        <template class="mb-16" v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" outlined small type="submit" v-bind="attrs" v-on="on">
+      <v-dialog
+        max-width="600"
+        persistent
+        v-model="addRoomModal"
+      >
+        <template
+          class="mb-16"
+          v-slot:activator="{ on, attrs }"
+        >
+          <v-btn
+            color="primary"
+            outlined
+            small
+            type="submit"
+            v-bind="attrs"
+            v-on="on"
+          >
             add new room
           </v-btn>
         </template>
@@ -152,7 +206,7 @@ export default {
   name: 'RoomList',
   components: {
     AddRoomModal,
-    PrivateRoomModal
+    PrivateRoomModal,
   },
   data() {
     return {
@@ -167,15 +221,15 @@ export default {
       socket: io('http://localhost:3000'),
       sortBy: 'Sort by given name',
       sorting: -1,
-      toggleSort: false
+      toggleSort: false,
     };
   },
 
   created() {
     this.getRoomList();
-    this.socket.on('removeRoomFromList', slug => {
-      remove(this.sortedRooms, room => room.slug === slug);
-      remove(this.rooms, room => room.slug === slug);
+    this.socket.on('removeRoomFromList', (slug) => {
+      remove(this.sortedRooms, (room) => room.slug === slug);
+      remove(this.rooms, (room) => room.slug === slug);
       this.$forceUpdate();
     });
   },
@@ -184,14 +238,13 @@ export default {
     ...mapGetters(['getUserInfo']),
     sortedRooms() {
       if (this.toggleSort) {
-        return this.rooms
-          .slice(0)
-          .sort((a, b) =>
+        return this.rooms.slice(0)
+          .sort((a, b) => (
             a.name.toLowerCase() < b.name.toLowerCase() ? this.sorting : -this.sorting
-          );
+          ));
       }
       return this.rooms;
-    }
+    },
   },
 
   methods: {
@@ -203,27 +256,25 @@ export default {
     },
 
     deleteRoom() {
-      axios
-        .delete(`http://localhost:3000/api/room/${this.id}`, {
-          data: this.getUserInfo
-        })
-        .then(response => {
+      axios.delete(`http://localhost:3000/api/room/${this.id}`, {
+        data: this.getUserInfo,
+      })
+        .then((response) => {
           if (response.status === 200) {
             this.socket.emit('deleteRoom', response.data.path);
             this.closeModals();
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.deleteError = error.response.data.error;
         });
     },
 
     getRoomList() {
-      axios
-        .get('http://localhost:3000/api/room')
-        .then(response => {
+      axios.get('http://localhost:3000/api/room')
+        .then((response) => {
           this.rooms = response.data.data;
-          this.socket.on('updateRoomList', data => {
+          this.socket.on('updateRoomList', (data) => {
             if (data._id !== this.id) {
               this.rooms.push({
                 access: data.password ? 'private' : 'public',
@@ -231,12 +282,13 @@ export default {
                 name: data.name,
                 password: data.password,
                 slug: data.slug,
-                user: data.user
+                user: data.user,
               });
             }
           });
         })
         .catch((error) => {
+          console.log(error);
           this.roomError = error.response.data.message;
         });
     },
@@ -244,7 +296,7 @@ export default {
     join(roomSlug) {
       this.$router.push({
         name: 'Room',
-        params: { slug: roomSlug }
+        params: { slug: roomSlug },
       });
     },
 
@@ -259,33 +311,32 @@ export default {
     sort() {
       if (this.toggleSort) this.sortBy = 'sort by create date';
       else this.sortBy = 'sort by given name';
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-.v-list {
+.v-list
+ {
   font-size: 12px;
 }
 
-.list-enter-active,
-.list-leave-active {
+.list-enter-active, .list-leave-active {
   transition: all 1s;
 }
 
-.list-enter,
-.list-leave-to {
+.list-enter, .list-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }
 
 .v-dialog {
-  box-shadow: none !important;
+  box-shadow: none!important;
 }
 
 .errorMessage {
-  color: rgb(194, 57, 57) !important;
+  color: rgb(194, 57, 57)!important;
 }
 
 .roomName {
@@ -302,7 +353,7 @@ export default {
 
 .whiteSpace {
   opacity: 0;
-  transition: visibility 0.3s linear, opacity 0.3s linear;
+  transition: visibility 0.3s linear,opacity 0.3s linear;
   visibility: hidden;
 }
 </style>
