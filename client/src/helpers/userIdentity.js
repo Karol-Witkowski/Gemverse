@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '@/store';
 
 export function isEmpty(value) {
-  return value === undefined
+  return (typeof value === 'undefined')
     || value === null
     || (typeof value === 'object' && Object.keys(value).length === 0)
     || (typeof value === 'string' && value.trim().length === 0);

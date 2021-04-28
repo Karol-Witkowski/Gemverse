@@ -63,7 +63,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
           this.inputError = error.response.data.errors.message.msg;
         });
     },

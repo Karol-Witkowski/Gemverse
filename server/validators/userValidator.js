@@ -12,10 +12,10 @@ const validateRegister = [
 	body('email').trim().custom(async (value) => {
 		return await findUserByEmail(value)
       .then((user) => {
-			  if (user) {
-				  return Promise.reject(`${ value } address is already in use`);
-			  }
-		  });
+				if (user) {
+					return Promise.reject(`${ value } address is already in use`);
+				}
+			});
 	}),
 
 	body('password', 'Password is required').trim().notEmpty(),
@@ -26,8 +26,8 @@ const validateRegister = [
   body('username').trim().custom(async (value) => {
 		return await findUserByQuery({ username: value})
       .then((user) => {
-			  if (user) {
-				  return Promise.reject(`Name ${ value } is already in use`);
+				if (user) {
+					return Promise.reject(`Name ${ value } is already in use`);
 			  }
 		  });
 	}),

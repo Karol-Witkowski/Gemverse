@@ -83,7 +83,6 @@ export default {
           });
         })
         .catch((error) => {
-          console.log(error);
           this.$router.push({
             name: 'RoomList',
             params: { message: error.response.data.message },
