@@ -8,7 +8,8 @@
     "dev:watch": "nodemon ./bin/www",
     "build": "node build/build.js",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "test": "snyk test"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
