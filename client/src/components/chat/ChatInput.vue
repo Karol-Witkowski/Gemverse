@@ -51,9 +51,7 @@ export default {
     sendMessage() {
       axios.post(`http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`, {
         message: this.message,
-        // eslint-disable-next-line no-underscore-dangle
         room: this.getCurrentRoom._id,
-        // eslint-disable-next-line no-underscore-dangle
         user: this.getUserInfo._id,
       })
         .then((response) => {

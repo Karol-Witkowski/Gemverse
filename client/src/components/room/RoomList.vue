@@ -275,11 +275,9 @@ export default {
         .then((response) => {
           this.rooms = response.data.data;
           this.socket.on('updateRoomList', (data) => {
-            // eslint-disable-next-line no-underscore-dangle
             if (data._id !== this.id) {
               this.rooms.push({
                 access: data.password ? 'private' : 'public',
-                // eslint-disable-next-line no-underscore-dangle
                 _id: data._id,
                 name: data.name,
                 password: data.password,
