@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
@@ -34,9 +35,11 @@
     "@vue/eslint-config-airbnb": "^5.0.2",
     "@vue/test-utils": "^1.1.4",
     "babel-eslint": "^10.1.0",
+    "chalk": "^4.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
+    "execa": "^5.0.0",
     "sass": "^1.32.11",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "~2.0.9",
