@@ -12,7 +12,7 @@
           <v-text-field
             autofocus
             :counter="15"
-            :error-messages="error"
+            :error-messages="nameError"
             hint="Required"
             id="name"
             label="Room Name"
@@ -20,16 +20,18 @@
             required
             :rules="nameRules"
             v-model.trim="room.name"
-            v-on:keyup="error = ''"
+            v-on:keyup="nameError = ''"
             v-on:keyup.enter="formValidation"
           />
         </v-col>
         <v-col cols="12">
           <v-text-field
+            :error-messages="passwordError"
             label="Password - optional"
             :rules="passwordRules"
             type="password"
             v-model.trim="room.password"
+            v-on:keyup="passwordError = ''"
             v-on:keyup.enter="formValidation"
           />
         </v-col>
@@ -70,6 +72,8 @@ export default {
     return {
       error: [],
       isFormValid: false,
+      nameError: '',
+      passwordError: '',
       nameRules: [
         (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
         (value) => !!value || 'Required',
@@ -93,7 +97,8 @@ export default {
   methods: {
     closeModal() {
       this.$emit('close-modal');
-      this.error = '';
+      this.nameError = '';
+      this.passwordError = '';
       this.resetData();
       this.$refs.form.resetValidation();
     },
@@ -108,7 +113,13 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.error = error.response.data.message;
+          if (error.response.data.errors.name) {
+            this.nameError = error.response.data.errors.name.msg;
+          }
+
+          if (error.response.data.errors.password) {
+            this.passwordError = error.response.data.errors.password.msg;
+          }
         });
     },
 

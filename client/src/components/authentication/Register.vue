@@ -152,7 +152,7 @@ export default {
             this.emailError = error.response.data.errors.email.msg;
           }
 
-          if (error.response.data.errors.username.msg) {
+          if (error.response.data.errors.username) {
             this.usernameError = error.response.data.errors.username.msg;
           }
         });

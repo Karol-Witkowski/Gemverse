@@ -4,7 +4,7 @@ const {
   createUser,
   findUserByQuery,
   findUserByEmail,
-  saveUser,
+  saveUser
 } = require('../repositories/userRepository');
 
 const signUp = async (req, res) => {
@@ -15,9 +15,9 @@ const signUp = async (req, res) => {
       return res.status(201)
         .json({
           auth: true,
+          data: user,
           success: true,
-          token: `Bearer ${ token }`,
-          data: user
+          token: `Bearer ${ token }`
         });
     })
     .catch((error) => {

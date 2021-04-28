@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { requireAuth } = require("../../middlewares/authMiddleware");
+const { validateRoom } = require("../../validators/roomValidator");
 const {
   deleteRoom,
   getAllRooms,
@@ -24,6 +25,7 @@ router.get('/:slug',
 /** Save room */
 router.post('/',
   requireAuth,
+  validateRoom,
   postRoom
 );
 

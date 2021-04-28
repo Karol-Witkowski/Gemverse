@@ -1,4 +1,5 @@
 const { deleteRoomMessages } = require('../repositories/messageRepository');
+const { validatorResult } = require("../validators/validationResult");
 const {
   createRoom,
 	findAllRooms,
@@ -55,32 +56,19 @@ const getRoom = async (req, res) => {
 };
 
 const postRoom = async (req, res) => {
-  const room = await findRoomByName(req.body.name);
+  req.body.access = req.body.password ? 'private' : 'public';
 
-  if (room !== null) {
-    return res.status(403)
-      .json({
-        message: `Name ${ req.body.name } is already taken`,
-        success: false
-      });
-  } else {
-    req.body.access = req.body.password ? 'private' : 'public',
-
-    newRoom = await createRoom(req.body);
-    if (!newRoom) {
-      return res.status(403)
+  createRoom(req)
+    .then((room) => {
+      return res.status(201)
         .json({
-          message: `Something goes wrong - try again`,
-          success: false
-        });
-    } else {
-      res.status(201)
-        .json({
-          data: newRoom,
+          data: room,
           success: true
         });
-    }
-  }
+    })
+    .catch((error) => {
+      validatorResult(req, res, error);
+    });
 };
 
 const verify = async (req, res) => {

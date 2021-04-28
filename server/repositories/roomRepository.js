@@ -1,7 +1,12 @@
 const Room = require('../models/Room');
 
 const createRoom = async (data) => {
-	return Room.create(data);
+  return new Room({
+    access: data.body.access,
+    name: data.body.name,
+    password: data.body.password,
+    user: data.body.user
+  }).save();
 };
 
 const findAllRooms = async () => {
