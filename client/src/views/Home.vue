@@ -1,8 +1,5 @@
 <template>
-  <v-container
-    class="mt-16 pt-16"
-    fluid
-  >
+  <v-container class="mt-16 pt-16" fluid>
     <v-flex class="xs12 mx-6">
       <v-card>
         <v-card-title>
@@ -10,38 +7,22 @@
             Gemverse - a real-time chat
           </p>
           <p class="grey--text mb-0 text--darken-1">
-            Gemverse is a chat app that keeps you connected with coworker and
-            friends wherever you are. User can create own public and
-            private rooms or join to one already made.
-            To get started click the button below and create a new account.
+            Gemverse is a chat app that keeps you connected with coworker and friends wherever you
+            are. User can create own public and private rooms or join to one already made. To get
+            started click the button below and create a new account.
           </p>
         </v-card-title>
         <v-card-actions v-if="!isAuthorized">
-          <v-btn
-            class="ml-2 mr-3"
-            color="blue lighten-2"
-            outlined
-            to="/login"
-          >
+          <v-btn class="ml-2 mr-3" color="blue lighten-2" outlined to="/login">
             sign in
           </v-btn>
           <span class="grey--text text--darken-2">or</span>
-          <v-btn
-            class="ml-3"
-            color="blue lighten-2"
-            outlined
-            to="/register"
-          >
+          <v-btn class="ml-3" color="blue lighten-2" outlined to="/register">
             sign up
           </v-btn>
         </v-card-actions>
         <v-card-actions v-if="isAuthorized">
-          <v-btn
-            class="ml-2"
-            color="blue lighten-2"
-            outlined
-            to="/roomlist"
-          >
+          <v-btn class="ml-2" color="blue lighten-2" outlined to="/roomlist">
             Room list
           </v-btn>
         </v-card-actions>
@@ -63,8 +44,8 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'Home',
   computed: {
-    ...mapGetters(['isAuthorized']),
-  },
+    ...mapGetters(['isAuthorized'])
+  }
 };
 </script>
 

@@ -18,28 +18,28 @@ if (localStorage.authenticationToken) {
 }
 
 axios.interceptors.request.use(
-  (config) => config,
-  (error) => Promise.reject(error),
+  config => config,
+  error => Promise.reject(error)
 );
 
 axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  response => response,
+  error => {
     if (error.response.status === 401) {
       localStorage.removeItem('authenticationToken');
       store.dispatch('remitAuthState', false);
       router.push({
         name: 'Login',
-        params: { message: 'Session expired, please login again' },
+        params: { message: 'Session expired, please login again' }
       });
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 new Vue({
   router,
   store,
   vuetify,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount('#app');
