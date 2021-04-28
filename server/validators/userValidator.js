@@ -25,11 +25,11 @@ const validateRegister = [
   body('username', 'Username length must be between 3 to 15').trim().isString().isLength({ min: 3, max: 15 }),
   body('username').trim().custom(async (value) => {
 		return await findUserByQuery({ username: value})
-      .then((user) => {
+			.then((user) => {
 				if (user) {
 					return Promise.reject(`Name ${ value } is already in use`);
-			  }
-		  });
+				}
+			});
 	}),
 ];
 

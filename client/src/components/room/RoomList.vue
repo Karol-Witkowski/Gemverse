@@ -288,7 +288,6 @@ export default {
           });
         })
         .catch((error) => {
-          console.log(error);
           this.roomError = error.response.data.message;
         });
     },

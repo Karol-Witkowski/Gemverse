@@ -94,9 +94,6 @@ export default {
       axios.post('http://localhost:3000/api/room/remove/user', { slug: this.getCurrentRoom.slug })
         .then((response) => {
           this.socket.emit('leaveRoom', response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
         });
       this.socket.removeListener('joinRoom');
     },
