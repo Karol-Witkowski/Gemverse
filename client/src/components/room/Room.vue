@@ -95,9 +95,7 @@ export default {
         .then((response) => {
           this.socket.emit('leaveRoom', response.data.data);
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => error);
       this.socket.removeListener('joinRoom');
     },
   },

@@ -161,7 +161,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
           this.passwordError = error.response.data.password;
           this.userError = error.response.data.user;
         });

@@ -112,7 +112,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
           if (error.response.data.errors.name) {
             this.nameError = error.response.data.errors.name.msg;
           }
