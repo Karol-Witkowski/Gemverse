@@ -236,7 +236,7 @@ export default {
             }
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.roomError = error.response.data.message;
         });
     },

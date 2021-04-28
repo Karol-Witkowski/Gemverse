@@ -106,8 +106,7 @@ export default {
             this.closeModal();
           }
         })
-        .catch(error => {
-          console.log(error);
+        .catch((error) => {
           if (error.response.data.errors.name) {
             this.nameError = error.response.data.errors.name.msg;
           }

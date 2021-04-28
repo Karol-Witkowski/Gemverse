@@ -79,8 +79,7 @@ export default {
             this.join(response.data.data.slug);
           }
         })
-        .catch(error => {
-          console.log(error);
+        .catch((error) => {
           this.error = error.response.data.message;
         });
     },
