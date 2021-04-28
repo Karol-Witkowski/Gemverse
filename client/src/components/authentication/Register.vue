@@ -1,18 +1,12 @@
 <template>
   <v-container class="mt-12">
-    <v-card
-      class="mt-12 mx-auto"
-      max-width="500px"
-    >
+    <v-card class="mt-12 mx-auto" max-width="500px">
       <v-card-title>
         <span class="headline grey--text text--darken-2">Create account</span>
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-form
-            ref="form"
-            v-model="isFormValid"
-          >
+          <v-form ref="form" v-model="isFormValid">
             <v-row class="mb-2">
               <v-col cols="12">
                 <v-text-field
@@ -58,12 +52,7 @@
         </v-container>
       </v-card-text>
       <v-card-actions class="pb-4">
-        <v-btn
-          color="primary"
-          outlined
-          text
-          to="/"
-        >
+        <v-btn color="primary" outlined text to="/">
           back
         </v-btn>
         <v-spacer />
@@ -80,12 +69,7 @@
     </v-card>
     <div class="mt-6 text-center">
       <h4 class="grey--text mx-auto mb-2 text--darken-1">Already have an account? Sign in</h4>
-      <v-btn
-        color="blue lighten-1"
-        outlined
-        text
-        to="/login"
-      >
+      <v-btn color="blue lighten-1" outlined text to="/login">
         sign in
       </v-btn>
     </div>
@@ -108,33 +92,38 @@ export default {
       emailError: '',
       usernameError: '',
       generalRules: [
-        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
-        (value) => !!value || 'Required',
+        value => !/[ ]/.test(value) || 'No blank spaces allowed',
+        value => !!value || 'Required'
       ],
       emailRules: [
-        (value) => (value.length >= 8 && value.length <= 128) || 'E-mail adress must be at least 8 characters long',
-        (value) => {
+        value =>
+          (value.length >= 8 && value.length <= 128) ||
+          'E-mail adress must be at least 8 characters long',
+        value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail';
-        },
+        }
       ],
       passwordRules: [
-        (value) => (value.length >= 6 && value.length <= 128) || 'Password must be at least 6 characters long',
+        value =>
+          (value.length >= 6 && value.length <= 128) ||
+          'Password must be at least 6 characters long'
       ],
       usernameRules: [
-        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
-      ],
+        value => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15'
+      ]
     };
   },
 
   methods: {
     createUser() {
-      axios.post('http://localhost:3000/api/authentication/register', {
-        email: this.email,
-        password: this.password,
-        username: this.username,
-      })
-        .then((response) => {
+      axios
+        .post('http://localhost:3000/api/authentication/register', {
+          email: this.email,
+          password: this.password,
+          username: this.username
+        })
+        .then(response => {
           localStorage.setItem('authenticationToken', response.data.token);
           tokenSetter(response.data.token);
           this.dispatchToken();
@@ -142,11 +131,11 @@ export default {
 
           if (response.status === 201) {
             this.$router.push({
-              name: 'RoomList',
+              name: 'RoomList'
             });
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           if (error.response.data.errors.email) {
             this.emailError = error.response.data.errors.email.msg;
@@ -171,7 +160,7 @@ export default {
       if (this.isFormValid) {
         this.createUser();
       }
-    },
-  },
+    }
+  }
 };
 </script>

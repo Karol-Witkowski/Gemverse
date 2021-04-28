@@ -1,18 +1,14 @@
 <template>
-  <v-container
-    class="mt-16 pt-16"
-    fluid
-  >
+  <v-container class="mt-16 pt-16" fluid>
     <v-flex class="xs12 mx-6">
       <v-card>
         <v-card-title>
           <p class="grey--text mb-2 text--darken-2 title">About app</p>
           <p class="grey--text text--darken-1">
-            Gemverse is created by combining Vue, Vuetify, Express, Socket.io,
-            MongoDB and more. The app aims to provide an alternative for friends
-            to hang around and chat. The app is based on rooms - organized channels
-            allow you to talk about programming, hobbies, games and more.
-            Check my profile at GitHub.
+            Gemverse is created by combining Vue, Vuetify, Express, Socket.io, MongoDB and more. The
+            app aims to provide an alternative for friends to hang around and chat. The app is based
+            on rooms - organized channels allow you to talk about programming, hobbies, games and
+            more. Check my profile at GitHub.
           </p>
         </v-card-title>
         <v-card-actions>
