@@ -18,22 +18,22 @@
     "express-validator": "^6.10.1",
     "helmet": "^4.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.5",
+    "mongoose": "^5.12.6",
     "mongoose-url-slugs": "^1.0.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "socket.io": "^3.1.2",
-    "winston": "^3.3.3"
+    "socket.io": "^3.1.2"
   },
   "devDependencies": {
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^26.6.3",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
-    "snyk": "^1.563.0"
+    "snyk": "^1.571.0",
+    "winston": "^3.3.3"
   },
   "repository": {
     "type": "git",
