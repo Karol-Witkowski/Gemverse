@@ -7,8 +7,8 @@
   },
   "extends": ["plugin:prettier/recommended"],
   "rules": {
-    "indent": ["error", 2],
     "quotes": ["error", "single"],
+    "prettier/prettier": ["error", {"endOfLine": "auto"}],
     "semi": ["error", "always"]
   }
 }

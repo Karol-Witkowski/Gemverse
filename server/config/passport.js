@@ -11,13 +11,13 @@ opts.secretOrKey = keys.secretOrKey;
 /** JWT passport strategy */
 const jwtLogin = new JwtStrategy(opts, async (payload, done) => {
   findUserByQuery({ _id: payload._id })
-    .then(user => {
-      if(user) {
+    .then((user) => {
+      if (user) {
         return done(null, user);
       }
       return done(null, false);
     })
-    .catch(error => console.error(error));
+    .catch((error) => console.error(error));
 });
 
 passport.use(jwtLogin);

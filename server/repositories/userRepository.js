@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 const createUser = async (data) => {
-	return new User({
+  return new User({
     username: data.body.username,
     email: data.body.email,
     password: data.body.password,
@@ -9,16 +9,15 @@ const createUser = async (data) => {
 };
 
 const findUserByQuery = async (data) => {
-	return User.findOne(data)
-    .select('-password');
+  return User.findOne(data).select('-password');
 };
 
 const findOnlineUsers = async () => {
-	return User.find({}, 'email username');
+  return User.find({}, 'email username');
 };
 
 const findUserByEmail = async (data) => {
-	return User.findOne({ email: data });
+  return User.findOne({ email: data });
 };
 
 const removeAccount = async (data) => {
@@ -35,5 +34,5 @@ module.exports = {
   findOnlineUsers,
   findUserByEmail,
   removeAccount,
-  saveUser
+  saveUser,
 };

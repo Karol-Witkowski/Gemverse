@@ -1,3 +1,3 @@
 module.exports = {
-  secretOrKey: process.env.JWT_KEY
+  secretOrKey: process.env.JWT_KEY,
 };

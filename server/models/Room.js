@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
-const mongoose = require('mongoose'), Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+  Schema = mongoose.Schema;
 const URLSlugs = require('mongoose-url-slugs');
 
 const RoomSchema = new mongoose.Schema({
@@ -9,20 +10,20 @@ const RoomSchema = new mongoose.Schema({
       lookup: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'User'
+        ref: 'User',
       },
       socketId: {
         type: String,
-        required: true
-      }
-    }
+        required: true,
+      },
+    },
   ],
   name: {
     type: String,
     required: [true, 'Name field is required'],
     unique: true,
     minlength: ['3', 'Room name must be at least 3 characters long'],
-    maxlength: ['15', 'Room name must be less or equal to 15 characters']
+    maxlength: ['15', 'Room name must be less or equal to 15 characters'],
   },
   password: {
     type: String,
@@ -31,36 +32,36 @@ const RoomSchema = new mongoose.Schema({
       validator: (value) => {
         return value.length >= 6 || value.length === 0;
       },
-      message: () => 'Password must be at least 6 characters long'
+      message: () => 'Password must be at least 6 characters long',
     },
-    maxlength: ['128', 'Password must be less or equal to 128 characters']
+    maxlength: ['128', 'Password must be less or equal to 128 characters'],
   },
   access: {
     type: String,
-    default: 'public'
+    default: 'public',
   },
   permission: {
     type: Array,
-    default: []
+    default: [],
   },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    default: null
+    default: null,
   },
   createdDate: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 RoomSchema.plugin(URLSlugs('name', { field: 'slug' }));
 
-RoomSchema.methods.isValidPassword = function(password) {
+RoomSchema.methods.isValidPassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-RoomSchema.pre('save', function(next) {
+RoomSchema.pre('save', function (next) {
   if (this.password !== '' && this.isModified('password')) {
     bcrypt.genSalt(parseInt(process.env.SALT_WORK_FACTOR), (error, salt) => {
       bcrypt.hash(this.password, salt, (error, res) => {

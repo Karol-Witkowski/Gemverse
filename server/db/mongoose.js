@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const { logger } = require('../config/logger');
 
 const dbConnect = () => {
-  mongoose.connect(process.env.DATABASE_URL, {
+  mongoose
+    .connect(process.env.DATABASE_URL, {
       useCreateIndex: true,
       useNewUrlParser: true,
-      useUnifiedTopology: true
-  })
-    .then(() =>  {
+      useUnifiedTopology: true,
+    })
+    .then(() => {
       logger.info('[LOG=DB] Connected to MongoDB cluster');
     })
     .catch((error) => {
@@ -18,5 +19,5 @@ const dbConnect = () => {
 dbConnect();
 
 module.exports = {
-  dbConnect
+  dbConnect,
 };

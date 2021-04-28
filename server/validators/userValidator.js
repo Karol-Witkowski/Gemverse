@@ -1,4 +1,5 @@
-const { body } = require("express-validator");
+/* eslint-disable prettier/prettier */
+const { body } = require('express-validator');
 const {
   findUserByQuery,
   findUserByEmail,

@@ -5,26 +5,24 @@ const createRoom = async (data) => {
     access: data.body.access,
     name: data.body.name,
     password: data.body.password,
-    user: data.body.user
+    user: data.body.user,
   }).save();
 };
 
 const findAllRooms = async () => {
-	return Room.find()
-    .select('-password');
+  return Room.find().select('-password');
 };
 
 const findRoomById = async (data) => {
-	return Room.findOne({ _id: data })
+  return Room.findOne({ _id: data });
 };
 
 const findRoomByName = async (data) => {
-	return Room.findOne({ name: { $regex : new RegExp(data, 'i') } })
+  return Room.findOne({ name: { $regex: new RegExp(data, 'i') } });
 };
 
 const findRoomBySlug = async (data) => {
-	return Room.findOne({ slug: data })
-    .select('-password');
+  return Room.findOne({ slug: data }).select('-password');
 };
 
 const removeRoom = async (data) => {
@@ -38,8 +36,8 @@ const saveRoom = async (data) => {
 const setOnlineUsers = async (data) => {
   return Room.populate(data, {
     path: 'user activeUsers.lookup',
-    select: 'username'
-  })
+    select: 'username',
+  });
 };
 
 module.exports = {
@@ -50,5 +48,5 @@ module.exports = {
   findRoomBySlug,
   removeRoom,
   saveRoom,
-  setOnlineUsers
+  setOnlineUsers,
 };

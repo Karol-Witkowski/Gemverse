@@ -3,7 +3,7 @@ const {
   findRoomById,
   findRoomByName,
   saveRoom,
-  setOnlineUsers
+  setOnlineUsers,
 } = require('../repositories/roomRepository');
 
 const filterActiveUsers = async (data) => {
@@ -16,7 +16,7 @@ const filterActiveUsers = async (data) => {
     await saveRoom(room);
 
     return {
-      updated: await setOnlineUsers(room)
+      updated: await setOnlineUsers(room),
     };
   }
 };
@@ -26,15 +26,20 @@ const updateOnlineUsers = async (data) => {
 
   setOnlineUsers(room);
   if (room) {
-    if (room.activeUsers && !room.activeUsers.find((user) => user.lookup._id.toString() === data.user._id)) {
+    if (
+      room.activeUsers &&
+      !room.activeUsers.find((user) => user.lookup._id.toString() === data.user._id)
+    ) {
       room.activeUsers.push({
         lookup: mongoose.Types.ObjectId(data.user._id),
-        socketId: data.socketId
+        socketId: data.socketId,
       });
 
       return setOnlineUsers(await saveRoom(room));
     } else {
-      const roomUser = room.activeUsers.find((user) => user.lookup._id.toString() === data.user._id);
+      const roomUser = room.activeUsers.find(
+        (user) => user.lookup._id.toString() === data.user._id
+      );
 
       if (roomUser.socketId !== data.socketId) {
         roomUser.socketId = data.socketId;
@@ -50,5 +55,5 @@ const updateOnlineUsers = async (data) => {
 
 module.exports = {
   filterActiveUsers,
-  updateOnlineUsers
+  updateOnlineUsers,
 };
