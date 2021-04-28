@@ -7,17 +7,17 @@ export default new Vuex.Store({
   state: {
     authState: false,
     currentRoom: {},
-    user: {}
+    user: {},
   },
 
   getters: {
-    getCurrentRoom: state => state.currentRoom,
-    getUserInfo: state => state.user,
-    isAuthorized: state => state.authState
+    getCurrentRoom: (state) => state.currentRoom,
+    getUserInfo: (state) => state.user,
+    isAuthorized: (state) => state.authState,
   },
 
   mutations: {
-    SET_INITIAL_STATE: state => {
+    SET_INITIAL_STATE: (state) => {
       state.authState = false;
       state.currentRoom = {};
       state.user = {};
@@ -33,7 +33,7 @@ export default new Vuex.Store({
 
     SET_USER(state, payload) {
       state.user = payload;
-    }
+    },
   },
 
   actions: {
@@ -41,7 +41,7 @@ export default new Vuex.Store({
       context.commit('SET_AUTH_STATE', payload);
     },
 
-    resetState: context => {
+    resetState: (context) => {
       context.commit('SET_INITIAL_STATE');
     },
 
@@ -51,6 +51,6 @@ export default new Vuex.Store({
 
     saveUser: (context, payload) => {
       context.commit('SET_USER', payload);
-    }
-  }
+    },
+  },
 });

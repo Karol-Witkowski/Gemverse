@@ -7,20 +7,25 @@
         notSmoothOnInit: true
       }"
     >
-      <v-list class="bg-white" :key="message._id" v-for="message in messages">
+      <v-list
+        class="bg-white"
+        :key="message._id"
+        v-for="message in messages"
+      >
         <v-list-item-avatar class="ml-1 mt-1">
           <img
             alt="user avatar"
-            :src="
-              `data:image/svg+xml;utf8,
-            ${generateAvatar(message.user ? message.user.username : anonymous)}`
-            "
+            :src="`data:image/svg+xml;utf8,
+            ${generateAvatar(message.user ? message.user.username : anonymous)}`"
           />
         </v-list-item-avatar>
-        <span class="font-weight-bold">
-          {{ message.user ? message.user.username : anonymous }}
-        </span>
-        <v-list-item class="pl-3" :key="message._id">
+          <span class="font-weight-bold">
+            {{ message.user ? message.user.username : anonymous }}
+          </span>
+        <v-list-item
+          class="pl-3"
+          :key="message._id"
+        >
           <v-list-item-content class="py-0">
             <v-list class="pl-1 pr-4 userMessage">
               {{ message.message }}
@@ -49,14 +54,15 @@ dayjs.extend(relativeTime);
 export default {
   name: 'ChatMessages',
   props: {
-    messages: {}
+    messages: {},
   },
 
   computed: {
     ...mapGetters(['getCurrentRoom']),
     anonymous() {
-      return 'Anonymous_'.concat(Math.random() * 100).substring(0, 14);
-    }
+      return ('Anonymous_'.concat(Math.random() * 100))
+        .substring(0, 14);
+    },
   },
 
   methods: {
@@ -66,8 +72,8 @@ export default {
 
     utcToRelative(message) {
       return dayjs(message).fromNow();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -77,15 +83,15 @@ export default {
 }
 
 .v-list-item__avatar:first-child {
-  height: 28px !important;
-  margin-right: 7px !important;
+  height: 28px!important;
+  margin-right: 7px!important;
   margin-top: -8px;
-  width: 28px !important;
+  width: 28px!important;
 }
 
 .userMessage {
   display: block;
-  font-size: 1.14em !important;
+  font-size: 1.14em!important;
   text-align: justify;
   text-justify: inter-word;
   word-break: normal;
@@ -93,7 +99,7 @@ export default {
 
 .messageTime {
   float: right;
-  font-size: 0.86em !important;
+  font-size: 0.86em!important;
 }
 
 .v-list-item__content {

@@ -11,13 +11,13 @@ import Navbar from './components/layout/Navbar.vue';
 export default {
   name: 'App',
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 
 <style lang="scss">
 * {
-  font-size: 0.984em !important;
+  font-size: 0.984em!important;
 }
 </style>

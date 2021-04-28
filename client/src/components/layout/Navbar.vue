@@ -1,6 +1,14 @@
 <template>
-  <v-app-bar app color="white" flat max-height="65">
-    <v-menu align="center" justify="space-around">
+  <v-app-bar
+    app
+    color="white"
+    flat
+    max-height="65"
+  >
+    <v-menu
+      align="center"
+      justify="space-around"
+    >
       <template v-slot:activator="{ on: menu, attrs }">
         <v-btn
           class="d-flex d-md-none mx-auto"
@@ -18,31 +26,56 @@
       </template>
       <v-list class="font-weight-bold grey--text mobileMenu text-uppercase">
         <v-list-item to="/">home</v-list-item>
-        <v-list-item to="/roomlist" v-if="isAuthorized">
+        <v-list-item
+          to="/roomlist"
+          v-if="isAuthorized"
+        >
           rooms
         </v-list-item>
-        <v-list-item to="/profile" v-if="isAuthorized">
+        <v-list-item
+          to="/profile"
+          v-if="isAuthorized"
+        >
           profile
         </v-list-item>
         <v-list-item to="/about">about</v-list-item>
         <v-list-item v-if="isAuthorized">
-          <v-btn class="mx-auto" @click.prevent="logout" color="primary" outlined small width="250">
+          <v-btn
+            class="mx-auto"
+            @click.prevent="logout"
+            color="primary"
+            outlined
+            small
+            width="250"
+          >
             logout
           </v-btn>
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-tabs class="d-none d-md-block" color="primary">
+    <v-tabs
+      class="d-none d-md-block"
+      color="primary"
+    >
       <v-tab to="/">Home</v-tab>
-      <v-tab to="/roomlist" v-if="isAuthorized">
+      <v-tab
+        to="/roomlist"
+        v-if="isAuthorized"
+      >
         rooms
       </v-tab>
-      <v-tab to="/profile" v-if="isAuthorized">
+      <v-tab
+        to="/profile"
+        v-if="isAuthorized"
+      >
         profile
       </v-tab>
       <v-tab to="/about">About</v-tab>
     </v-tabs>
-    <v-tab class="appName grey--text menu text--darken-2" to="/">
+    <v-tab
+      class="appName grey--text menu text--darken-2"
+      to="/"
+    >
       gemverse
     </v-tab>
     <v-tab
@@ -67,7 +100,7 @@ export default {
 
   computed: {
     ...mapActions(['remitAuthState']),
-    ...mapGetters(['isAuthorized'])
+    ...mapGetters(['isAuthorized']),
   },
 
   methods: {
@@ -87,21 +120,21 @@ export default {
         this.$store.dispatch('saveUser', '');
         this.$router.push({ name: 'Login' });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .appName {
-  letter-spacing: 4px !important;
+  letter-spacing: 4px!important;
 }
 
 .mobileMenu {
-  font-size: 0.8em !important;
+  font-size: 0.8em!important;
 }
 
 .v-toolbar__content {
-  height: 45px !important;
+  height: 45px!important;
 }
 </style>

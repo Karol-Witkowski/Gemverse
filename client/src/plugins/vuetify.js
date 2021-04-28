@@ -6,16 +6,16 @@ Vue.use(Vuetify);
 
 const vuetify = new Vuetify({
   icons: {
-    iconfont: 'md'
+    iconfont: 'md',
   },
   theme: {
     themes: {
       light: {
         primary: '#64B5F6',
-        secondary: '#EF5350'
-      }
-    }
-  }
+        secondary: '#EF5350',
+      },
+    },
+  },
 });
 
 export default vuetify;

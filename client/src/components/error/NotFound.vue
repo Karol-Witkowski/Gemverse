@@ -1,5 +1,8 @@
 <template>
-  <v-container class="mt-16 pt-4" fluid>
+  <v-container
+    class="mt-16 pt-4"
+    fluid
+  >
     <v-flex class="sm12 mx-6">
       <v-card>
         <v-card-title class="justify-center pt-6">
@@ -15,7 +18,11 @@
           />
         </v-card-actions>
         <v-card-actions class="justify-center pb-10">
-          <v-btn color="primary" to="/" outlined>
+          <v-btn
+            color="primary"
+            to="/"
+            outlined
+          >
             back to home page
           </v-btn>
         </v-card-actions>
