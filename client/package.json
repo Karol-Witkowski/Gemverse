@@ -7,7 +7,6 @@
     "build": "vue-cli-service build",
     "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -26,7 +25,6 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.12",
-    "@vue/cli-plugin-e2e-cypress": "^4.5.12",
     "@vue/cli-plugin-eslint": "^4.5.12",
     "@vue/cli-plugin-router": "^4.5.12",
     "@vue/cli-plugin-unit-jest": "^4.5.12",
