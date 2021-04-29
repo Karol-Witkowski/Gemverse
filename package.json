@@ -1,9 +1,17 @@
 {
   "name": "gemverse",
-  "version": "0.2.1",
+  "version": "2.0.0",
   "description": "Gemverse Chat Application",
   "repository": {
     "type": "git",
-     "url": "https://github.com/Karol-Witkowski/Gemverse"
+    "url": "https://github.com/Karol-Witkowski/Gemverse"
+  },
+  "scripts": {
+    "cypress:open": "cypress open",
+    "test:cypress-record": "cypress run --record --key 95327a19-0b29-4b0e-9de8-83f219e560b1",
+    "test:cypress-run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^7.2.0"
   }
 }
