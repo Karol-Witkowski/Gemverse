@@ -147,7 +147,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
           if (error.response.data.errors.email) {
             this.emailError = error.response.data.errors.email.msg;
           }

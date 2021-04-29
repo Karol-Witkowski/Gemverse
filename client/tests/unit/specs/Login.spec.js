@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import Room from '@/components/room/Room.vue';
+import Login from '@/components/authentication/Login.vue';
 
-describe('Room.vue', () => {
+describe('Login.vue', () => {
   it('Test - development', () => {
-    const wrapper = shallowMount(Room);
+    const wrapper = shallowMount(Login);
     expect(wrapper.text()).toMatch('Welcome');
   });
 });
