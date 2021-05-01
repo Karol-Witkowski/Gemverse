@@ -81,7 +81,7 @@
           outlined
           text
         >
-          Sign in
+          sign in
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -112,7 +112,6 @@ export default {
       isFormValid: false,
       password: '',
       passwordError: '',
-      placeholder: 'whiteSpace',
       redirectError: this.message,
       userError: '',
       emailRules: [
