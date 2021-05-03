@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implementation test for Login.vue Render correctly 1`] = `
+<div class="container mt-12">
+  <div role="alert" class="v-alert mt-8 mx-auto v-sheet theme--dark v-alert--dense error whiteSpace" style="max-width: 500px;">
+    <div class="v-alert__wrapper"><i aria-hidden="true" class="v-icon notranslate v-alert__icon mdi mdi-alert theme--dark"></i>
+      <div class="v-alert__content">
+        <div class="row align-center">
+          <div class="grow col"><strong class="mx-auto"></strong></div>
+          <div class="shrink col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg theme--dark v-size--small"><span class="v-btn__content">
+          ok
+        </span></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-8 mx-auto v-card v-sheet theme--light" style="max-width: 500px;">
+    <div class="v-card__title"><span class="headline grey--text text--darken-2">Sign in to start chatting</span></div>
+    <div class="v-card__text">
+      <div class="container">
+        <form novalidate="novalidate" class="v-form">
+          <div class="row">
+            <div class="col col-12">
+              <div class="v-input theme--light v-text-field">
+                <div class="v-input__control">
+                  <div class="v-input__slot">
+                    <div class="v-text-field__slot"><label for="input-7" class="v-label theme--light" style="left: 0px; position: absolute;">E-mail adress</label><input required="required" autofocus="autofocus" id="input-7" type="text"></div>
+                  </div>
+                  <div class="v-text-field__details">
+                    <div class="v-messages theme--light">
+                      <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-12">
+              <div class="v-input theme--light v-text-field">
+                <div class="v-input__control">
+                  <div class="v-input__slot">
+                    <div class="v-text-field__slot"><label for="input-10" class="v-label theme--light" style="left: 0px; position: absolute;">Password</label><input required="required" id="input-10" type="password"></div>
+                  </div>
+                  <div class="v-text-field__details">
+                    <div class="v-messages theme--light">
+                      <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <span>All fields are case-sensitive</span>
+        </form>
+      </div>
+    </div>
+    <div class="v-card__actions pb-4">
+      <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default primary--text"><span class="v-btn__content">
+        back
+      </span></router-link-stub>
+      <div class="spacer"></div> <button type="button" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default"><span class="v-btn__content">
+        sign in
+      </span></button>
+    </div>
+  </div>
+  <div class="mt-6 text-center">
+    <h4 class="grey--text mb-2 mx-auto text--darken-1">New to Gemverse? Create a new account</h4>
+    <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default blue--text text--lighten-1"><span class="v-btn__content">
+      sign up
+    </span></router-link-stub>
+  </div>
+</div>
+`;

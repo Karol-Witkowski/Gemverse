@@ -13,7 +13,7 @@
         </v-col>
         <v-col class="shrink">
           <v-btn
-            @click="showRedirectError"
+            @click="hideRedirectError"
             small
           >
             ok
@@ -165,7 +165,7 @@ export default {
         });
     },
 
-    showRedirectError() {
+    hideRedirectError() {
       this.redirectError = '';
     },
   },
