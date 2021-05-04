@@ -1,23 +1,42 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import Vue from 'vue'
+import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Login from '@/components/authentication/Login.vue';
 
-jest.mock('axios');
+const mockStore = { dispatch: jest.fn() };
+const localVue = createLocalVue();
+const url = 'http://localhost:3000/api/authentication/login';
+let vuetify;
+let wrapper;
+let expectedData = expect.objectContaining({
+  email: 'email value',
+  password: 'password value',
+});
 
-describe('Implementation test for Login.vue', () => {
-  const localVue = createLocalVue();
-  let vuetify;
-  let wrapper;
+jest.mock('axios');
+vuetify = new Vuetify();
+
+describe('Implementation test for Login.vue - successful HTTP post', () => {
+  let response = {
+    data: {
+      auth:	true,
+      data: {
+        data: 'testData'
+      },
+      success: true,
+      token: "testToken",
+    },
+  };
 
   beforeEach(() => {
-    const mock = new MockAdapter(axios);
-    vuetify = new Vuetify();
+    axios.post.mockResolvedValue(response);
 
     wrapper = mount(Login, {
       localVue,
+      mocks: {
+        $store: mockStore
+      },
       stubs: ['router-link', 'router-view'],
       vuetify,
       data() {
@@ -35,8 +54,8 @@ describe('Implementation test for Login.vue', () => {
   });
 
   afterEach(() => {
+    axios.post.mockReset();
     wrapper.destroy();
-    mock.restore();
   });
 
   it('Render correctly', () => {
@@ -93,8 +112,21 @@ describe('Implementation test for Login.vue', () => {
 
     await Vue.nextTick();
 
-    // Check that the validation passed
     expect(wrapper.vm.isFormValid).toBeTruthy();
+  });
+
+  it('Fail validation when email and password are not entered', async () => {
+    expect(wrapper.vm.isFormValid).toBeFalsy();
+  });
+
+  it('Fail validation when one field is empty', async () => {
+    await wrapper.setData({
+      email: 'email value',
+    });
+
+    await Vue.nextTick();
+
+    expect(wrapper.vm.isFormValid).toBeFalsy();
   });
 
   it('Enables auth alert when authentication failed', async () => {
@@ -107,25 +139,97 @@ describe('Implementation test for Login.vue', () => {
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
   });
 
-  it('Should authorise and then dispatch user data', async () => {
-    const response = {
-      auth:	true,
-      data: {
-        _id:	"testId",
-        username: "testUser",
-        email: "TestMail",
-        password: "hashPass",
-        createdDate: "testDate",
-        __v: 0,
+  it('Should sends post request with correct on form submit', async () => {
+    await wrapper.setData({
+      email: 'email value',
+      password: 'password value',
+    });
+
+    await Vue.nextTick();
+
+    wrapper.vm.login();
+
+    // Check if post is called
+    expect(axios.post).toHaveBeenCalled();
+
+    // Check if post are called once
+    expect(axios.post).toHaveReturnedTimes(1);
+
+    // Check if post is called with correct data
+    expect(axios.post).toHaveBeenCalledWith(
+      url,
+      expectedData,
+    );
+  });
+
+  it('Should store user data and auth status after successful login', async () => {
+    wrapper.vm.login();
+
+    // Check if any action are dispatched
+    expect(mockStore.dispatch).toHaveBeenCalled();
+
+    // Check if two actions are dispatched
+    expect(mockStore.dispatch).toHaveReturnedTimes(2);
+
+    // Check auth state is dispatched with correct data
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+      1, 'remitAuthState', true
+    );
+
+    // Check user data is dispatched with correct data
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+      2, 'saveUser', response.data.data,
+    );
+  });
+});
+
+describe('Implementation test for Login.vue - failed HTTP post', () => {
+  beforeEach(() => {
+    axios.post.mockRejectedValue(new Error('BAD REQUEST'));
+
+    wrapper = mount(Login, {
+      localVue,
+      mocks: {
+        $store: mockStore
       },
-      success: true,
-      token: "testToken",
-    };
+      stubs: ['router-link', 'router-view'],
+      vuetify,
+      data() {
+        return {
+          email: '',
+          isFormValid: false,
+          password: '',
+        };
+      },
+    });
+  });
 
-    /* mock.onPost('http://localhost:3000/api/authentication/login').reply(200, { data: response});
-    return store.dispatch('saveUser')
-        .then(() => expect(store.state.user).toHaveLength(1)); */
+  afterEach(() => {
+    axios.post.mockReset();
+    mockStore.dispatch.mockReset();
+    wrapper.destroy();
+  });
 
-    // axios.post.mockResolvedValue(response);
+  it('Call login function with correct data', async () => {
+    await wrapper.setData({
+      email: 'email value',
+      password: 'password value',
+    });
+
+    await Vue.nextTick();
+
+    wrapper.vm.login();
+
+    expect(axios.post).toHaveBeenCalledTimes(1);
+    expect(axios.post).toBeCalledWith(
+      url,
+      expectedData
+    );
+  });
+
+  it('Does not dispatch data when a failed HTTP post occurs', () => {
+    wrapper.vm.login();
+
+    expect(mockStore.dispatch).not.toHaveBeenCalled();
   });
 });
