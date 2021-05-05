@@ -9,11 +9,19 @@ const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/authentication/login';
 let vuetify;
 let wrapper;
-let expectedData = expect.objectContaining({
+const error = {
+  response: {
+    data: {
+      password: 'Password error',
+      user: 'Email error',
+    },
+  },
+};
+const expectedData = expect.objectContaining({
   email: 'email value',
   password: 'password value',
 });
-let response = {
+const response = {
   data: {
     auth:	true,
     data: {
@@ -43,9 +51,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
           email: '',
           isFormValid: false,
           password: '',
-          passwordError: '',
           redirectError: this.message,
-          userError: '',
         };
       },
       propsData: {
@@ -100,7 +106,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
   });
 
-  it('Enables log-in button when email address and password are entered', async () => {
+  it('Enables log-in button when email address and password are set', async () => {
     await wrapper.setData({
       email: 'email value',
       password: 'password value',
@@ -114,19 +120,11 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.vm.email).toBe('email value');
     expect(wrapper.vm.password).toBe('password value');
 
+    // Check if validation pass
+    expect(wrapper.vm.isFormValid).toBeTruthy();
+
     // Check that the login button is active
     expect(wrapper.findAll('.v-btn').at(2).element.disabled).toBeFalsy();
-  });
-
-  it('Pass validation when email and password are entered', async () => {
-    await wrapper.setData({
-      email: 'email value',
-      password: 'password value',
-    });
-
-    await Vue.nextTick();
-
-    expect(wrapper.vm.isFormValid).toBeTruthy();
   });
 
   it('Fail validation when email and password are not entered', () => {
@@ -205,14 +203,6 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
 describe('Implementation test for Login.vue - failed HTTP post', () => {
   beforeEach(() => {
-    let error = {
-      response: {
-        data: {
-          password: 'Password error',
-          user: 'Email error',
-        },
-      },
-    };
     axios.post.mockRejectedValue(error);
 
     wrapper = mount(Login, {
@@ -270,5 +260,99 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
     wrapper.vm.login();
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
+  });
+});
+
+describe('Behavioral test for Login.vue - successful HTTP post', () => {
+  beforeEach(() => {
+    axios.post.mockResolvedValue(response);
+
+    wrapper = mount(Login, {
+      localVue,
+      mocks: {
+        $store: mockStore
+      },
+      stubs: ['router-link', 'router-view'],
+      vuetify,
+      data() {
+        return {
+          email: '',
+          isFormValid: false,
+          password: '',
+          redirectError: this.message,
+        };
+      },
+      propsData: {
+        message: '',
+      },
+    });
+  });
+
+  afterEach(() => {
+    axios.post.mockReset();
+    wrapper.destroy();
+  });
+
+  it('Dissmiss auth error on click', async () => {
+    await wrapper.setData({
+      redirectError: 'Access denied',
+    });
+
+    // Chek that aut alert is visible
+    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
+
+    wrapper.findAll('.v-btn').at(0).trigger('click');
+
+    await Vue.nextTick();
+
+    // Chek that aut alert is hidden after click
+    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
+  });
+
+  it('Should not sends post request when inputs are empty', async () => {
+    wrapper.findAll('.v-btn').at(2).trigger('click');
+
+    expect(axios.post).not.toHaveBeenCalled();
+  });
+
+  it('Should sends post request with correct on form submit', async () => {
+    await wrapper.findAll('input').at(0).setValue('email value');
+    await wrapper.findAll('input').at(1).setValue('password value');
+
+    await Vue.nextTick();
+
+    wrapper.findAll('.v-btn').at(2).trigger('click');
+
+    // Check if sing in button is clicked
+    expect(axios.post).toHaveBeenCalled();
+
+    // Check if post are called once
+    expect(axios.post).toHaveReturnedTimes(1);
+
+    // Check if post is called with correct data
+    expect(axios.post).toHaveBeenCalledWith(
+      url,
+      expectedData,
+    );
+  });
+
+  it('Should store user data and auth status after successful login', async () => {
+    wrapper.findAll('.v-btn').at(2).trigger('click');
+
+    // Check if any action are dispatched
+    expect(mockStore.dispatch).toHaveBeenCalled();
+
+    // Check if two actions are dispatched
+    expect(mockStore.dispatch).toHaveReturnedTimes(2);
+
+    // Check auth state is dispatched with correct data
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+      1, 'remitAuthState', true
+    );
+
+    // Check user data is dispatched with correct data
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+      2, 'saveUser', response.data.data,
+    );
   });
 });
