@@ -13,22 +13,21 @@ let expectedData = expect.objectContaining({
   email: 'email value',
   password: 'password value',
 });
+let response = {
+  data: {
+    auth:	true,
+    data: {
+      data: 'testData'
+    },
+    success: true,
+    token: "testToken",
+  },
+};
 
 jest.mock('axios');
 vuetify = new Vuetify();
 
 describe('Implementation test for Login.vue - successful HTTP post', () => {
-  let response = {
-    data: {
-      auth:	true,
-      data: {
-        data: 'testData'
-      },
-      success: true,
-      token: "testToken",
-    },
-  };
-
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
 
@@ -44,7 +43,9 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
           email: '',
           isFormValid: false,
           password: '',
+          passwordError: '',
           redirectError: this.message,
+          userError: '',
         };
       },
       propsData: {
@@ -86,6 +87,19 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 
+  it('Enables error messages', async () => {
+    await wrapper.setData({
+      passwordError: 'Password error',
+      userError: 'Email error'
+    });
+
+    await Vue.nextTick();
+
+    expect(wrapper.findAll('.v-messages').length).toEqual(2);
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
+  });
+
   it('Enables log-in button when email address and password are entered', async () => {
     await wrapper.setData({
       email: 'email value',
@@ -115,7 +129,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.vm.isFormValid).toBeTruthy();
   });
 
-  it('Fail validation when email and password are not entered', async () => {
+  it('Fail validation when email and password are not entered', () => {
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
 
@@ -129,14 +143,20 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
 
-  it('Enables auth alert when authentication failed', async () => {
+  it('Enables dismissible auth alert when authentication failed', async () => {
     await wrapper.setData({
       redirectError: 'Access denied',
     });
 
+    // Chek that aut alert is visible
+    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
+
+    wrapper.vm.hideRedirectError();
+
     await Vue.nextTick();
 
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
+    // Chek that aut alert is hidden
+    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
   });
 
   it('Should sends post request with correct on form submit', async () => {
@@ -185,7 +205,15 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
 describe('Implementation test for Login.vue - failed HTTP post', () => {
   beforeEach(() => {
-    axios.post.mockRejectedValue(new Error('BAD REQUEST'));
+    let error = {
+      response: {
+        data: {
+          password: 'Password error',
+          user: 'Email error',
+        },
+      },
+    };
+    axios.post.mockRejectedValue(error);
 
     wrapper = mount(Login, {
       localVue,
@@ -199,6 +227,8 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
           email: '',
           isFormValid: false,
           password: '',
+          passwordError: '',
+          userError: '',
         };
       },
     });
@@ -225,6 +255,15 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
       url,
       expectedData
     );
+  });
+
+  it('Display error messages on HTTP post failure', async () => {
+    await wrapper.vm.login();
+
+    await Vue.nextTick();
+    expect(wrapper.findAll('.v-messages').length).toEqual(2);
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
   });
 
   it('Does not dispatch data when a failed HTTP post occurs', () => {
