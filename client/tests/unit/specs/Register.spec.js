@@ -9,13 +9,13 @@ const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/authentication/register';
 let vuetify;
 let wrapper;
-let error = {
+const error = {
   response: {
     data: {
       password: 'Password error',
-      user: 'Email error'
+      user: 'Email error',
     },
-  }
+  },
 };
 const expectedData = expect.objectContaining({
   email: 'email value',
@@ -25,11 +25,11 @@ const response = {
   data: {
     auth:	true,
     data: {
-      data: 'testData'
+      data: 'testData',
     },
     success: true,
-    token: "testToken"
-  }
+    token: 'testToken',
+  },
 };
 
 jest.mock('axios');

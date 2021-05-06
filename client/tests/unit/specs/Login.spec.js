@@ -9,13 +9,13 @@ const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/authentication/login';
 let vuetify;
 let wrapper;
-let error = {
+const error = {
   response: {
     data: {
       password: 'Password error',
-      user: 'Email error'
+      user: 'Email error',
     },
-  }
+  },
 };
 const expectedData = expect.objectContaining({
   email: 'email value',
@@ -25,11 +25,11 @@ const response = {
   data: {
     auth:	true,
     data: {
-      data: 'testData'
+      data: 'testData',
     },
     success: true,
-    token: "testToken"
-  }
+    token: 'testToken',
+  },
 };
 
 jest.mock('axios');
@@ -42,7 +42,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     wrapper = mount(Login, {
       localVue,
       mocks: {
-        $store: mockStore
+        $store: mockStore,
       },
       stubs: ['router-link', 'router-view'],
       vuetify,
@@ -51,12 +51,12 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
           email: '',
           isFormValid: false,
           password: '',
-          redirectError: this.message
+          redirectError: this.message,
         };
       },
       propsData: {
-        message: ''
-      }
+        message: '',
+      },
     });
   });
 
@@ -96,7 +96,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   it('Enables error messages', async () => {
     await wrapper.setData({
       passwordError: 'Password error',
-      userError: 'Email error'
+      userError: 'Email error',
     });
 
     await Vue.nextTick();
@@ -109,7 +109,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   it('Enables log-in button when email address and password are set', async () => {
     await wrapper.setData({
       email: 'email value',
-      password: 'password value'
+      password: 'password value',
     });
 
     await Vue.nextTick();
@@ -133,7 +133,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
   it('Fail validation when one field is empty', async () => {
     await wrapper.setData({
-      email: 'email value'
+      email: 'email value',
     });
 
     await Vue.nextTick();
@@ -143,7 +143,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
   it('Enables dismissible auth alert when authentication failed', async () => {
     await wrapper.setData({
-      redirectError: 'Access denied'
+      redirectError: 'Access denied',
     });
 
     // Chek that aut alert is visible
@@ -160,7 +160,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   it('Should sends post request with correct on form submit', async () => {
     await wrapper.setData({
       email: 'email value',
-      password: 'password value'
+      password: 'password value',
     });
 
     await Vue.nextTick();
@@ -176,7 +176,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     // Check if post is called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
-      expectedData
+      expectedData,
     );
   });
 
@@ -191,12 +191,12 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
     // Check auth state is dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1, 'remitAuthState', true
+      1, 'remitAuthState', true,
     );
 
     // Check user data is dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.data
+      2, 'saveUser', response.data.data,
     );
   });
 });
@@ -208,7 +208,7 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
     wrapper = mount(Login, {
       localVue,
       mocks: {
-        $store: mockStore
+        $store: mockStore,
       },
       stubs: ['router-link', 'router-view'],
       vuetify,
@@ -218,9 +218,9 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
           isFormValid: false,
           password: '',
           passwordError: '',
-          userError: ''
+          userError: '',
         };
-      }
+      },
     });
   });
 
@@ -253,7 +253,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     wrapper = mount(Login, {
       localVue,
       mocks: {
-        $store: mockStore
+        $store: mockStore,
       },
       stubs: ['router-link', 'router-view'],
       vuetify,
@@ -262,12 +262,12 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
           email: '',
           isFormValid: false,
           password: '',
-          redirectError: this.message
+          redirectError: this.message,
         };
       },
       propsData: {
-        message: ''
-      }
+        message: '',
+      },
     });
   });
 
@@ -278,7 +278,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
   it('Dissmiss auth error on click', async () => {
     await wrapper.setData({
-      redirectError: 'Access denied'
+      redirectError: 'Access denied',
     });
 
     // Chek that aut alert is visible
@@ -315,7 +315,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     // Check if post is called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
-      expectedData
+      expectedData,
     );
   });
 
@@ -330,12 +330,12 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
     // Check auth state is dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1, 'remitAuthState', true
+      1, 'remitAuthState', true,
     );
 
     // Check user data is dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.data
+      2, 'saveUser', response.data.data,
     );
   });
 });
@@ -347,7 +347,7 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
     wrapper = mount(Login, {
       localVue,
       mocks: {
-        $store: mockStore
+        $store: mockStore,
       },
       stubs: ['router-link', 'router-view'],
       vuetify,
@@ -357,9 +357,9 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
           isFormValid: false,
           password: '',
           passwordError: '',
-          userError: ''
+          userError: '',
         };
-      }
+      },
     });
   });
 
