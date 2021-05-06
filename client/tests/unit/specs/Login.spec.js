@@ -389,8 +389,7 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
       userError: 'Email error',
     });
 
-    await wrapper.findAll('input').at(0).trigger('keyup');
-    await wrapper.findAll('input').at(1).trigger('keyup');
+    await wrapper.findAll('input').trigger('keyup');
 
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');

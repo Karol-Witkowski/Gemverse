@@ -219,6 +219,7 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
   });
 
   afterEach(() => {
+    axios.post.mockReset();
     mockStore.dispatch.mockReset();
     wrapper.destroy();
   });
@@ -239,9 +240,9 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
   });
-//});
+});
 
-/* describe('Behavioral test for Register.vue - successful HTTP post', () => {
+describe('Behavioral test for Register.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
 
@@ -275,13 +276,13 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
   });
 
   it('Should sends post request with correct on form submit', async () => {
-    await wrapper.findAll('input').at(0).setValue('username value');
-    await wrapper.findAll('input').at(1).setValue('email value');
-    await wrapper.findAll('input').at(2).setValue('password value');
+    await wrapper.findAll('input').at(0).setValue('username');
+    await wrapper.findAll('input').at(1).setValue('test@email.js');
+    await wrapper.findAll('input').at(2).setValue('password');
 
     await Vue.nextTick();
 
-    wrapper.findAll('.v-btn').at(2).trigger('click');
+    wrapper.findAll('.v-btn').at(1).trigger('click');
 
     // Check if sing in button is clicked
     expect(axios.post).toHaveBeenCalled();
@@ -312,7 +313,7 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
 
     // Check user data is dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.data,
+      2, 'saveUser', response.data.user,
     );
   });
 });
@@ -347,9 +348,9 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
   });
 
   it('Display error messages on HTTP post failure', async () => {
-    await wrapper.findAll('input').at(0).setValue('username value');
-    await wrapper.findAll('input').at(1).setValue('email value');
-    await wrapper.findAll('input').at(2).setValue('password value');
+    await wrapper.findAll('input').at(0).setValue('username');
+    await wrapper.findAll('input').at(1).setValue('test@email.js');
+    await wrapper.findAll('input').at(2).setValue('password');
 
     await Vue.nextTick();
 
@@ -360,7 +361,6 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
     expect(wrapper.findAll('.v-messages').length).toEqual(3);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Username error');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Email error');
-    expect(wrapper.findAll('.v-messages').at(2).text()).toEqual('?_?_?');
   });
 
   it('Hide HTTP post error messages when user enter new data', async () => {
@@ -369,19 +369,16 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
       usernameError: 'Email error',
     });
 
-    await wrapper.findAll('input').at(0).trigger('keyup');
-    await wrapper.findAll('input').at(1).trigger('keyup');
-    await wrapper.findAll('input').at(2).trigger('keyup');
+    await wrapper.findAll('input').trigger('keyup');
 
     expect(wrapper.findAll('.v-messages').length).toEqual(3);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
-    expect(wrapper.findAll('.v-messages').at(2).text()).toEqual('');
   });
 
   it('Does not dispatch data when a failed HTTP post occurs', () => {
     wrapper.findAll('.v-btn').at(1).trigger('click');
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
-  }); */
+  });
 });
