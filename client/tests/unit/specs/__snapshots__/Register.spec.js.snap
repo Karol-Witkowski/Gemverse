@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implementation test for Register.vue - successful HTTP post Render correctly 1`] = `
+<div class="container mt-12">
+  <div class="mt-12 mx-auto v-card v-sheet theme--light" style="max-width: 500px;">
+    <div class="v-card__title"><span class="headline grey--text text--darken-2">Create account</span></div>
+    <div class="v-card__text">
+      <div class="container">
+        <form novalidate="novalidate" class="v-form">
+          <div class="row mb-2">
+            <div class="col col-12">
+              <div class="v-input theme--light v-text-field">
+                <div class="v-input__control">
+                  <div class="v-input__slot">
+                    <div class="v-text-field__slot"><label for="input-4" class="v-label theme--light" style="left: 0px; position: absolute;">Username</label><input required="required" autofocus="autofocus" id="input-4" type="text"></div>
+                  </div>
+                  <div class="v-text-field__details">
+                    <div class="v-messages theme--light">
+                      <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+                    </div>
+                    <div class="v-counter theme--light">0 / 15</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-12">
+              <div class="v-input theme--light v-text-field">
+                <div class="v-input__control">
+                  <div class="v-input__slot">
+                    <div class="v-text-field__slot"><label for="input-7" class="v-label theme--light" style="left: 0px; position: absolute;">E-mail address</label><input required="required" id="input-7" type="text"></div>
+                  </div>
+                  <div class="v-text-field__details">
+                    <div class="v-messages theme--light">
+                      <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-12">
+              <div class="v-input theme--light v-text-field">
+                <div class="v-input__control">
+                  <div class="v-input__slot">
+                    <div class="v-text-field__slot"><label for="input-10" class="v-label theme--light" style="left: 0px; position: absolute;">Password</label><input required="required" id="input-10" type="password"></div>
+                  </div>
+                  <div class="v-text-field__details">
+                    <div class="v-messages theme--light">
+                      <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper">
+                        <div class="v-messages__message">Minimum length - 6 characters</div>
+                      </transition-group-stub>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>All fields are required and case-sensitive</p>
+        </form>
+      </div>
+    </div>
+    <div class="v-card__actions pb-4">
+      <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default primary--text"><span class="v-btn__content">
+        back
+      </span></router-link-stub>
+      <div class="spacer"></div> <button type="button" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default"><span class="v-btn__content">
+        sign up
+      </span></button>
+    </div>
+  </div>
+  <div class="mt-6 text-center">
+    <h4 class="grey--text mx-auto mb-2 text--darken-1">Already have an account? Sign in</h4>
+    <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default blue--text text--lighten-1"><span class="v-btn__content">
+      sign in
+    </span></router-link-stub>
+  </div>
+</div>
+`;
