@@ -383,6 +383,20 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
   });
 
+  it('Hide HTTP post error messages when user enter new data', async () => {
+    await wrapper.setData({
+      passwordError: 'Password error',
+      userError: 'Email error',
+    });
+
+    await wrapper.findAll('input').at(0).trigger('keyup');
+    await wrapper.findAll('input').at(1).trigger('keyup');
+
+    expect(wrapper.findAll('.v-messages').length).toEqual(2);
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
+  });
+
   it('Does not dispatch data when a failed HTTP post occurs', () => {
     wrapper.findAll('.v-btn').at(2).trigger('click');
 
