@@ -9,13 +9,13 @@ const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/authentication/login';
 let vuetify;
 let wrapper;
-const error = {
+let error = {
   response: {
     data: {
       password: 'Password error',
-      user: 'Email error',
+      user: 'Email error'
     },
-  },
+  }
 };
 const expectedData = expect.objectContaining({
   email: 'email value',
@@ -28,8 +28,8 @@ const response = {
       data: 'testData'
     },
     success: true,
-    token: "testToken",
-  },
+    token: "testToken"
+  }
 };
 
 jest.mock('axios');
@@ -51,12 +51,12 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
           email: '',
           isFormValid: false,
           password: '',
-          redirectError: this.message,
+          redirectError: this.message
         };
       },
       propsData: {
-        message: '',
-      },
+        message: ''
+      }
     });
   });
 
@@ -109,7 +109,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   it('Enables log-in button when email address and password are set', async () => {
     await wrapper.setData({
       email: 'email value',
-      password: 'password value',
+      password: 'password value'
     });
 
     await Vue.nextTick();
@@ -133,7 +133,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
   it('Fail validation when one field is empty', async () => {
     await wrapper.setData({
-      email: 'email value',
+      email: 'email value'
     });
 
     await Vue.nextTick();
@@ -143,7 +143,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
   it('Enables dismissible auth alert when authentication failed', async () => {
     await wrapper.setData({
-      redirectError: 'Access denied',
+      redirectError: 'Access denied'
     });
 
     // Chek that aut alert is visible
@@ -160,7 +160,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   it('Should sends post request with correct on form submit', async () => {
     await wrapper.setData({
       email: 'email value',
-      password: 'password value',
+      password: 'password value'
     });
 
     await Vue.nextTick();
@@ -176,7 +176,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     // Check if post is called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
-      expectedData,
+      expectedData
     );
   });
 
@@ -196,7 +196,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
     // Check user data is dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.data,
+      2, 'saveUser', response.data.data
     );
   });
 });
@@ -218,39 +218,22 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
           isFormValid: false,
           password: '',
           passwordError: '',
-          userError: '',
+          userError: ''
         };
-      },
+      }
     });
   });
 
   afterEach(() => {
-    axios.post.mockReset();
     mockStore.dispatch.mockReset();
     wrapper.destroy();
-  });
-
-  it('Call login function with correct data', async () => {
-    await wrapper.setData({
-      email: 'email value',
-      password: 'password value',
-    });
-
-    await Vue.nextTick();
-
-    wrapper.vm.login();
-
-    expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toBeCalledWith(
-      url,
-      expectedData
-    );
   });
 
   it('Display error messages on HTTP post failure', async () => {
     await wrapper.vm.login();
 
     await Vue.nextTick();
+
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
@@ -279,12 +262,12 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
           email: '',
           isFormValid: false,
           password: '',
-          redirectError: this.message,
+          redirectError: this.message
         };
       },
       propsData: {
-        message: '',
-      },
+        message: ''
+      }
     });
   });
 
@@ -295,7 +278,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
   it('Dissmiss auth error on click', async () => {
     await wrapper.setData({
-      redirectError: 'Access denied',
+      redirectError: 'Access denied'
     });
 
     // Chek that aut alert is visible
@@ -332,11 +315,11 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     // Check if post is called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
-      expectedData,
+      expectedData
     );
   });
 
-  it('Should store user data and auth status after successful login', async () => {
+  it('Should store user data and auth status after successful login', () => {
     wrapper.findAll('.v-btn').at(2).trigger('click');
 
     // Check if any action are dispatched
@@ -352,7 +335,57 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
     // Check user data is dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.data,
+      2, 'saveUser', response.data.data
     );
+  });
+});
+
+describe('Behavioral test for Login.vue - failed HTTP post', () => {
+  beforeEach(() => {
+    axios.post.mockRejectedValue(error);
+
+    wrapper = mount(Login, {
+      localVue,
+      mocks: {
+        $store: mockStore
+      },
+      stubs: ['router-link', 'router-view'],
+      vuetify,
+      data() {
+        return {
+          email: '',
+          isFormValid: false,
+          password: '',
+          passwordError: '',
+          userError: ''
+        };
+      }
+    });
+  });
+
+  afterEach(() => {
+    mockStore.dispatch.mockReset();
+    wrapper.destroy();
+  });
+
+  it('Display error messages on HTTP post failure', async () => {
+    await wrapper.findAll('input').at(0).setValue('email value');
+    await wrapper.findAll('input').at(1).setValue('password value');
+
+    await Vue.nextTick();
+
+    await wrapper.findAll('.v-btn').at(2).trigger('click');
+
+    await Vue.nextTick();
+
+    expect(wrapper.findAll('.v-messages').length).toEqual(2);
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
+  });
+
+  it('Does not dispatch data when a failed HTTP post occurs', () => {
+    wrapper.findAll('.v-btn').at(2).trigger('click');
+
+    expect(mockStore.dispatch).not.toHaveBeenCalled();
   });
 });
