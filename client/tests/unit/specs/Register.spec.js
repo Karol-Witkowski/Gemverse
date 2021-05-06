@@ -49,7 +49,7 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     wrapper = mount(Register, {
       localVue,
       mocks: {
-        $store: mockStore
+        $store: mockStore,
       },
       stubs: ['router-link', 'router-view'],
       vuetify,
@@ -131,17 +131,27 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     // Check if validation pass
     expect(wrapper.vm.isFormValid).toBeTruthy();
 
-    // Check that the Register button is active
+    // Check that the sign up button is active
     expect(wrapper.findAll('.v-btn').at(1).element.disabled).toBeFalsy();
   });
 
- it('Fail validation when user data is not entered', () => {
+  it('Fail validation when user data is not entered', () => {
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
 
   it('Fail validation when only one field is entered', async () => {
     await wrapper.setData({
-      email: 'email value',
+      username: 'username',
+    });
+
+    await Vue.nextTick();
+
+    expect(wrapper.vm.isFormValid).toBeFalsy();
+  });
+
+  it('Fail validation when email address pattern is invalid', async () => {
+    await wrapper.setData({
+      email: 'wrongPatter',
     });
 
     await Vue.nextTick();
@@ -173,7 +183,7 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     );
   });
 
-  it('Should store user data and auth status after successful Register', async () => {
+  it('Should store user data and auth status after successful register', async () => {
     wrapper.vm.createUser();
 
     // Check if any action are dispatched
@@ -297,7 +307,7 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
     );
   });
 
-  it('Should store user data and auth status after successful Register', () => {
+  it('Should store user data and auth status after successful register', () => {
     wrapper.findAll('.v-btn').at(1).trigger('click');
 
     // Check if any action are dispatched
