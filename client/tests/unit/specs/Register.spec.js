@@ -23,11 +23,6 @@ const error = {
     },
   },
 };
-const expectedData = expect.objectContaining({
-  email: 'test@email.js',
-  password: 'password',
-  username: 'username',
-});
 const response = {
   data: {
     auth:	true,
@@ -179,7 +174,11 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     // Check if post is called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
-      expectedData,
+      {
+        "email": 'test@email.js',
+        "password": 'password',
+        "username": 'username',
+      },
     );
   });
 
@@ -303,7 +302,11 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
     // Check if post is called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
-      expectedData,
+      {
+        "email": 'test@email.js',
+        "password": 'password',
+        "username": 'username',
+      },
     );
   });
 
