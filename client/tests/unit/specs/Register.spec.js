@@ -192,9 +192,9 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
       2, 'saveUser', response.data.user,
     );
   });
-//});
+});
 
-/* describe('Implementation test for Register.vue - failed HTTP post', () => {
+describe('Implementation test for Register.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
 
@@ -224,24 +224,24 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
   });
 
   it('Display error messages on HTTP post failure', async () => {
-    await wrapper.vm.Register();
+    await wrapper.vm.createUser();
 
     await Vue.nextTick();
 
     expect(wrapper.findAll('.v-messages').length).toEqual(3);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Username error');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Email error');
-    expect(wrapper.findAll('.v-messages').at(2).text()).toEqual('Password error');
+    expect(wrapper.findAll('.v-messages').at(2).text()).toEqual('Minimum length - 6 characters');
   });
 
   it('Does not dispatch data when a failed HTTP post occurs', () => {
-    wrapper.vm.Register();
+    wrapper.vm.createUser();
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
   });
-});
+//});
 
-describe('Behavioral test for Register.vue - successful HTTP post', () => {
+/* describe('Behavioral test for Register.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
 
