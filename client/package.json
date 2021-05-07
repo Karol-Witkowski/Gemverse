@@ -39,6 +39,7 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
     "execa": "^5.0.0",
+    "mock-socket": "^9.0.3",
     "sass": "^1.32.12",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "~2.0.9",

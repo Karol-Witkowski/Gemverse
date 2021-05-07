@@ -1,12 +1,13 @@
-/*import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import axios from 'axios';
+// import io from 'socket.io-client';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import ChatInput from '@/components/chat/ChatInput.vue';
 
 const mockStore = { dispatch: jest.fn() };
 const localVue = createLocalVue();
-const url = 'placeholder' // `http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`;
+// const url = `http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`;
 let vuetify;
 let wrapper;
 const error = {
@@ -20,11 +21,6 @@ const error = {
     },
   },
 };
-const expectedData = expect.objectContaining({
-  message: 'placeholder', //this.message,
-  room: 'placeholder', // this.getCurrentRoom._id,
-  user: 'placeholder', // this.getUserInfo._id,
-});
 const response = {
   data: {
     data: {
@@ -35,6 +31,12 @@ const response = {
 };
 
 jest.mock('axios');
+jest.mock('socket.io-client', () => {
+  const mSocket = {
+    on: jest.fn()
+  };
+  return jest.fn(() => mSocket);
+});
 vuetify = new Vuetify();
 
 describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
@@ -52,13 +54,14 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
           inputError: '',
           isFormValid: false,
           message: '',
+          // socket: io('http://localhost:3000'),
         };
       },
     });
   });
 
   afterEach(() => {
-    axios.post.mockReset();
+    jest.restoreAllMocks();
     wrapper.destroy();
   });
 
@@ -101,5 +104,5 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
-  });
-}); */
+  }); */
+});

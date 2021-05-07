@@ -28,7 +28,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex';
-import * as io from 'socket.io-client';
+import io from 'socket.io-client';
 
 export default {
   data() {

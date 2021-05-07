@@ -40,7 +40,10 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
       mocks: {
         $store: mockStore,
       },
-      stubs: ['router-link', 'router-view'],
+      stubs: [
+        'router-link',
+        'router-view',
+      ],
       vuetify,
       data() {
         return {
@@ -209,7 +212,10 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
       mocks: {
         $store: mockStore,
       },
-      stubs: ['router-link', 'router-view'],
+      stubs: [
+        'router-link',
+        'router-view'
+      ],
       vuetify,
       data() {
         return {
@@ -254,7 +260,10 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
       mocks: {
         $store: mockStore,
       },
-      stubs: ['router-link', 'router-view'],
+      stubs: [
+        'router-link',
+        'router-view'
+      ],
       vuetify,
       data() {
         return {
@@ -351,7 +360,10 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
       mocks: {
         $store: mockStore,
       },
-      stubs: ['router-link', 'router-view'],
+      stubs: [
+        'router-link',
+        'router-view'
+      ],
       vuetify,
       data() {
         return {
