@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import axios from 'axios';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import ChatInput from '@/components/chat/ChatInput.vue';
@@ -22,9 +22,7 @@ const error = {
 };
 const response = {
   data: {
-    data: {
-      data: 'testData',
-    },
+    data: 'testMessageData',
     success: true,
   },
 };

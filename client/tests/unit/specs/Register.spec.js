@@ -152,6 +152,8 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
       username: 'username',
     });
 
+    await Vue.nextTick();
+
     wrapper.vm.createUser();
 
     // Check if post was called
