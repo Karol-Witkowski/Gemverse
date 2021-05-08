@@ -101,21 +101,17 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
       usernameError: 'Username error',
     });
 
-    await Vue.nextTick();
-
     expect(wrapper.findAll('.v-messages').length).toEqual(3);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Username error');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Email error');
   });
 
-  it('Enables sign up button when user data is set', async () => {
+  it('Enables sign up button when user data were set', async () => {
     await wrapper.setData({
       email: 'test@email.js',
       password: 'password',
       username: 'username',
     });
-
-    await Vue.nextTick();
 
     // Check that the user data is properly set
     expect(wrapper.findAll('input').at(0).element.value).toEqual('username');
@@ -133,16 +129,10 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-btn').at(1).element.disabled).toBeFalsy();
   });
 
-  it('Fail validation when user data is not entered', () => {
-    expect(wrapper.vm.isFormValid).toBeFalsy();
-  });
-
-  it('Fail validation when only one field is entered', async () => {
+  it('Fail validation when only one field was entered', async () => {
     await wrapper.setData({
       username: 'username',
     });
-
-    await Vue.nextTick();
 
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
@@ -152,29 +142,25 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
       email: 'wrongPatter',
     });
 
-    await Vue.nextTick();
-
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
 
-  it('Should sends post request with correct on form submit', async () => {
+  it('Should sends post request with correct data on form submit', async () => {
     await wrapper.setData({
       email: 'test@email.js',
       password: 'password',
       username: 'username',
     });
 
-    await Vue.nextTick();
-
     wrapper.vm.createUser();
 
-    // Check if post is called
+    // Check if post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post are called once
+    // Check if post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post is called with correct data
+    // Check if post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -188,18 +174,18 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
   it('Should store user data and auth status after successful register', async () => {
     wrapper.vm.createUser();
 
-    // Check if any action are dispatched
+    // Check if any action were dispatched
     expect(mockStore.dispatch).toHaveBeenCalled();
 
-    // Check if two actions are dispatched
+    // Check if two actions were dispatched
     expect(mockStore.dispatch).toHaveReturnedTimes(2);
 
-    // Check auth state is dispatched with correct data
+    // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       1, 'remitAuthState', true,
     );
 
-    // Check user data is dispatched with correct data
+    // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       2, 'saveUser', response.data.user,
     );
@@ -250,7 +236,7 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(2).text()).toEqual('Minimum length - 6 characters');
   });
 
-  it('Does not dispatch data when a failed HTTP post occurs', () => {
+  it('Does not dispatch data on failed HTTP post', () => {
     wrapper.vm.createUser();
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
@@ -302,13 +288,13 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
 
     wrapper.findAll('.v-btn').at(1).trigger('click');
 
-    // Check if sing in button is clicked
+    // Check if sing in button was clicked
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post are called once
+    // Check if post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post is called with correct data
+    // Check if post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -322,18 +308,18 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
   it('Should store user data and auth status after successful register', () => {
     wrapper.findAll('.v-btn').at(1).trigger('click');
 
-    // Check if any action are dispatched
+    // Check if any action was dispatched
     expect(mockStore.dispatch).toHaveBeenCalled();
 
-    // Check if two actions are dispatched
+    // Check if two actions was dispatched
     expect(mockStore.dispatch).toHaveReturnedTimes(2);
 
-    // Check auth state is dispatched with correct data
+    // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       1, 'remitAuthState', true,
     );
 
-    // Check user data is dispatched with correct data
+    // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       2, 'saveUser', response.data.user,
     );

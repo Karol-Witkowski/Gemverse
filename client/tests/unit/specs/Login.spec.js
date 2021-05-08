@@ -98,8 +98,6 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
       userError: 'Email error',
     });
 
-    await Vue.nextTick();
-
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
@@ -113,7 +111,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
     await Vue.nextTick();
 
-    // Check that the user data is properly set
+    // Check that the user data was properly set
     expect(wrapper.findAll('input').at(0).element.value).toEqual('email value');
     expect(wrapper.findAll('input').at(1).element.value).toEqual('password value');
     expect(wrapper.vm.email).toBe('email value');
@@ -126,16 +124,10 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-btn').at(2).element.disabled).toBeFalsy();
   });
 
-  it('Fail validation when email and password are not entered', () => {
-    expect(wrapper.vm.isFormValid).toBeFalsy();
-  });
-
   it('Fail validation when one field is empty', async () => {
     await wrapper.setData({
       email: 'email value',
     });
-
-    await Vue.nextTick();
 
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
@@ -148,11 +140,9 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     // Chek that aut alert is visible
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
 
-    wrapper.vm.hideRedirectError();
+    await wrapper.vm.hideRedirectError();
 
-    await Vue.nextTick();
-
-    // Chek that aut alert is hidden
+    // Chek that auth alert is hidden
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
   });
 
@@ -162,17 +152,15 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
       password: 'password value',
     });
 
-    await Vue.nextTick();
+    await wrapper.vm.login();
 
-    wrapper.vm.login();
-
-    // Check if post is called
+    // Check if post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post are called once
+    // Check if post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post is called with correct data
+    // Check if post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -185,18 +173,18 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   it('Should store user data and auth status after successful login', async () => {
     wrapper.vm.login();
 
-    // Check if any action are dispatched
+    // Check if any action were dispatched
     expect(mockStore.dispatch).toHaveBeenCalled();
 
-    // Check if two actions are dispatched
+    // Check if two actions were dispatched
     expect(mockStore.dispatch).toHaveReturnedTimes(2);
 
-    // Check auth state is dispatched with correct data
+    // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       1, 'remitAuthState', true,
     );
 
-    // Check user data is dispatched with correct data
+    // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       2, 'saveUser', response.data.data,
     );
@@ -244,7 +232,7 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
   });
 
-  it('Does not dispatch data when a failed HTTP post occurs', () => {
+  it('Does not dispatch data on failed HTTP post', () => {
     wrapper.vm.login();
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
@@ -289,12 +277,10 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
       redirectError: 'Access denied',
     });
 
-    // Chek that aut alert is visible
+    // Chek that auth alert is visible
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
 
-    wrapper.findAll('.v-btn').at(0).trigger('click');
-
-    await Vue.nextTick();
+    await wrapper.findAll('.v-btn').at(0).trigger('click');
 
     // Chek that aut alert is hidden after click
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
@@ -306,7 +292,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     expect(axios.post).not.toHaveBeenCalled();
   });
 
-  it('Should sends post request with correct on form submit', async () => {
+  it('Should sends post request with correct data on form submit', async () => {
     await wrapper.findAll('input').at(0).setValue('email value');
     await wrapper.findAll('input').at(1).setValue('password value');
 
@@ -314,13 +300,13 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
     wrapper.findAll('.v-btn').at(2).trigger('click');
 
-    // Check if sing in button is clicked
+    // Check if sing in button was clicked
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post are called once
+    // Check if post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post is called with correct data
+    // Check if post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -333,18 +319,18 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
   it('Should store user data and auth status after successful login', () => {
     wrapper.findAll('.v-btn').at(2).trigger('click');
 
-    // Check if any action are dispatched
+    // Check if any action were dispatched
     expect(mockStore.dispatch).toHaveBeenCalled();
 
-    // Check if two actions are dispatched
+    // Check if two actions were dispatched
     expect(mockStore.dispatch).toHaveReturnedTimes(2);
 
-    // Check auth state is dispatched with correct data
+    // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       1, 'remitAuthState', true,
     );
 
-    // Check user data is dispatched with correct data
+    // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
       2, 'saveUser', response.data.data,
     );

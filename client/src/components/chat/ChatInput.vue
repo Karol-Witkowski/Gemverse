@@ -1,5 +1,8 @@
 <template>
-  <v-form @submit.prevent>
+  <v-form
+    @submit.prevent
+    v-model="isFormValid"
+  >
     <v-container>
       <v-row>
         <v-col cols="15">
@@ -31,6 +34,7 @@ import { mapGetters } from 'vuex';
 import io from 'socket.io-client';
 
 export default {
+  name: 'ChatInput',
   data() {
     return {
       inputError: '',
