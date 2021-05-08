@@ -1,9 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
+import { Server } from 'mock-socket';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import ChatInput from '@/components/chat/ChatInput.vue';
+
+const mockSocket = new Server('http://localhost:3000');
 
 const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/messages/room-name';
@@ -29,6 +32,7 @@ const response = {
 
 jest.mock('axios');
 vuetify = new Vuetify();
+jest.mock('socket.io-client');
 
 describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
   beforeEach(() => {
@@ -37,6 +41,7 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     wrapper = mount(ChatInput, {
       localVue,
       mocks: {
+        mockSocket,
         $store: {
           getters: {
             getCurrentRoom: {
@@ -131,4 +136,18 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
       },
     );
   });
+
+  /* it('Emit message to room on HTTP success', async () => {
+    await wrapper.setData({
+      message: 'message',
+    });
+
+    await wrapper.vm.sendMessage();
+
+    // Check if post was called
+    expect(axios.post).toHaveBeenCalled();
+
+    // expect(mockSocket).toHaveBeenCalled();
+    expect(mockSocket).toHaveBeenCalledWith('sendMessage');
+  }); */
 });

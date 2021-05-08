@@ -3,8 +3,10 @@ import axios from 'axios';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Register from '@/components/authentication/Register.vue';
+import tokenSetter from '@/utils/authTokenSetter';
 
 const mockStore = { dispatch: jest.fn() };
+const localSetItem = jest.spyOn(window.localStorage.__proto__, 'setItem');
 const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/authentication/register';
 let vuetify;
@@ -66,6 +68,7 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
 
   afterEach(() => {
     axios.post.mockReset();
+    localSetItem.mockClear();
     wrapper.destroy();
   });
 
@@ -192,6 +195,17 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
       2, 'saveUser', response.data.user,
     );
   });
+
+  it('Should store token on successful register', async () => {
+    wrapper.vm.createUser();
+
+    await tokenSetter("token", true);
+
+    expect(localSetItem).toHaveBeenCalled();
+    expect(localSetItem).toHaveBeenNthCalledWith(
+      1, 'authenticationToken', 'testToken',
+    );
+  });
 });
 
 describe('Implementation test for Register.vue - failed HTTP post', () => {
@@ -242,6 +256,12 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
     wrapper.vm.createUser();
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
+  });
+
+  it('Does not set token when a failed HTTP post occurs', () => {
+    wrapper.vm.createUser();
+
+    expect(localSetItem).not.toHaveBeenCalled();
   });
 });
 
@@ -326,6 +346,17 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
       2, 'saveUser', response.data.user,
     );
   });
+
+  it('Should store token on successful register', async () => {
+    wrapper.findAll('.v-btn').at(1).trigger('click');
+
+    await tokenSetter("token", true);
+
+    expect(localSetItem).toHaveBeenCalled();
+    expect(localSetItem).toHaveBeenNthCalledWith(
+      1, 'authenticationToken', 'testToken',
+    );
+  });
 });
 
 describe('Behavioral test for Register.vue - failed HTTP post', () => {
@@ -356,6 +387,7 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
   });
 
   afterEach(() => {
+    localSetItem.mockClear();
     mockStore.dispatch.mockReset();
     wrapper.destroy();
   });
@@ -393,5 +425,11 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
     wrapper.findAll('.v-btn').at(1).trigger('click');
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
+  });
+
+  it('Does not set token when a failed HTTP post occurs', () => {
+    wrapper.findAll('.v-btn').at(2).trigger('click');
+
+    expect(localSetItem).not.toHaveBeenCalled();
   });
 });
