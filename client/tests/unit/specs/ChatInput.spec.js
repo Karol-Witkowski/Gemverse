@@ -258,7 +258,6 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
     );
   });
 
-
   it('Reset message on input clear', async () => {
     await wrapper.findAll('input').at(0).setValue('message');
 
