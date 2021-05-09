@@ -13,16 +13,6 @@ describe('Implementation test for ChatMessages.vue', () => {
   beforeEach(() => {
     wrapper = mount(ChatMessages, {
       localVue,
-      mocks: {
-        $store: {
-          getters: {
-            getCurrentRoom: {
-              _id: '123testid',
-              slug: 'room-name',
-            },
-          },
-        },
-      },
       vuetify,
       propsData: {
         messages: {},

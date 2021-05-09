@@ -45,7 +45,6 @@
 <script>
 import dayjs from 'dayjs';
 import { generateFromString } from 'generate-avatar';
-import { mapGetters } from 'vuex';
 
 const relativeTime = require('dayjs/plugin/relativeTime');
 
@@ -58,7 +57,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getCurrentRoom']),
     anonymous() {
       return ('Anonymous_'.concat(Math.random() * 100))
         .substring(0, 14);
