@@ -31,7 +31,6 @@ describe('Implementation test for ChatMessages.vue', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
     wrapper.destroy();
   });
 
