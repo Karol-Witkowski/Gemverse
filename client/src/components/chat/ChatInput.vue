@@ -17,7 +17,6 @@
             :error-messages="inputError"
             label="Message"
             outlined
-            :rules="messageRules"
             v-model="message"
             v-on:keyup="inputError = ''"
             v-on:keyup.enter="sendMessage"
@@ -40,9 +39,6 @@ export default {
       inputError: '',
       isFormValid: false,
       message: '',
-      messageRules: [
-        (value) => (value.length <= 4000) || 'Message must be less or equal to 4000 characters',
-      ],
       socket: io('http://localhost:3000'),
     };
   },

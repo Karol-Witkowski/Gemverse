@@ -253,7 +253,7 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
   });
 
   it('Does not set token when a failed HTTP post occurs', () => {
-    wrapper.findAll('.v-btn').at(2).trigger('click');
+    wrapper.vm.login();
 
     expect(localSetItem).not.toHaveBeenCalled();
   });
