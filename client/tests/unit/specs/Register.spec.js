@@ -50,7 +50,7 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
       },
       stubs: [
         'router-link',
-        'router-view'
+        'router-view',
       ],
       vuetify,
       data() {
@@ -169,9 +169,9 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
-        "email": 'test@email.js',
-        "password": 'password',
-        "username": 'username',
+        email: 'test@email.js',
+        password: 'password',
+        username: 'username',
       },
     );
   });
@@ -199,7 +199,7 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
   it('Should store token on successful register', async () => {
     wrapper.vm.createUser();
 
-    await tokenSetter("token", true);
+    await tokenSetter('token', true);
 
     expect(localSetItem).toHaveBeenCalled();
     expect(localSetItem).toHaveBeenNthCalledWith(
@@ -219,7 +219,7 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
       },
       stubs: [
         'router-link',
-        'router-view'
+        'router-view',
       ],
       vuetify,
       data() {
@@ -320,9 +320,9 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
-        "email": 'test@email.js',
-        "password": 'password',
-        "username": 'username',
+        email: 'test@email.js',
+        password: 'password',
+        username: 'username',
       },
     );
   });
@@ -350,7 +350,7 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
   it('Should store token on successful register', async () => {
     wrapper.findAll('.v-btn').at(1).trigger('click');
 
-    await tokenSetter("token", true);
+    await tokenSetter('token', true);
 
     expect(localSetItem).toHaveBeenCalled();
     expect(localSetItem).toHaveBeenNthCalledWith(
@@ -370,7 +370,7 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
       },
       stubs: [
         'router-link',
-        'router-view'
+        'router-view',
       ],
       vuetify,
       data() {

@@ -166,8 +166,8 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
-        "email": 'email value',
-        "password": 'password value',
+        email: 'email value',
+        password: 'password value',
       },
     );
   });
@@ -195,7 +195,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   it('Should store token on successful login', async () => {
     wrapper.vm.login();
 
-    await tokenSetter("token", true);
+    await tokenSetter('token', true);
 
     expect(localSetItem).toHaveBeenCalled();
     expect(localSetItem).toHaveBeenNthCalledWith(
@@ -215,7 +215,7 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
       },
       stubs: [
         'router-link',
-        'router-view'
+        'router-view',
       ],
       vuetify,
       data() {
@@ -270,7 +270,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
       },
       stubs: [
         'router-link',
-        'router-view'
+        'router-view',
       ],
       vuetify,
       data() {
@@ -330,8 +330,8 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
-        "email": 'email value',
-        "password": 'password value',
+        email: 'email value',
+        password: 'password value',
       },
     );
   });
@@ -359,7 +359,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
   it('Should store token on successful login', async () => {
     wrapper.findAll('.v-btn').at(2).trigger('click');
 
-    await tokenSetter("token", true);
+    await tokenSetter('token', true);
 
     expect(localSetItem).toHaveBeenCalled();
     expect(localSetItem).toHaveBeenNthCalledWith(
@@ -379,7 +379,7 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
       },
       stubs: [
         'router-link',
-        'router-view'
+        'router-view',
       ],
       vuetify,
       data() {

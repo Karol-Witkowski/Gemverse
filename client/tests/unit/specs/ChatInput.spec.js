@@ -1,14 +1,13 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import { Server } from 'mock-socket';
+import MockedSocket from 'socket.io-mock';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import ChatInput from '@/components/chat/ChatInput.vue';
 
-const mockSocket = new Server('http://localhost:3000');
-
 const localVue = createLocalVue();
+let socket;
 const url = 'http://localhost:3000/api/messages/room-name';
 let vuetify;
 let wrapper;
@@ -31,25 +30,27 @@ const response = {
 };
 
 jest.mock('axios');
-vuetify = new Vuetify();
 jest.mock('socket.io-client');
+vuetify = new Vuetify();
 
 describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
 
+    socket = new MockedSocket();
+    io.mockReturnValue(socket);
+
     wrapper = mount(ChatInput, {
       localVue,
       mocks: {
-        mockSocket,
         $store: {
           getters: {
             getCurrentRoom: {
-              _id:"123testid",
-              slug:"room-name",
+              _id: '123testid',
+              slug: 'room-name',
             },
             getUserInfo: {
-              _id:"321testid",
+              _id: '321testid',
             },
           },
         },
@@ -60,7 +61,6 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
           inputError: '',
           isFormValid: false,
           message: '',
-          // socket: io('http://localhost:3000'),
         };
       },
     });
@@ -73,6 +73,10 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
 
   it('Render correctly', () => {
     expect(wrapper.html()).toMatchSnapshot();
+  });
+
+  it('Check that socket connection is established', async () => {
+    expect(io.connect).toHaveBeenCalled();
   });
 
   it('Initializes with correct elements', () => {
@@ -130,24 +134,11 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
-        "message": "message",
-        "room": "123testid",
-        "user": "321testid",
+        message: 'message',
+        room: '123testid',
+        user: '321testid',
       },
     );
   });
 
-  /* it('Emit message to room on HTTP success', async () => {
-    await wrapper.setData({
-      message: 'message',
-    });
-
-    await wrapper.vm.sendMessage();
-
-    // Check if post was called
-    expect(axios.post).toHaveBeenCalled();
-
-    // expect(mockSocket).toHaveBeenCalled();
-    expect(mockSocket).toHaveBeenCalledWith('sendMessage');
-  }); */
 });
