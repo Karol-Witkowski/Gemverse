@@ -5,8 +5,8 @@ import Vuetify from 'vuetify';
 import Login from '@/components/authentication/Login.vue';
 import tokenSetter from '@/utils/authTokenSetter';
 
-const mockStore = { dispatch: jest.fn() };
 const localSetItem = jest.spyOn(window.localStorage.__proto__, 'setItem');
+const mockStore = { dispatch: jest.fn() };
 const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/authentication/login';
 let vuetify;

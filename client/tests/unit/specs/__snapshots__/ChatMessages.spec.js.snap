@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Implementation test for ChatMessages.vue Render correctly 1`] = `
-<main class="v-main mb-4 pl-4 pt-2" style="padding: 0px 0px 0px 0px;">
-  <div class="v-main__wrap">
-    <div class="chat ma-0 overflow-x-auto"></div>
-  </div>
-</main>
-`;
