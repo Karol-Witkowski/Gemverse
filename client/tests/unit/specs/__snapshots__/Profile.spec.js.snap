@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implementation test for Profile.vue Render correctly 1`] = `
+<div class="container mt-16 pt-16 container--fluid">
+  <div class="flex mx-auto xs11">
+    <div class="mx-auto v-card v-sheet theme--light" style="max-width: 500px;">
+      <div class="v-card__title pb-1"><span class="font-weight-bold grey--text mx-auto subtitle-1 text--darken-2">
+          testUser
+        </span></div>
+      <div tabindex="-1" class="mx-auto v-list-item theme--light">
+        <div class="v-avatar v-list-item__avatar mx-auto" style="height: 40px; min-width: 40px; width: 40px;"><img alt="user avatar" src="data:image/svg+xml;utf8,<svg width=&quot;300&quot; height=&quot;300&quot; viewBox=&quot;0 0 300 300&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><rect id=&quot;bg&quot; width=&quot;300&quot; height=&quot;300&quot; fill=&quot;rgb(51,239,55)&quot; /><path d=&quot;m 150 536 Q 81 219 -236 150 Q 81 81 150 -236 Q 219 81 536 150 Q 219 219 150 536 z&quot; fill=&quot;rgb(84,158,159)&quot; /><path d=&quot;m 150 462 Q 57 243 -162 150 Q 57 57 150 -162 Q 243 57 462 150 Q 243 243 150 462 z&quot; fill=&quot;rgb(171,97,96)&quot; /><path d=&quot;m 150 281 Q 173 127 19 150 Q 173 173 150 19 Q 127 173 281 150 Q 127 127 150 281 z&quot; fill=&quot;rgb(204,16,200)&quot; /></svg>"></div>
+      </div>
+      <div tabindex="-1" class="v-list-item theme--light">
+        <div class="v-list-item__content mb-0 pb-0">
+          <div role="list" class="v-list d-flex grey--text justify-center subtitle-1 text--darken-2 v-sheet theme--light">
+            Email address:
+            <span class="font-weight-bold pl-1">
+              test@mail.js
+            </span>
+          </div>
+        </div>
+      </div>
+      <div tabindex="-1" class="v-list-item theme--light">
+        <div class="v-list-item__content">
+          <div role="list" class="v-list d-flex grey--text justify-center subtitle-1 text--darken-2 v-sheet theme--light">
+            Member since:
+            <span class="font-weight-bold pl-1">
+              Tuesday, April 20 2021
+            </span>
+          </div>
+        </div>
+      </div>
+      <div tabindex="-1" class="v-list-item theme--light">
+        <div class="v-list-item__content">
+          <div class="v-list-item__action"><button type="button" class="mb-2 mx-auto v-btn v-btn--outlined theme--light v-size--small secondary--text" role="button" aria-haspopup="true" aria-expanded="false"><span class="v-btn__content">
+                    delete account*
+                  </span></button>
+            <div role="dialog" class="v-dialog__container">
+              <!---->
+            </div>
+          </div>
+          <div tabindex="-1" class="deleteInfo v-list-item theme--light">
+            *Your personal data will be deleted,
+            although all messages will be displayed
+            (without the user data)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
