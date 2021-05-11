@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implementation test for Navbar.vue - unauthorized user Render correctly 1`] = `
+<header class="v-sheet theme--light v-toolbar v-toolbar--flat v-app-bar v-app-bar--fixed white" style="max-height: 65px; height: 64px; margin-top: 0px; transform: translateY(0px); left: 0px; right: 0px;">
+  <div class="v-toolbar__content" style="height: 64px;"><button type="button" class="d-flex d-md-none mx-auto v-btn v-btn--outlined theme--dark v-size--small primary--text" style="width: 200px;" role="button" aria-haspopup="true" aria-expanded="false"><span class="v-btn__content"><i aria-hidden="true" alt="hamburger menu" class="v-icon notranslate material-icons theme--dark">menu</i></span></button>
+    <div class="v-menu" align="center" justify="space-around">
+      <!---->
+    </div>
+    <div class="spacer"></div>
+    <div class="v-tabs d-none d-md-block theme--light">
+      <div role="tablist" class="v-item-group theme--light v-slide-group v-tabs-bar v-tabs-bar--is-mobile primary--text">
+        <div class="v-slide-group__prev v-slide-group__prev--disabled">
+          <transition-stub name="fade-transition"></transition-stub>
+        </div>
+        <div class="v-slide-group__wrapper">
+          <div class="v-slide-group__content v-tabs-bar__content">
+            <div class="v-tabs-slider-wrapper" style="transition: none;">
+              <div class="v-tabs-slider"></div>
+            </div>
+            <router-link-stub tabindex="0" aria-selected="true" role="tab" class="v-tab">home</router-link-stub>
+            <!---->
+            <!---->
+            <router-link-stub tabindex="0" aria-selected="false" role="tab" class="v-tab">about</router-link-stub>
+          </div>
+        </div>
+        <div class="v-slide-group__next v-slide-group__next--disabled">
+          <transition-stub name="fade-transition"></transition-stub>
+        </div>
+      </div>
+    </div>
+    <router-link-stub tabindex="0" aria-selected="false" role="tab" class="appName grey--text menu text--darken-2 v-tab">
+      gemverse
+    </router-link-stub>
+    <!---->
+  </div>
+</header>
+`;

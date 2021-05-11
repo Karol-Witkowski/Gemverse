@@ -57,7 +57,7 @@
       class="d-none d-md-block"
       color="primary"
     >
-      <v-tab to="/">Home</v-tab>
+      <v-tab to="/">home</v-tab>
       <v-tab
         to="/roomlist"
         v-if="isAuthorized"
@@ -70,7 +70,7 @@
       >
         profile
       </v-tab>
-      <v-tab to="/about">About</v-tab>
+      <v-tab to="/about">about</v-tab>
     </v-tabs>
     <v-tab
       class="appName grey--text menu text--darken-2"

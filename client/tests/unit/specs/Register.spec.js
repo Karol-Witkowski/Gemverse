@@ -187,12 +187,16 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
 
     // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1, 'remitAuthState', true,
+      1,
+      'remitAuthState',
+      true,
     );
 
     // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.user,
+      2,
+      'saveUser',
+      response.data.user,
     );
   });
 
@@ -338,12 +342,16 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
 
     // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1, 'remitAuthState', true,
+      1,
+      'remitAuthState',
+      true,
     );
 
     // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.user,
+      2,
+      'saveUser',
+      response.data.user,
     );
   });
 
@@ -354,7 +362,9 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
 
     expect(localSetItem).toHaveBeenCalled();
     expect(localSetItem).toHaveBeenNthCalledWith(
-      1, 'authenticationToken', 'testToken',
+      1,
+      'authenticationToken',
+      'testToken',
     );
   });
 });

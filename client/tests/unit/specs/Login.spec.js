@@ -183,12 +183,16 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
     // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1, 'remitAuthState', true,
+      1,
+      'remitAuthState',
+      true,
     );
 
     // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.data,
+      2,
+      'saveUser',
+      response.data.data,
     );
   });
 
@@ -347,12 +351,16 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
     // Check auth state was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1, 'remitAuthState', true,
+      1,
+      'remitAuthState',
+      true,
     );
 
     // Check user data was dispatched with correct data
     expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2, 'saveUser', response.data.data,
+      2,
+      'saveUser',
+      response.data.data,
     );
   });
 
@@ -363,7 +371,9 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
     expect(localSetItem).toHaveBeenCalled();
     expect(localSetItem).toHaveBeenNthCalledWith(
-      1, 'authenticationToken', 'testToken',
+      1,
+      'authenticationToken',
+      'testToken',
     );
   });
 });
