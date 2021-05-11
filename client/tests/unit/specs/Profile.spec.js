@@ -4,7 +4,7 @@ import Profile from '@/components/profile/Profile.vue';
 
 const localVue = createLocalVue();
 const mockRouter = {
-  push: jest.fn()
+  push: jest.fn(),
 };
 let vuetify;
 let wrapper;
@@ -20,7 +20,7 @@ describe('Implementation test for Profile.vue', () => {
         createdDate: '2021-04-20T01:01:22.269Z',
         email: 'test@mail.js',
         _id: '321testid',
-        username:"testUser"
+        username: 'testUser',
       },
     },
   };

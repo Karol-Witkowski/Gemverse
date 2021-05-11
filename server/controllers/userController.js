@@ -29,6 +29,7 @@ const getUserById = async (req, res) => {
       success: false,
     });
   } else {
+    user.password = '';
     return res.status(200).json({
       data: user,
       success: true,

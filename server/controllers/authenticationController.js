@@ -12,6 +12,7 @@ const signUp = async (req, res) => {
     .then((user) => {
       const token = createJwtToken(user);
 
+      user.password = '';
       return res.status(201).json({
         auth: true,
         data: user,
@@ -42,6 +43,7 @@ const signIn = async (req, res) => {
     const token = createJwtToken(user);
 
     await saveUser(user);
+    user.password = '';
     return res.status(200).json({
       auth: true,
       data: user,

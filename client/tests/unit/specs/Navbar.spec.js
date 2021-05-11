@@ -4,7 +4,7 @@ import Navbar from '@/components/layout/Navbar.vue';
 
 const localVue = createLocalVue();
 const mockRouter = {
-  push: jest.fn()
+  push: jest.fn(),
 };
 let vuetify;
 let wrapper;
@@ -196,11 +196,11 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     expect(mockRouter.push).toHaveBeenCalled();
 
     // Check if router push was called one time
-    expect(mockRouter.push).toHaveBeenCalledTimes(1)
+    expect(mockRouter.push).toHaveBeenCalledTimes(1);
 
     // Check if router push was called with correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
-      "name": "Login"
+      name: 'Login',
     });
   });
 });
@@ -285,11 +285,11 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
     expect(mockRouter.push).toHaveBeenCalled();
 
     // Check if router push was called one time
-    expect(mockRouter.push).toHaveBeenCalledTimes(1)
+    expect(mockRouter.push).toHaveBeenCalledTimes(1);
 
     // Check if router push was called with correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
-      "name": "Login"
+      name: 'Login',
     });
   });
 });
