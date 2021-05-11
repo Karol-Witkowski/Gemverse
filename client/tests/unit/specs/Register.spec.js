@@ -240,8 +240,7 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
   });
 
   afterEach(() => {
-    axios.post.mockReset();
-    mockStore.dispatch.mockReset();
+    jest.resetAllMocks();
     wrapper.destroy();
   });
 

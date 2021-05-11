@@ -235,8 +235,7 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
   });
 
   afterEach(() => {
-    localSetItem.mockClear();
-    mockStore.dispatch.mockReset();
+    jest.clearAllMocks();
     wrapper.destroy();
   });
 
@@ -405,8 +404,7 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
   });
 
   afterEach(() => {
-    localSetItem.mockClear();
-    mockStore.dispatch.mockReset();
+    jest.clearAllMocks();
     wrapper.destroy();
   });
 

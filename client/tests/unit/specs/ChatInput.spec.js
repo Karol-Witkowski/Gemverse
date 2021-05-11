@@ -220,8 +220,7 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
   });
 
   afterEach(() => {
-    axios.post.mockReset();
-    jest.restoreAllMocks();
+    jest.resetAllMocks();
     wrapper.destroy();
   });
 
