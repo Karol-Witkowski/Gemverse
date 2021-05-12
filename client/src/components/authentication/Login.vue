@@ -39,7 +39,7 @@
                 <v-text-field
                   autofocus
                   :error-messages="userError"
-                  label="E-mail adress"
+                  label="E-mail address"
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model="email"

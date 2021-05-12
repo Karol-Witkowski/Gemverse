@@ -139,12 +139,12 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
       redirectError: 'Access denied',
     });
 
-    // Chek that aut alert is visible
+    // Check that aut alert is visible
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
 
     await wrapper.vm.hideRedirectError();
 
-    // Chek that auth alert is hidden
+    // Check that auth alert is hidden
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
   });
 
@@ -295,17 +295,17 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     wrapper.destroy();
   });
 
-  it('Dissmiss auth error on click', async () => {
+  it('Dismiss auth error on click', async () => {
     await wrapper.setData({
       redirectError: 'Access denied',
     });
 
-    // Chek that auth alert is visible
+    // Check that auth alert is visible
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
 
     await wrapper.findAll('.v-btn').at(0).trigger('click');
 
-    // Chek that aut alert is hidden after click
+    // Check that aut alert is hidden after click
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
   });
 

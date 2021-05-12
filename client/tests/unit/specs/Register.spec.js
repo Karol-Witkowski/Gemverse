@@ -6,8 +6,8 @@ import Register from '@/components/authentication/Register.vue';
 import tokenSetter from '@/utils/authTokenSetter';
 
 const localSetItem = jest.spyOn(window.localStorage.__proto__, 'setItem');
-const mockStore = { dispatch: jest.fn() };
 const localVue = createLocalVue();
+const mockStore = { dispatch: jest.fn() };
 const url = 'http://localhost:3000/api/authentication/register';
 let vuetify;
 let wrapper;

@@ -64,7 +64,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex';
-import * as io from 'socket.io-client';
+import io from 'socket.io-client';
 
 export default {
   name: 'AddRoomModal',
@@ -112,7 +112,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
           if (error.response.data.errors.name) {
             this.nameError = error.response.data.errors.name.msg;
           }

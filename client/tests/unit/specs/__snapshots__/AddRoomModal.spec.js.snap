@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implementation test for AddRoomModal.vue - successful HTTP post Render correctly 1`] = `
+<div class="v-card v-sheet theme--light" cols="12" message="">
+  <div class="v-card__title headline grey--text text--darken-2">
+    Add new room
+  </div>
+  <div class="v-card__text">
+    <form novalidate="novalidate" class="v-form">
+      <div class="col col-12">
+        <div class="v-input theme--light v-text-field">
+          <div class="v-input__control">
+            <div class="v-input__slot">
+              <div class="v-text-field__slot"><label for="name" class="v-label theme--light" style="left: 0px; position: absolute;">Room Name</label><input required="required" autofocus="autofocus" id="name" type="text"></div>
+            </div>
+            <div class="v-text-field__details">
+              <div class="v-messages theme--light">
+                <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper">
+                  <div class="v-messages__message">Required</div>
+                </transition-group-stub>
+              </div>
+              <div class="v-counter theme--light">0 / 15</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col col-12">
+        <div class="v-input theme--light v-text-field">
+          <div class="v-input__control">
+            <div class="v-input__slot">
+              <div class="v-text-field__slot"><label for="input-7" class="v-label theme--light" style="left: 0px; position: absolute;">Password - optional</label><input id="input-7" type="password"></div>
+            </div>
+            <div class="v-text-field__details">
+              <div class="v-messages theme--light">
+                <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="v-card__actions pb-4"><button type="button" class="v-btn v-btn--outlined v-btn--text theme--light v-size--default primary--text"><span class="v-btn__content">
+      Close
+    </span></button>
+    <div class="spacer"></div> <button type="submit" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default"><span class="v-btn__content">
+      Save
+    </span></button>
+  </div>
+</div>
+`;
