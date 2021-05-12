@@ -75,7 +75,7 @@
                     </v-card-text>
                     <v-card-text
                       class="errorMessage"
-                      v-show="deleteError"
+                      v-if="deleteError"
                     >
                       {{ deleteError }}
                     </v-card-text>
@@ -129,7 +129,6 @@ export default {
     return {
       deleteError: '',
       deleteUserModal: false,
-      errors: [],
     };
   },
 
