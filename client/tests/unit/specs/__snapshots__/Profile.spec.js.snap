@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Implementation test for Profile.vue - successful HTTP post Render correctly 1`] = `
+exports[`Implementation test for Profile.vue - successful HTTP delete Render correctly 1`] = `
 <div class="container mt-16 pt-16 container--fluid">
   <div class="flex mx-auto xs11">
     <div class="mx-auto v-card v-sheet theme--light" style="max-width: 500px;">
