@@ -75,14 +75,14 @@
                     </v-card-text>
                     <v-card-text
                       class="errorMessage"
-                      v-if="deleteError"
+                      v-show="deleteError"
                     >
                       {{ deleteError }}
                     </v-card-text>
                     <v-divider />
                     <v-card-actions>
                       <v-btn
-                        @click="closeModals"
+                        @click="closeModal"
                         color="primary"
                         outlined
                         text
@@ -128,14 +128,13 @@ export default {
   data() {
     return {
       deleteError: '',
-      deleteRoomModal: false,
       deleteUserModal: false,
       errors: [],
     };
   },
 
   methods: {
-    closeModals() {
+    closeModal() {
       this.deleteError = '';
       this.deleteUserModal = false;
     },
