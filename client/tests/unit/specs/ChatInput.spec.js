@@ -75,12 +75,12 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('Check that socket connection is established', async () => {
+  it('Check that socket connection is established', () => {
     expect(io.connect).toHaveBeenCalled();
   });
 
-  it('Should emit new message', async () => {
-    socket.on('sendMessage', async (data) => {
+  it('Should emit new message', () => {
+    socket.on('sendMessage', (data) => {
       expect(data).toEqual('message');
     });
   });

@@ -80,7 +80,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-btn').at(2).element.disabled).toBeTruthy();
 
     // Test auth alert initial state
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
+    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
 
     // Test inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(2);
@@ -92,17 +92,6 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
     expect(wrapper.vm.isformValid).toBeFalsy();
-  });
-
-  it('Enables error messages', async () => {
-    await wrapper.setData({
-      passwordError: 'Password error',
-      userError: 'Email error',
-    });
-
-    expect(wrapper.findAll('.v-messages').length).toEqual(2);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
-    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
   });
 
   it('Enables log-in button when email address and password are set', async () => {
@@ -145,7 +134,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     await wrapper.vm.hideRedirectError();
 
     // Check that auth alert is hidden
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
+    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
   });
 
   it('Should sends post request with correct on form submit', async () => {
@@ -306,7 +295,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     await wrapper.findAll('.v-btn').at(0).trigger('click');
 
     // Check that aut alert is hidden after click
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
+    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
   });
 
   it('Should not sends post request when inputs are empty', async () => {

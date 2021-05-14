@@ -140,6 +140,16 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
 
+  it('Fail validation when character range is invalid', async () => {
+    await wrapper.setData({
+      email: '123@123.pl',
+      username: '1',
+      password: '123456',
+    });
+
+    expect(wrapper.vm.isFormValid).toBeFalsy();
+  });
+
   it('Fail validation when email address pattern is invalid', async () => {
     await wrapper.setData({
       email: 'wrongPatter',

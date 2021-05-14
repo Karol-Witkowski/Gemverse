@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Implementation test for AddRoomModal.vue - successful HTTP post Render correctly 1`] = `
-<div class="v-card v-sheet theme--light" cols="12" message="">
+<div class="v-card v-sheet theme--light" cols="12">
   <div class="v-card__title headline grey--text text--darken-2">
     Add new room
   </div>
@@ -41,10 +41,10 @@ exports[`Implementation test for AddRoomModal.vue - successful HTTP post Render 
     </form>
   </div>
   <div class="v-card__actions pb-4"><button type="button" class="v-btn v-btn--outlined v-btn--text theme--light v-size--default primary--text"><span class="v-btn__content">
-      Close
+      close
     </span></button>
     <div class="spacer"></div> <button type="submit" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default"><span class="v-btn__content">
-      Save
+      save
     </span></button>
   </div>
 </div>

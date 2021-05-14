@@ -152,7 +152,7 @@
                       join
                     </v-btn>
                   </template>
-                  <PrivateRoomModal @close-modal="closeModals"/>
+                  <PrivateRoomModal @closeModal="closeModals"/>
                 </v-dialog>
               </v-list-item-action>
             </v-list-item>
@@ -188,7 +188,7 @@
             add new room
           </v-btn>
         </template>
-        <AddRoomModal @close-modal="closeModals" />
+        <AddRoomModal @closeModal="closeModals" />
       </v-dialog>
     </v-flex>
   </v-container>

@@ -5,7 +5,7 @@
       dense
       max-width="500"
       type="error"
-      v-bind:class="[redirectError ? 'errorAlert' : 'whiteSpace']"
+      v-bind:class="[redirectError ? 'errorAlert' : 'whitespace']"
     >
       <v-row align="center">
         <v-col class="grow">
@@ -177,7 +177,7 @@ export default {
   visibility: visible;
 }
 
-.whiteSpace {
+.whitespace {
   opacity: 0;
   transition: visibility 0.3s linear, opacity 0.3s linear;
   visibility: hidden;

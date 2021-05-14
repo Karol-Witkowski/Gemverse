@@ -44,7 +44,7 @@
         outlined
         text
       >
-        Close
+        close
       </v-btn>
       <v-spacer />
       <v-btn
@@ -55,7 +55,7 @@
         text
         type="submit"
       >
-        Save
+        save
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -63,8 +63,8 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters } from 'vuex';
 import io from 'socket.io-client';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'AddRoomModal',
@@ -96,7 +96,7 @@ export default {
 
   methods: {
     closeModal() {
-      this.$emit('close-modal');
+      this.$emit('closeModal');
       this.nameError = '';
       this.passwordError = '';
       this.resetData();
@@ -106,10 +106,8 @@ export default {
     createRoom() {
       axios.post('http://localhost:3000/api/room', this.room)
         .then((response) => {
-          if (response.status === 201) {
-            this.socket.emit('createRoom', response.data.data);
-            this.closeModal();
-          }
+          this.socket.emit('createRoom', response.data.data);
+          this.closeModal();
         })
         .catch((error) => {
           if (error.response.data.errors.name) {

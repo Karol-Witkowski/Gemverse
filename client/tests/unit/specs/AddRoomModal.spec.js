@@ -11,16 +11,6 @@ let socket;
 const url = 'http://localhost:3000/api/room';
 let vuetify;
 let wrapper;
-const mockStore = {
-  getters: {
-    getUserInfo: {
-      createdDate: '2021-04-20T01:01:22.269Z',
-      email: 'test@mail.js',
-      _id: '321testid',
-      username: 'testUser',
-    },
-  },
-};
 const error = {
   response: {
     data: {
@@ -31,12 +21,10 @@ const error = {
 };
 const response = {
   data: {
-    auth:	true,
     data: {
       data: 'testData',
+      success: true,
     },
-    success: true,
-    token: 'testToken',
   },
 };
 
@@ -53,9 +41,6 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
 
     wrapper = mount(AddRoomModal, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
       stubs: [
         'router-link',
         'router-view',
@@ -72,14 +57,11 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
           },
         };
       },
-      propsData: {
-        message: '',
-      },
     });
   });
 
   afterEach(() => {
-    axios.post.mockReset();
+    jest.resetAllMocks();
     wrapper.destroy();
   });
 
@@ -87,17 +69,22 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  /* it('Initializes with correct elements', () => {
-    // Test buttons initial state
-    expect(wrapper.findAll('.v-btn').length).toEqual(4);
-    expect(wrapper.findAll('.v-btn').at(0).text()).toMatch('ok');
-    expect(wrapper.findAll('.v-btn').at(1).text()).toMatch('back');
-    expect(wrapper.findAll('.v-btn').at(2).text()).toMatch('sign in');
-    expect(wrapper.findAll('.v-btn').at(3).text()).toMatch('sign up');
-    expect(wrapper.findAll('.v-btn').at(2).element.disabled).toBeTruthy();
+  it('Check that socket connection is established', () => {
+    expect(io.connect).toHaveBeenCalled();
+  });
 
-    // Test auth alert initial state
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whiteSpace');
+  it('Should emit new room data', () => {
+    socket.on('createRoom', (data) => {
+      expect(data).toEqual('roomData');
+    });
+  });
+
+  it('Initializes with correct elements', () => {
+    // Test buttons initial state
+    expect(wrapper.findAll('.v-btn').length).toEqual(2);
+    expect(wrapper.findAll('.v-btn').at(0).text()).toMatch('close');
+    expect(wrapper.findAll('.v-btn').at(1).text()).toMatch('save');
+    expect(wrapper.findAll('.v-btn').at(1).element.disabled).toBeTruthy();
 
     // Test inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(2);
@@ -106,58 +93,151 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
 
     // Test validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 
-  it('Enables error messages', async () => {
-    await wrapper.setData({
-      passwordError: 'Password error',
-      userError: 'Email error',
-    });
+  it('Set input data correctly', async () => {
+    // Check inputs initial state
+    expect(wrapper.findAll('.v-text-field').length).toEqual(2);
+    expect(wrapper.findAll('input').at(0).text()).toEqual('');
+    expect(wrapper.findAll('input').at(1).text()).toEqual('');
 
-    expect(wrapper.findAll('.v-messages').length).toEqual(2);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
-    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
-  });
-
-  it('Enables log-in button when email address and password are set', async () => {
     await wrapper.setData({
-      email: 'email value',
-      password: 'password value',
+      room: {
+        name: 'test',
+        password: '123456',
+      },
     });
 
     await Vue.nextTick();
 
-    // Check that the user data was properly set
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('email value');
-    expect(wrapper.findAll('input').at(1).element.value).toEqual('password value');
-    expect(wrapper.vm.email).toBe('email value');
-    expect(wrapper.vm.password).toBe('password value');
+    // Check that the room data was properly set
+    expect(wrapper.findAll('input').at(0).element.value).toEqual('test');
+    expect(wrapper.findAll('input').at(1).element.value).toEqual('123456');
+  });
 
-    // Check if validation pass
+  it('Pass validation when only name was entered', async () => {
+    await wrapper.setData({
+      room: {
+        name: 'room name',
+      },
+    });
+
+    await Vue.nextTick();
+
+    // Check validation state
     expect(wrapper.vm.isFormValid).toBeTruthy();
 
-    // Check that the save button is active
-    expect(wrapper.findAll('.v-btn').at(2).element.disabled).toBeFalsy();
+    // Check that correct input messages are displayed
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('')
   });
 
-  it('Fail validation when one field is empty', async () => {
+  it('Fail validation when room name character range is invalid', async () => {
     await wrapper.setData({
-      email: 'email value',
+      room: {
+        name: '1',
+      },
     });
 
+    await Vue.nextTick();
+
+    // Check validation state
     expect(wrapper.vm.isFormValid).toBeFalsy();
+
+    // Check that correct input messages are displayed
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Characters range: 3 - 15');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
   });
 
-  it('Should sends post request with correct on form submit', async () => {
+
+  it('Fail validation when only password was entered', async () => {
     await wrapper.setData({
-      email: 'email value',
-      password: 'password value',
+      room: {
+        password: '123456',
+      },
     });
 
-    await wrapper.vm.AddRoomModal();
+    await Vue.nextTick();
+
+    // Check validation state
+    expect(wrapper.vm.isFormValid).toBeFalsy();
+
+    // Check that correct input messages are displayed
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
+  });
+
+  it('Fail validation when password contains whitespace', async () => {
+    await wrapper.setData({
+      room: {
+        name: 'test',
+        password: '123 456',
+      },
+    });
+
+    await Vue.nextTick();
+
+    // Check validation state
+    expect(wrapper.vm.isFormValid).toBeFalsy();
+
+    // Check that correct input messages are displayed
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('No blank spaces allowed');
+  });
+
+  it('Fail validation when room password character range is invalid', async () => {
+    await wrapper.setData({
+      room: {
+        name: 'test',
+        password: '123',
+      },
+    });
+
+    await Vue.nextTick();
+
+    // Check validation state
+    expect(wrapper.vm.isFormValid).toBeFalsy();
+
+    // Check that correct input messages are displayed
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password must be at least 6 characters long');
+  });
+
+  it('Enables save room button on validation pass', async () => {
+    await wrapper.setData({
+      room: {
+        name: 'room name',
+        password: '123456',
+      },
+    });
+
+    await Vue.nextTick();
+
+    // Check validation state
+    expect(wrapper.vm.isFormValid).toBeTruthy();
+
+    // Check that correct input messages are displayed
+    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
+
+    // Check that the save button is active
+    expect(wrapper.findAll('.v-btn').at(1).element.disabled).toBeFalsy();
+  });
+
+  it('Should sends post request with correct data on submit', async () => {
+    await wrapper.setData({
+      room: {
+        name: 'name',
+        password: '123456',
+      },
+    });
+
+    await Vue.nextTick();
+
+    wrapper.vm.createRoom();
 
     // Check if post was called
     expect(axios.post).toHaveBeenCalled();
@@ -169,12 +249,27 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
-        email: 'email value',
-        password: 'password value',
+        name: 'name',
+        password: '123456',
       },
     );
   });
-});
+
+  it('Should close dialog emit event', async () => {
+    await wrapper.setData({
+      room: {
+        name: 'room name',
+        password: '123456',
+      },
+    });
+
+    await wrapper.vm.createRoom();
+
+    expect(wrapper.emitted().closeModal).toBeTruthy();
+    expect(wrapper.emitted().closeModal.length).toBe(1);
+  });
+
+/* });
 
 describe('Implementation test for AddRoomModal.vue - failed HTTP post', () => {
   beforeEach(() => {

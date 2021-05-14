@@ -306,7 +306,6 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
   });
 });
 
-
 describe('Behavioral test for Profile.vue - failed HTTP delete', () => {
   beforeEach(() => {
     axios.delete.mockRejectedValue(error);

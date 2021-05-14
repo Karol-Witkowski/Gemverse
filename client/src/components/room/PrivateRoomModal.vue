@@ -72,7 +72,7 @@ export default {
 
   methods: {
     closeModal() {
-      this.$emit('close-modal');
+      this.$emit('closeModal');
       this.error = '';
       this.privateRoomPassword = '';
       this.$refs.form.resetValidation();
