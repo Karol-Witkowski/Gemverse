@@ -11,6 +11,16 @@ let socket;
 const url = 'http://localhost:3000/api/room';
 let vuetify;
 let wrapper;
+const mockStore = {
+  getters: {
+    getUserInfo: {
+      createdDate: '2021-04-20T01:01:22.269Z',
+      email: 'test@mail.js',
+      _id: '321testid',
+      username: 'testUser',
+    },
+  },
+};
 const error = {
   response: {
     data: {
@@ -41,6 +51,9 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
 
     wrapper = mount(AddRoomModal, {
       localVue,
+      mocks: {
+        $store: mockStore,
+      },
       stubs: [
         'router-link',
         'router-view',
@@ -237,7 +250,7 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
 
     await Vue.nextTick();
 
-    wrapper.vm.createRoom();
+    wrapper.vm.formValidation();
 
     // Check if post was called
     expect(axios.post).toHaveBeenCalled();
@@ -251,11 +264,17 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
       {
         name: 'name',
         password: '123456',
+        user: {
+          _id: '321testid',
+          createdDate: '2021-04-20T01:01:22.269Z',
+          email: 'test@mail.js',
+          username: "testUser",
+        },
       },
     );
   });
 
-  it('Should close dialog emit event', async () => {
+  it('Should emit close dialog event', async () => {
     await wrapper.setData({
       room: {
         name: 'room name',
