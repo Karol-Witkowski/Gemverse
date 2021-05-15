@@ -70,7 +70,6 @@ export default {
   name: 'AddRoomModal',
   data() {
     return {
-      error: [],
       isFormValid: false,
       nameError: '',
       passwordError: '',
@@ -110,13 +109,8 @@ export default {
           this.closeModal();
         })
         .catch((error) => {
-          if (error.response.data.errors.name) {
-            this.nameError = error.response.data.errors.name.msg;
-          }
-
-          if (error.response.data.errors.password) {
-            this.passwordError = error.response.data.errors.password.msg;
-          }
+          this.nameError = error.response.data.errors.name.msg;
+          this.passwordError = error.response.data.errors.password.msg;
         });
     },
 
