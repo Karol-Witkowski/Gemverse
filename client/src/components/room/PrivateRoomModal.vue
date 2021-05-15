@@ -31,7 +31,7 @@
         outlined
         text
       >
-        Close
+        close
       </v-btn>
       <v-spacer />
       <v-btn
@@ -42,7 +42,7 @@
         text
         type="submit"
       >
-        Enter
+        enter
       </v-btn>
     </v-card-actions>
   </v-card>

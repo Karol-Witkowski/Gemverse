@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implementation test for PrivateRoomModal.vue - successful HTTP post Render correctly 1`] = `
+<div class="v-card v-sheet theme--light" cols="12">
+  <div class="v-card__title header headline grey--text text--darken-2">
+    Type password to proceed
+  </div>
+  <div class="v-card__text">
+    <form novalidate="novalidate" type="submit" onsubmit="return false" class="v-form">
+      <div class="col col-12">
+        <div class="v-input theme--light v-text-field">
+          <div class="v-input__control">
+            <div class="v-input__slot">
+              <div class="v-text-field__slot"><label for="input-4" class="v-label theme--light" style="left: 0px; position: absolute;">Room password</label><input required="required" id="input-4" type="password"></div>
+            </div>
+            <div class="v-text-field__details">
+              <div class="v-messages theme--light">
+                <transition-group-stub tag="div" name="message-transition" class="v-messages__wrapper"></transition-group-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="v-card__actions pb-4"><button type="button" class="v-btn v-btn--outlined v-btn--text theme--light v-size--default primary--text"><span class="v-btn__content">
+      close
+    </span></button>
+    <div class="spacer"></div> <button type="submit" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default"><span class="v-btn__content">
+      enter
+    </span></button>
+  </div>
+</div>
+`;
