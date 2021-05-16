@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Implementation test for Home.vue - - unauthorised Render correctly 1`] = `
+<div class="container mt-16 pt-16 container--fluid">
+  <div class="flex xs12 mx-6">
+    <div class="v-card v-sheet theme--light">
+      <div class="v-card__title">
+        <p class="grey--text mb-2 text--darken-2 title">
+          Gemverse - a real-time chat
+        </p>
+        <p class="grey--text mb-0 text--darken-1">
+          Gemverse is a chat app that keeps you connected with coworker and
+          friends wherever you are. User can create own public and
+          private rooms or join to one already made.
+          To get started click the button below and create a new account.
+        </p>
+      </div>
+      <div class="v-card__actions">
+        <router-link class="ml-2 mr-3 v-btn v-btn--outlined v-btn--router theme--light v-size--default blue--text text--lighten-2"><span class="v-btn__content">
+          sign in
+        </span></router-link> <span class="grey--text text--darken-2">or</span>
+        <router-link class="ml-3 v-btn v-btn--outlined v-btn--router theme--light v-size--default blue--text text--lighten-2"><span class="v-btn__content">
+          sign up
+        </span></router-link>
+      </div>
+      <!---->
+      <div aria-label="Group of people chatting via multi-platform app" role="img" class="v-image v-responsive ml-auto mt-6 theme--light" style="min-width: 320px; max-width: 60%;">
+        <transition-stub name="fade-transition" mode="in-out">
+          <div class="v-image__image v-image__image--preload v-image__image--cover" style="background-position: center center;"></div>
+        </transition-stub>
+        <div class="v-responsive__content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

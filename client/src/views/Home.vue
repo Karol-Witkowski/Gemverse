@@ -42,7 +42,7 @@
             outlined
             to="/roomlist"
           >
-            Room list
+            room list
           </v-btn>
         </v-card-actions>
         <v-img
