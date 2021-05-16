@@ -277,8 +277,8 @@ describe('Behavioral test for PrivateRoomModal.vue - successful HTTP post', () =
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
-      name: 'name',
-      password: '123456',
+        name: 'name',
+        password: '123456',
       },
     );
   });

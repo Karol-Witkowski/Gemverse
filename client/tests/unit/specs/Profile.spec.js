@@ -133,7 +133,9 @@ describe('Implementation test for Profile.vue - successful HTTP delete', () => {
     // Check if router push method was called with correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
-      params: { message: 'Account deleted' },
+      params: {
+        message: 'Account deleted'
+      },
     });
   });
 });
@@ -301,7 +303,9 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
     // Check if router push was called with correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
-      params: { message: 'Account deleted' },
+      params: {
+        message: 'Account deleted'
+      },
     });
   });
 });

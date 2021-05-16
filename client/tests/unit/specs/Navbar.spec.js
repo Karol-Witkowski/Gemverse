@@ -6,6 +6,18 @@ const localVue = createLocalVue();
 const mockRouter = {
   push: jest.fn(),
 };
+const mockStoreAuthorized = {
+  dispatch: jest.fn(),
+  getters: {
+    isAuthorized: true,
+  },
+};
+const mockStoreUnauthorized = {
+  dispatch: jest.fn(),
+  getters: {
+    isAuthorized: false,
+  },
+};
 let vuetify;
 let wrapper;
 
@@ -14,18 +26,11 @@ jest.spyOn(window.localStorage.__proto__, 'setItem');
 vuetify = new Vuetify();
 
 describe('Implementation test for Navbar.vue - unauthorized user', () => {
-  const mockStore = {
-    dispatch: jest.fn(),
-    getters: {
-      isAuthorized: false,
-    },
-  };
-
   beforeEach(() => {
     wrapper = mount(Navbar, {
       localVue,
       mocks: {
-        $store: mockStore,
+        $store: mockStoreUnauthorized,
       },
       stubs: [
         'router-link',
@@ -57,14 +62,14 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
 
   it('Should call dispatch method when created', () => {
     // Check if any action were dispatched
-    expect(mockStore.dispatch).toHaveBeenCalled();
+    expect(mockStoreUnauthorized.dispatch).toHaveBeenCalled();
 
     // Check if one action was dispatched
-    expect(mockStore.dispatch).toHaveReturnedTimes(1);
+    expect(mockStoreUnauthorized.dispatch).toHaveReturnedTimes(1);
   });
 
   it('Dispatch correct auth state when created', () => {
-    expect(mockStore.dispatch).toHaveBeenCalledWith(
+    expect(mockStoreUnauthorized.dispatch).toHaveBeenCalledWith(
       'remitAuthState',
       false,
     );
@@ -79,13 +84,6 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
   });
 });
 
-const mockStore = {
-  dispatch: jest.fn(),
-  getters: {
-    isAuthorized: true,
-  },
-};
-
 describe('Implementation test for Navbar.vue - authorized user', () => {
   beforeEach(() => {
     localStorage.setItem('authenticationToken', 'testToken');
@@ -94,7 +92,7 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
       localVue,
       mocks: {
         $router: mockRouter,
-        $store: mockStore,
+        $store: mockStoreAuthorized,
       },
       stubs: [
         'router-link',
@@ -126,14 +124,14 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
 
   it('Should call dispatch method when created', () => {
     // Check if any action were dispatched
-    expect(mockStore.dispatch).toHaveBeenCalled();
+    expect(mockStoreAuthorized.dispatch).toHaveBeenCalled();
 
     // Check if one action was dispatched
-    expect(mockStore.dispatch).toHaveReturnedTimes(1);
+    expect(mockStoreAuthorized.dispatch).toHaveReturnedTimes(1);
   });
 
   it('Dispatch correct auth state when created', () => {
-    expect(mockStore.dispatch).toHaveBeenCalledWith(
+    expect(mockStoreAuthorized.dispatch).toHaveBeenCalledWith(
       'remitAuthState',
       true,
     );
@@ -143,20 +141,20 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     wrapper.vm.logout();
 
     // Check if any action were dispatched
-    expect(mockStore.dispatch).toHaveBeenCalled();
+    expect(mockStoreAuthorized.dispatch).toHaveBeenCalled();
 
     // Check if two actions were dispatched
-    expect(mockStore.dispatch).toHaveReturnedTimes(3);
+    expect(mockStoreAuthorized.dispatch).toHaveReturnedTimes(3);
 
     // Check auth state was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
       1,
       'remitAuthState',
       true,
     );
 
     // Check user data was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
       3,
       'saveUser',
       '',
@@ -213,7 +211,7 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
       localVue,
       mocks: {
         $router: mockRouter,
-        $store: mockStore,
+        $store: mockStoreAuthorized,
       },
       stubs: [
         'router-link',
@@ -232,20 +230,20 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
     wrapper.findAll('.v-tab').at(5).trigger('click');
 
     // Check if any action were dispatched
-    expect(mockStore.dispatch).toHaveBeenCalled();
+    expect(mockStoreAuthorized.dispatch).toHaveBeenCalled();
 
     // Check if two actions were dispatched
-    expect(mockStore.dispatch).toHaveReturnedTimes(3);
+    expect(mockStoreAuthorized.dispatch).toHaveReturnedTimes(3);
 
     // Check auth state was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
       1,
       'remitAuthState',
       true,
     );
 
     // Check user data was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
       3,
       'saveUser',
       '',
