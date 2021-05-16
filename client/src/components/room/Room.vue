@@ -53,7 +53,7 @@ export default {
                 params: { message: 'Room has been deleted' },
               });
             }
-          })
+          });
 
           this.socket.emit('joinRoom', {
             room: this.getCurrentRoom,

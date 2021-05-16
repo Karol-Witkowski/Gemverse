@@ -37,9 +37,8 @@ const error = {
 };
 const response = {
   data: {
-    data: {
-      data: 'testData',
-    },
+    data: 'testMessageData',
+    success: true,
   },
 };
 
@@ -383,7 +382,7 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
 
     await Vue.nextTick();
 
-    await wrapper.findAll('button').at(1).trigger('click');
+    wrapper.findAll('.v-btn').at(1).trigger('click');
 
     // Check if post was called
     expect(axios.post).toHaveBeenCalled();
