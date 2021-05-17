@@ -5,7 +5,6 @@ const Message = require('../../models/Message');
 const { messagesSeedData, roomsSeedData, usersSeedData } = require('./seedData');
 const { mongoose, dbConnect } = require('../../db/mongoose');
 const Room = require('../../models/Room');
-const URLSlugs = require('mongoose-url-slugs');
 const User = require('../../models/User');
 
 const populateData = async () => {

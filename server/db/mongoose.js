@@ -3,13 +3,15 @@ const { logger } = require('../config/logger');
 
 const dbConnect = () => {
   mongoose
-    .connect(process.env.DATABASE_URL, {
+    .connect(process.env.NODE_ENV !== 'test' ? process.env.DATABASE_URL : process.env.TEST_URL, {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
     .then(() => {
-      logger.info('[LOG=DB] Connected to MongoDB cluster');
+      if (process.env.NODE_ENV !== 'test') {
+        logger.info('[LOG=DB] Connected to MongoDB cluster');
+      }
     })
     .catch((error) => {
       logger.error(`LOG=DB] ${error}`);
