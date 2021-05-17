@@ -18,7 +18,7 @@ require('./config/passport');
 /* Connect to MongoDB cluster */
 require('./db/mongoose');
 
-/** middleware's */
+/** Middleware's */
 app
   .use(cors())
   .use(helmet())

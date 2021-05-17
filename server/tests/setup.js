@@ -1,4 +1,4 @@
-const { populateData } = require('./seed/seedFunctions');
+const { populateData } = require('./seed/seedFn');
 
 module.exports = async () => {
   await populateData();

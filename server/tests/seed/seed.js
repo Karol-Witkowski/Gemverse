@@ -1,3 +1,3 @@
-const { populateData } = require('./seedFunctions');
+const { populateData } = require('./seedFn');
 
 populateData();

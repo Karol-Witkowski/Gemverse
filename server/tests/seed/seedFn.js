@@ -1,22 +1,22 @@
 require('dotenv').config();
 
-const { logger } = require('../config/logger');
-const { Message } = require('../../models/Message');
+const { logger } = require('../../config/logger.js');
+const Message = require('../../models/Message');
 const { messagesSeedData, roomsSeedData, usersSeedData } = require('./seedData');
-const { mongoose, connect } = require('../../db/mongoose');
-const { Room } = require('../../models/Room');
+const { mongoose, dbConnect } = require('../../db/mongoose');
+const Room = require('../../models/Room');
 const URLSlugs = require('mongoose-url-slugs');
-const { User } = require('../../models/User');
+const User = require('../../models/User');
 
 const populateData = async () => {
   if (mongoose.connection.readyState === 0) {
-    connect();
+    dbConnect();
   }
 
   let userId;
   let roomId;
 
-  logger.info('\n[PROCESS:SEED] Seeding Users...');
+  logger.info('[PROCESS:SEED] Seeding Users...');
 
   await User.deleteMany({}).exec();
 
@@ -39,7 +39,7 @@ const populateData = async () => {
     const roomData = await new Room({
       name: room.name,
       user: userId,
-      access: room.password ? false : true,
+      access: room.password ? 'private' : 'public',
       password: room.password,
     }).save();
     roomId = roomData._id;

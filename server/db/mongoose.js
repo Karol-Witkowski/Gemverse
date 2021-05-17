@@ -19,5 +19,6 @@ const dbConnect = () => {
 dbConnect();
 
 module.exports = {
+  mongoose,
   dbConnect,
 };
