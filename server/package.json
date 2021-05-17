@@ -10,8 +10,8 @@
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect",
     "seed": "node ./tests/seed/seed.js",
-    "test:watch": "jest --config ./jest.config.js --notify --watchAll",
-    "test:local": "jest --config ./jest.config.js --notify"
+    "test:watch": "jest --detectOpenHandles --notify --watchAll",
+    "test:local": "jest --detectOpenHandles --notify"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

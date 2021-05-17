@@ -1,11 +1,6 @@
 const { createJwtToken } = require('../modules/utils');
 const { validatorResult } = require('../validators/validationResult');
-const {
-  createUser,
-  findUserByQuery,
-  findUserByEmail,
-  saveUser,
-} = require('../repositories/userRepository');
+const { createUser, findUserByEmail, saveUser } = require('../repositories/userRepository');
 
 const signUp = async (req, res) => {
   createUser(req)
@@ -53,23 +48,7 @@ const signIn = async (req, res) => {
   }
 };
 
-const logoutUser = async (req, res) => {
-  const user = await findUserByQuery({ email: req.body.email });
-
-  if (!user) {
-    return res.status(404).json({
-      message: `${req.body.username} not found`,
-      success: false,
-    });
-  } else {
-    return res.status(200).json({
-      success: true,
-    });
-  }
-};
-
 module.exports = {
-  logoutUser,
   signIn,
   signUp,
 };
