@@ -9,7 +9,9 @@
     "build": "node build/build.js",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect",
-    "test": "snyk test"
+    "seed": "node ./tests/seed/seed.js",
+    "test:watch": "jest --config ./jest.config.js --notify --watchAll",
+    "test:local": "jest --config ./jest.config.js --notify"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -35,6 +37,7 @@
     "nodemon": "^2.0.7",
     "prettier": "2.2.1",
     "snyk": "^1.587.0",
+    "supertest": "^6.1.3",
     "winston": "^3.3.3"
   },
   "repository": {
