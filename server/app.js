@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (process.env.HEROKU_DEPLOYMENT !== 'true') {
+  require('dotenv').config();
+}
 
 /** Main packages */
 const express = require('express');
@@ -16,13 +18,18 @@ require('./config/passport');
 /* Connect to MongoDB cluster */
 require('./db/mongoose');
 
-/** Middlewares */
+/** middleware's */
 app
   .use(cors())
   .use(helmet())
   .use(morgan('dev'))
   .use(express.urlencoded({ extended: true }))
   .use(express.json());
+
+if (process.env.HEROKU_DEPLOYMENT === 'true') {
+  app.enable('trust proxy');
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
+}
 
 /** Routes */
 const apiRouter = require('./routes/index');
