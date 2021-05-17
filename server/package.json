@@ -21,7 +21,7 @@
     "express-validator": "^6.11.1",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.7",
+    "mongoose": "^5.12.9",
     "mongoose-url-slugs": "^1.0.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
@@ -36,7 +36,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "prettier": "2.2.1",
-    "snyk": "^1.587.0",
+    "snyk": "^1.596.0",
     "supertest": "^6.1.3",
     "winston": "^3.3.3"
   },
