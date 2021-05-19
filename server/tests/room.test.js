@@ -164,7 +164,6 @@ describe('Room route test - DELETE', () => {
     });
 
     const guestUser = response.body.data;
-    token = response.body.token;
 
     response = await request
       .delete(`/api/room/${roomId}`)
@@ -186,7 +185,7 @@ describe('Room route test - DELETE', () => {
     expect(response.body.message).toEqual('Room deleted');
 
     // Check if room was deleted successfully
-    response = await request.get('/api/room/room-4').set('Authorization', token);
+    response = await request.get('/api/room/room4').set('Authorization', token);
 
     expect(typeof response.body).toBe('object');
     expect(response.status).toEqual(404);
@@ -203,21 +202,4 @@ describe('Room route test - DELETE', () => {
     expect(response.body.success).toBeFalsy();
     expect(response.body.message).toEqual('Room not found');
   });
-
-  /*it('Should prevent removing room by guest user', async () => {
-    response = await request.post('/api/authentication/login').send({
-      email: usersSeedData[2].email,
-      password: usersSeedData[2].password,
-    });
-
-    const user = response.body.data;
-    token = response.body.token;
-
-    response = await request.delete(`/api/room/${roomId}`).send(user).set('Authorization', token);
-
-    expect(typeof response.body).toBe('object');
-    expect(response.status).toEqual(403);
-    expect(response.body.success).toBeFalsy();
-    expect(response.body.message).toEqual('Users are allowed to delete only own rooms');
-  }); */
 });

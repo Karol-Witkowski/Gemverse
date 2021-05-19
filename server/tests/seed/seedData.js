@@ -27,7 +27,7 @@ module.exports = {
       password: '',
     },
     {
-      name: 'Room 4',
+      name: 'room4',
       password: 'test',
     },
   ],
