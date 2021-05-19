@@ -12,10 +12,6 @@ const findUserByQuery = async (data) => {
   return User.findOne(data).select('-password');
 };
 
-const findOnlineUsers = async () => {
-  return User.find({}, 'email username');
-};
-
 const findUserByEmail = async (data) => {
   return User.findOne({ email: data });
 };
@@ -31,7 +27,6 @@ const saveUser = async (data) => {
 module.exports = {
   createUser,
   findUserByQuery,
-  findOnlineUsers,
   findUserByEmail,
   removeAccount,
   saveUser,

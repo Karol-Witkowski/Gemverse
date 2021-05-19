@@ -1,24 +1,4 @@
-const {
-  findOnlineUsers,
-  findUserByEmail,
-  removeAccount,
-} = require('../repositories/userRepository');
-
-const getOnlineUsers = async (req, res) => {
-  const onlineUsers = await findOnlineUsers();
-
-  if (!onlineUsers) {
-    return res.status(404).json({
-      message: 'Users not found',
-      success: false,
-    });
-  } else {
-    return res.status(200).json({
-      data: onlineUsers,
-      success: true,
-    });
-  }
-};
+const { findUserByEmail, removeAccount } = require('../repositories/userRepository');
 
 const getUserById = async (req, res) => {
   const user = await findUserByEmail(req.user.email);
@@ -61,7 +41,6 @@ const removeUser = async (req, res) => {
 };
 
 module.exports = {
-  getOnlineUsers,
   getUserById,
   removeUser,
 };

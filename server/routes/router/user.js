@@ -1,9 +1,6 @@
 const router = require('express').Router();
 const { requireAuth } = require('../../middlewares/authMiddleware');
-const { getOnlineUsers, getUserById, removeUser } = require('../../controllers/userController');
-
-/** Get online users */
-router.get('/users', requireAuth, getOnlineUsers);
+const { getUserById, removeUser } = require('../../controllers/userController');
 
 /** Get user data */
 router.get('/logged', requireAuth, getUserById);
