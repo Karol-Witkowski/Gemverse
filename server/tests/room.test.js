@@ -4,7 +4,7 @@ const { roomsSeedData, usersSeedData } = require('./seed/seedData');
 
 let request = supertest(app);
 let response;
-let roomId;
+let room;
 let token;
 let user;
 
@@ -20,7 +20,7 @@ beforeAll(async () => {
 
   response = await request.get(`/api/room/${roomsSeedData[2].name}`).set('Authorization', token);
 
-  roomId = response.body.data._id;
+  room = response.body.data;
 });
 
 describe('Room route test - GET', () => {
@@ -166,7 +166,7 @@ describe('Room route test - DELETE', () => {
     const guestUser = response.body.data;
 
     response = await request
-      .delete(`/api/room/${roomId}`)
+      .delete(`/api/room/${room._id}`)
       .send(guestUser)
       .set('Authorization', token);
 
@@ -177,7 +177,7 @@ describe('Room route test - DELETE', () => {
   });
 
   it('Should delete room', async () => {
-    response = await request.delete(`/api/room/${roomId}`).send(user).set('Authorization', token);
+    response = await request.delete(`/api/room/${room._id}`).send(user).set('Authorization', token);
 
     expect(typeof response.body).toBe('object');
     expect(response.status).toEqual(200);
@@ -185,7 +185,7 @@ describe('Room route test - DELETE', () => {
     expect(response.body.message).toEqual('Room deleted');
 
     // Check if room was deleted successfully
-    response = await request.get('/api/room/room4').set('Authorization', token);
+    response = await request.get(`/api/room/${room.name}`).set('Authorization', token);
 
     expect(typeof response.body).toBe('object');
     expect(response.status).toEqual(404);
@@ -194,8 +194,7 @@ describe('Room route test - DELETE', () => {
   });
 
   it('Should not delete room - room does not exist', async () => {
-    // Search for not existing room by querying by user id
-    response = await request.delete(`/api/room/${user._id}`).send(user).set('Authorization', token);
+    response = await request.delete(`/api/room/${room._id}`).send(user).set('Authorization', token);
 
     expect(typeof response.body).toBe('object');
     expect(response.status).toEqual(404);

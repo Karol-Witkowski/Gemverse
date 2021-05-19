@@ -28,14 +28,14 @@ const removeUser = async (req, res) => {
   } else {
     if (req.user.id !== user.id.toString()) {
       return res.status(403).json({
-        message: 'Users are allowed to delete only own accounts',
+        message: 'Users are allowed to delete only own account',
         success: false,
       });
     }
     await removeAccount(user);
     return res.status(200).json({
       message: 'Account deleted',
-      success: false,
+      success: true,
     });
   }
 };

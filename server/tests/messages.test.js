@@ -8,22 +8,22 @@ let roomId;
 let token;
 let userId;
 
-describe('Messages route test - POST', () => {
-  beforeAll(async () => {
-    jest.setTimeout(30000);
-    response = await request.post('/api/authentication/login').send({
-      email: usersSeedData[1].email,
-      password: usersSeedData[1].password,
-    });
-
-    userId = response.body.data._id;
-    token = response.body.token;
-
-    response = await request.get(`/api/room/${roomsSeedData[1].name}`).set('Authorization', token);
-
-    roomId = response.body.data._id;
+beforeAll(async () => {
+  jest.setTimeout(30000);
+  response = await request.post('/api/authentication/login').send({
+    email: usersSeedData[1].email,
+    password: usersSeedData[1].password,
   });
 
+  userId = response.body.data._id;
+  token = response.body.token;
+
+  response = await request.get(`/api/room/${roomsSeedData[1].name}`).set('Authorization', token);
+
+  roomId = response.body.data._id;
+});
+
+describe('Messages route test - POST', () => {
   it('Should post new message', async () => {
     response = await request
       .post(`/api/messages/${roomsSeedData[1].name}`)
