@@ -1,7 +1,7 @@
 {
-  "name": "client",
+  "name": "gemverse-client",
   "version": "2.0.0",
-  "private": true,
+  "description": "Frontend for Gemverse app",
   "scripts": {
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
