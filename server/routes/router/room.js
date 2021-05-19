@@ -22,10 +22,10 @@ router.post('/', requireAuth, validateRoom, postRoom);
 /** Password verification */
 router.post('/verification', requireAuth, verify);
 
-/** Delete room */
-router.delete('/:id', requireAuth, deleteRoom);
-
 /** Remove user on room leave event */
 router.post('/remove/user', requireAuth, setUserOffline);
+
+/** Delete room */
+router.delete('/:id', requireAuth, deleteRoom);
 
 module.exports = router;
