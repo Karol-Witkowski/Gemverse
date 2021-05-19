@@ -1,11 +1,11 @@
-const socketio = require('socket.io');
+const socketIo = require('socket.io');
 const { emitNewMessage } = require('../repositories/messageRepository');
 const { filterActiveUsers } = require('../actions/socketActions');
 const { handleJoinRoom } = require('../helpers/socketHelpers');
 
 require('../db/mongoose');
 
-const io = socketio({
+const io = socketIo({
   cors: {
     credentials: true,
     methods: ['CREATE', 'DELETE', 'GET', 'POST'],
