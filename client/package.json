@@ -1,14 +1,14 @@
 {
   "name": "client",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
-    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "ui": "vue ui"
+    "test:unit": "vue-cli-service test:unit",
+    "ui": "vue ui",
+    "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "axios": "^0.21.1",

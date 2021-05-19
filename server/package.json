@@ -1,17 +1,17 @@
 {
   "name": "gemverse-backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Backend for Gemverse app",
   "main": "www",
   "scripts": {
     "dev": "node ./bin/www",
     "dev:watch": "nodemon ./bin/www",
-    "build": "node build/build.js",
+    "test:watch": "jest --detectOpenHandles --notify --watchAll",
+    "test:local": "jest --detectOpenHandles --notify",
+    "seed": "node ./tests/seed/seed.js",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect",
-    "seed": "node ./tests/seed/seed.js",
-    "test:watch": "jest --detectOpenHandles --notify --watchAll",
-    "test:local": "jest --detectOpenHandles --notify"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
