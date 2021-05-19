@@ -7,9 +7,10 @@
     "url": "https://github.com/Karol-Witkowski/Gemverse"
   },
   "scripts": {
-    "cypress:open": "cypress open",
-    "test:cypress-record": "cypress run --record --key 95327a19-0b29-4b0e-9de8-83f219e560b1",
-    "test:cypress-run": "cypress run"
+    "cypress:open": "npm run seed:data && cypress open",
+    "seed:data": "npm run seed --prefix server",
+    "test:cypress-record": "npm run seed:data && cypress run --record --key 95327a19-0b29-4b0e-9de8-83f219e560b1",
+    "test:cypress-run": "npm run seed:data && cypress run"
   },
   "devDependencies": {
     "cypress": "^7.3.0"
