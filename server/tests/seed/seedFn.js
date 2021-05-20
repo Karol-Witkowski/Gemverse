@@ -15,8 +15,6 @@ const populateData = async () => {
   let userId;
   let roomId;
 
-  logger.info('[PROCESS:SEED] Seeding Users...');
-
   await User.deleteMany({}).exec();
 
   for (let user of usersSeedData) {
@@ -29,8 +27,6 @@ const populateData = async () => {
   }
 
   logger.info('[PROCESS:FIN] Users seed ready');
-
-  logger.info('[PROCESS:SEED] Seeding Rooms...');
 
   await Room.deleteMany({}).exec();
 
@@ -45,8 +41,6 @@ const populateData = async () => {
   }
 
   logger.info('[PROCESS:FIN] Rooms seed ready');
-
-  logger.info('[PROCESS:SEED] Seeding Messages...');
 
   await Message.deleteMany({}).exec();
 

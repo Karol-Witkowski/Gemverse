@@ -1,4 +1,5 @@
 const app = require('../app');
+const { populateData } = require('./seed/seedFn');
 const supertest = require('supertest');
 const { usersSeedData } = require('./seed/seedData');
 
@@ -16,6 +17,10 @@ beforeAll(async () => {
 
   user = response.body.data;
   token = response.body.token;
+});
+
+afterAll(async () => {
+  await populateData();
 });
 
 describe('User route test - GET', () => {

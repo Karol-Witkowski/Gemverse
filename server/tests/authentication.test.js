@@ -1,9 +1,14 @@
 const app = require('../app');
+const { populateData } = require('./seed/seedFn');
 const supertest = require('supertest');
 const { usersSeedData } = require('./seed/seedData');
 
 beforeAll(() => {
   jest.setTimeout(30000);
+});
+
+afterAll(async () => {
+  await populateData();
 });
 
 describe('Authentication route test - POST', () => {

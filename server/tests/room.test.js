@@ -1,4 +1,5 @@
 const app = require('../app');
+const { populateData } = require('./seed/seedFn');
 const supertest = require('supertest');
 const { roomsSeedData, usersSeedData } = require('./seed/seedData');
 
@@ -21,6 +22,10 @@ beforeAll(async () => {
   response = await request.get(`/api/room/${roomsSeedData[2].name}`).set('Authorization', token);
 
   room = response.body.data;
+});
+
+afterAll(async () => {
+  await populateData();
 });
 
 describe('Room route test - GET', () => {
