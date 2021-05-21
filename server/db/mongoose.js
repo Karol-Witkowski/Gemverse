@@ -3,7 +3,7 @@ const { logger } = require('../config/logger');
 
 const dbConnect = () => {
   mongoose
-    .connect(process.env.NODE_ENV !== 'test' ? process.env.DATABASE_URL : process.env.TEST_URL, {
+    .connect(process.env.NODE_ENV !== 'test' ? process.env.DATABASE_URL : process.env.TESTDB_URL, {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,

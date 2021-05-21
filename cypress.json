@@ -3,7 +3,7 @@
   "chromeWebSecurity": false,
   "defaultCommandTimeout": 10000,
   "fixturesFolder": false,
-  "integrationFolder": "tests/e2e",
+  "integrationFolder": "tests",
   "pluginsFile": false,
   "projectId": "g42uwf",
   "screenshotOnRunFailure": false,

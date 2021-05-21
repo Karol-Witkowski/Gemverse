@@ -13,7 +13,11 @@
     "seed:data": "cross-env NODE_ENV=\"test\" npm run seed --prefix server"
   },
   "devDependencies": {
+    "@cypress/webpack-dev-server": "^1.3.0",
     "cross-env": "^7.0.3",
-    "cypress": "^7.3.0"
+    "css-loader": "^5.2.5",
+    "cypress": "^7.3.0",
+    "vue-loader": "^15.9.7",
+    "vue-template-compiler": "^2.6.12"
   }
 }

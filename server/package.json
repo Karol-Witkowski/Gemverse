@@ -1,16 +1,15 @@
 {
   "name": "gemverse-backend",
   "version": "2.0.0",
-  "description": "Backend for Gemverse app",
+  "description": "Backend for Gemverse Chat Application",
   "main": "www",
   "scripts": {
-    "dev": "cross-env NODE_ENV=\"development\" node ./bin/www",
-    "dev:watch": "cross-env NODE_ENV=\"development\" nodemon ./bin/www",
+    "dev": "node ./bin/www",
+    "dev:watch": "nodemon ./bin/www",
     "test:watch": "cross-env NODE_ENV=\"test\" jest --detectOpenHandles --notify --watchAll",
     "test:local": "cross-env NODE_ENV=\"test\" jest --detectOpenHandles --notify",
     "seed": "cross-env NODE_ENV=\"test\" node ./tests/seed/seed.js",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect",
     "build": "node build/build.js"
   },
   "dependencies": {
