@@ -5,11 +5,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Karol-Witkowski/Gemverse"
-  },
-  "scripts": {
-    "seed:data": "cross-env NODE_ENV=\"test\" npm run seed --prefix server"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3"
   }
 }

@@ -10,7 +10,7 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-    plugins: [
+  plugins: [
     'cypress',
   ],
   rules: {
