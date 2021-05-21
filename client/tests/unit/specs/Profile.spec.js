@@ -134,7 +134,7 @@ describe('Implementation test for Profile.vue - successful HTTP delete', () => {
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
       params: {
-        message: 'Account deleted'
+        message: 'Account deleted',
       },
     });
   });
@@ -304,7 +304,7 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
       params: {
-        message: 'Account deleted'
+        message: 'Account deleted',
       },
     });
   });

@@ -7,17 +7,9 @@
     "url": "https://github.com/Karol-Witkowski/Gemverse"
   },
   "scripts": {
-    "test:cypress:open": "cypress open",
-    "test:cypress-run": "cypress run",
-    "test:cypress-record": "cypress run --record --key 95327a19-0b29-4b0e-9de8-83f219e560b1",
     "seed:data": "cross-env NODE_ENV=\"test\" npm run seed --prefix server"
   },
   "devDependencies": {
-    "@cypress/webpack-dev-server": "^1.3.0",
-    "cross-env": "^7.0.3",
-    "css-loader": "^5.2.5",
-    "cypress": "^7.3.0",
-    "vue-loader": "^15.9.7",
-    "vue-template-compiler": "^2.6.12"
+    "cross-env": "^7.0.3"
   }
 }

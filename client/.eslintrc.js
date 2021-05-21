@@ -10,6 +10,9 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
+    plugins: [
+    'cypress',
+  ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -18,7 +21,9 @@ module.exports = {
   overrides: [
     {
       env: {
+        'cypress/globals': true,
         jest: true,
+        mocha: true,
       },
       files: [
         '**/__tests__/*.{j,t}s?(x)',

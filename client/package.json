@@ -4,11 +4,14 @@
   "description": "Frontend for Gemverse Chat Application",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "lint": "vue-cli-service lint",
+    "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "ui": "vue ui",
+    "test:e2e-open": "cypress open",
+    "test:e2e-run": "cypress run",
+    "test:e2e-record": "cypress run --record --key 95327a19-0b29-4b0e-9de8-83f219e560b1",
+    "lint": "vue-cli-service lint",
     "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
-    "build": "vue-cli-service build"
+    "ui": "vue ui"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-e2e-cypress": "^4.5.13",
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-plugin-unit-jest": "^4.5.13",

@@ -21,7 +21,7 @@ const mockStore = {
 const error = {
   response: {
     data: {
-      message: 'error'
+      message: 'error',
     },
   },
 };
@@ -145,7 +145,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
       url,
       {
         name: 'name',
-        password: '123456'
+        password: '123456',
       },
     );
   });
@@ -311,7 +311,7 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
 
   it('Should reset errors on keyup event', async () => {
     await wrapper.setData({
-      privateRoomPassword: '123456'
+      privateRoomPassword: '123456',
     });
 
     await Vue.nextTick();
@@ -331,7 +331,7 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
 
   it('Should reset error on close event', async () => {
     await wrapper.setData({
-      privateRoomPassword: '123456'
+      privateRoomPassword: '123456',
     });
 
     await Vue.nextTick();

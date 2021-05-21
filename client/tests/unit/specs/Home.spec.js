@@ -48,8 +48,8 @@ describe('Implementation test for Home.vue - authorised', () => {
             isAuthorized: true,
           },
         },
-      vuetify,
-      }
+        vuetify,
+      },
     });
   });
 

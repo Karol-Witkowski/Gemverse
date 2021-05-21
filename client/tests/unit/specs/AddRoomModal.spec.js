@@ -143,7 +143,7 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
 
     // Check that correct input messages are displayed
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
-    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('')
+    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
   });
 
   it('Fail validation when room name character range is invalid', async () => {
@@ -162,7 +162,6 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Characters range: 3 - 15');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
   });
-
 
   it('Fail validation when only password was entered', async () => {
     await wrapper.setData({
@@ -266,7 +265,7 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
           _id: '321testid',
           createdDate: '2021-04-20T01:01:22.269Z',
           email: 'test@mail.js',
-          username: "testUser",
+          username: 'testUser',
         },
       },
     );
@@ -400,7 +399,7 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
           _id: '321testid',
           createdDate: '2021-04-20T01:01:22.269Z',
           email: 'test@mail.js',
-          username: "testUser",
+          username: 'testUser',
         },
       },
     );
