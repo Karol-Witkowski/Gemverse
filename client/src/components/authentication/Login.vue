@@ -40,6 +40,7 @@
                   autofocus
                   :error-messages="userError"
                   label="E-mail address"
+                  name="email"
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model="email"
@@ -51,6 +52,7 @@
                 <v-text-field
                   :error-messages="passwordError"
                   label="Password"
+                  name="password"
                   required
                   :rules="generalRules.concat(passwordRules)"
                   type="password"
