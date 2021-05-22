@@ -37,6 +37,30 @@ describe('Login test', () => {
     cy.url().should('include', '/login');
 
     // Check if errors are visible
-    cy.contains('Invalid password')
+    cy.contains('Invalid password');
+  });
+
+  it('Clear input errors', () => {
+    cy.get('input[name=email]').type('test1@email.tt');
+    cy.get('input[name=password]').type('123456');
+
+    cy.contains('sign in').click();
+
+    // Check if user are still on the login page
+    cy.url().should('include', '/login');
+
+    // Check if errors are visible
+    cy.contains('Invalid password');
+
+    cy.get('input[name=password]').clear();
+
+    // Check if errors are not visible after clear
+    cy.contains('Invalid password').should('not.exist');
+  });
+
+  it('Disable button on empty required inputs', () => {
+    cy.get('input[name=email]').type('test1@email.tt');
+
+    cy.contains('sign in').should('be.disabled');
   });
 });

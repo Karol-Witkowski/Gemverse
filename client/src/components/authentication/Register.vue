@@ -20,6 +20,7 @@
                   :error-messages="usernameError"
                   :counter="15"
                   label="Username"
+                  name="username"
                   ref="username"
                   required
                   :rules="generalRules.concat(usernameRules)"
@@ -32,6 +33,7 @@
                 <v-text-field
                   :error-messages="emailError"
                   label="E-mail address"
+                  name="email"
                   ref="email"
                   required
                   :rules="generalRules.concat(emailRules)"
@@ -44,6 +46,7 @@
                 <v-text-field
                   hint="Minimum length - 6 characters"
                   label="Password"
+                  name="password"
                   persistent-hint
                   required
                   :rules="generalRules.concat(passwordRules)"
