@@ -43,6 +43,7 @@
       <v-btn
         @click="closeModal"
         color="primary"
+        name="close"
         outlined
         text
       >
@@ -53,6 +54,7 @@
         @click.prevent="formValidation"
         color="primary"
         :disabled="!isFormValid"
+        name="save"
         outlined
         text
         type="submit"

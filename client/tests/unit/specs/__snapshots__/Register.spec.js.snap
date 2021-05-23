@@ -59,17 +59,17 @@ exports[`Implementation test for Register.vue - successful HTTP post Render corr
       </div>
     </div>
     <div class="v-card__actions pb-4">
-      <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default primary--text"><span class="v-btn__content">
+      <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default primary--text" name="back"><span class="v-btn__content">
         back
       </span></router-link-stub>
-      <div class="spacer"></div> <button type="button" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default"><span class="v-btn__content">
+      <div class="spacer"></div> <button type="button" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default" name="register"><span class="v-btn__content">
         sign up
       </span></button>
     </div>
   </div>
   <div class="mt-6 text-center">
     <h4 class="grey--text mx-auto mb-2 text--darken-1">Already have an account? Sign in</h4>
-    <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default blue--text text--lighten-1"><span class="v-btn__content">
+    <router-link-stub class="v-btn v-btn--outlined v-btn--router v-btn--text theme--light v-size--default blue--text text--lighten-1" name="login"><span class="v-btn__content">
       sign in
     </span></router-link-stub>
   </div>

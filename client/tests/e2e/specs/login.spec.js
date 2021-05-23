@@ -8,7 +8,7 @@ describe('Login test', () => {
     cy.get('input[name=email]').type('test1@email.tt');
     cy.get('input[name=password]').type('test12');
 
-    cy.get('.v-btn').contains('sign in').click();
+    cy.get('button[name=login]').click();
 
     cy.url().should('include', '/roomlist');
   })
@@ -17,7 +17,7 @@ describe('Login test', () => {
     cy.get('input[name=email]').type('random@email.com');
     cy.get('input[name=password]').type('test12');
 
-    cy.get('.v-btn').contains('sign in').click();
+    cy.get('button[name=login]').click();
 
     // Check if user are still on the login page
     cy.url().should('include', '/login');
@@ -30,7 +30,7 @@ describe('Login test', () => {
     cy.get('input[name=email]').type('test1@email.tt');
     cy.get('input[name=password]').type('123456');
 
-    cy.get('.v-btn').contains('sign in').click();
+    cy.get('button[name=login]').click();
 
     // Check if user are still on the login page
     cy.url().should('include', '/login');
@@ -43,7 +43,7 @@ describe('Login test', () => {
     cy.get('input[name=email]').type('test1@email.tt');
     cy.get('input[name=password]').type('123456');
 
-    cy.get('.v-btn').contains('sign in').click();
+    cy.get('button[name=login]').click();
 
     // Check if user are still on the login page
     cy.url().should('include', '/login');
@@ -60,6 +60,6 @@ describe('Login test', () => {
   it('Disable button on empty required inputs', () => {
     cy.get('input[name=email]').type('test1@email.tt');
 
-    cy.contains('sign in').should('be.disabled');
+    cy.get('button[name=login]').should('be.disabled');
   });
 });

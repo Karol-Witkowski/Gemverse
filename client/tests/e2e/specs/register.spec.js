@@ -8,8 +8,7 @@ describe('Register test', () => {
     cy.get('input[name=username]').type('newUser');
     cy.get('input[name=email]').type('tester@email.tt');
     cy.get('input[name=password]').type('test123');
-
-    cy.get('.v-btn').contains('sign up').click();
+    cy.get('button[name=register]').click();
 
     cy.url().should('include', '/roomlist');
   });
@@ -18,8 +17,7 @@ describe('Register test', () => {
     cy.get('input[name=username]').type('user1');
     cy.get('input[name=email]').type('random@email.com');
     cy.get('input[name=password]').type('test12');
-
-    cy.get('.v-btn').contains('sign up').click();
+    cy.get('button[name=register]').click();
 
     // Check if user are still on the register page
     cy.url().should('include', '/register');
@@ -32,8 +30,7 @@ describe('Register test', () => {
     cy.get('input[name=username]').type('newUser');
     cy.get('input[name=email]').type('test4@email.tt');
     cy.get('input[name=password]').type('test12');
-
-    cy.get('.v-btn').contains('sign up').click();
+    cy.get('button[name=register]').click();
 
     // Check if user are still on the register page
     cy.url().should('include', '/register');
@@ -60,7 +57,7 @@ describe('Register test', () => {
     cy.get('input[name=password]').type('1');
 
     // Check if button is disabled
-    cy.contains('sign up').should('be.disabled');
+    cy.get('button[name=register]').should('be.disabled');
 
     // Check if errors are visible
     cy.get('.v-messages').should('contain', 'Characters range: 3 - 15');
@@ -81,7 +78,7 @@ describe('Register test', () => {
     cy.get('.v-messages').should('contain', 'Invalid e-mail');
 
     // Check if button is disabled
-    cy.contains('sign up').should('be.disabled');
+    cy.get('button[name=register]').should('be.disabled');
 
     cy.get('input[name=email]').clear();
 
@@ -93,6 +90,6 @@ describe('Register test', () => {
     cy.get('input[name=username]').type('newUser');
     cy.get('input[name=email]').type('test4@email.tt');
 
-    cy.contains('sign up').should('be.disabled');
+    cy.get('button[name=register]').should('be.disabled');
   });
 });

@@ -23,10 +23,10 @@ exports[`Implementation test for PrivateRoomModal.vue - successful HTTP post Ren
       </div>
     </form>
   </div>
-  <div class="v-card__actions pb-4"><button type="button" class="v-btn v-btn--outlined v-btn--text theme--light v-size--default primary--text"><span class="v-btn__content">
+  <div class="v-card__actions pb-4"><button type="button" class="v-btn v-btn--outlined v-btn--text theme--light v-size--default primary--text" name="close"><span class="v-btn__content">
       close
     </span></button>
-    <div class="spacer"></div> <button type="submit" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default"><span class="v-btn__content">
+    <div class="spacer"></div> <button type="submit" disabled="disabled" class="v-btn v-btn--disabled v-btn--outlined v-btn--text theme--light v-size--default" name="enter"><span class="v-btn__content">
       enter
     </span></button>
   </div>

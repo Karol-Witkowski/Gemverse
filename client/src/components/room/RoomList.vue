@@ -20,6 +20,7 @@
           <v-col class="shrink">
             <v-btn
               @click="showRoomError"
+              name="access"
               small
             >
               ok
@@ -32,6 +33,7 @@
         <v-btn
           @click="[toggleSort = !toggleSort, sort()]"
           color="primary"
+          name="sort"
           x-small
         >
           {{ sortBy }}

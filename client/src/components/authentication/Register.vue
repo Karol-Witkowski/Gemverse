@@ -63,6 +63,7 @@
       <v-card-actions class="pb-4">
         <v-btn
           color="primary"
+          name="back"
           outlined
           text
           to="/"
@@ -74,6 +75,7 @@
           @click.prevent="formValidation"
           color="primary"
           :disabled="!isFormValid"
+          name="register"
           outlined
           text
         >
@@ -85,6 +87,7 @@
       <h4 class="grey--text mx-auto mb-2 text--darken-1">Already have an account? Sign in</h4>
       <v-btn
         color="blue lighten-1"
+        name="login"
         outlined
         text
         to="/login"

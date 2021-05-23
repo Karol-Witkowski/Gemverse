@@ -29,6 +29,7 @@
       <v-btn
         @click="closeModal"
         color="primary"
+        name="close"
         outlined
         text
       >
@@ -39,6 +40,7 @@
         @click.prevent="passwordValidation"
         color="primary"
         :disabled="!isFormValid"
+        name="enter"
         outlined
         text
         type="submit"

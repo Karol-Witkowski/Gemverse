@@ -69,6 +69,7 @@
       <v-card-actions class="pb-4">
         <v-btn
           color="primary"
+          name="back"
           text
           outlined
           to="/"
@@ -80,6 +81,7 @@
           @click.prevent="formValidation"
           color="primary"
           :disabled="!isFormValid"
+          name="login"
           outlined
           text
         >
@@ -91,6 +93,7 @@
       <h4 class="grey--text mb-2 mx-auto text--darken-1">New to Gemverse? Create a new account</h4>
       <v-btn
         color="blue lighten-1"
+        name="register"
         outlined
         text
         to="/register"
