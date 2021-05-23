@@ -53,3 +53,29 @@ describe('Room list test - adding new room', () => {
     cy.contains('save').should('be.disabled');
   });
 });
+
+describe('Room list test - enter room', () => {
+  it('Successfully join public room', () => {;
+    cy.get('[name=public]').eq(0).click();
+
+    cy.url().should('include', '/room/room2');
+  });
+
+  it('Successfully join private room', () => {;
+    cy.get('[name=private]').eq(0).click();
+    cy.get('input[name=password]').eq(1).type('test');
+    cy.get('button').eq(11).click();
+
+    cy.url().should('include', '/room/room-1');
+  });
+
+  it('Displays errors on invalid password', () => {;
+    cy.get('[name=private]').eq(0).click();
+    cy.get('input[name=password]').eq(1).type('wrong password');
+    cy.get('button').eq(11).click();
+
+    cy.get('.v-messages').should('contain', 'Invalid password');
+    cy.url().should('include', '/roomlist');
+    cy.get('button').eq(11).should('be.disabled');
+  });
+});

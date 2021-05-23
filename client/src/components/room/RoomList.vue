@@ -123,6 +123,7 @@
                 <v-btn
                   @click="join(room.slug)"
                   color="primary"
+                  name='public'
                   outlined
                   small
                 >
@@ -144,6 +145,7 @@
                       @click="$store.dispatch('saveCurrentRoom', room)"
                       color="secondary"
                       outlined
+                      name='private'
                       type="submit"
                       small
                       v-bind="attrs"

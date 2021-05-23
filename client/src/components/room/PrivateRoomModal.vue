@@ -14,6 +14,7 @@
           <v-text-field
             :error-messages="error"
             label="Room password"
+            name="password"
             required
             :rules="rules"
             type="password"

@@ -11,7 +11,7 @@ exports[`Implementation test for PrivateRoomModal.vue - successful HTTP post Ren
         <div class="v-input theme--light v-text-field">
           <div class="v-input__control">
             <div class="v-input__slot">
-              <div class="v-text-field__slot"><label for="input-4" class="v-label theme--light" style="left: 0px; position: absolute;">Room password</label><input required="required" id="input-4" type="password"></div>
+              <div class="v-text-field__slot"><label for="input-4" class="v-label theme--light" style="left: 0px; position: absolute;">Room password</label><input name="password" required="required" id="input-4" type="password"></div>
             </div>
             <div class="v-text-field__details">
               <div class="v-messages theme--light">
