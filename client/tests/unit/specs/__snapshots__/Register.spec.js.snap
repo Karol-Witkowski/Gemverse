@@ -12,7 +12,7 @@ exports[`Implementation test for Register.vue - successful HTTP post Render corr
               <div class="v-input theme--light v-text-field">
                 <div class="v-input__control">
                   <div class="v-input__slot">
-                    <div class="v-text-field__slot"><label for="input-4" class="v-label theme--light" style="left: 0px; position: absolute;">Username</label><input required="required" autofocus="autofocus" id="input-4" type="text"></div>
+                    <div class="v-text-field__slot"><label for="input-4" class="v-label theme--light" style="left: 0px; position: absolute;">Username</label><input name="username" required="required" autofocus="autofocus" id="input-4" type="text"></div>
                   </div>
                   <div class="v-text-field__details">
                     <div class="v-messages theme--light">
@@ -27,7 +27,7 @@ exports[`Implementation test for Register.vue - successful HTTP post Render corr
               <div class="v-input theme--light v-text-field">
                 <div class="v-input__control">
                   <div class="v-input__slot">
-                    <div class="v-text-field__slot"><label for="input-7" class="v-label theme--light" style="left: 0px; position: absolute;">E-mail address</label><input required="required" id="input-7" type="text"></div>
+                    <div class="v-text-field__slot"><label for="input-7" class="v-label theme--light" style="left: 0px; position: absolute;">E-mail address</label><input name="email" required="required" id="input-7" type="text"></div>
                   </div>
                   <div class="v-text-field__details">
                     <div class="v-messages theme--light">
@@ -41,7 +41,7 @@ exports[`Implementation test for Register.vue - successful HTTP post Render corr
               <div class="v-input theme--light v-text-field">
                 <div class="v-input__control">
                   <div class="v-input__slot">
-                    <div class="v-text-field__slot"><label for="input-10" class="v-label theme--light" style="left: 0px; position: absolute;">Password</label><input required="required" id="input-10" type="password"></div>
+                    <div class="v-text-field__slot"><label for="input-10" class="v-label theme--light" style="left: 0px; position: absolute;">Password</label><input name="password" required="required" id="input-10" type="password"></div>
                   </div>
                   <div class="v-text-field__details">
                     <div class="v-messages theme--light">

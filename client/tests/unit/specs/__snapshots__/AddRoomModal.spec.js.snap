@@ -11,7 +11,7 @@ exports[`Implementation test for AddRoomModal.vue - successful HTTP post Render 
         <div class="v-input theme--light v-text-field">
           <div class="v-input__control">
             <div class="v-input__slot">
-              <div class="v-text-field__slot"><label for="name" class="v-label theme--light" style="left: 0px; position: absolute;">Room Name</label><input required="required" autofocus="autofocus" id="name" type="text"></div>
+              <div class="v-text-field__slot"><label for="name" class="v-label theme--light" style="left: 0px; position: absolute;">Room Name</label><input name="name" required="required" autofocus="autofocus" id="name" type="text"></div>
             </div>
             <div class="v-text-field__details">
               <div class="v-messages theme--light">
@@ -28,7 +28,7 @@ exports[`Implementation test for AddRoomModal.vue - successful HTTP post Render 
         <div class="v-input theme--light v-text-field">
           <div class="v-input__control">
             <div class="v-input__slot">
-              <div class="v-text-field__slot"><label for="input-7" class="v-label theme--light" style="left: 0px; position: absolute;">Password - optional</label><input id="input-7" type="password"></div>
+              <div class="v-text-field__slot"><label for="input-7" class="v-label theme--light" style="left: 0px; position: absolute;">Password - optional</label><input name="password" id="input-7" type="password"></div>
             </div>
             <div class="v-text-field__details">
               <div class="v-messages theme--light">

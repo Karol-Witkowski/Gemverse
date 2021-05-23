@@ -8,7 +8,7 @@ let response;
 let user;
 let token;
 
-beforeAll(async () => {
+beforeEach(async () => {
   jest.setTimeout(30000);
   response = await request.post('/api/authentication/login').send({
     email: usersSeedData[2].email,
