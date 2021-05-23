@@ -7,7 +7,6 @@ describe('Login test', () => {
   it('Successfully login', () => {
     cy.get('input[name=email]').type('test1@email.tt');
     cy.get('input[name=password]').type('test12');
-
     cy.get('button[name=login]').click();
 
     cy.url().should('include', '/roomlist');
@@ -16,7 +15,6 @@ describe('Login test', () => {
   it('Displays errors when user does not exist', () => {
     cy.get('input[name=email]').type('random@email.com');
     cy.get('input[name=password]').type('test12');
-
     cy.get('button[name=login]').click();
 
     // Check if user are still on the login page
@@ -29,7 +27,6 @@ describe('Login test', () => {
   it('Displays errors when password is wrong', () => {
     cy.get('input[name=email]').type('test1@email.tt');
     cy.get('input[name=password]').type('123456');
-
     cy.get('button[name=login]').click();
 
     // Check if user are still on the login page
@@ -42,7 +39,6 @@ describe('Login test', () => {
   it('Clear input errors', () => {
     cy.get('input[name=email]').type('test1@email.tt');
     cy.get('input[name=password]').type('123456');
-
     cy.get('button[name=login]').click();
 
     // Check if user are still on the login page

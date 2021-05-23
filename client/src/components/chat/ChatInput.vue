@@ -16,6 +16,7 @@
             dense
             :error-messages="inputError"
             label="Message"
+            name="message"
             outlined
             v-model="message"
             v-on:keyup="inputError = ''"

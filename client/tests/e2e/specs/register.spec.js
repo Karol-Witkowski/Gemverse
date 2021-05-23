@@ -63,7 +63,6 @@ describe('Register test', () => {
     cy.get('.v-messages').should('contain', 'Characters range: 3 - 15');
     cy.get('.v-messages').should('contain', 'E-mail adress must be at least 8 characters long');
     cy.get('.v-messages').should('contain', 'Password must be at least 6 characters long');
-
     cy.get('input[name=username]').type(' ');
 
     cy.get('.v-messages').should('contain', 'No blank spaces allowed');

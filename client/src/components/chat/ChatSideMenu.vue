@@ -5,6 +5,7 @@
       @click="drawer = !drawer"
       justify="left"
       color="primary"
+      name="panel"
       v-ripple="{ center: true }"
       x-small
     >
@@ -32,6 +33,7 @@
         <v-btn
           block
           elevation="0"
+          name="leave"
           to="/roomlist"
           x-small
         >
