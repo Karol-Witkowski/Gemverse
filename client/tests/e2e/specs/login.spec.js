@@ -24,7 +24,7 @@ describe('Login test', () => {
     cy.url().should('include', '/login');
 
     // Check if errors are visible
-    cy.get('.v-messages').contains('User not found - Try again')
+    cy.get('.v-messages').should('contain', 'User not found - Try again');
   });
 
   it('Displays errors when password is wrong', () => {
@@ -37,7 +37,7 @@ describe('Login test', () => {
     cy.url().should('include', '/login');
 
     // Check if errors are visible
-    cy.get('.v-messages').contains('Invalid password');
+    cy.get('.v-messages').should('contain', 'Invalid password');
   });
 
   it('Clear input errors', () => {
@@ -50,7 +50,7 @@ describe('Login test', () => {
     cy.url().should('include', '/login');
 
     // Check if errors are visible
-    cy.get('.v-messages').contains('Invalid password');
+    cy.get('.v-messages').should('contain', 'Invalid password');
 
     cy.get('input[name=password]').clear();
 

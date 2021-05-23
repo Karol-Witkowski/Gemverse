@@ -26,7 +26,7 @@ describe('Register test', () => {
     cy.url().should('include', '/register');
 
     // Check if errors are visible
-    cy.get('.v-messages').contains('Name user1 is already in use');
+    cy.get('.v-messages').should('contain', 'Name user1 is already in us');
   });
 
   it('Displays errors when email address is already in use', () => {
@@ -40,7 +40,7 @@ describe('Register test', () => {
     cy.url().should('include', '/register');
 
     // Check if errors are visible
-    cy.get('.v-messages').contains('test4@email.tt address is already in use');
+    cy.get('.v-messages').should('contain', 'test4@email.tt address is already in use');
   });
 
   it('Displays errors on wrong email pattern', () => {
@@ -64,9 +64,13 @@ describe('Register test', () => {
     cy.contains('sign up').should('be.disabled');
 
     // Check if errors are visible
-    cy.get('.v-messages').contains('Characters range: 3 - 15');
-    cy.get('.v-messages').contains('E-mail adress must be at least 8 characters long');
-    cy.get('.v-messages').contains('Password must be at least 6 characters long');
+    cy.get('.v-messages').should('contain', 'Characters range: 3 - 15');
+    cy.get('.v-messages').should('contain', 'E-mail adress must be at least 8 characters long');
+    cy.get('.v-messages').should('contain', 'Password must be at least 6 characters long');
+
+    cy.get('input[name=username]').type(' ');
+
+    cy.get('.v-messages').should('contain', 'No blank spaces allowed');
   });
 
   it('Clear input errors', () => {
@@ -75,7 +79,7 @@ describe('Register test', () => {
     cy.get('input[name=password]').type('test12');
 
     // Check if errors are visible
-    cy.get('.v-messages').contains('Invalid e-mail');
+    cy.get('.v-messages').should('contain', 'Invalid e-mail');
 
     // Check if button is disabled
     cy.contains('sign up').should('be.disabled');
