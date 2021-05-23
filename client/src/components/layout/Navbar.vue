@@ -14,6 +14,7 @@
           class="d-flex d-md-none mx-auto"
           color="primary"
           dark
+          name="menu"
           outlined
           small
           width="200"
@@ -44,6 +45,7 @@
             class="mx-auto"
             @click.prevent="logout"
             color="primary"
+            name="logout"
             outlined
             small
             width="250"
