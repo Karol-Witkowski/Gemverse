@@ -58,6 +58,7 @@
                     <v-btn
                       class="mb-2 mx-auto"
                       color="secondary"
+                      name="delete"
                       outlined
                       small
                       v-bind="attrs"
@@ -84,6 +85,7 @@
                       <v-btn
                         @click="closeModal"
                         color="primary"
+                        name="close"
                         outlined
                         text
                       >
@@ -93,6 +95,7 @@
                       <v-btn
                         @click="deleteUser()"
                         color="primary"
+                        name="accept"
                         outlined
                         text
                       >

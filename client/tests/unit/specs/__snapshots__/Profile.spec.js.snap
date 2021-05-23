@@ -32,7 +32,7 @@ exports[`Implementation test for Profile.vue - successful HTTP delete Render cor
       </div>
       <div tabindex="-1" class="v-list-item theme--light">
         <div class="v-list-item__content">
-          <div class="v-list-item__action"><button type="button" class="mb-2 mx-auto v-btn v-btn--outlined theme--light v-size--small secondary--text" role="button" aria-haspopup="true" aria-expanded="false"><span class="v-btn__content">
+          <div class="v-list-item__action"><button type="button" class="mb-2 mx-auto v-btn v-btn--outlined theme--light v-size--small secondary--text" name="delete" role="button" aria-haspopup="true" aria-expanded="false"><span class="v-btn__content">
                     delete account*
                   </span></button>
             <div role="dialog" class="v-dialog__container">
