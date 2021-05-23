@@ -13,7 +13,7 @@ describe('Register test', () => {
 
     // Check if user were redirected to /roomlist
     cy.url().should('include', '/roomlist');
-  })
+  });
 
   it('Displays errors when username is already in use', () => {
     cy.get('input[name=username]').type('user1');

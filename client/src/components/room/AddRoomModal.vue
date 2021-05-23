@@ -16,6 +16,7 @@
             hint="Required"
             id="name"
             label="Room Name"
+            name="name"
             persistent-hint
             required
             :rules="nameRules"
@@ -28,6 +29,7 @@
           <v-text-field
             :error-messages="passwordError"
             label="Password - optional"
+            name="password"
             :rules="passwordRules"
             type="password"
             v-model.trim="room.password"

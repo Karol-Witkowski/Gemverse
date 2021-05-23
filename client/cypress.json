@@ -7,6 +7,6 @@
   "pluginsFile": "tests/e2e/plugins/index.js",
   "projectId": "g42uwf",
   "screenshotOnRunFailure": false,
-  "supportFile": false,
+  "supportFile": "tests/e2e/support/index.js",
   "video": false
 }
