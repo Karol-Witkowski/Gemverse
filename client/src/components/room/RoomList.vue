@@ -73,7 +73,12 @@
                       v-bind="attrs"
                       v-on="on"
                     >
-                      <v-icon alt="x mark">cancel</v-icon>
+                      <v-icon
+                        alt="x mark"
+                        name="delete"
+                      >
+                          cancel
+                        </v-icon>
                     </v-btn>
                   </template>
                   <v-card>
@@ -94,6 +99,7 @@
                       <v-btn
                         @click="closeModals"
                         color="primary"
+                        name='close'
                         outlined
                         text
                       >
@@ -103,6 +109,7 @@
                       <v-btn
                         @click="deleteRoom()"
                         color="primary"
+                        name='accept'
                         outlined
                         text
                       >

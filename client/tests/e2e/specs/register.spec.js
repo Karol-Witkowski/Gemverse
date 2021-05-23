@@ -1,9 +1,9 @@
-describe('Register test', () => {
-  beforeEach(() => {
-    cy.exec('npm run seed:db');
-    cy.visit('/register');
-  });
+beforeEach(() => {
+  cy.exec('npm run seed:db');
+  cy.visit('/register');
+});
 
+describe('Register test', () => {
   it('Successfully register', () => {
     cy.get('input[name=username]').type('newUser');
     cy.get('input[name=email]').type('tester@email.tt');
@@ -11,7 +11,6 @@ describe('Register test', () => {
 
     cy.get('.v-btn').contains('sign up').click();
 
-    // Check if user were redirected to /roomlist
     cy.url().should('include', '/roomlist');
   });
 

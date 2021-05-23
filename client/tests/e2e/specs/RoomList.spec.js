@@ -10,7 +10,7 @@ describe('Room list test - adding new room', () => {
     cy.get('input[name=name]').type('newRoom');
     cy.get('.v-btn').contains('save').click();
 
-    cy.contains('newRoom');
+    cy.contains('newRoom').should('exist');
   });
 
   it('Successfully add private room', () => {
@@ -19,7 +19,7 @@ describe('Room list test - adding new room', () => {
     cy.get('input[name=password]').type('password');
     cy.get('.v-btn').contains('save').click();
 
-    cy.contains('newRoom');
+    cy.contains('newRoom').should('exist');
   });
 
   it('Displays errors when name is already in use', () => {
@@ -77,5 +77,22 @@ describe('Room list test - enter room', () => {
     cy.get('.v-messages').should('contain', 'Invalid password');
     cy.url().should('include', '/roomlist');
     cy.get('button').eq(11).should('be.disabled');
+  });
+});
+
+describe('Room list test - remove room', () => {
+  it('Successfully remove room', () => {;
+    cy.contains('add new room').click();
+    cy.get('input[name=name]').type('newRoom');
+    cy.get('.v-btn').contains('save').click();
+
+    // Check if room was successfully added
+    cy.contains('newRoom').should('exist');
+
+    cy.get('[name=delete]').click();
+    cy.get('[name=accept]').click();
+
+    // Check if room was successfully removed
+    cy.contains('newRoom').should('not.exist');
   });
 });

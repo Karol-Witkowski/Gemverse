@@ -1,16 +1,15 @@
-describe('Login test', () => {
-  beforeEach(() => {
-    cy.exec('npm run seed:db');
-    cy.visit('/login');
-  });
+beforeEach(() => {
+  cy.exec('npm run seed:db');
+  cy.visit('/login');
+});
 
+describe('Login test', () => {
   it('Successfully login', () => {
     cy.get('input[name=email]').type('test1@email.tt');
     cy.get('input[name=password]').type('test12');
 
     cy.get('.v-btn').contains('sign in').click();
 
-    // Check if user were redirected to /roomlist
     cy.url().should('include', '/roomlist');
   })
 
