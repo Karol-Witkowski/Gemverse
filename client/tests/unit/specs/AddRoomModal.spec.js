@@ -93,14 +93,14 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
   it('Initializes with correct elements', () => {
     // Test buttons initial state
     expect(wrapper.findAll('button').length).toEqual(2);
-    expect(wrapper.findAll('button').at(0).text()).toMatch('close');
-    expect(wrapper.findAll('button').at(1).text()).toMatch('save');
-    expect(wrapper.findAll('button').at(1).element.disabled).toBeTruthy();
+    expect(wrapper.find('button[name=close]').text()).toMatch('close');
+    expect(wrapper.find('button[name=save]').text()).toMatch('save');
+    expect(wrapper.find('button[name=save]').element.disabled).toBeTruthy();
 
     // Test inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(2);
-    expect(wrapper.findAll('input').at(0).text()).toEqual('');
-    expect(wrapper.findAll('input').at(1).text()).toEqual('');
+    expect(wrapper.find('input[name=name]').text()).toEqual('');
+    expect(wrapper.find('input[name=name]').text()).toEqual('');
 
     // Test validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
@@ -112,8 +112,8 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
   it('Set input data correctly', async () => {
     // Check inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(2);
-    expect(wrapper.findAll('input').at(0).text()).toEqual('');
-    expect(wrapper.findAll('input').at(1).text()).toEqual('');
+    expect(wrapper.find('input[name=name]').text()).toEqual('');
+    expect(wrapper.find('input[name=password]').text()).toEqual('');
 
     await wrapper.setData({
       room: {
@@ -125,8 +125,8 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     await Vue.nextTick();
 
     // Check that the room data was properly set
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('test');
-    expect(wrapper.findAll('input').at(1).element.value).toEqual('123456');
+    expect(wrapper.find('input[name=name]').element.value).toEqual('test');
+    expect(wrapper.find('input[name=password').element.value).toEqual('123456');
   });
 
   it('Pass validation when only name was entered', async () => {
@@ -234,7 +234,7 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
 
     // Check that the save button is active
-    expect(wrapper.findAll('button').at(1).element.disabled).toBeFalsy();
+    expect(wrapper.find('button[name=save]').element.disabled).toBeFalsy();
   });
 
   it('Should sends post request with correct data on submit', async () => {
@@ -359,29 +359,29 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
   });
 
   it('Should not sends post request when inputs are empty', async () => {
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.find('button[name=save]').trigger('click');
 
     expect(axios.post).not.toHaveBeenCalled();
   });
 
   it('Set input data correctly', async () => {
-    await wrapper.findAll('input').at(0).setValue('test');
-    await wrapper.findAll('input').at(1).setValue('123456');
+    await wrapper.find('input[name=name]').setValue('test');
+    await wrapper.find('input[name=password]').setValue('123456');
 
     await Vue.nextTick();
 
     // Check that the room data was properly set
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('test');
-    expect(wrapper.findAll('input').at(1).element.value).toEqual('123456');
+    expect(wrapper.find('input[name=name]').element.value).toEqual('test');
+    expect(wrapper.find('input[name=password]').element.value).toEqual('123456');
   });
 
   it('Should send post request with correct data on submit', async () => {
-    await wrapper.findAll('input').at(0).setValue('test');
-    await wrapper.findAll('input').at(1).setValue('123456');
+    await wrapper.find('input[name=name]').setValue('test');
+    await wrapper.find('input[name=password]').setValue('123456');
 
     await Vue.nextTick();
 
-    wrapper.findAll('.v-btn').at(1).trigger('click');
+    wrapper.find('button[name=save]').trigger('click');
 
     // Check if post was called
     expect(axios.post).toHaveBeenCalled();
@@ -406,12 +406,12 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
   });
 
   it('Should emit close dialog event', async () => {
-    await wrapper.findAll('input').at(0).setValue('test');
-    await wrapper.findAll('input').at(1).setValue('123456');
+    await wrapper.find('input[name=name]').setValue('test');
+    await wrapper.find('input[name=password').setValue('123456');
 
     await Vue.nextTick();
 
-    wrapper.findAll('button').at(1).trigger('click');
+    wrapper.findAll('button[name=save]').trigger('click');
 
     expect(wrapper.emitted()).toBeTruthy();
   });
@@ -456,7 +456,7 @@ describe('Behavioral test for AddRoomModal.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.find('button[name=save]').trigger('click');
 
     await Vue.nextTick();
 
@@ -476,7 +476,7 @@ describe('Behavioral test for AddRoomModal.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.findAll('button[name=save]').trigger('click');
 
     await Vue.nextTick();
 
@@ -501,7 +501,7 @@ describe('Behavioral test for AddRoomModal.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.find('button[name=save]').trigger('click');
 
     await Vue.nextTick();
 
@@ -509,7 +509,7 @@ describe('Behavioral test for AddRoomModal.vue - failed HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Name error');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
 
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=close]').trigger('click');
 
     // Check if closing restored messages
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
