@@ -221,13 +221,13 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
   });
 
   it('Should sends delete request with correct data on delete button click', async () => {
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
     expect(wrapper.vm.deleteUserModal).toBeTruthy();
 
     // Confirm account delete
-    await wrapper.findAll('button').at(2).trigger('click');
+    await wrapper.find('button[name=accept]').trigger('click');
 
     // Check if post was called;
     expect(axios.delete).toHaveBeenCalled();
@@ -248,13 +248,13 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
   });
 
   it('Should call dispatch method on delete button click', async () => {
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
     expect(wrapper.vm.deleteUserModal).toBeTruthy();
 
     // Confirm account delete
-    await wrapper.findAll('button').at(2).trigger('click');
+    await wrapper.find('button[name=accept]').trigger('click');
 
     // Check if any action were dispatched
     expect(mockStore.dispatch).toHaveBeenCalled();
@@ -270,13 +270,13 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
   });
 
   it('Should call store clear method on delete button click', async () => {
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
     expect(wrapper.vm.deleteUserModal).toBeTruthy();
 
     // Confirm account delete
-    await wrapper.findAll('button').at(2).trigger('click');
+    await wrapper.find('button[name=accept]').trigger('click');
 
     // Check if local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
@@ -286,13 +286,13 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
   });
 
   it('Redirect user to login page on delete button click', async () => {
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
     expect(wrapper.vm.deleteUserModal).toBeTruthy();
 
     // Confirm account delete
-    await wrapper.findAll('button').at(2).trigger('click');
+    await wrapper.find('button[name=accept]').trigger('click');
 
     // Check if router push was called
     expect(mockRouter.push).toHaveBeenCalled();
@@ -336,13 +336,13 @@ describe('Behavioral test for Profile.vue - failed HTTP delete', () => {
   });
 
   it('Should display error on delete button click', async () => {
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
     expect(wrapper.vm.deleteUserModal).toBeTruthy();
 
     // Confirm account delete
-    await wrapper.findAll('button').at(2).trigger('click');
+    await wrapper.find('button[name=accept]').trigger('click');
 
     await Vue.nextTick();
 
@@ -351,13 +351,13 @@ describe('Behavioral test for Profile.vue - failed HTTP delete', () => {
   });
 
   it('Should clear errors and close dialog on delete cancel button click', async () => {
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
     expect(wrapper.vm.deleteUserModal).toBeTruthy();
 
     // Confirm account delete
-    await wrapper.findAll('button').at(2).trigger('click');
+    await wrapper.find('button[name=accept]').trigger('click');
 
     await Vue.nextTick();
 
@@ -366,7 +366,7 @@ describe('Behavioral test for Profile.vue - failed HTTP delete', () => {
     expect(wrapper.findAll('.errorMessage').at(0).text()).toBe('Error msg');
 
     // Close dialog
-    wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.find('button[name=close]').trigger('click');
 
     // Check if data returned to the initial state
     expect(wrapper.vm.deleteError).toMatch('');
