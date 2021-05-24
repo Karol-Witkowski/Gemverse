@@ -14,6 +14,7 @@
         <v-col class="shrink">
           <v-btn
             @click="hideRedirectError"
+            name="accept"
             small
           >
             ok

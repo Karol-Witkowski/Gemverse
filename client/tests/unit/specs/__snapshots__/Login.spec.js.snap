@@ -7,7 +7,7 @@ exports[`Implementation test for Login.vue - successful HTTP post Render correct
       <div class="v-alert__content">
         <div class="row align-center">
           <div class="grow col"><strong class="mx-auto"></strong></div>
-          <div class="shrink col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg theme--dark v-size--small"><span class="v-btn__content">
+          <div class="shrink col"><button type="button" class="v-btn v-btn--is-elevated v-btn--has-bg theme--dark v-size--small" name="accept"><span class="v-btn__content">
           ok
         </span></button></div>
         </div>
