@@ -265,7 +265,7 @@ describe('Behavioral test for PrivateRoomModal.vue - successful HTTP post', () =
 
     await Vue.nextTick();
 
-    wrapper.findAll('button').at(1).trigger('click');
+    wrapper.find('button[name=enter]').trigger('click');
 
     // Check if post was called
     expect(axios.post).toHaveBeenCalled();
@@ -323,7 +323,7 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
     // Check if error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('error');
 
-    await wrapper.findAll('input').trigger('keyup');
+    await wrapper.find('input[name=password]').trigger('keyup');
 
     // Check if keyup event reset error
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');

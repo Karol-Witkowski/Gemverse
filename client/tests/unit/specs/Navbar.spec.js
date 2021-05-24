@@ -51,13 +51,13 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
 
   it('Initializes with correct elements', () => {
     expect(wrapper.findAll('.v-tab').length).toEqual(3);
-    expect(wrapper.findAll('.v-tab').at(0).text()).toMatch('home');
-    expect(wrapper.findAll('.v-tab').at(1).text()).toMatch('about');
-    expect(wrapper.findAll('.v-tab').at(2).text()).toMatch('gemverse');
+    expect(wrapper.find('[name=home]').text()).toMatch('home');
+    expect(wrapper.find('[name=about]').text()).toMatch('about');
+    expect(wrapper.find('[name=logo]').text()).toMatch('gemverse');
 
     // Check that mobile menu is rendered
     expect(wrapper.findAll('button').length).toEqual(1);
-    expect(wrapper.find('button[name=menu').text()).toMatch('menu');
+    expect(wrapper.find('button[name=menu]').text()).toMatch('menu');
   });
 
   it('Should call dispatch method when created', () => {
@@ -227,7 +227,7 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
   });
 
   it('Dispatch correct data on logout', () => {
-    wrapper.find('[name=logout').trigger('click');
+    wrapper.find('[name=logout]').trigger('click');
 
     // Check if any action were dispatched
     expect(mockStoreAuthorized.dispatch).toHaveBeenCalled();
@@ -251,7 +251,7 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
   });
 
   it('Add auth state to storage object', () => {
-    wrapper.find('[name=logout').trigger('click');
+    wrapper.find('[name=logout]').trigger('click');
 
     // Check if local storage setter was called
     expect(localStorage.setItem).toHaveBeenCalled();
@@ -277,7 +277,7 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
   });
 
   it('Redirect user to login page on logout', () => {
-    wrapper.find('[name=logout').trigger('click');
+    wrapper.find('[name=logout]').trigger('click');
 
     // Check if router push was called
     expect(mockRouter.push).toHaveBeenCalled();
