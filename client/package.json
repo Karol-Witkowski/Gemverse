@@ -8,7 +8,6 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e-open": "cross-env NODE_ENV=\"test\" cypress open",
     "test:e2e-run": "cross-env NODE_ENV=\"test\" cypress run",
-    "test:e2e-record": "cross-env NODE_ENV=\"test\" cypress run --record --key 95327a19-0b29-4b0e-9de8-83f219e560b1",
     "seed:db": "cd ../server && cross-env NODE_ENV=\"test\" node ./tests/seed/seed.js",
     "ui": "vue ui",
     "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
