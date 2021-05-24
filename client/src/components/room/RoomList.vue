@@ -153,8 +153,8 @@
                     <v-btn
                       @click="$store.dispatch('saveCurrentRoom', room)"
                       color="secondary"
-                      outlined
                       name='private'
+                      outlined
                       type="submit"
                       small
                       v-bind="attrs"
@@ -190,6 +190,7 @@
         >
           <v-btn
             color="primary"
+            name="add"
             outlined
             small
             type="submit"
