@@ -17,10 +17,14 @@ exports[`Implementation test for Navbar.vue - unauthorized user Render correctly
             <div class="v-tabs-slider-wrapper" style="transition: none;">
               <div class="v-tabs-slider"></div>
             </div>
-            <router-link-stub tabindex="0" aria-selected="true" role="tab" class="v-tab">home</router-link-stub>
+            <router-link-stub tabindex="0" aria-selected="true" role="tab" class="v-tab" name="home">
+              home
+            </router-link-stub>
             <!---->
             <!---->
-            <router-link-stub tabindex="0" aria-selected="false" role="tab" class="v-tab">about</router-link-stub>
+            <router-link-stub tabindex="0" aria-selected="false" role="tab" class="v-tab" name="about">
+              about
+            </router-link-stub>
           </div>
         </div>
         <div class="v-slide-group__next v-slide-group__next--disabled">
@@ -28,7 +32,7 @@ exports[`Implementation test for Navbar.vue - unauthorized user Render correctly
         </div>
       </div>
     </div>
-    <router-link-stub tabindex="0" aria-selected="false" role="tab" class="appName grey--text menu text--darken-2 v-tab">
+    <router-link-stub tabindex="0" aria-selected="false" role="tab" class="appName grey--text menu text--darken-2 v-tab" name="logo">
       gemverse
     </router-link-stub>
     <!---->

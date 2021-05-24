@@ -28,12 +28,14 @@
       <v-list class="font-weight-bold grey--text mobileMenu text-uppercase">
         <v-list-item to="/">home</v-list-item>
         <v-list-item
+          name="list"
           to="/roomlist"
           v-if="isAuthorized"
         >
           rooms
         </v-list-item>
         <v-list-item
+          name="profile"
           to="/profile"
           v-if="isAuthorized"
         >
@@ -59,23 +61,36 @@
       class="d-none d-md-block"
       color="primary"
     >
-      <v-tab to="/">home</v-tab>
       <v-tab
+        name="home"
+        to="/"
+      >
+        home
+      </v-tab>
+      <v-tab
+        name="list"
         to="/roomlist"
         v-if="isAuthorized"
       >
         rooms
       </v-tab>
       <v-tab
+        name="profile"
         to="/profile"
         v-if="isAuthorized"
       >
         profile
       </v-tab>
-      <v-tab to="/about">about</v-tab>
+      <v-tab
+        name="about"
+        to="/about"
+      >
+        about
+      </v-tab>
     </v-tabs>
     <v-tab
       class="appName grey--text menu text--darken-2"
+      name="logo"
       to="/"
     >
       gemverse
@@ -83,6 +98,7 @@
     <v-tab
       class="grey--text hidden-xs-only menu mx-2 text--darken-2"
       @click.prevent="logout"
+      name="logout"
       v-if="isAuthorized"
     >
       logout
