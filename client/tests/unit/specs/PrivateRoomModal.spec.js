@@ -68,13 +68,13 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
   it('Initializes with correct elements', () => {
     // Test buttons initial state
     expect(wrapper.findAll('button').length).toEqual(2);
-    expect(wrapper.findAll('button').at(0).text()).toMatch('close');
-    expect(wrapper.findAll('button').at(1).text()).toMatch('enter');
-    expect(wrapper.findAll('button').at(1).element.disabled).toBeTruthy();
+    expect(wrapper.find('button[name=close]').text()).toMatch('close');
+    expect(wrapper.find('button[name=enter]').text()).toMatch('enter');
+    expect(wrapper.find('button[name=enter]').element.disabled).toBeTruthy();
 
     // Test inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(1);
-    expect(wrapper.findAll('input').at(0).text()).toEqual('');
+    expect(wrapper.find('input[name=password]').text()).toEqual('');
 
     // Test validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(1);
@@ -85,7 +85,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
   it('Set input data correctly', async () => {
     // Check inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(1);
-    expect(wrapper.findAll('input').at(0).text()).toEqual('');
+    expect(wrapper.find('input[name=password]').text()).toEqual('');
 
     await wrapper.setData({
       privateRoomPassword: '123456',
@@ -94,12 +94,12 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
     await Vue.nextTick();
 
     // Check that the password was properly set
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('123456');
+    expect(wrapper.find('input[name=password]').element.value).toEqual('123456');
   });
 
   it('Fail validation on empty input', () => {
     // Check initial input value
-    expect(wrapper.findAll('input').at(0).text()).toEqual('');
+    expect(wrapper.find('input[name=password]').text()).toEqual('');
 
     // Check validation state
     expect(wrapper.vm.isFormValid).toBeFalsy();
@@ -122,7 +122,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
 
     // Check that the enter button is active
-    expect(wrapper.findAll('button').at(1).element.disabled).toBeFalsy();
+    expect(wrapper.find('button[name=enter]').element.disabled).toBeFalsy();
   });
 
   it('Should sends post request with correct data on submit', async () => {
@@ -246,22 +246,22 @@ describe('Behavioral test for PrivateRoomModal.vue - successful HTTP post', () =
   });
 
   it('Should not sends post request when input is empty', async () => {
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.find('[name=enter]').trigger('click');
 
     expect(axios.post).not.toHaveBeenCalled();
   });
 
   it('Set input data correctly', async () => {
-    await wrapper.findAll('input').at(0).setValue('123456');
+    await wrapper.find('input[name=password]').setValue('123456');
 
     await Vue.nextTick();
 
     // Check that the password was properly set
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('123456');
+    expect(wrapper.find('input[name=password]').element.value).toEqual('123456');
   });
 
   it('Should send post request on submit', async () => {
-    await wrapper.findAll('input').at(0).setValue('123456');
+    await wrapper.find('input[name=password]').setValue('123456');
 
     await Vue.nextTick();
 
@@ -316,7 +316,7 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.find('[name=enter]').trigger('click');
 
     await Vue.nextTick();
 
@@ -336,14 +336,14 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.find('[name=enter]').trigger('click');
 
     await Vue.nextTick();
 
     // Check if error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('error');
 
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.find('button[name=close]').trigger('click');
 
     // Check if closing modal reset error
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');

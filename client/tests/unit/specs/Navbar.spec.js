@@ -267,7 +267,7 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
   });
 
   it('Clear local storage on logout', () => {
-    wrapper.find('[name=logout').trigger('click');
+    wrapper.find('[name=logout]').trigger('click');
 
     // Check if local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
