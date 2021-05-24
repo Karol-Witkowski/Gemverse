@@ -93,7 +93,7 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
 
     // Test input initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(1);
-    expect(wrapper.findAll('input').at(0).text()).toEqual('');
+    expect(wrapper.find('input[name=message]').text()).toEqual('');
 
     // Test validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(1);
@@ -116,7 +116,7 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     });
 
     // Check that message was entered
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('message');
+    expect(wrapper.find('input[name=message').element.value).toEqual('message');
     expect(wrapper.vm.message).toBe('message');
 
     // Check if validation pass
@@ -225,10 +225,10 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
   });
 
   it('Pass validation when message is entered', async () => {
-    await wrapper.findAll('input').at(0).setValue('message');
+    await wrapper.find('input[name=message').setValue('message');
 
     // Check that message was entered
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('message');
+    expect(wrapper.find('input[name=message').element.value).toEqual('message');
     expect(wrapper.vm.message).toBe('message');
 
     // Check if validation pass
@@ -236,7 +236,7 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
   });
 
   it('Should sends post request with message on form submit', async () => {
-    await wrapper.findAll('input').at(0).setValue('message');
+    await wrapper.find('input[name=message').setValue('message');
 
     wrapper.findAll('button').at(1).trigger('click');
 
@@ -258,15 +258,15 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
   });
 
   it('Reset message on input clear', async () => {
-    await wrapper.findAll('input').at(0).setValue('message');
+    await wrapper.findAll('input[name=message').setValue('message');
 
     // Check that message was entered
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('message');
+    expect(wrapper.find('input[name=message').element.value).toEqual('message');
 
     await wrapper.findAll('button').at(0).trigger('click');
 
     // Check that message was cleared
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('');
+    expect(wrapper.find('input[name=message').element.value).toEqual('');
   });
 
   it('Clear empty input error on keyup event', async () => {
@@ -277,7 +277,7 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
     // Check if error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Input error');
 
-    await wrapper.findAll('input').trigger('keyup');
+    await wrapper.find('input[name=message').trigger('keyup');
 
     // Check error message content
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
@@ -329,7 +329,7 @@ describe('Behavioral test for ChatInput.vue - failed HTTP post', () => {
   });
 
   it('Clear post failure error on keyup event', async () => {
-    await wrapper.findAll('input').at(0).setValue('message');
+    await wrapper.find('input[name=message').setValue('message');
     await wrapper.findAll('button').at(1).trigger('click');
 
     await Vue.nextTick();
@@ -337,7 +337,7 @@ describe('Behavioral test for ChatInput.vue - failed HTTP post', () => {
     // Check if error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Message error');
 
-    await wrapper.findAll('input').trigger('keyup');
+    await wrapper.find('input[name=message').trigger('keyup');
 
     // Check error message content
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
