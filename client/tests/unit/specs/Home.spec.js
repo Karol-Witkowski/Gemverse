@@ -33,8 +33,8 @@ describe('Implementation test for Home.vue - - unauthorised', () => {
 
   it('Initializes with correct elements', () => {
     expect(wrapper.findAll('.v-btn').length).toEqual(2);
-    expect(wrapper.findAll('.v-btn').at(0).text()).toMatch('sign in');
-    expect(wrapper.findAll('.v-btn').at(1).text()).toMatch('sign up');
+    expect(wrapper.find('[name=login]').text()).toMatch('sign in');
+    expect(wrapper.find('[name=register]').text()).toMatch('sign up');
   });
 });
 
@@ -59,6 +59,6 @@ describe('Implementation test for Home.vue - authorised', () => {
 
   it('Initializes with correct elements', () => {
     expect(wrapper.findAll('.v-btn').length).toEqual(1);
-    expect(wrapper.findAll('.v-btn').at(0).text()).toMatch('room list');
+    expect(wrapper.find('[name=list]').text()).toMatch('room list');
   });
 });

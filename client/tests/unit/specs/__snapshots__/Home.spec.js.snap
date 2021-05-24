@@ -16,10 +16,10 @@ exports[`Implementation test for Home.vue - - unauthorised Render correctly 1`] 
         </p>
       </div>
       <div class="v-card__actions">
-        <router-link class="ml-2 mr-3 v-btn v-btn--outlined v-btn--router theme--light v-size--default blue--text text--lighten-2"><span class="v-btn__content">
+        <router-link class="ml-2 mr-3 v-btn v-btn--outlined v-btn--router theme--light v-size--default blue--text text--lighten-2" name="login"><span class="v-btn__content">
           sign in
         </span></router-link> <span class="grey--text text--darken-2">or</span>
-        <router-link class="ml-3 v-btn v-btn--outlined v-btn--router theme--light v-size--default blue--text text--lighten-2"><span class="v-btn__content">
+        <router-link class="ml-3 v-btn v-btn--outlined v-btn--router theme--light v-size--default blue--text text--lighten-2" name="register"><span class="v-btn__content">
           sign up
         </span></router-link>
       </div>

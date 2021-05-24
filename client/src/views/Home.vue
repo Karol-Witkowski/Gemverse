@@ -20,6 +20,7 @@
           <v-btn
             class="ml-2 mr-3"
             color="blue lighten-2"
+            name="login"
             outlined
             to="/login"
           >
@@ -29,6 +30,7 @@
           <v-btn
             class="ml-3"
             color="blue lighten-2"
+            name="register"
             outlined
             to="/register"
           >
@@ -39,6 +41,7 @@
           <v-btn
             class="ml-2"
             color="blue lighten-2"
+            name="list"
             outlined
             to="/roomlist"
           >
