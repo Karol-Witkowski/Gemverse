@@ -178,7 +178,7 @@ describe('Room route test - DELETE', () => {
     expect(typeof response.body).toBe('object');
     expect(response.status).toEqual(403);
     expect(response.body.success).toBeFalsy();
-    expect(response.body.message).toEqual('Users are allowed to delete only own rooms');
+    expect(response.body.message).toEqual('Users are allowed to delete only their rooms');
   });
 
   it('Should delete room', async () => {
