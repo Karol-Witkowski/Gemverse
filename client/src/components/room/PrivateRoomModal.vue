@@ -5,9 +5,9 @@
     </v-card-title>
     <v-card-text>
       <v-form
+        onSubmit="return false"
         ref="form"
         type="submit"
-        onSubmit="return false"
         v-model="isFormValid"
       >
         <v-col cols="12">

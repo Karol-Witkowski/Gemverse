@@ -9,10 +9,10 @@
           <v-text-field
             :append-outer-icon="'send'"
             class="input"
-            color="primary"
             clearable
             clear-icon="cancel"
             @click:append-outer="sendMessage"
+            color="primary"
             dense
             :error-messages="inputError"
             label="Message"

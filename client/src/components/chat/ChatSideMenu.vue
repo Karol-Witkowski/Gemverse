@@ -3,8 +3,8 @@
     <v-btn
       class="mx-1"
       @click="drawer = !drawer"
-      justify="left"
       color="primary"
+      justify="left"
       name="panel"
       v-ripple="{ center: true }"
       x-small

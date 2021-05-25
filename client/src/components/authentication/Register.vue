@@ -17,8 +17,8 @@
               <v-col cols="12">
                 <v-text-field
                   autofocus
-                  :error-messages="usernameError"
                   :counter="15"
+                  :error-messages="usernameError"
                   label="Username"
                   name="username"
                   ref="username"
