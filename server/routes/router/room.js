@@ -13,7 +13,7 @@ const {
 /** Get all rooms */
 router.get('/', requireAuth, getAllRooms);
 
-/** Get single room by slug */
+/** Get a single room by slug */
 router.get('/:slug', requireAuth, getRoom);
 
 /** Save room */

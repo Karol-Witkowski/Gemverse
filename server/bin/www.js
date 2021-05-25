@@ -25,13 +25,13 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'test') {
   server.listen(3000, () => {
-    logger.info('[LOG=SERVER] Server started on port 3000');
+    logger.info('[LOG=SERVER] The server started on port 3000');
   });
 }
 
 if (process.env.NODE_ENV !== 'test') {
   server.listen(process.env.PORT || 3000, () => {
-    logger.info(`[LOG=SERVER] Server started on port ${process.env.PORT || 3000}`);
+    logger.info(`[LOG=SERVER] The server started on port ${process.env.PORT || 3000}`);
   });
 }
 

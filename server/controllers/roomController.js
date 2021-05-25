@@ -103,7 +103,7 @@ const deleteRoom = async (req, res) => {
   } else {
     if (req.body._id !== room.user.toString()) {
       return res.status(403).json({
-        message: 'Users are allowed to delete only own rooms',
+        message: 'Users are allowed to delete only their rooms',
         success: false,
       });
     } else {

@@ -6,8 +6,8 @@ const {
 } = require('../repositories/userRepository');
 
 const validateRegister = [
-  body('email', 'Email address is required').trim().notEmpty(),
-  body('email', 'Email address must be at least 8 characters long').trim().isLength({ min: 8, max: 128 }),
+  body('email', 'E-mail address is required').trim().notEmpty(),
+  body('email', 'E-mail address must be at least 8 characters long').trim().isLength({ min: 8, max: 128 }),
   body('email', 'Invalid e-mail address').trim().isEmail(),
 	body('email').trim().custom(async (value) => {
 		return await findUserByEmail(value)
