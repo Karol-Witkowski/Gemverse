@@ -55,12 +55,12 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
     expect(wrapper.find('[name=about]').text()).toMatch('about');
     expect(wrapper.find('[name=logo]').text()).toMatch('gemverse');
 
-    // Check that mobile menu is rendered
+    // Check that the mobile menu is rendered
     expect(wrapper.findAll('button').length).toEqual(1);
     expect(wrapper.find('button[name=menu]').text()).toMatch('menu');
   });
 
-  it('Should call dispatch method when created', () => {
+  it('Should call dispatch method', () => {
     // Check if any action were dispatched
     expect(mockStoreUnauthorized.dispatch).toHaveBeenCalled();
 
@@ -68,18 +68,18 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
     expect(mockStoreUnauthorized.dispatch).toHaveReturnedTimes(1);
   });
 
-  it('Dispatch correct auth state when created', () => {
+  it('Dispatch correct auth state', () => {
     expect(mockStoreUnauthorized.dispatch).toHaveBeenCalledWith(
       'remitAuthState',
       false,
     );
   });
 
-  it('Should call store clear method when created', () => {
-    // Check if local storage clear method was called
+  it('Should call store clear method', () => {
+    // Check if the local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
 
-    // Check if local storage clear method was called once
+    // Check if the local storage clear method was called once
     expect(localStorage.clear).toHaveReturnedTimes(1);
   });
 });
@@ -117,7 +117,7 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     expect(wrapper.find('[name=logo]').text()).toMatch('gemverse');
     expect(wrapper.find('[name=logout]').text()).toMatch('logout');
 
-    // Check that mobile menu is rendered
+    // Check that the mobile menu is rendered
     expect(wrapper.findAll('button').length).toEqual(1);
     expect(wrapper.find('button[name=menu]').text()).toMatch('menu');
   });
@@ -161,42 +161,42 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     );
   });
 
-  it('Add auth state to storage object', () => {
+  it('Add auth state to the storage object', () => {
     wrapper.vm.logout();
 
-    // Check if local storage setter was called
+    // Check if the local storage setter was called
     expect(localStorage.setItem).toHaveBeenCalled();
 
-    // Check if local storage setter was called once
+    // Check if the local storage setter was called once
     expect(localStorage.setItem).toHaveReturnedTimes(1);
 
-    // Check if local storage setter was called with correct data
+    // Check if the local storage setter was called with the correct data
     expect(localStorage.setItem).toHaveBeenCalledWith(
       'authenticationToken',
       'testToken',
     );
   });
 
-  it('Clear local storage on logout', () => {
+  it('Clear the local storage on logout', () => {
     wrapper.vm.logout();
 
-    // Check if local storage clear method was called
+    // Check if the local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
 
-    // Check if local storage clear method was called once
+    // Check if the local storage clear method was called once
     expect(localStorage.clear).toHaveReturnedTimes(1);
   });
 
-  it('Redirect user to login page on logout', () => {
+  it('Redirect user to the login page on logout', () => {
     wrapper.vm.logout();
 
     // Check if router push was called
     expect(mockRouter.push).toHaveBeenCalled();
 
-    // Check if router push was called one time
+    // Check if router push was called once
     expect(mockRouter.push).toHaveBeenCalledTimes(1);
 
-    // Check if router push was called with correct object
+    // Check if router push was called with the correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
     });
@@ -250,42 +250,42 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
     );
   });
 
-  it('Add auth state to storage object', () => {
+  it('Add auth state to the storage object', () => {
     wrapper.find('[name=logout]').trigger('click');
 
-    // Check if local storage setter was called
+    // Check if the local storage setter was called
     expect(localStorage.setItem).toHaveBeenCalled();
 
-    // Check if local storage setter was called once
+    // Check if the local storage setter was called once
     expect(localStorage.setItem).toHaveReturnedTimes(1);
 
-    // Check if local storage setter was called with correct data
+    // Check if the local storage setter was called with the correct data
     expect(localStorage.setItem).toHaveBeenCalledWith(
       'authenticationToken',
       'testToken',
     );
   });
 
-  it('Clear local storage on logout', () => {
+  it('Clear the local storage on logout', () => {
     wrapper.find('[name=logout]').trigger('click');
 
-    // Check if local storage clear method was called
+    // Check if the local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
 
     // Check if local storage clear method was called once
     expect(localStorage.clear).toHaveReturnedTimes(1);
   });
 
-  it('Redirect user to login page on logout', () => {
+  it('Redirect user to the login page on logout', () => {
     wrapper.find('[name=logout]').trigger('click');
 
     // Check if router push was called
     expect(mockRouter.push).toHaveBeenCalled();
 
-    // Check if router push was called one time
+    // Check if router push was called once
     expect(mockRouter.push).toHaveBeenCalledTimes(1);
 
-    // Check if router push was called with correct object
+    // Check if router push was called with the correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
     });

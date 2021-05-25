@@ -66,17 +66,17 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
   });
 
   it('Initializes with correct elements', () => {
-    // Test buttons initial state
+    // Check buttons initial state
     expect(wrapper.findAll('button').length).toEqual(2);
     expect(wrapper.find('button[name=close]').text()).toMatch('close');
     expect(wrapper.find('button[name=enter]').text()).toMatch('enter');
     expect(wrapper.find('button[name=enter]').element.disabled).toBeTruthy();
 
-    // Test inputs initial state
+    // Check inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(1);
     expect(wrapper.find('input[name=password]').text()).toEqual('');
 
-    // Test validation initial state
+    // Check validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(1);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
     expect(wrapper.vm.isformValid).toBeFalsy();
@@ -104,7 +104,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
     // Check validation state
     expect(wrapper.vm.isFormValid).toBeFalsy();
 
-    // Check that correct input message is displayed
+    // Check that the correct input message is displayed
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
   });
 
@@ -125,7 +125,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
     expect(wrapper.find('button[name=enter]').element.disabled).toBeFalsy();
   });
 
-  it('Should sends post request with correct data on submit', async () => {
+  it('Should send a post request with correct data on submit', async () => {
     await wrapper.setData({
       privateRoomPassword: '123456',
     });
@@ -134,13 +134,13 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
 
     wrapper.vm.passwordValidation();
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -150,16 +150,16 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
     );
   });
 
-  it('Push user to room', async () => {
+  it('Push user to the room', async () => {
     wrapper.vm.join();
 
     // Check if router push was called
     expect(mockRouter.push).toHaveBeenCalled();
 
-    // Check if router push was called one time
+    // Check if router push was called once
     expect(mockRouter.push).toHaveBeenCalledTimes(1);
 
-    // Check if router push was called with correct object
+    // Check if router push was called with the correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Room',
       params: { slug: undefined },
@@ -245,7 +245,7 @@ describe('Behavioral test for PrivateRoomModal.vue - successful HTTP post', () =
     wrapper.destroy();
   });
 
-  it('Should not sends post request when input is empty', async () => {
+  it('Should not send post request when input is empty', async () => {
     await wrapper.find('[name=enter]').trigger('click');
 
     expect(axios.post).not.toHaveBeenCalled();
@@ -260,20 +260,20 @@ describe('Behavioral test for PrivateRoomModal.vue - successful HTTP post', () =
     expect(wrapper.find('input[name=password]').element.value).toEqual('123456');
   });
 
-  it('Should send post request on submit', async () => {
+  it('Should send post request on submitting', async () => {
     await wrapper.find('input[name=password]').setValue('123456');
 
     await Vue.nextTick();
 
     wrapper.find('button[name=enter]').trigger('click');
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -320,7 +320,7 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    // Check if error is visible
+    // Check if an error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('error');
 
     await wrapper.find('input[name=password]').trigger('keyup');
@@ -340,7 +340,7 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    // Check if error is visible
+    // Check if an error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('error');
 
     await wrapper.find('button[name=close]').trigger('click');

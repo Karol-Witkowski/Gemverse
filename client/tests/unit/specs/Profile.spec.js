@@ -70,20 +70,20 @@ describe('Implementation test for Profile.vue - successful HTTP delete', () => {
     expect(wrapper.findAll('span').at(1).text()).toMatch('test@mail.js');
     expect(wrapper.findAll('span').at(2).text()).toMatch('Tuesday, April 20 2021');
 
-    // Check that error message is not visible
+    // Check that the error message is not visible
     expect(wrapper.find('.errorMessage').exists()).toBeFalsy();
   });
 
-  it('Should sends delete request with correct data on account delete', async () => {
+  it('Should send delete request with correct data on account delete', async () => {
     await wrapper.vm.deleteUser();
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.delete).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.delete).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.delete).toHaveBeenCalledWith(
       url,
       {
@@ -114,23 +114,23 @@ describe('Implementation test for Profile.vue - successful HTTP delete', () => {
   it('Should call store clear method on delete account', async () => {
     await wrapper.vm.deleteUser();
 
-    // Check if local storage clear method was called
+    // Check if the local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
 
-    // Check if local storage clear method was called once
+    // Check if the local storage clear method was called once
     expect(localStorage.clear).toHaveReturnedTimes(1);
   });
 
-  it('Redirect user to login page on account delete', async () => {
+  it('Redirect user to the login page on account delete', async () => {
     await wrapper.vm.deleteUser();
 
-    // Check if router push method was called
+    // Check if the router push method was called
     expect(mockRouter.push).toHaveBeenCalled();
 
-    // Check if router push method was called one time
+    // Check if the router push method was called once
     expect(mockRouter.push).toHaveBeenCalledTimes(1);
 
-    // Check if router push method was called with correct object
+    // Check if the router push method was called with the correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
       params: {
@@ -179,7 +179,7 @@ describe('Implementation test for Profile.vue - failed HTTP delete', () => {
     expect(wrapper.findAll('.errorMessage').at(0).text()).toBe('Error msg');
   });
 
-  it('Should clear errors and close dialog on canceled account delete', async () => {
+  it('Should clear errors and close dialog on cancelled account delete', async () => {
     wrapper.setData({
       deleteUserModal: true,
     });
@@ -220,7 +220,7 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
     wrapper.destroy();
   });
 
-  it('Should sends delete request with correct data on delete button click', async () => {
+  it('Should send delete request with correct data on delete button click', async () => {
     await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
@@ -229,13 +229,13 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
     // Confirm account delete
     await wrapper.find('button[name=accept]').trigger('click');
 
-    // Check if post was called;
+    // Check if a post was called;
     expect(axios.delete).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.delete).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.delete).toHaveBeenCalledWith(
       url,
       {
@@ -278,14 +278,14 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
     // Confirm account delete
     await wrapper.find('button[name=accept]').trigger('click');
 
-    // Check if local storage clear method was called
+    // Check if the local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
 
-    // Check if local storage clear method was called once
+    // Check if the local storage clear method was called once
     expect(localStorage.clear).toHaveReturnedTimes(1);
   });
 
-  it('Redirect user to login page on delete button click', async () => {
+  it('Redirect user to the login page on delete button click', async () => {
     await wrapper.find('button[name=delete]').trigger('click');
 
     // Check if click event opened dialog
@@ -300,7 +300,7 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
     // Check if router push was called one time
     expect(mockRouter.push).toHaveBeenCalledTimes(1);
 
-    // Check if router push was called with correct object
+    // Check if router push was called with the correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
       name: 'Login',
       params: {

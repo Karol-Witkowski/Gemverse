@@ -8,7 +8,7 @@ let wrapper;
 
 vuetify = new Vuetify();
 
-describe('Implementation test for Home.vue - - unauthorised', () => {
+describe('Implementation test for Home.vue - unauthorised', () => {
   beforeEach(() => {
     wrapper = mount(Home, {
       localVue,

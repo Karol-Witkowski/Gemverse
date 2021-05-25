@@ -79,23 +79,23 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     expect(io.connect).toHaveBeenCalled();
   });
 
-  it('Should emit new message', () => {
+  it('Should emit a new message', () => {
     socket.on('sendMessage', (data) => {
       expect(data).toEqual('message');
     });
   });
 
   it('Initializes with correct elements', () => {
-    // Test buttons initial state
+    // Check buttons initial state
     expect(wrapper.findAll('button').length).toEqual(2);
     expect(wrapper.findAll('button').at(0).text()).toMatch('cancel');
     expect(wrapper.findAll('button').at(1).text()).toMatch('send');
 
-    // Test input initial state
+    // Check input initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(1);
     expect(wrapper.find('input[name=message]').text()).toEqual('');
 
-    // Test validation initial state
+    // Check validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(1);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
     expect(wrapper.vm.isformValid).toBeFalsy();
@@ -110,7 +110,7 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Input error');
   });
 
-  it('Pass validation when message is entered', async () => {
+  it('Pass validation when a message is entered', async () => {
     await wrapper.setData({
       message: 'message',
     });
@@ -123,20 +123,20 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     expect(wrapper.vm.isFormValid).toBeTruthy();
   });
 
-  it('Should sends post request with message on form submit', async () => {
+  it('Should send a post request with a message on form submit', async () => {
     await wrapper.setData({
       message: 'message',
     });
 
     wrapper.vm.sendMessage();
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post are called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -178,7 +178,7 @@ describe('Implementation test for ChatInput.vue - failed HTTP post', () => {
     });
   });
 
-  it('Display error messages on post error', async () => {
+  it('Display messages on post error', async () => {
     await wrapper.vm.sendMessage();
 
     await Vue.nextTick();
@@ -224,7 +224,7 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
     wrapper.destroy();
   });
 
-  it('Pass validation when message is entered', async () => {
+  it('Pass validation when a message is entered', async () => {
     await wrapper.find('input[name=message').setValue('message');
 
     // Check that message was entered
@@ -235,18 +235,18 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
     expect(wrapper.vm.isFormValid).toBeTruthy();
   });
 
-  it('Should sends post request with message on form submit', async () => {
+  it('Should send a post request with a message on form submit', async () => {
     await wrapper.find('input[name=message').setValue('message');
 
     wrapper.findAll('button').at(1).trigger('click');
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post are called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -274,7 +274,7 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
       inputError: 'Input error',
     });
 
-    // Check if error is visible
+    // Check if an error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Input error');
 
     await wrapper.find('input[name=message').trigger('keyup');
@@ -334,7 +334,7 @@ describe('Behavioral test for ChatInput.vue - failed HTTP post', () => {
 
     await Vue.nextTick();
 
-    // Check if error is visible
+    // Check if an error is visible
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Message error');
 
     await wrapper.find('input[name=message').trigger('keyup');

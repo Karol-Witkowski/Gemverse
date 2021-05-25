@@ -71,7 +71,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
   });
 
   it('Initializes with correct elements', () => {
-    // Test buttons initial state
+    // Check buttons initial state
     expect(wrapper.findAll('.v-btn').length).toEqual(4);
     expect(wrapper.find('button[name=accept]').text()).toMatch('ok');
     expect(wrapper.find('[name=back]').text()).toMatch('back');
@@ -79,15 +79,15 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.find('[name=register]').text()).toMatch('sign up');
     expect(wrapper.find('button[name=login]').element.disabled).toBeTruthy();
 
-    // Test auth alert initial state
+    // Check auth alert initial state
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
 
-    // Test inputs initial state
+    // Check inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(2);
     expect(wrapper.find('input[name=email]').text()).toEqual('');
     expect(wrapper.find('input[name=password]').text()).toEqual('');
 
-    // Test validation initial state
+    // Check validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
@@ -128,7 +128,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
       redirectError: 'Access denied',
     });
 
-    // Check that aut alert is visible
+    // Check that auth alert is visible
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
 
     await wrapper.vm.hideRedirectError();
@@ -137,7 +137,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
   });
 
-  it('Should sends post request with correct on form submit', async () => {
+  it('Should send a post request with correct on form submit', async () => {
     await wrapper.setData({
       email: 'email value',
       password: 'password value',
@@ -145,13 +145,13 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 
     await wrapper.vm.login();
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -185,7 +185,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     );
   });
 
-  it('Should store token on successful login', async () => {
+  it('Should store a token on successful login', async () => {
     wrapper.vm.login();
 
     await tokenSetter('token', true);
@@ -238,7 +238,7 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
   });
 
-  it('Does not dispatch data on failed HTTP post', () => {
+  it('Does not dispatch data on a failed HTTP post', () => {
     wrapper.vm.login();
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
@@ -294,17 +294,17 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 
     await wrapper.find('button[name=accept]').trigger('click');
 
-    // Check that aut alert is hidden after click
+    // Check that auth alert is hidden after a click
     expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
   });
 
-  it('Should not sends post request when inputs are empty', async () => {
+  it('Should not send a post request when inputs are empty', async () => {
     wrapper.find('button[name=login]').trigger('click');
 
     expect(axios.post).not.toHaveBeenCalled();
   });
 
-  it('Should sends post request with correct data on form submit', async () => {
+  it('Should send a post request with correct data on form submit', async () => {
     await wrapper.find('input[name=email]').setValue('email value');
     await wrapper.find('input[name=password]').setValue('password value');
 
@@ -315,10 +315,10 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     // Check if sing in button was clicked
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -352,7 +352,7 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     );
   });
 
-  it('Should store token on successful login', async () => {
+  it('Should store a token on successful login', async () => {
     wrapper.find('button[name=login]').trigger('click');
 
     await tokenSetter('token', true);
@@ -412,7 +412,7 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
   });
 
-  it('Hide HTTP post error messages when user enter new data', async () => {
+  it('Hide HTTP post error messages when a user enters new data', async () => {
     await wrapper.setData({
       passwordError: 'Password error',
       userError: 'Email error',

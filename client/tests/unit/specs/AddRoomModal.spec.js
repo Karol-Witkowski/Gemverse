@@ -91,18 +91,18 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
   });
 
   it('Initializes with correct elements', () => {
-    // Test buttons initial state
+    // Check buttons initial state
     expect(wrapper.findAll('button').length).toEqual(2);
     expect(wrapper.find('button[name=close]').text()).toMatch('close');
     expect(wrapper.find('button[name=save]').text()).toMatch('save');
     expect(wrapper.find('button[name=save]').element.disabled).toBeTruthy();
 
-    // Test inputs initial state
+    // Check inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(2);
     expect(wrapper.find('input[name=name]').text()).toEqual('');
     expect(wrapper.find('input[name=name]').text()).toEqual('');
 
-    // Test validation initial state
+    // Check validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(2);
     expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Required');
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
@@ -129,7 +129,7 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     expect(wrapper.find('input[name=password').element.value).toEqual('123456');
   });
 
-  it('Pass validation when only name was entered', async () => {
+  it('Pass validation when the only name was entered', async () => {
     await wrapper.setData({
       room: {
         name: 'room name',
@@ -163,7 +163,7 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
   });
 
-  it('Fail validation when only password was entered', async () => {
+  it('Fail validation when the only password was entered', async () => {
     await wrapper.setData({
       room: {
         password: '123456',
@@ -237,7 +237,7 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
     expect(wrapper.find('button[name=save]').element.disabled).toBeFalsy();
   });
 
-  it('Should sends post request with correct data on submit', async () => {
+  it('Should send a post request with correct data on submit', async () => {
     await wrapper.setData({
       room: {
         name: 'name',
@@ -249,13 +249,13 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
 
     wrapper.vm.formValidation();
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with the correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
@@ -358,7 +358,7 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
     wrapper.destroy();
   });
 
-  it('Should not sends post request when inputs are empty', async () => {
+  it('Should not send post request when inputs are empty', async () => {
     await wrapper.find('button[name=save]').trigger('click');
 
     expect(axios.post).not.toHaveBeenCalled();
@@ -375,7 +375,7 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
     expect(wrapper.find('input[name=password]').element.value).toEqual('123456');
   });
 
-  it('Should send post request with correct data on submit', async () => {
+  it('Should send a post request with correct data on submit', async () => {
     await wrapper.find('input[name=name]').setValue('test');
     await wrapper.find('input[name=password]').setValue('123456');
 
@@ -383,13 +383,13 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
 
     wrapper.find('button[name=save]').trigger('click');
 
-    // Check if post was called
+    // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
 
-    // Check if post was called once
+    // Check if a post was called once
     expect(axios.post).toHaveReturnedTimes(1);
 
-    // Check if post was called with correct data
+    // Check if a post was called with the correct data
     expect(axios.post).toHaveBeenCalledWith(
       url,
       {
