@@ -6,7 +6,7 @@ exports[`Implementation test for PrivateRoomModal.vue - successful HTTP post Ren
     Type password to proceed
   </div>
   <div class="v-card__text">
-    <form novalidate="novalidate" type="submit" onsubmit="return false" class="v-form">
+    <form novalidate="novalidate" onsubmit="return false" type="submit" class="v-form">
       <div class="col col-12">
         <div class="v-input theme--light v-text-field">
           <div class="v-input__control">

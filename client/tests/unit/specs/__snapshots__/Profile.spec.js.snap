@@ -40,7 +40,7 @@ exports[`Implementation test for Profile.vue - successful HTTP delete Render cor
             </div>
           </div>
           <div tabindex="-1" class="deleteInfo v-list-item theme--light">
-            *Your personal data will be deleted,
+            *Your data will be deleted,
             although all messages will be displayed
             (without the user data)
           </div>
