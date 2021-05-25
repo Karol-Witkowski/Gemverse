@@ -50,7 +50,7 @@ export default {
             if (this.$route.path === `/room/${slug}`) {
               this.$router.push({
                 name: 'RoomList',
-                params: { message: 'Room has been deleted' },
+                params: { message: 'The room has been deleted' },
               });
             }
           });

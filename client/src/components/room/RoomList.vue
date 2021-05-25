@@ -88,7 +88,7 @@
                       Delete room
                     </v-card-title>
                     <v-card-text>
-                      Click "OK" to delete room. Removed rooms cannot be restored.
+                      Click "OK" to delete the room. Removed rooms cannot be restored.
                     </v-card-text>
                     <v-card-text
                       class="errorMessage"

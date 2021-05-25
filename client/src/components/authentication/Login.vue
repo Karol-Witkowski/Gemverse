@@ -121,7 +121,7 @@ export default {
       redirectError: this.message,
       userError: '',
       emailRules: [
-        (value) => value.length <= 128 || 'E-mail adress must be less or equal to 128 characters',
+        (value) => value.length <= 128 || 'E-mail address must be less or equal to 128 characters',
       ],
       passwordRules: [
         (value) => value.length <= 128 || 'Password must be less or equal to 128 characters',

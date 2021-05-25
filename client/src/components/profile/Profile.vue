@@ -72,7 +72,7 @@
                       Delete user account
                     </v-card-title>
                     <v-card-text>
-                      Click "OK" to delete account. Removed account cannot be restored.
+                      Click "OK" to delete the account. The removed account cannot be restored.
                     </v-card-text>
                     <v-card-text
                       class="errorMessage"
@@ -106,7 +106,7 @@
                 </v-dialog>
               </v-list-item-action>
             <v-list-item class="deleteInfo">
-              *Your personal data will be deleted,
+              *Your data will be deleted,
               although all messages will be displayed
               (without the user data)
             </v-list-item>

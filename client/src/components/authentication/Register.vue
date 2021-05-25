@@ -118,7 +118,7 @@ export default {
         (value) => !!value || 'Required',
       ],
       emailRules: [
-        (value) => (value.length >= 8 && value.length <= 128) || 'E-mail adress must be at least 8 characters long',
+        (value) => (value.length >= 8 && value.length <= 128) || 'E-mail address must be at least 8 characters long',
         (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || 'Invalid e-mail';
