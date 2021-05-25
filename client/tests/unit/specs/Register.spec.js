@@ -79,16 +79,16 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
   it('Initializes with correct elements', () => {
     // Test buttons initial state
     expect(wrapper.findAll('.v-btn').length).toEqual(3);
-    expect(wrapper.findAll('.v-btn').at(0).text()).toMatch('back');
-    expect(wrapper.findAll('.v-btn').at(1).text()).toMatch('sign up');
-    expect(wrapper.findAll('.v-btn').at(2).text()).toMatch('sign in');
-    expect(wrapper.findAll('.v-btn').at(1).element.disabled).toBeTruthy();
+    expect(wrapper.find('[name=back]').text()).toMatch('back');
+    expect(wrapper.find('button[name=register]').text()).toMatch('sign up');
+    expect(wrapper.find('[name=login]').text()).toMatch('sign in');
+    expect(wrapper.find('button[name=register]').element.disabled).toBeTruthy();
 
     // Test inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(3);
-    expect(wrapper.findAll('input').at(0).text()).toEqual('');
-    expect(wrapper.findAll('input').at(1).text()).toEqual('');
-    expect(wrapper.findAll('input').at(2).text()).toEqual('');
+    expect(wrapper.find('input[name=username]').text()).toEqual('');
+    expect(wrapper.find('input[name=email]').text()).toEqual('');
+    expect(wrapper.find('input[name=password]').text()).toEqual('');
 
     // Test validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(3);
@@ -117,9 +117,9 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     });
 
     // Check that the user data is properly set
-    expect(wrapper.findAll('input').at(0).element.value).toEqual('username');
-    expect(wrapper.findAll('input').at(1).element.value).toEqual('test@email.js');
-    expect(wrapper.findAll('input').at(2).element.value).toEqual('password');
+    expect(wrapper.find('input[name=username]').element.value).toEqual('username');
+    expect(wrapper.find('input[name=email]').element.value).toEqual('test@email.js');
+    expect(wrapper.find('input[name=password]').element.value).toEqual('password');
     expect(wrapper.vm.username).toBe('username');
     expect(wrapper.vm.email).toBe('test@email.js');
     expect(wrapper.vm.password).toBe('password');
@@ -129,7 +129,7 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
     expect(wrapper.vm.isFormValid).toBeTruthy();
 
     // Check that the sign up button is active
-    expect(wrapper.findAll('.v-btn').at(1).element.disabled).toBeFalsy();
+    expect(wrapper.find('button[name=register]').element.disabled).toBeFalsy();
   });
 
   it('Fail validation when only one field was entered', async () => {
@@ -309,19 +309,19 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
   });
 
   it('Should not sends post request when inputs are empty', async () => {
-    wrapper.findAll('.v-btn').at(1).trigger('click');
+    wrapper.find('button[name=register]').trigger('click');
 
     expect(axios.post).not.toHaveBeenCalled();
   });
 
   it('Should sends post request with correct on form submit', async () => {
-    await wrapper.findAll('input').at(0).setValue('username');
-    await wrapper.findAll('input').at(1).setValue('test@email.js');
-    await wrapper.findAll('input').at(2).setValue('password');
+    await wrapper.find('input[name=username]').setValue('username');
+    await wrapper.find('input[name=email]').setValue('test@email.js');
+    await wrapper.find('input[name=password]').setValue('password');
 
     await Vue.nextTick();
 
-    wrapper.findAll('.v-btn').at(1).trigger('click');
+    wrapper.find('button[name=register]').trigger('click');
 
     // Check if sing in button was clicked
     expect(axios.post).toHaveBeenCalled();
@@ -341,7 +341,7 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
   });
 
   it('Should store user data and auth status after successful register', () => {
-    wrapper.findAll('.v-btn').at(1).trigger('click');
+    wrapper.find('button[name=register]').trigger('click');
 
     // Check if any action was dispatched
     expect(mockStore.dispatch).toHaveBeenCalled();
@@ -365,7 +365,7 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
   });
 
   it('Should store token on successful register', async () => {
-    wrapper.findAll('.v-btn').at(1).trigger('click');
+    wrapper.find('button[name=register]').trigger('click');
 
     await tokenSetter('token', true);
 
@@ -412,13 +412,13 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
   });
 
   it('Display error messages on HTTP post failure', async () => {
-    await wrapper.findAll('input').at(0).setValue('username');
-    await wrapper.findAll('input').at(1).setValue('test@email.js');
-    await wrapper.findAll('input').at(2).setValue('password');
+    await wrapper.find('input[name=username]').setValue('username');
+    await wrapper.find('input[name=email]').setValue('test@email.js');
+    await wrapper.find('input[name=password]').setValue('password');
 
     await Vue.nextTick();
 
-    await wrapper.findAll('.v-btn').at(1).trigger('click');
+    await wrapper.find('button[name=register]').trigger('click');
 
     await Vue.nextTick();
 
@@ -441,13 +441,13 @@ describe('Behavioral test for Register.vue - failed HTTP post', () => {
   });
 
   it('Does not dispatch data when a failed HTTP post occurs', () => {
-    wrapper.findAll('.v-btn').at(1).trigger('click');
+    wrapper.find('button[name=register]').trigger('click');
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
   });
 
   it('Does not set token when a failed HTTP post occurs', () => {
-    wrapper.findAll('.v-btn').at(2).trigger('click');
+    wrapper.find('button[name=register]').trigger('click');
 
     expect(localSetItem).not.toHaveBeenCalled();
   });
