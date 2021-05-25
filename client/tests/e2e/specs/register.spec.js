@@ -18,26 +18,26 @@ describe('Register test', () => {
       .should('include', '/roomlist');
   });
 
-  it('Displays errors when username is already in use', () => {
+  it('Displays errors when the username is already in use', () => {
     cy.get('input[name=username]')
       .type('user1');
     cy.get('input[name=email]')
       .type('random@email.com');
     cy.get('input[name=password]')
       .type('test12');
-    cy.get('button[name=register]')
+    cy.get('button[name=register]') //!
       .click();
 
-    // Check if user are still on the register page
+    // Check if the user is still on the register page
     cy.url()
       .should('include', '/register');
 
     // Check if errors are visible
     cy.get('.v-messages')
-      .should('contain', 'Name user1 is already in us');
+      .should('contain', 'Name user1 is already in use');
   });
 
-  it('Displays errors when email address is already in use', () => {
+  it('Displays errors when the email address is already in use', () => {
     cy.get('input[name=username]')
       .type('newUser');
     cy.get('input[name=email]')
@@ -47,7 +47,7 @@ describe('Register test', () => {
     cy.get('button[name=register]')
       .click();
 
-    // Check if user are still on the register page
+    // Check if the user is still on the register page
     cy.url()
       .should('include', '/register');
 
@@ -68,7 +68,7 @@ describe('Register test', () => {
     cy.get('.v-messages')
       .contains('Invalid e-mail');
 
-    // Check if button is disabled
+    // Check if the button is disabled
     cy.contains('sign up')
       .should('be.disabled');
   });
@@ -81,7 +81,7 @@ describe('Register test', () => {
     cy.get('input[name=password]')
       .type('1');
 
-    // Check if button is disabled
+    // Check if the button is disabled
     cy.get('button[name=register]')
       .should('be.disabled');
 
@@ -89,7 +89,7 @@ describe('Register test', () => {
     cy.get('.v-messages')
       .should('contain', 'Characters range: 3 - 15');
     cy.get('.v-messages')
-      .should('contain', 'E-mail adress must be at least 8 characters long');
+      .should('contain', 'E-mail address must be at least 8 characters long');
     cy.get('.v-messages')
       .should('contain', 'Password must be at least 6 characters long');
     cy.get('input[name=username]')
@@ -111,7 +111,7 @@ describe('Register test', () => {
     cy.get('.v-messages')
       .should('contain', 'Invalid e-mail');
 
-    // Check if button is disabled
+   // Check if the button is disabled
     cy.get('button[name=register]')
       .should('be.disabled');
 
@@ -124,7 +124,7 @@ describe('Register test', () => {
       .should('not.exist');
   });
 
-  it('Disable button on empty required input', () => {
+  it('Disable button on the empty required input', () => {
     cy.get('input[name=username]')
       .type('newUser');
     cy.get('input[name=email]')

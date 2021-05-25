@@ -16,7 +16,7 @@ describe('Login test', () => {
       .should('include', '/roomlist');
   })
 
-  it('Displays errors when user does not exist', () => {
+  it('Displays errors when the user does not exist', () => {
     cy.get('input[name=email]')
       .type('random@email.com');
     cy.get('input[name=password]')
@@ -24,7 +24,7 @@ describe('Login test', () => {
     cy.get('button[name=login]')
       .click();
 
-    // Check if user are still on the login page
+    // Check if the user is still on the login page
     cy.url()
       .should('include', '/login');
 
@@ -33,7 +33,7 @@ describe('Login test', () => {
       .should('contain', 'User not found - Try again');
   });
 
-  it('Displays errors when password is wrong', () => {
+  it('Displays errors when the password is wrong', () => {
     cy.get('input[name=email]')
       .type('test1@email.tt');
     cy.get('input[name=password]')
@@ -41,7 +41,7 @@ describe('Login test', () => {
     cy.get('button[name=login]')
       .click();
 
-    // Check if user are still on the login page
+    // Check if the user is still on the login page
     cy.url()
       .should('include', '/login');
 
@@ -58,7 +58,7 @@ describe('Login test', () => {
     cy.get('button[name=login]')
       .click();
 
-    // Check if user are still on the login page
+    // Check if the user is still on the login page
     cy.url()
       .should('include', '/login');
 

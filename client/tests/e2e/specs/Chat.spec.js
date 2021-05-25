@@ -16,7 +16,7 @@ describe('Chat test', () => {
       .should('exist');
   });
 
-  it('Prevent send empty message', () => {
+  it('Prevent send an empty message', () => {
     cy.get('input[name=message]')
       .type(' ');
     cy.get('button')

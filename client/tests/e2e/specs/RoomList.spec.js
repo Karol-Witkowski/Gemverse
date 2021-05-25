@@ -32,7 +32,7 @@ describe('Room list test', () => {
         .should('exist');
     });
 
-    it('Displays errors when name is already in use', () => {
+    it('Displays errors when the name is already in use', () => {
       cy.get('button[name=add]')
         .click();
       cy.get('input[name=name]')
@@ -70,7 +70,7 @@ describe('Room list test', () => {
         .should('be.disabled');
     });
 
-    it('Disable button on empty required input', () => {
+    it('Disable button on the empty required input', () => {
       cy.get('button[name=add]')
         .click();
       cy.get('input[name=password]')
@@ -82,7 +82,7 @@ describe('Room list test', () => {
   });
 
   describe('Enter room', () => {
-    it('Successfully join public room', () => {;
+    it('Successfully join a public room', () => {;
       cy.get('button[name=public]')
         .eq(0)
         .click();
@@ -91,7 +91,7 @@ describe('Room list test', () => {
         .should('include', '/room/room2');
     });
 
-    it('Successfully join private room', () => {;
+    it('Successfully join a private room', () => {;
       cy.get('button[name=private]')
         .eq(0)
         .click();
@@ -126,10 +126,10 @@ describe('Room list test', () => {
         .should('be.disabled');
     });
 
-    it('Redirect user to room list on access denied', () => {;
+    it('Redirect the user to the room list on denied access', () => {;
       cy.visit('/room/room-1');
 
-      // Check if user was redirected to room list
+      // Check if the user was redirected to the room list
       cy.url()
         .should('include', '/roomlist');
 
@@ -155,7 +155,7 @@ describe('Room list test', () => {
       cy.get('button[name=save]')
         .click();
 
-      // Check if room was successfully added
+      // Check if the room was successfully added
       cy.contains('newRoom')
         .should('exist');
 
@@ -164,7 +164,7 @@ describe('Room list test', () => {
       cy.get('button[name=accept]')
         .click();
 
-      // Check if room was successfully removed
+      // Check if the room was successfully removed
       cy.contains('newRoom')
         .should('not.exist');
     });

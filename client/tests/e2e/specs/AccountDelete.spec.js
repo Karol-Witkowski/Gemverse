@@ -5,7 +5,7 @@ describe('Account delete test', () => {
     cy.visit('/profile');
   });
 
-  it('Successfully delete user account', () => {
+  it('Successfully delete a user account', () => {
     cy.get('[name=delete]')
       .click();
     cy.get('button[name=accept]')
