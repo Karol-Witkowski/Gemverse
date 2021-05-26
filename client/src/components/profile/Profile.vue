@@ -34,7 +34,7 @@
         <v-list-item>
           <v-list-item-content >
             <v-list class="d-flex grey--text justify-center subtitle-1 text--darken-2">
-              Member since:
+              Created:
               <span class="font-weight-bold pl-1">
                 {{ showCreationDate(this.getUserInfo.createdDate) }}
               </span>

@@ -23,7 +23,7 @@ exports[`Implementation test for Profile.vue - successful HTTP delete Render cor
       <div tabindex="-1" class="v-list-item theme--light">
         <div class="v-list-item__content">
           <div role="list" class="v-list d-flex grey--text justify-center subtitle-1 text--darken-2 v-sheet theme--light">
-            Member since:
+            Created:
             <span class="font-weight-bold pl-1">
               Tuesday, April 20 2021
             </span>
