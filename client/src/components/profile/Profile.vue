@@ -106,8 +106,7 @@
                 </v-dialog>
               </v-list-item-action>
             <v-list-item class="deleteInfo">
-              *Your data will be deleted,
-              although all messages will be displayed
+              *Your data will be deleted, although all messages will be displayed
               (without the user data)
             </v-list-item>
           </v-list-item-content>
