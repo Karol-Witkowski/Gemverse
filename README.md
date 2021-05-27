@@ -4,7 +4,7 @@
 
 <p align="center"><code><img alt="Gemverse logo" height="90" title="Gemverse logo" src="client\src\assets\img\logo.png"></code></p>
 
-<p align="center"><b>Gemverse</b> is a real-time chat that provides transmission of text messages from sender to receiver. Gemverse is based on rooms - organized channels allow you to talk about programming, hobbies, games and more. User can also add a little square of personality by setting their avatar. </p>
+<p align="center"><b>Gemverse</b> is a real-time chat that provides transmission of text messages. The app is based on rooms - organized channels allow you to talk about programming, hobbies, games and more. User can also add a little square of personality by setting their avatar. </p>
 
 ## Info
 
