@@ -61,3 +61,13 @@ UNDER DEVELOPMENT
 <br>
 
 ## Installation
+### Prerequisites
+> To run the application install Node.js and MongoDB. To do so follow instructions on official websites. Installing Vue-CLI is optional but recommended.
+
+- [NodeJS](https://nodejs.org) (version 14 or above)
+- [MongoDB](https://www.mongodb.com)
+- [Vue-CLI](https://cli.vuejs.org)
+
+<br>
+
+### Running Locally
