@@ -111,7 +111,7 @@ describe('Register test', () => {
     cy.get('.v-messages')
       .should('contain', 'Invalid e-mail');
 
-   // Check if the button is disabled
+    // Check if the button is disabled
     cy.get('button[name=register]')
       .should('be.disabled');
 

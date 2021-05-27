@@ -14,7 +14,7 @@ describe('Login test', () => {
 
     cy.url()
       .should('include', '/roomlist');
-  })
+  });
 
   it('Displays errors when the user does not exist', () => {
     cy.get('input[name=email]')

@@ -82,7 +82,7 @@ describe('Room list test', () => {
   });
 
   describe('Enter room', () => {
-    it('Successfully join a public room', () => {;
+    it('Successfully join a public room', () => {
       cy.get('button[name=public]')
         .eq(0)
         .click();
@@ -91,7 +91,7 @@ describe('Room list test', () => {
         .should('include', '/room/room2');
     });
 
-    it('Successfully join a private room', () => {;
+    it('Successfully join a private room', () => {
       cy.get('button[name=private]')
         .eq(0)
         .click();
@@ -106,7 +106,7 @@ describe('Room list test', () => {
         .should('include', '/room/room-1');
     });
 
-    it('Displays errors on invalid password', () => {;
+    it('Displays errors on invalid password', () => {
       cy.get('button[name=private]')
         .eq(0)
         .click();
@@ -126,7 +126,7 @@ describe('Room list test', () => {
         .should('be.disabled');
     });
 
-    it('Redirect the user to the room list on denied access', () => {;
+    it('Redirect the user to the room list on denied access', () => {
       cy.visit('/room/room-1');
 
       // Check if the user was redirected to the room list
@@ -147,7 +147,7 @@ describe('Room list test', () => {
   });
 
   describe('Remove room', () => {
-    it('Successfully remove room', () => {;
+    it('Successfully remove room', () => {
       cy.get('button[name=add]')
         .click();
       cy.get('input[name=name]')
