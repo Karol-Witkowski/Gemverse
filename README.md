@@ -12,6 +12,7 @@
 - [Demo](#demo)
 - [Technologies](#Technologies)
 - [Features](#features)
+- [Installation](#installation)
 <hr>
 <br>
 
@@ -25,7 +26,7 @@ UNDER DEVELOPMENT
 ## Technologies
 
 | Technology | Description | Link |
-|------|-------------|------|
+|-|-|-|
 | Sass | Preprocessor that helps write maintainable CSS | https://sass-lang.com |
 | Vuetify | Vue UI Library helps to generate responsive and polished applications | https://vuetifyjs.com |
 | Vue.js | Versatile Progressive Javascript Framework for building user interfaces | https://vuejs.org |
@@ -45,4 +46,18 @@ UNDER DEVELOPMENT
 
 ## Features
 
-UNDER DEVELOPMENT
+- Register and authenticate users, secure passwords
+
+- Enable room based communication
+
+- Create public/secured room or join already made channels
+
+- Display new users and rooms in real-time
+
+- Generate unique SVG based avatars
+
+- Allow users to delete their own accounts and generate anonymous alias
+<hr>
+<br>
+
+## Installation
