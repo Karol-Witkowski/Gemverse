@@ -13,6 +13,10 @@
 - [Technologies](#Technologies)
 - [Features](#features)
 - [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Running Locally](#Running-Locally)
+- [Configuration](#configuration)
+- [Available Scripts](#available-scripts)
 <hr>
 <br>
 
@@ -62,7 +66,8 @@ UNDER DEVELOPMENT
 
 ## Installation
 ### Prerequisites
-> To run the application install Node.js and MongoDB. To do so follow instructions on official websites. Installing Vue-CLI is optional but recommended.
+
+>To run the application install Node.js and MongoDB. To do so follow instructions on official websites. Installing Vue-CLI is optional but recommended
 
 - [NodeJS](https://nodejs.org) (version 14 or above)
 - [MongoDB](https://www.mongodb.com)
@@ -71,3 +76,51 @@ UNDER DEVELOPMENT
 <br>
 
 ### Running Locally
+
+1. Clone the repository
+```bash
+git clone git@github.com:Karol-Witkowski/Gemverse.git
+cd Gemverse
+```
+
+2. Install dependencies
+
+Run npm install for root, client and server directories to install required node modules.
+
+- Install dependencies for the project root folder
+```bash
+npm install
+```
+
+- Install dependencies for the client directory
+```bash
+cd client
+npm install
+```
+
+- Install dependencies for the server directory
+```bash
+cd server
+npm install
+```
+
+3. Create a .env file in the server directory according to the configuration
+
+Go to [configuration section](#configuration) or check a .env.example file inside the repository.
+
+4. Set properly environment variables
+
+_To run code locally variables must be set exactly like in the example:_
+```bash
+NODE_ENV='development'
+HEROKU_DEPLOYMENT=false
+```
+
+5. Run the application
+>Be sure to run a script in the project root folder, or use a [npm scripts](#available-scripts)
+
+```bash
+npm run dev
+```
+
+Visit application on: [localhost:8080](http://localhost:8080/).
