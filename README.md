@@ -42,7 +42,7 @@ UNDER DEVELOPMENT
 | bcrypt.js | A library to help hash passwords stored in databases | https://github.com/dcodeIO/bcrypt.js |
 | MongoDB | NoSQL document database that works well with Node.js | https://www.mongodb.com |
 | Mongoose | MongoDB object modeling tool for Node.js | https://mongoosejs.com |
-| Day.js | A library that parses, validates, manipulates, and displays dates and times | https://github.com/iamkun/dayjs |
+| Day.js | A library that parses, validates, manipulates, and displays dates and times | https://day.js.org |
 | Jest | A comprehensive JavaScript testing solution | https://jestjs.io |
 | Cypress | e2e Testing Framework that runs in a browser | https://www.cypress.io |
 <hr>
