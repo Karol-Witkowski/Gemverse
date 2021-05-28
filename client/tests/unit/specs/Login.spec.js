@@ -21,7 +21,7 @@ const error = {
 };
 const response = {
   data: {
-    auth:	true,
+    auth: true,
     data: {
       data: 'testData',
     },

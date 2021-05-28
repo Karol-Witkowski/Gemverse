@@ -4,10 +4,8 @@
   "description": "Backend for Gemverse Chat Application",
   "main": "www",
   "scripts": {
-    "dev": "node ./bin/www",
     "dev:watch": "nodemon ./bin/www",
     "test:watch": "cross-env NODE_ENV=\"test\" jest --detectOpenHandles --notify --watchAll",
-    "test:local": "cross-env NODE_ENV=\"test\" jest --detectOpenHandles --notify",
     "seed:db": "cross-env NODE_ENV=\"test\" node ./tests/seed/seed.js",
     "snyk-protect": "snyk protect",
     "build": "node build/build.js"
