@@ -16,6 +16,9 @@
   - [Prerequisites](#prerequisites)
   - [Running Locally](#Running-Locally)
 - [Configuration](#configuration)
+  - [JWT](#JSON-Web-Tokens)
+  - [MongoDB](#MongoDB)
+  - [Environment variables](#Environment-variables)
 - [Available Scripts](#available-scripts)
 <hr>
 <br>
@@ -108,9 +111,9 @@ npm install
 
 Go to [configuration section](#configuration) or check a .env.example file inside the repository.
 
-4. Set properly environment variables
+4. Set properly environment variables and database
 
-_To run code locally variables must be set exactly like in the example:_
+_Note: To run code locally variables must be set following the code below:_
 ```bash
 NODE_ENV='development'
 HEROKU_DEPLOYMENT=false
@@ -124,3 +127,34 @@ npm run dev
 ```
 
 Visit application on: [localhost:8080](http://localhost:8080/).
+
+<br>
+
+## Configuration
+To run the application basic configuration is required. This step includes generating JWT, setting the database and adding environment variables.
+
+### JSON Web Token
+The application use JWT-based authentication. To take advantage of this solution generate JWT secret and store it in a .env file.
+
+### MongoDB
+The application uses the MongoDB database. Generate MongoDB URL and store it in a .env file. To do so follow [MongoDB guide](https://docs.mongodb.com/guides/server/install/).
+### Environment variables
+To start using the application create a .env file in the server directory and setup variables following the guide below.
+
+_Note: Never expose those variables. The wrong configuration will result in an error_
+
+```bash
+DATABASE_URL=DATABASE_URL
+TESTDB_URL=TESTDB_URL
+SALT_WORK_FACTOR=SALT_WORK_FACTOR
+
+#JWT secret
+JWT_KEY=JWT_KEY
+
+#JWT expire time
+JWT_EXPIRE=JWT_EXPIRE
+
+NODE_ENV='development'
+HEROKU_DEPLOYMENT=false
+PORT=PORT
+```
