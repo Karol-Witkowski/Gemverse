@@ -47,7 +47,7 @@ UNDER DEVELOPMENT
 | Mongoose | MongoDB object modeling tool for Node.js | https://mongoosejs.com |
 | Day.js | A library that parses, validates, manipulates, and displays dates and times | https://day.js.org |
 | Jest | A comprehensive JavaScript testing solution | https://jestjs.io |
-| Cypress | e2e Testing Framework that runs in a browser | https://www.cypress.io |
+| Cypress | E2E Testing Framework that runs in a browser | https://www.cypress.io |
 <hr>
 <br>
 
