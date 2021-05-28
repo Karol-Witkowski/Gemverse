@@ -10,16 +10,20 @@
 ## Contents
 
 - [Demo](#demo)
-- [Technologies](#Technologies)
+- [Technologies](#technologies)
 - [Features](#features)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-  - [Running Locally](#Running-Locally)
+  - [Running Locally](#running-locally)
 - [Configuration](#configuration)
-  - [JWT](#JSON-Web-Tokens)
-  - [MongoDB](#MongoDB)
-  - [Environment variables](#Environment-variables)
-- [Available Scripts](#available-scripts)
+  - [JWT](#json-web-token)
+  - [MongoDB](#mongodb)
+  - [Environment variables](#environment-variables)
+- [Tests](#tests)
+  - [Client](#client-tests)
+  - [Server](#server-tests)
+  - [E2E](#e2e-tests)
+- [Available scripts](#available-scripts)
 <hr>
 <br>
 
@@ -34,20 +38,20 @@ UNDER DEVELOPMENT
 
 | Technology | Description | Link |
 |-|-|-|
-| Sass | Preprocessor that helps write maintainable CSS | https://sass-lang.com |
-| Vuetify | Vue UI Library helps to generate responsive and polished applications | https://vuetifyjs.com |
-| Vue.js | Versatile Progressive Javascript Framework for building user interfaces | https://vuejs.org |
-| Node.js | Asynchronous JavaScript runtime designed to build scalable network applications | https://nodejs.org |
+| Sass | Preprocessor that helps write maintainable CSS | https://sass-lang.com/ |
+| Vuetify | Vue UI Library helps to generate responsive and polished applications | https://vuetifyjs.com/ |
+| Vue.js | Versatile Progressive Javascript Framework for building user interfaces | https://vuejs.org/ |
+| Node.js | Asynchronous JavaScript runtime designed to build scalable network applications | https://nodejs.org/ |
 | Express | Unopinionated, minimal and flexible Node.js framework | https://expressjs.com |
-| Socket.IO | Web sockets implementation enables real-time event-based communication | https://socket.io |
+| Socket.IO | Web sockets implementation enables real-time event-based communication | https://socket.io/ |
 | Passport | Authentication middleware for Node.js | https://www.passportjs.org |
-| JWT | A package that generates tokens for secure authentication | https://github.com/auth0/node-jsonwebtoken |
-| bcrypt.js | A library to help hash passwords stored in databases | https://github.com/dcodeIO/bcrypt.js |
-| MongoDB | NoSQL document database that works well with Node.js | https://www.mongodb.com |
-| Mongoose | MongoDB object modeling tool for Node.js | https://mongoosejs.com |
-| Day.js | A library that parses, validates, manipulates, and displays dates and times | https://day.js.org |
-| Jest | A comprehensive JavaScript testing solution | https://jestjs.io |
-| Cypress | E2E Testing Framework that runs in a browser | https://www.cypress.io |
+| JWT | A package that generates tokens for secure authentication | https://github.com/auth0/node-jsonwebtoken/ |
+| bcrypt.js | A library to help hash passwords stored in databases | https://github.com/dcodeIO/bcrypt.js/ |
+| MongoDB | NoSQL document database that works well with Node.js | https://www.mongodb.com/ |
+| Mongoose | MongoDB object modeling tool for Node.js | https://mongoosejs.com/ |
+| Day.js | A library that parses, validates, manipulates, and displays dates and times | https://day.js.org/ |
+| Jest | A comprehensive JavaScript testing solution | https://jestjs.io/ |
+| Cypress | E2E Testing Framework that runs in a browser | https://www.cypress.io/ |
 <hr>
 <br>
 
@@ -72,11 +76,9 @@ UNDER DEVELOPMENT
 
 >To run the application install Node.js and MongoDB. To do so follow instructions on official websites. Installing Vue-CLI is optional but recommended
 
-- [NodeJS](https://nodejs.org) (version 14 or above)
-- [MongoDB](https://www.mongodb.com)
-- [Vue-CLI](https://cli.vuejs.org)
-
-<br>
+- [NodeJS](https://nodejs.org/) - version 14 and higher
+- [MongoDB](https://www.mongodb.com/)
+- [Vue-CLI](https://cli.vuejs.org/)
 
 ### Running Locally
 
@@ -114,20 +116,21 @@ Go to [configuration section](#configuration) or check a .env.example file insid
 4. Set properly environment variables and database
 
 _Note: To run code locally variables must be set following the code below:_
+
 ```bash
 NODE_ENV='development'
 HEROKU_DEPLOYMENT=false
 ```
 
 5. Run the application
->Be sure to run a script in the project root folder, or use a [npm scripts](#available-scripts)
+>Be sure to run a [script](#available-scripts) in the project root folder.
 
 ```bash
 npm run dev
 ```
 
 Visit application on: [localhost:8080](http://localhost:8080/).
-
+<hr>
 <br>
 
 ## Configuration
@@ -148,13 +151,56 @@ DATABASE_URL=DATABASE_URL
 TESTDB_URL=TESTDB_URL
 SALT_WORK_FACTOR=SALT_WORK_FACTOR
 
-#JWT secret
+# JWT secret
 JWT_KEY=JWT_KEY
 
-#JWT expire time
+# JWT expire time
 JWT_EXPIRE=JWT_EXPIRE
 
 NODE_ENV='development'
 HEROKU_DEPLOYMENT=false
 PORT=PORT
 ```
+<hr>
+<br>
+
+## Tests
+The application contains both client and server tests. Thanks to the [cross-env](https://github.com/kentcdodds/cross-env#readme/) module user can skip seeding manually data for all tests or setting NODE_ENV to 'test' for all tests except E2E.
+
+>Be sure to run [scripts](#available-scripts) in the right directory
+
+### Client tests
+Client directory unit tests written using [Vue Test Utils](https://vue-test-utils.vuejs.org/) with [Jest](https://jestjs.io/). To run client tests open the terminal and run the code below:
+
+```bash
+cd client
+npm run test:unit
+```
+
+### Server tests
+Mostly API routes unit tests written in [Jest](https://jestjs.io/). All of them use seeded data. To run server tests open the terminal and run the code below:
+
+```bash
+cd server
+npm run test:watch
+```
+
+### E2E tests
+E2E tests are written in [Cypress](https://www.cypress.io/). Those tests simulate the real user scenario and interact with dummy data. To run E2E tests open the terminal and run the code below:
+
+_Note: Set NODE_ENV to 'test' to run those tests_
+
+```bash
+cd client
+
+# Open Cypress Test Runner
+npm run test:e2e-open
+
+# Run all tests headlessly in the Electron browser
+npm run test:e2e-open
+```
+<hr>
+<br>
+
+## Available scripts
+UNDER DEVELOPMENT
