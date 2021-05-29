@@ -231,51 +231,76 @@ Run application in the development mode.
 
 ### Client scripts
 
-`npm run serve`
+```bash
+npm run serve
+```
 
 Run client development server with Hot-Module-Replacement.
 
-`npm run lint`
+```bash
+npm run lint
+```
 
 Lints and fixes client files.
 
-`npm run test:unit`
+```bash
+npm run test:unit
+```
 
 Run client tests with Jest.
 
-`npm run test:e2e-open`
+```bash
+npm run test:e2e-open
+```
 
 Launches Cypress in interactive mode with a GUI.
 
-`npm run test:e2e-run`
+```bash
+npm run test:e2e-run
+```
 
 Run client E2E tests in headless mode with Cypress.
 
-`npm run db:seed`
+```bash
+npm run db:seed
+```
 
 Insert initial data into a database.
 
-`npm run ui`
+```bash
+npm run ui
+```
 
 Initialize Vue UI and project manager.
 
-`npm run build`
+```bash
+npm run build
+```
 
 Produces a client production-ready bundle in the dist/ directory.
 
 ### Server scripts
 
-`npm run dev:watch`
+```bash
+npm run dev:watch
+```
 
 Start and reload the application automatically.
 
-`npm run test:watch`
+```bash
+npm run test:watch
+```
 
 Run and reload server tests with Jest Start automatically.
-`npm run db:seed`
+
+```bash
+npm run db:seed
+```
 
 Insert initial data into a database.
 
-`npm run build`
+```bash
+npm run build
+```
 
 Produces a server production-ready bundle in the dist/ directory.
