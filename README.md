@@ -87,7 +87,7 @@ UNDER DEVELOPMENT
 
 1. Clone the repository
 
-```bash
+```console
 git clone git@github.com:Karol-Witkowski/Gemverse.git
 cd Gemverse
 ```
@@ -98,20 +98,20 @@ Run npm install for root, client and server directories to install required node
 
 - Install dependencies for the project root folder
 
-```bash
+```console
 npm install
 ```
 
 - Install dependencies for the client directory
 
-```bash
+```console
 cd client
 npm install
 ```
 
 - Install dependencies for the server directory
 
-```bash
+```console
 cd server
 npm install
 ```
@@ -124,7 +124,7 @@ Go to [configuration section](#configuration) or check a .env.example file insid
 
 _Note: To run code locally variables must be set following the code below:_
 
-```bash
+```console
 NODE_ENV='development'
 HEROKU_DEPLOYMENT=false
 ```
@@ -133,7 +133,7 @@ HEROKU_DEPLOYMENT=false
 
 >Be sure to run a [script](#available-scripts) in the project root folder.
 
-```bash
+```console
 npm run dev
 ```
 
@@ -187,7 +187,7 @@ The application contains both client and server tests. Thanks to the [cross-env]
 
 Client directory unit tests written using [Vue Test Utils](https://vue-test-utils.vuejs.org/) with [Jest](https://jestjs.io/). To run client tests open the terminal and run the code below:
 
-```bash
+```console
 cd client
 npm run test:unit
 ```
@@ -196,7 +196,7 @@ npm run test:unit
 
 Mostly API routes unit tests written in [Jest](https://jestjs.io/). All of them use seeded data. To run server tests open the terminal and run the code below:
 
-```bash
+```console
 cd server
 npm run test:watch
 ```
@@ -206,14 +206,17 @@ npm run test:watch
 E2E tests are written in [Cypress](https://www.cypress.io/). Those tests simulate the real user scenario and interact with dummy data. To run E2E tests open the terminal and run the code below:
 
 _Note: Set NODE_ENV to 'test' to run those tests_
+<br>
 
-```bash
+Open Cypress Test Runner:
+```console
 cd client
-
-# Open Cypress Test Runner
 npm run test:e2e-open
+```
 
-# Run all tests headlessly in the Electron browser
+Run all tests headlessly in the Electron browser:
+```console
+cd client
 npm run test:e2e-open
 ```
 <hr>
@@ -225,82 +228,84 @@ Scripts are divided into three parts: root folder, client and server scripts.
 
 ### Root folder scripts
 
-`npm run dev`
+Run application in the development mode:
 
-Run application in the development mode.
+```console
+npm run dev
+```
 
 ### Client scripts
 
-```bash
+Run client development server with Hot-Module-Replacement:
+
+```console
 npm run serve
 ```
 
-Run client development server with Hot-Module-Replacement.
+Lint and fix client files:
 
-```bash
+```console
 npm run lint
 ```
 
-Lints and fixes client files.
+Run client tests with Jest:
 
-```bash
+```console
 npm run test:unit
 ```
 
-Run client tests with Jest.
+Launch Cypress in interactive mode with a GUI:
 
-```bash
+```console
 npm run test:e2e-open
 ```
 
-Launches Cypress in interactive mode with a GUI.
+Run client E2E tests in headless mode with Cypress:
 
-```bash
+```console
 npm run test:e2e-run
 ```
 
-Run client E2E tests in headless mode with Cypress.
+Insert initial data into a database:
 
-```bash
+```console
 npm run db:seed
 ```
 
-Insert initial data into a database.
+Initialize Vue UI and project manager:
 
-```bash
+```console
 npm run ui
 ```
 
-Initialize Vue UI and project manager.
+Produce a client production-ready bundle in the dist/ directory:
 
-```bash
+```console
 npm run build
 ```
-
-Produces a client production-ready bundle in the dist/ directory.
 
 ### Server scripts
 
-```bash
+Start and reload the application automatically:
+
+```console
 npm run dev:watch
 ```
 
-Start and reload the application automatically.
+Run and reload server tests with Jest Start automatically:
 
-```bash
+```console
 npm run test:watch
 ```
 
-Run and reload server tests with Jest Start automatically.
+Insert initial data into a database:
 
-```bash
+```console
 npm run db:seed
 ```
 
-Insert initial data into a database.
+Produce a server production-ready bundle in the dist/ directory:
 
-```bash
+```console
 npm run build
 ```
-
-Produces a server production-ready bundle in the dist/ directory.
