@@ -1,7 +1,12 @@
+# Dependencies
 **/node_modules
 **/package-lock.json
+
+# Tests
 /tests/e2e/videos/
 /tests/e2e/screenshots/
 /tests/e2e/videos/
+
+# Editor directories and files
 .vscode
 .idea

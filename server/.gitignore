@@ -1,7 +1,7 @@
-coverage
+# Editor directories and files
 .vscode
 
-# local env files
+# Local env files
 .env.local
 .env.*.local
 .env

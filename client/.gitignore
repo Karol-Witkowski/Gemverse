@@ -1,8 +1,9 @@
+# Dependencies and dist
 .DS_Store
 node_modules
 /dist
 
-# local env files
+# Local env files
 .env
 .env.local
 .env.*.local
