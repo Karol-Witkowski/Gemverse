@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e-open": "cross-env NODE_ENV=\"test\" cypress open",
     "test:e2e-run": "cross-env NODE_ENV=\"test\" cypress run",
-    "seed:db": "cd ../server && cross-env NODE_ENV=\"test\" node ./tests/seed/seed.js",
+    "db:seed": "cd ../server && cross-env NODE_ENV=\"test\" node ./tests/seed/seed.js",
     "ui": "vue ui",
     "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
     "build": "vue-cli-service build"

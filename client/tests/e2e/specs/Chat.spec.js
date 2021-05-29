@@ -1,6 +1,6 @@
 describe('Chat test', () => {
   beforeEach(() => {
-    cy.exec('npm run seed:db');
+    cy.exec('npm run db:seed');
     cy.login();
     cy.visit('/room/room2');
   });

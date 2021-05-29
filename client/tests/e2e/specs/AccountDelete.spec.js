@@ -1,6 +1,6 @@
 describe('Account delete test', () => {
   beforeEach(() => {
-    cy.exec('npm run seed:db');
+    cy.exec('npm run db:seed');
     cy.login();
     cy.visit('/profile');
   });
