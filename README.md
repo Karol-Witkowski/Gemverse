@@ -24,7 +24,7 @@
   - [Server](#server-tests)
   - [E2E](#e2e-tests)
 - [Available scripts](#available-scripts)
-  - [Root folder](#root-folder-scripts)
+  - [Root](#root-folder-scripts)
   - [Client](#client-scripts)
   - [Server](#server-scripts)
 <hr>
@@ -35,7 +35,6 @@
 UNDER DEVELOPMENT
 <hr>
 <br>
-
 
 ## Technologies
 
@@ -87,6 +86,7 @@ UNDER DEVELOPMENT
 ### Running Locally
 
 1. Clone the repository
+
 ```bash
 git clone git@github.com:Karol-Witkowski/Gemverse.git
 cd Gemverse
@@ -97,17 +97,20 @@ cd Gemverse
 Run npm install for root, client and server directories to install required node modules.
 
 - Install dependencies for the project root folder
+
 ```bash
 npm install
 ```
 
 - Install dependencies for the client directory
+
 ```bash
 cd client
 npm install
 ```
 
 - Install dependencies for the server directory
+
 ```bash
 cd server
 npm install
@@ -127,6 +130,7 @@ HEROKU_DEPLOYMENT=false
 ```
 
 5. Run the application
+
 >Be sure to run a [script](#available-scripts) in the project root folder.
 
 ```bash
@@ -221,57 +225,57 @@ Scripts are divided into three parts: root folder, client and server scripts.
 
 ### Root folder scripts
 
-#### `npm run dev`
+`npm run dev`
 
 Run application in the development mode.
 
 ### Client scripts
 
-#### `npm run serve`
+`npm run serve`
 
 Run client development server with Hot-Module-Replacement.
 
-#### `npm run lint`
+`npm run lint`
 
 Lints and fixes client files.
 
-#### `npm run test:unit`
+`npm run test:unit`
 
 Run client tests with Jest.
 
-#### `npm run test:e2e-open`
+`npm run test:e2e-open`
 
 Launches Cypress in interactive mode with a GUI.
 
-#### `npm run test:e2e-run`
+`npm run test:e2e-run`
 
 Run client E2E tests in headless mode with Cypress.
 
-#### `npm run db:seed`
+`npm run db:seed`
 
 Insert initial data into a database.
 
-#### `npm run ui`
+`npm run ui`
 
 Initialize Vue UI and project manager.
 
-#### `npm run build`
+`npm run build`
 
 Produces a client production-ready bundle in the dist/ directory.
 
 ### Server scripts
 
-#### `npm run dev:watch`
+`npm run dev:watch`
 
 Start and reload the application automatically.
 
-#### `npm run test:watch`
+`npm run test:watch`
 
 Run and reload server tests with Jest Start automatically.
-#### `npm run db:seed`
+`npm run db:seed`
 
 Insert initial data into a database.
 
-#### `npm run build`
+`npm run build`
 
 Produces a server production-ready bundle in the dist/ directory.
