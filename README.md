@@ -124,7 +124,7 @@ Go to [configuration section](#configuration) or check a .env.example file insid
 
 _Note: To run code locally variables must be set following the code below:_
 
-```console
+```bash
 NODE_ENV='development'
 HEROKU_DEPLOYMENT=false
 ```
