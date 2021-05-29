@@ -10,7 +10,6 @@
     "test:e2e-run": "cross-env NODE_ENV=\"test\" cypress run",
     "db:seed": "cd ../server && cross-env NODE_ENV=\"test\" node ./tests/seed/seed.js",
     "ui": "vue ui",
-    "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
     "build": "vue-cli-service build"
   },
   "dependencies": {
