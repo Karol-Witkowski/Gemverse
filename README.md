@@ -24,6 +24,9 @@
   - [Server](#server-tests)
   - [E2E](#e2e-tests)
 - [Available scripts](#available-scripts)
+  - [Root folder](#root-folder-scripts)
+  - [Client](#client-scripts)
+  - [Server](#server-scripts)
 <hr>
 <br>
 
@@ -72,9 +75,10 @@ UNDER DEVELOPMENT
 <br>
 
 ## Installation
+
 ### Prerequisites
 
->To run the application install Node.js and MongoDB. To do so follow instructions on official websites. Installing Vue-CLI is optional but recommended
+>To run the application install Node.js, MongoDB and Vue CLI. To do so follow instructions on official websites.
 
 - [NodeJS](https://nodejs.org/) - version 14 and higher
 - [MongoDB](https://www.mongodb.com/)
@@ -134,14 +138,19 @@ Visit application on: [localhost:8080](http://localhost:8080/).
 <br>
 
 ## Configuration
+
 To run the application basic configuration is required. This step includes generating JWT, setting the database and adding environment variables.
 
 ### JSON Web Token
+
 The application use JWT-based authentication. To take advantage of this solution generate JWT secret and store it in a .env file.
 
 ### MongoDB
+
 The application uses the MongoDB database. Generate MongoDB URL and store it in a .env file. To do so follow [MongoDB guide](https://docs.mongodb.com/guides/server/install/).
+
 ### Environment variables
+
 To start using the application create a .env file in the server directory and setup variables following the guide below.
 
 _Note: Never expose those variables. The wrong configuration will result in an error_
@@ -165,11 +174,13 @@ PORT=PORT
 <br>
 
 ## Tests
+
 The application contains both client and server tests. Thanks to the [cross-env](https://github.com/kentcdodds/cross-env#readme/) module user can skip seeding manually data for all tests or setting NODE_ENV to 'test' for all tests except E2E.
 
 >Be sure to run [scripts](#available-scripts) in the right directory
 
 ### Client tests
+
 Client directory unit tests written using [Vue Test Utils](https://vue-test-utils.vuejs.org/) with [Jest](https://jestjs.io/). To run client tests open the terminal and run the code below:
 
 ```bash
@@ -178,6 +189,7 @@ npm run test:unit
 ```
 
 ### Server tests
+
 Mostly API routes unit tests written in [Jest](https://jestjs.io/). All of them use seeded data. To run server tests open the terminal and run the code below:
 
 ```bash
@@ -186,6 +198,7 @@ npm run test:watch
 ```
 
 ### E2E tests
+
 E2E tests are written in [Cypress](https://www.cypress.io/). Those tests simulate the real user scenario and interact with dummy data. To run E2E tests open the terminal and run the code below:
 
 _Note: Set NODE_ENV to 'test' to run those tests_
@@ -203,4 +216,62 @@ npm run test:e2e-open
 <br>
 
 ## Available scripts
-UNDER DEVELOPMENT
+
+Scripts are divided into three parts: root folder, client and server scripts.
+
+### Root folder scripts
+
+#### `npm run dev`
+
+Run application in the development mode.
+
+### Client scripts
+
+#### `npm run serve`
+
+Run client development server with Hot-Module-Replacement.
+
+#### `npm run lint`
+
+Lints and fixes client files.
+
+#### `npm run test:unit`
+
+Run client tests with Jest.
+
+#### `npm run test:e2e-open`
+
+Launches Cypress in interactive mode with a GUI.
+
+#### `npm run test:e2e-run`
+
+Run client E2E tests in headless mode with Cypress.
+
+#### `npm run db:seed`
+
+Insert initial data into a database.
+
+#### `npm run ui`
+
+Initialize Vue UI and project manager.
+
+#### `npm run build`
+
+Produces a client production-ready bundle in the dist/ directory.
+
+### Server scripts
+
+#### `npm run dev:watch`
+
+Start and reload the application automatically.
+
+#### `npm run test:watch`
+
+Run and reload server tests with Jest Start automatically.
+#### `npm run db:seed`
+
+Insert initial data into a database.
+
+#### `npm run build`
+
+Produces a server production-ready bundle in the dist/ directory.
