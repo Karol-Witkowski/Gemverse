@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    'cypress/globals': true,
   },
   extends: [
     'plugin:vue/essential',
@@ -21,7 +22,6 @@ module.exports = {
   overrides: [
     {
       env: {
-        'cypress/globals': true,
         jest: true,
         mocha: true,
       },

@@ -9,7 +9,7 @@ import ChatInput from '@/components/chat/ChatInput.vue';
 const localVue = createLocalVue();
 let socket;
 const url = 'http://localhost:3000/api/messages/room-name';
-let vuetify;
+const vuetify = new Vuetify();
 let wrapper;
 const error = {
   response: {
@@ -31,7 +31,6 @@ const response = {
 
 jest.mock('axios');
 jest.mock('socket.io-client');
-vuetify = new Vuetify();
 
 describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
   beforeEach(() => {

@@ -6,7 +6,7 @@ import PrivateRoomModal from '@/components/room/PrivateRoomModal.vue';
 
 const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/room/verification';
-let vuetify;
+const vuetify = new Vuetify();
 let wrapper;
 const mockRouter = {
   push: jest.fn(),
@@ -34,7 +34,6 @@ const response = {
 };
 
 jest.mock('axios');
-vuetify = new Vuetify();
 
 describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', () => {
   beforeEach(() => {

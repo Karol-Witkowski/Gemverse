@@ -3,10 +3,8 @@ import Vuetify from 'vuetify';
 import Home from '@/views/Home.vue';
 
 const localVue = createLocalVue();
-let vuetify;
+const vuetify = new Vuetify();
 let wrapper;
-
-vuetify = new Vuetify();
 
 describe('Implementation test for Home.vue - unauthorised', () => {
   beforeEach(() => {

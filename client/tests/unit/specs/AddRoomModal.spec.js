@@ -9,7 +9,7 @@ import AddRoomModal from '@/components/room/AddRoomModal.vue';
 const localVue = createLocalVue();
 let socket;
 const url = 'http://localhost:3000/api/room';
-let vuetify;
+const vuetify = new Vuetify();
 let wrapper;
 const mockStore = {
   getters: {
@@ -44,7 +44,6 @@ const response = {
 
 jest.mock('axios');
 jest.mock('socket.io-client');
-vuetify = new Vuetify();
 
 describe('Implementation test for AddRoomModal.vue - successful HTTP post', () => {
   beforeEach(() => {

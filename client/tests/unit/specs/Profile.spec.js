@@ -9,7 +9,7 @@ const mockRouter = {
   push: jest.fn(),
 };
 const url = 'http://localhost:3000/api/user/remove/logged';
-let vuetify;
+const vuetify = new Vuetify();
 let wrapper;
 const error = {
   response: {
@@ -32,8 +32,7 @@ const mockStore = {
 
 document.body.setAttribute('data-app', true);
 jest.mock('axios');
-jest.spyOn(window.localStorage.__proto__, 'clear');
-vuetify = new Vuetify();
+jest.spyOn(Object.getPrototypeOf(window.localStorage), 'clear');
 
 describe('Implementation test for Profile.vue - successful HTTP delete', () => {
   beforeEach(() => {

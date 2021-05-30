@@ -18,12 +18,11 @@ const mockStoreUnauthorized = {
     isAuthorized: false,
   },
 };
-let vuetify;
+const vuetify = new Vuetify();
 let wrapper;
 
-jest.spyOn(window.localStorage.__proto__, 'clear');
-jest.spyOn(window.localStorage.__proto__, 'setItem');
-vuetify = new Vuetify();
+jest.spyOn(Object.getPrototypeOf(window.localStorage), 'clear');
+jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
 
 describe('Implementation test for Navbar.vue - unauthorized user', () => {
   beforeEach(() => {

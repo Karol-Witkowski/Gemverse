@@ -5,11 +5,11 @@ import Vuetify from 'vuetify';
 import Login from '@/components/authentication/Login.vue';
 import tokenSetter from '@/utils/authTokenSetter';
 
-const localSetItem = jest.spyOn(window.localStorage.__proto__, 'setItem');
+const localSetItem = jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
 const mockStore = { dispatch: jest.fn() };
 const localVue = createLocalVue();
 const url = 'http://localhost:3000/api/authentication/login';
-let vuetify;
+let vuetify = new Vuetify();
 let wrapper;
 const error = {
   response: {

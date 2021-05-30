@@ -5,11 +5,11 @@ import Vuetify from 'vuetify';
 import Register from '@/components/authentication/Register.vue';
 import tokenSetter from '@/utils/authTokenSetter';
 
-const localSetItem = jest.spyOn(window.localStorage.__proto__, 'setItem');
+const localSetItem = jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
 const localVue = createLocalVue();
 const mockStore = { dispatch: jest.fn() };
 const url = 'http://localhost:3000/api/authentication/register';
-let vuetify;
+const vuetify = new Vuetify();
 let wrapper;
 const error = {
   response: {
@@ -27,7 +27,7 @@ const error = {
 };
 const response = {
   data: {
-    auth:	true,
+    auth: true,
     user: {
       data: 'testData',
     },
@@ -37,7 +37,6 @@ const response = {
 };
 
 jest.mock('axios');
-vuetify = new Vuetify();
 
 describe('Implementation test for Register.vue - successful HTTP post', () => {
   beforeEach(() => {
