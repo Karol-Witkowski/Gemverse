@@ -81,6 +81,19 @@ export default {
       this.$refs.form.resetValidation();
     },
 
+    join(roomSlug) {
+      this.$router.push({
+        name: 'Room',
+        params: { slug: roomSlug },
+      });
+    },
+
+    passwordValidation() {
+      if (this.isFormValid) {
+        this.passwordVerification();
+      }
+    },
+
     passwordVerification() {
       axios.post('http://localhost:3000/api/room/verification', {
         name: this.getCurrentRoom.name,
@@ -94,19 +107,6 @@ export default {
         .catch((error) => {
           this.error = error.response.data.message;
         });
-    },
-
-    join(roomSlug) {
-      this.$router.push({
-        name: 'Room',
-        params: { slug: roomSlug },
-      });
-    },
-
-    passwordValidation() {
-      if (this.isFormValid) {
-        this.passwordVerification();
-      }
     },
   },
 };

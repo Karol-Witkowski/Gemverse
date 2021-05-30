@@ -223,13 +223,13 @@ export default {
   data() {
     return {
       addRoomModal: false,
-      roomError: this.$route.params.message,
       deleteError: '',
       deleteRoomModal: false,
       errors: [],
       id: '',
       privateRoomModal: false,
       rooms: [],
+      roomError: this.$route.params.message,
       socket: io('http://localhost:3000'),
       sortBy: 'Sort by given name',
       sorting: -1,

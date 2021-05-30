@@ -37,6 +37,10 @@ export default {
     this.getRoomData();
   },
 
+  beforeDestroy() {
+    this.leaveRoom();
+  },
+
   computed: {
     ...mapGetters(['getCurrentRoom', 'getUserInfo']),
   },
@@ -98,10 +102,6 @@ export default {
         .catch((error) => error);
       this.socket.removeListener('joinRoom');
     },
-  },
-
-  beforeDestroy() {
-    this.leaveRoom();
   },
 };
 </script>

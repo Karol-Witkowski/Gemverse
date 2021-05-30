@@ -107,11 +107,11 @@ export default {
   data() {
     return {
       email: '',
+      emailError: '',
+      errors: {},
+      isFormValid: false,
       password: '',
       username: '',
-      isFormValid: false,
-      errors: {},
-      emailError: '',
       usernameError: '',
       generalRules: [
         (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',

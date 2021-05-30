@@ -148,6 +148,10 @@ export default {
       }
     },
 
+    hideRedirectError() {
+      this.redirectError = '';
+    },
+
     login() {
       axios.post('http://localhost:3000/api/authentication/login', {
         email: this.email,
@@ -169,10 +173,6 @@ export default {
           this.passwordError = error.response.data.password;
           this.userError = error.response.data.user;
         });
-    },
-
-    hideRedirectError() {
-      this.redirectError = '';
     },
   },
 };
