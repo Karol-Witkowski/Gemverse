@@ -3,6 +3,11 @@
 node_modules
 /dist
 
+# Tests
+/tests/e2e/videos/
+/tests/e2e/screenshots/
+/tests/e2e/videos/
+
 # Local env files
 .env
 .env.local
