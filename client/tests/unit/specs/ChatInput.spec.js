@@ -29,6 +29,33 @@ const response = {
   },
 };
 
+beforeEach(() => {
+  wrapper = mount(ChatInput, {
+    localVue,
+    mocks: {
+      $store: {
+        getters: {
+          getCurrentRoom: {
+            _id: '123testid',
+            slug: 'room-name',
+          },
+          getUserInfo: {
+            _id: '321testid',
+          },
+        },
+      },
+    },
+    vuetify,
+    data() {
+      return {
+        inputError: '',
+        isFormValid: false,
+        message: '',
+      };
+    },
+  });
+});
+
 jest.mock('axios');
 jest.mock('socket.io-client');
 
@@ -38,31 +65,6 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
 
     socket = new MockedSocket();
     io.mockReturnValue(socket);
-
-    wrapper = mount(ChatInput, {
-      localVue,
-      mocks: {
-        $store: {
-          getters: {
-            getCurrentRoom: {
-              _id: '123testid',
-              slug: 'room-name',
-            },
-            getUserInfo: {
-              _id: '321testid',
-            },
-          },
-        },
-      },
-      vuetify,
-      data() {
-        return {
-          inputError: '',
-          isFormValid: false,
-          message: '',
-        };
-      },
-    });
   });
 
   afterEach(() => {
@@ -150,31 +152,6 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
 describe('Implementation test for ChatInput.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(ChatInput, {
-      localVue,
-      mocks: {
-        $store: {
-          getters: {
-            getCurrentRoom: {
-              _id: '123testid',
-              slug: 'room-name',
-            },
-            getUserInfo: {
-              _id: '321testid',
-            },
-          },
-        },
-      },
-      vuetify,
-      data() {
-        return {
-          inputError: '',
-          isFormValid: false,
-          message: '',
-        };
-      },
-    });
   });
 
   it('Display messages on post error', async () => {
@@ -191,31 +168,6 @@ describe('Implementation test for ChatInput.vue - failed HTTP post', () => {
 describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(ChatInput, {
-      localVue,
-      mocks: {
-        $store: {
-          getters: {
-            getCurrentRoom: {
-              _id: '123testid',
-              slug: 'room-name',
-            },
-            getUserInfo: {
-              _id: '321testid',
-            },
-          },
-        },
-      },
-      vuetify,
-      data() {
-        return {
-          inputError: '',
-          isFormValid: false,
-          message: '',
-        };
-      },
-    });
   });
 
   afterEach(() => {
@@ -286,31 +238,6 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
 describe('Behavioral test for ChatInput.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(ChatInput, {
-      localVue,
-      mocks: {
-        $store: {
-          getters: {
-            getCurrentRoom: {
-              _id: '123testid',
-              slug: 'room-name',
-            },
-            getUserInfo: {
-              _id: '321testid',
-            },
-          },
-        },
-      },
-      vuetify,
-      data() {
-        return {
-          inputError: '',
-          isFormValid: false,
-          message: '',
-        };
-      },
-    });
   });
 
   afterEach(() => {
