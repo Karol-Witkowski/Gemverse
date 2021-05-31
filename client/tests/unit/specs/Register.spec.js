@@ -38,37 +38,38 @@ const response = {
 
 jest.mock('axios');
 
+beforeEach(() => {
+  wrapper = mount(Register, {
+    localVue,
+    mocks: {
+      $store: mockStore,
+    },
+    stubs: [
+      'router-link',
+      'router-view',
+    ],
+    vuetify,
+    data() {
+      return {
+        email: '',
+        emailError: '',
+        isFormValid: false,
+        password: '',
+        usernameError: '',
+        username: '',
+      };
+    },
+  });
+});
+
+afterEach(() => {
+  axios.post.mockReset();
+  wrapper.destroy();
+});
+
 describe('Implementation test for Register.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(Register, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          emailError: '',
-          isFormValid: false,
-          password: '',
-          username: '',
-          usernameError: '',
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    axios.post.mockReset();
-    localSetItem.mockClear();
-    wrapper.destroy();
   });
 
   it('Render correctly', () => {
@@ -224,33 +225,10 @@ describe('Implementation test for Register.vue - successful HTTP post', () => {
 describe('Implementation test for Register.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(Register, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          emailError: '',
-          isFormValid: false,
-          password: '',
-          usernameError: '',
-          username: '',
-        };
-      },
-    });
   });
 
   afterEach(() => {
     jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Display error messages on HTTP post failure', async () => {
@@ -280,31 +258,6 @@ describe('Implementation test for Register.vue - failed HTTP post', () => {
 describe('Behavioral test for Register.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(Register, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          isFormValid: false,
-          password: '',
-          username: '',
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    axios.post.mockReset();
-    wrapper.destroy();
   });
 
   it('Should not send post request when inputs are empty', async () => {
@@ -380,34 +333,11 @@ describe('Behavioral test for Register.vue - successful HTTP post', () => {
 describe('Behavioral test for Register.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(Register, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          emailError: '',
-          isFormValid: false,
-          password: '',
-          usernameError: '',
-          username: '',
-        };
-      },
-    });
   });
 
   afterEach(() => {
     localSetItem.mockClear();
     mockStore.dispatch.mockReset();
-    wrapper.destroy();
   });
 
   it('Display error messages on HTTP post failure', async () => {
