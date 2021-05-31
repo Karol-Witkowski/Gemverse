@@ -2,6 +2,7 @@ const app = require('../app');
 const debug = require('debug')('express-test:server');
 const http = require('http');
 const { logger } = require('../config/logger');
+const socketApi = require('../socket/index');
 
 /** Set port and create server */
 const port = normalizePort(process.env.PORT || '3000');
@@ -10,7 +11,6 @@ app.set('port', port);
 const server = http.createServer(app);
 
 /** Establish socket.io connection */
-const socketApi = require('../socket/index');
 const io = socketApi.io;
 
 io.attach(server);

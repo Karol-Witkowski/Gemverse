@@ -12,6 +12,10 @@ const deleteRoomMessages = async (data) => {
   return Message.deleteMany({ room: data });
 };
 
+const emitMessagesToRoom = async (data) => {
+  return Message.find({ room: data }).populate('user', ['username']);
+};
+
 const emitNewMessage = async (data) => {
   return Message.populate(data, {
     path: 'user',
@@ -19,13 +23,9 @@ const emitNewMessage = async (data) => {
   });
 };
 
-const emitMessagesToRoom = async (data) => {
-  return Message.find({ room: data }).populate('user', ['username']);
-};
-
 module.exports = {
   createMessage,
   deleteRoomMessages,
-  emitNewMessage,
   emitMessagesToRoom,
+  emitNewMessage,
 };

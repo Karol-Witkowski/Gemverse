@@ -1,15 +1,7 @@
 const bcrypt = require('bcrypt');
-const mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: [true, 'Username field is required'],
-    unique: true,
-    minlength: ['3', 'Username must be at least 3 characters long'],
-    maxlength: ['15', 'Username must be less or equal to 15 characters'],
-  },
   email: {
     type: String,
     required: [true, 'E-mail address field is required'],
@@ -22,6 +14,13 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Password field is required'],
     minlength: ['6', 'Password address must be at least 5 characters long'],
     maxlength: ['128', 'Password must be less or equal to 128 characters'],
+  },
+  username: {
+    type: String,
+    required: [true, 'Username field is required'],
+    unique: true,
+    minlength: ['3', 'Username must be at least 3 characters long'],
+    maxlength: ['15', 'Username must be less or equal to 15 characters'],
   },
   createdDate: {
     type: Date,

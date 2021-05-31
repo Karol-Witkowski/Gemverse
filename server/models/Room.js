@@ -4,6 +4,10 @@ const mongoose = require('mongoose'),
 const URLSlugs = require('mongoose-url-slugs');
 
 const RoomSchema = new mongoose.Schema({
+  access: {
+    type: String,
+    default: 'public',
+  },
   activeUsers: [
     {
       _id: false,
@@ -35,10 +39,6 @@ const RoomSchema = new mongoose.Schema({
       message: () => 'Password must be at least 6 characters long',
     },
     maxlength: ['128', 'Password must be less or equal to 128 characters'],
-  },
-  access: {
-    type: String,
-    default: 'public',
   },
   permission: {
     type: Array,

@@ -1,24 +1,6 @@
 const { createJwtToken } = require('../modules/utils');
-const { validatorResult } = require('../validators/validationResult');
 const { createUser, findUserByEmail, saveUser } = require('../repositories/userRepository');
-
-const signUp = async (req, res) => {
-  createUser(req)
-    .then((user) => {
-      const token = createJwtToken(user);
-
-      user.password = '';
-      return res.status(201).json({
-        auth: true,
-        data: user,
-        success: true,
-        token: `Bearer ${token}`,
-      });
-    })
-    .catch((error) => {
-      validatorResult(req, res, error);
-    });
-};
+const { validatorResult } = require('../validators/validationResult');
 
 const signIn = async (req, res) => {
   const user = await findUserByEmail(req.body.email);
@@ -46,6 +28,24 @@ const signIn = async (req, res) => {
       token: `Bearer ${token}`,
     });
   }
+};
+
+const signUp = async (req, res) => {
+  createUser(req)
+    .then((user) => {
+      const token = createJwtToken(user);
+
+      user.password = '';
+      return res.status(201).json({
+        auth: true,
+        data: user,
+        success: true,
+        token: `Bearer ${token}`,
+      });
+    })
+    .catch((error) => {
+      validatorResult(req, res, error);
+    });
 };
 
 module.exports = {

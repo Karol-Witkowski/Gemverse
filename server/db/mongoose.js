@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 const { logger } = require('../config/logger');
+const mongoose = require('mongoose');
 
 const dbConnect = () => {
   mongoose

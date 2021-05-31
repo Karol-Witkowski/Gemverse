@@ -1,8 +1,10 @@
+const apiRouter = require('./routes/index');
+
 if (process.env.HEROKU_DEPLOYMENT !== 'true') {
   require('dotenv').config();
 }
 
-/** Main packages */
+/** Main */
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -15,10 +17,11 @@ const morgan = require('morgan');
 /** Passport config */
 require('./config/passport');
 
-/* Connect to MongoDB cluster */
+/** Connect to DB */
 require('./db/mongoose');
 
 /** Middleware's */
+
 app
   .use(cors())
   .use(helmet())
@@ -32,8 +35,6 @@ if (process.env.HEROKU_DEPLOYMENT === 'true') {
 }
 
 /** Routes */
-const apiRouter = require('./routes/index');
-
 app.use('/api', apiRouter);
 
 /** Errors handler */

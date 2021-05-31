@@ -11,6 +11,34 @@ const {
   setOnlineUsers,
 } = require('../repositories/roomRepository');
 
+const deleteRoom = async (req, res) => {
+  const room = await findRoomById(req.params.id);
+
+  if (!room) {
+    return res.status(404).json({
+      message: 'Room not found',
+      success: false,
+    });
+  } else {
+    if (req.body._id !== room.user.toString()) {
+      return res.status(403).json({
+        message: 'Users are allowed to delete only their rooms',
+        success: false,
+      });
+    } else {
+      const roomSlug = room.slug;
+
+      await deleteRoomMessages(req.params.id);
+      await removeRoom(room);
+      return res.status(200).json({
+        message: 'Room deleted',
+        path: roomSlug,
+        success: true,
+      });
+    }
+  }
+};
+
 const getAllRooms = async (req, res) => {
   const rooms = await findAllRooms();
 
@@ -65,61 +93,6 @@ const postRoom = async (req, res) => {
     });
 };
 
-const verify = async (req, res) => {
-  const room = await findRoomByName(req.body.name);
-
-  if (!room) {
-    return res.status(404).json({
-      message: `No room with name ${req.body.name} found`,
-      success: false,
-    });
-  } else {
-    if ((await room.isValidPassword(req.body.password)) === false) {
-      return res.status(404).json({
-        message: 'Invalid password',
-        success: false,
-      });
-    } else {
-      if (!room.permission.includes(req.user.id)) {
-        room.permission.push(req.user.id);
-      }
-      await saveRoom(room);
-      return res.status(200).json({
-        data: room,
-        success: true,
-      });
-    }
-  }
-};
-
-const deleteRoom = async (req, res) => {
-  const room = await findRoomById(req.params.id);
-
-  if (!room) {
-    return res.status(404).json({
-      message: 'Room not found',
-      success: false,
-    });
-  } else {
-    if (req.body._id !== room.user.toString()) {
-      return res.status(403).json({
-        message: 'Users are allowed to delete only their rooms',
-        success: false,
-      });
-    } else {
-      const roomSlug = room.slug;
-
-      await deleteRoomMessages(req.params.id);
-      await removeRoom(room);
-      return res.status(200).json({
-        message: 'Room deleted',
-        path: roomSlug,
-        success: true,
-      });
-    }
-  }
-};
-
 const setUserOffline = async (req, res) => {
   const room = await findRoomBySlug(req.body.slug);
 
@@ -144,6 +117,33 @@ const setUserOffline = async (req, res) => {
       data: filteredRoom,
       success: true,
     });
+  }
+};
+
+const verify = async (req, res) => {
+  const room = await findRoomByName(req.body.name);
+
+  if (!room) {
+    return res.status(404).json({
+      message: `No room with name ${req.body.name} found`,
+      success: false,
+    });
+  } else {
+    if ((await room.isValidPassword(req.body.password)) === false) {
+      return res.status(404).json({
+        message: 'Invalid password',
+        success: false,
+      });
+    } else {
+      if (!room.permission.includes(req.user.id)) {
+        room.permission.push(req.user.id);
+      }
+      await saveRoom(room);
+      return res.status(200).json({
+        data: room,
+        success: true,
+      });
+    }
   }
 };
 

@@ -16,16 +16,16 @@ router.get('/', requireAuth, getAllRooms);
 /** Get a single room by slug */
 router.get('/:slug', requireAuth, getRoom);
 
+/** Delete room */
+router.delete('/:id', requireAuth, deleteRoom);
+
 /** Save room */
 router.post('/', requireAuth, validateRoom, postRoom);
-
-/** Password verification */
-router.post('/verification', requireAuth, verify);
 
 /** Remove user on room leave event */
 router.post('/remove/user', requireAuth, setUserOffline);
 
-/** Delete room */
-router.delete('/:id', requireAuth, deleteRoom);
+/** Password verification */
+router.post('/verification', requireAuth, verify);
 
 module.exports = router;
