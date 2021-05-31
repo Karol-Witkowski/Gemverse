@@ -45,6 +45,11 @@ const response = {
 jest.mock('axios');
 jest.mock('socket.io-client');
 
+afterEach(() => {
+  jest.resetAllMocks();
+  wrapper.destroy();
+});
+
 describe('Implementation test for AddRoomModal.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
@@ -68,11 +73,6 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
         };
       },
     });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Render correctly', () => {
@@ -285,30 +285,30 @@ describe('Implementation test for AddRoomModal.vue - successful HTTP post', () =
   });
 });
 
+beforeEach(() => {
+  wrapper = mount(AddRoomModal, {
+    localVue,
+    mocks: {
+      $store: mockStore,
+    },
+    vuetify,
+    data() {
+      return {
+        isFormValid: false,
+        nameError: '',
+        passwordError: '',
+        room: {
+          name: '',
+          password: '',
+        },
+      };
+    },
+  });
+});
+
 describe('Implementation test for AddRoomModal.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(AddRoomModal, {
-      localVue,
-      vuetify,
-      data() {
-        return {
-          isFormValid: false,
-          nameError: '',
-          passwordError: '',
-          room: {
-            name: '',
-            password: '',
-          },
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should display errors', async () => {
@@ -333,28 +333,6 @@ describe('Implementation test for AddRoomModal.vue - failed HTTP post', () => {
 describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(AddRoomModal, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          isFormValid: false,
-          room: {
-            name: '',
-            password: '',
-          },
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should not send post request when inputs are empty', async () => {
@@ -419,30 +397,6 @@ describe('Behavioral test for AddRoomModal.vue - successful HTTP post', () => {
 describe('Behavioral test for AddRoomModal.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(AddRoomModal, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          isFormValid: false,
-          nameError: '',
-          passwordError: '',
-          room: {
-            name: '',
-            password: '',
-          },
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should display errors', async () => {
