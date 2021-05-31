@@ -6,6 +6,10 @@ const localVue = createLocalVue();
 const vuetify = new Vuetify();
 let wrapper;
 
+afterEach(() => {
+  wrapper.destroy();
+});
+
 describe('Implementation test for Home.vue - unauthorised', () => {
   beforeEach(() => {
     wrapper = mount(Home, {
@@ -16,13 +20,9 @@ describe('Implementation test for Home.vue - unauthorised', () => {
             isAuthorized: false,
           },
         },
+        vuetify,
       },
-      vuetify,
     });
-  });
-
-  afterEach(() => {
-    wrapper.destroy();
   });
 
   it('Render correctly', () => {
@@ -49,10 +49,6 @@ describe('Implementation test for Home.vue - authorised', () => {
         vuetify,
       },
     });
-  });
-
-  afterEach(() => {
-    wrapper.destroy();
   });
 
   it('Initializes with correct elements', () => {

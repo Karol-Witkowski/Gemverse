@@ -56,6 +56,11 @@ beforeEach(() => {
   });
 });
 
+afterEach(() => {
+  jest.resetAllMocks();
+  wrapper.destroy();
+});
+
 jest.mock('axios');
 jest.mock('socket.io-client');
 
@@ -170,11 +175,6 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
     axios.post.mockResolvedValue(response);
   });
 
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
-  });
-
   it('Pass validation when a message is entered', async () => {
     await wrapper.find('input[name=message').setValue('message');
 
@@ -238,10 +238,6 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
 describe('Behavioral test for ChatInput.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-  });
-
-  afterEach(() => {
-    wrapper.destroy();
   });
 
   it('Display errors on failed post', async () => {
