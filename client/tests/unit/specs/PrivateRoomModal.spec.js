@@ -35,29 +35,32 @@ const response = {
 
 jest.mock('axios');
 
+beforeEach(() => {
+  wrapper = mount(PrivateRoomModal, {
+    localVue,
+    mocks: {
+      $router: mockRouter,
+      $store: mockStore,
+    },
+    vuetify,
+    data() {
+      return {
+        error: '',
+        isFormValid: false,
+        privateRoomPassword: '',
+      };
+    },
+  });
+});
+
+afterEach(() => {
+  jest.resetAllMocks();
+  wrapper.destroy();
+});
+
 describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(PrivateRoomModal, {
-      localVue,
-      mocks: {
-        $router: mockRouter,
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          isFormValid: false,
-          privateRoomPassword: '',
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Render correctly', () => {
@@ -180,26 +183,6 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
 describe('Implementation test for PrivateRoomModal.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(PrivateRoomModal, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          error: '',
-          isFormValid: false,
-          privateRoomPassword: '',
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should display errors', async () => {
@@ -222,26 +205,6 @@ describe('Implementation test for PrivateRoomModal.vue - failed HTTP post', () =
 describe('Behavioral test for PrivateRoomModal.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(PrivateRoomModal, {
-      localVue,
-      mocks: {
-        $router: mockRouter,
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          isFormValid: false,
-          privateRoomPassword: '',
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should not send post request when input is empty', async () => {
@@ -286,26 +249,6 @@ describe('Behavioral test for PrivateRoomModal.vue - successful HTTP post', () =
 describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(PrivateRoomModal, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          error: '',
-          isFormValid: false,
-          privateRoomPassword: '',
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should reset errors on keyup event', async () => {
