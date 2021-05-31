@@ -5,9 +5,6 @@ import Vuetify from 'vuetify';
 import Profile from '@/components/profile/Profile.vue';
 
 const localVue = createLocalVue();
-const mockRouter = {
-  push: jest.fn(),
-};
 const url = 'http://localhost:3000/api/user/remove/logged';
 const vuetify = new Vuetify();
 let wrapper;
@@ -17,6 +14,9 @@ const error = {
       error: 'Error msg',
     },
   },
+};
+const mockRouter = {
+  push: jest.fn(),
 };
 const mockStore = {
   dispatch: jest.fn(),
@@ -34,29 +34,31 @@ document.body.setAttribute('data-app', true);
 jest.mock('axios');
 jest.spyOn(Object.getPrototypeOf(window.localStorage), 'clear');
 
+beforeEach(() => {
+  wrapper = mount(Profile, {
+    localVue,
+    mocks: {
+      $router: mockRouter,
+      $store: mockStore,
+    },
+    vuetify,
+    data() {
+      return {
+        deleteError: '',
+        deleteUserModal: false,
+      };
+    },
+  });
+});
+
+afterEach(() => {
+  jest.resetAllMocks();
+  wrapper.destroy();
+});
+
 describe('Implementation test for Profile.vue - successful HTTP delete', () => {
   beforeEach(() => {
     axios.delete.mockResolvedValue();
-
-    wrapper = mount(Profile, {
-      localVue,
-      mocks: {
-        $router: mockRouter,
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          deleteError: '',
-          deleteUserModal: false,
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Render correctly', () => {
@@ -142,26 +144,6 @@ describe('Implementation test for Profile.vue - successful HTTP delete', () => {
 describe('Implementation test for Profile.vue - failed HTTP delete', () => {
   beforeEach(() => {
     axios.delete.mockRejectedValue(error);
-
-    wrapper = mount(Profile, {
-      localVue,
-      mocks: {
-        $router: mockRouter,
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          deleteError: '',
-          deleteUserModal: false,
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should display error on account delete failure', async () => {
@@ -197,26 +179,6 @@ describe('Implementation test for Profile.vue - failed HTTP delete', () => {
 describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
   beforeEach(() => {
     axios.delete.mockResolvedValue();
-
-    wrapper = mount(Profile, {
-      localVue,
-      mocks: {
-        $router: mockRouter,
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          deleteError: '',
-          deleteUserModal: false,
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should send delete request with correct data on delete button click', async () => {
@@ -312,26 +274,6 @@ describe('Behavioral test for Profile.vue - successful HTTP delete', () => {
 describe('Behavioral test for Profile.vue - failed HTTP delete', () => {
   beforeEach(() => {
     axios.delete.mockRejectedValue(error);
-
-    wrapper = mount(Profile, {
-      localVue,
-      mocks: {
-        $router: mockRouter,
-        $store: mockStore,
-      },
-      vuetify,
-      data() {
-        return {
-          deleteError: '',
-          deleteUserModal: false,
-        };
-      },
-    });
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
-    wrapper.destroy();
   });
 
   it('Should display error on delete button click', async () => {
