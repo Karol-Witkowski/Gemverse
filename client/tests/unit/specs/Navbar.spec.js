@@ -24,6 +24,11 @@ let wrapper;
 jest.spyOn(Object.getPrototypeOf(window.localStorage), 'clear');
 jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
 
+afterEach(() => {
+  jest.clearAllMocks();
+  wrapper.destroy();
+});
+
 describe('Implementation test for Navbar.vue - unauthorized user', () => {
   beforeEach(() => {
     wrapper = mount(Navbar, {
@@ -37,11 +42,6 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
       ],
       vuetify,
     });
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-    wrapper.destroy();
   });
 
   it('Render correctly', () => {
@@ -99,11 +99,6 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
       ],
       vuetify,
     });
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-    wrapper.destroy();
   });
 
   it('Initializes with correct elements', () => {
@@ -218,11 +213,6 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
       ],
       vuetify,
     });
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-    wrapper.destroy();
   });
 
   it('Dispatch correct data on logout', () => {
