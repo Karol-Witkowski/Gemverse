@@ -33,37 +33,39 @@ const response = {
 jest.mock('axios');
 vuetify = new Vuetify();
 
+beforeEach(() => {
+  wrapper = mount(Login, {
+    localVue,
+    mocks: {
+      $store: mockStore,
+    },
+    stubs: [
+      'router-link',
+      'router-view',
+    ],
+    vuetify,
+    data() {
+      return {
+        email: '',
+        isFormValid: false,
+        password: '',
+        redirectError: this.message,
+      };
+    },
+    propsData: {
+      message: '',
+    },
+  });
+});
+
+afterEach(() => {
+  axios.post.mockReset();
+  wrapper.destroy();
+});
+
 describe('Implementation test for Login.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(Login, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          isFormValid: false,
-          password: '',
-          redirectError: this.message,
-        };
-      },
-      propsData: {
-        message: '',
-      },
-    });
-  });
-
-  afterEach(() => {
-    axios.post.mockReset();
-    wrapper.destroy();
   });
 
   it('Render correctly', () => {
@@ -200,32 +202,10 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
 describe('Implementation test for Login.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(Login, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          isFormValid: false,
-          password: '',
-          passwordError: '',
-          userError: '',
-        };
-      },
-    });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    wrapper.destroy();
   });
 
   it('Display error messages on HTTP post failure', async () => {
@@ -254,34 +234,6 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
 describe('Behavioral test for Login.vue - successful HTTP post', () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
-
-    wrapper = mount(Login, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          isFormValid: false,
-          password: '',
-          redirectError: this.message,
-        };
-      },
-      propsData: {
-        message: '',
-      },
-    });
-  });
-
-  afterEach(() => {
-    axios.post.mockReset();
-    wrapper.destroy();
   });
 
   it('Dismiss auth error on click', async () => {
@@ -369,32 +321,10 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
 describe('Behavioral test for Login.vue - failed HTTP post', () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
-
-    wrapper = mount(Login, {
-      localVue,
-      mocks: {
-        $store: mockStore,
-      },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
-      vuetify,
-      data() {
-        return {
-          email: '',
-          isFormValid: false,
-          password: '',
-          passwordError: '',
-          userError: '',
-        };
-      },
-    });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    wrapper.destroy();
   });
 
   it('Display error messages on HTTP post failure', async () => {
