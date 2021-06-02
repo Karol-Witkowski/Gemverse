@@ -7,6 +7,8 @@
 
 <b>Gemverse</b> is a real-time chat built using the MEVN stack. The app is based on rooms - organized channels that allow user to talk about programming, hobbies, games and more.
 
+<p align="center"><code><img alt="MEVN logo" height="90" title="MEVN logo" src="client\src\assets\img\mevnLogo.png"></code></p>
+
 ## Contents
 
 - [Demo](#demo)
