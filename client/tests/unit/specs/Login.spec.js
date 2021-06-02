@@ -82,7 +82,7 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(wrapper.find('button[name=login]').element.disabled).toBeTruthy();
 
     // Check auth alert initial state
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
+    expect(wrapper.find('.v-alert').attributes().class).toContain('whitespace');
 
     // Check inputs initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(2);
@@ -131,12 +131,12 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     });
 
     // Check that auth alert is visible
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
+    expect(wrapper.find('.v-alert').attributes().class).toContain('errorAlert');
 
     await wrapper.vm.hideRedirectError();
 
     // Check that auth alert is hidden
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
+    expect(wrapper.find('.v-alert').attributes().class).toContain('whitespace');
   });
 
   it('Should send a post request with correct on form submit', async () => {
@@ -242,12 +242,12 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     });
 
     // Check that auth alert is visible
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('errorAlert');
+    expect(wrapper.find('.v-alert').attributes().class).toContain('errorAlert');
 
     await wrapper.find('button[name=accept]').trigger('click');
 
     // Check that auth alert is hidden after a click
-    expect(wrapper.findAll('.v-alert').at(0).attributes().class).toContain('whitespace');
+    expect(wrapper.find('.v-alert').attributes().class).toContain('whitespace');
   });
 
   it('Should not send a post request when inputs are empty', async () => {

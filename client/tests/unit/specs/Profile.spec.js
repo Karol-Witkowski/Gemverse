@@ -157,7 +157,7 @@ describe('Implementation test for Profile.vue - failed HTTP delete', () => {
 
     expect(wrapper.vm.deleteError).toBe('Error msg');
     expect(wrapper.find('.errorMessage').exists()).toBeTruthy();
-    expect(wrapper.findAll('.errorMessage').at(0).text()).toBe('Error msg');
+    expect(wrapper.find('.errorMessage').text()).toBe('Error msg');
   });
 
   it('Should clear errors and close dialog on cancelled account delete', async () => {
@@ -304,7 +304,7 @@ describe('Behavioral test for Profile.vue - failed HTTP delete', () => {
 
     // Check if errors are visible
     expect(wrapper.find('.errorMessage').exists()).toBeTruthy();
-    expect(wrapper.findAll('.errorMessage').at(0).text()).toBe('Error msg');
+    expect(wrapper.find('.errorMessage').text()).toBe('Error msg');
 
     // Close dialog
     await wrapper.find('button[name=close]').trigger('click');

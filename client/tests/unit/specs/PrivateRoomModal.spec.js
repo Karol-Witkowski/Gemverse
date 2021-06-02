@@ -80,7 +80,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
 
     // Check validation initial state
     expect(wrapper.findAll('.v-messages').length).toEqual(1);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
+    expect(wrapper.find('.v-messages').text()).toEqual('');
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 
@@ -107,7 +107,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
     expect(wrapper.vm.isFormValid).toBeFalsy();
 
     // Check that the correct input message is displayed
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
+    expect(wrapper.find('.v-messages').text()).toEqual('');
   });
 
   it('Enables enter room button on validation pass', async () => {
@@ -121,7 +121,7 @@ describe('Implementation test for PrivateRoomModal.vue - successful HTTP post', 
     expect(wrapper.vm.isFormValid).toBeTruthy();
 
     // Check that correct input message are displayed
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
+    expect(wrapper.find('.v-messages').text()).toEqual('');
 
     // Check that the enter button is active
     expect(wrapper.find('button[name=enter]').element.disabled).toBeFalsy();
@@ -197,7 +197,7 @@ describe('Implementation test for PrivateRoomModal.vue - failed HTTP post', () =
     await Vue.nextTick();
 
     expect(wrapper.findAll('.v-messages').length).toEqual(1);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('error');
+    expect(wrapper.find('.v-messages').text()).toEqual('error');
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 });
@@ -263,12 +263,12 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
     await Vue.nextTick();
 
     // Check if an error is visible
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('error');
+    expect(wrapper.find('.v-messages').text()).toEqual('error');
 
     await wrapper.find('input[name=password]').trigger('keyup');
 
     // Check if keyup event reset error
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
+    expect(wrapper.find('.v-messages').text()).toEqual('');
   });
 
   it('Should reset error on close event', async () => {
@@ -283,11 +283,11 @@ describe('Behavioral test for PrivateRoomModal.vue - failed HTTP post', () => {
     await Vue.nextTick();
 
     // Check if an error is visible
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('error');
+    expect(wrapper.find('.v-messages').text()).toEqual('error');
 
     await wrapper.find('button[name=close]').trigger('click');
 
     // Check if closing modal reset error
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
+    expect(wrapper.find('.v-messages').text()).toEqual('');
   });
 });
