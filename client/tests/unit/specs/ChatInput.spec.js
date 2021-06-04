@@ -93,9 +93,8 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
 
   it('Initializes with correct elements', () => {
     // Check buttons initial state
-    expect(wrapper.findAll('button').length).toEqual(2);
-    expect(wrapper.findAll('button').at(0).text()).toMatch('cancel');
-    expect(wrapper.findAll('button').at(1).text()).toMatch('send');
+    expect(wrapper.findAll('button').length).toEqual(1);
+    expect(wrapper.find('button').text()).toMatch('send');
 
     // Check input initial state
     expect(wrapper.findAll('.v-text-field').length).toEqual(1);
@@ -241,7 +240,7 @@ describe('Behavioral test for ChatInput.vue - failed HTTP post', () => {
   });
 
   it('Display errors on failed post', async () => {
-    await wrapper.findAll('button').at(1).trigger('click');
+    await wrapper.findAll('button').at(0).trigger('click');
 
     await Vue.nextTick();
 
