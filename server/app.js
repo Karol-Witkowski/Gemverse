@@ -11,6 +11,9 @@ const helmet = require('helmet');
 
 const app = express();
 
+/** SSL enforce */
+const enforce = require('express-sslify');
+
 /** Logger */
 const morgan = require('morgan');
 
