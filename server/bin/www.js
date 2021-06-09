@@ -17,14 +17,7 @@ const io = socketApi.io;
 
 io.attach(server);
 
-/** Listen to the port and handle errors */
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, '../dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../dist'));
-  });
-}
-
+/** Set port */
 if (process.env.NODE_ENV === 'test') {
   server.listen(3000, () => {
     logger.info('[LOG=SERVER] The server started on port 3000');
@@ -37,8 +30,31 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
+/** Serve static assets and handle errors */
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+  });
+}
+
 server.on('error', onError);
 server.on('listening', onListening);
+
+/** Errors handler */
+app.use((next) => {
+  const error = new Error('404 Not Found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: err,
+  });
+});
 
 function normalizePort(val) {
   const port = parseInt(val, 10);
