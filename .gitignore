@@ -2,6 +2,9 @@
 **/node_modules
 **/package-lock.json
 
+# Tests
+/coverage
+
 # Editor directories and files
 .vscode
 .idea
