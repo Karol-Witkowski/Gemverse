@@ -7,7 +7,8 @@
     "url": "https://github.com/Karol-Witkowski/Gemverse"
   },
   "scripts": {
-    "dev": "concurrently \"npm run serve --prefix client\" \"npm run dev:watch --prefix server\" "
+    "dev": "concurrently \"npm run serve --prefix client\" \"npm run dev:watch --prefix server\" ",
+    "start": "npm run start --prefix server"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"
