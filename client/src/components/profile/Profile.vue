@@ -141,7 +141,7 @@ export default {
     },
 
     deleteUser() {
-      axios.delete('http://localhost:3000/api/user/remove/logged', this.getUserInfo)
+      axios.delete('https://gemverse.herokuapp.com/api/user/remove/logged', this.getUserInfo)
         .then(() => {
           this.$store.dispatch('resetState', true);
           localStorage.clear();

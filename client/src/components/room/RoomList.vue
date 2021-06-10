@@ -230,7 +230,7 @@ export default {
       privateRoomModal: false,
       rooms: [],
       roomError: this.$route.params.message,
-      socket: io('http://localhost:3000'),
+      socket: io('https://gemverse.herokuapp.com'),
       sortBy: 'Sort by given name',
       sorting: -1,
       toggleSort: false,
@@ -268,7 +268,7 @@ export default {
     },
 
     deleteRoom() {
-      axios.delete(`http://localhost:3000/api/room/${this.id}`, {
+      axios.delete(`https://gemverse.herokuapp.com/api/room/${this.id}`, {
         data: this.getUserInfo,
       })
         .then((response) => {
@@ -283,7 +283,7 @@ export default {
     },
 
     getRoomList() {
-      axios.get('http://localhost:3000/api/room')
+      axios.get('https://gemverse.herokuapp.com/api/room')
         .then((response) => {
           this.rooms = response.data.data;
           this.socket.on('updateRoomList', (data) => {

@@ -153,7 +153,7 @@ export default {
     },
 
     login() {
-      axios.post('http://localhost:3000/api/authentication/login', {
+      axios.post('https://gemverse.herokuapp.com/api/authentication/login', {
         email: this.email,
         password: this.password,
       })

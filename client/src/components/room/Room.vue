@@ -29,7 +29,7 @@ export default {
     return {
       activeUsers: {},
       messages: {},
-      socket: io('http://localhost:3000'),
+      socket: io('https://gemverse.herokuapp.com'),
     };
   },
 
@@ -47,7 +47,7 @@ export default {
 
   methods: {
     getRoomData() {
-      axios.get(`http://localhost:3000/api/room/${this.$route.params.slug}`)
+      axios.get(`https://gemverse.herokuapp.com/api/room/${this.$route.params.slug}`)
         .then((response) => {
           this.$store.dispatch('saveCurrentRoom', response.data.data);
           this.socket.on('removeRoomFromList', (slug) => {
@@ -95,7 +95,7 @@ export default {
     },
 
     leaveRoom() {
-      axios.post('http://localhost:3000/api/room/remove/user', { slug: this.getCurrentRoom.slug })
+      axios.post('https://gemverse.herokuapp.com/api/room/remove/user', { slug: this.getCurrentRoom.slug })
         .then((response) => {
           this.socket.emit('leaveRoom', response.data.data);
         })

@@ -135,7 +135,7 @@ export default {
 
   methods: {
     createUser() {
-      axios.post('http://localhost:3000/api/authentication/register', {
+      axios.post('https://gemverse.herokuapp.com/api/authentication/register', {
         email: this.email,
         password: this.password,
         username: this.username,

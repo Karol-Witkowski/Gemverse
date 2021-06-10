@@ -40,7 +40,7 @@ export default {
       inputError: '',
       isFormValid: false,
       message: '',
-      socket: io('http://localhost:3000'),
+      socket: io('https://gemverse.herokuapp.com'),
     };
   },
 
@@ -50,7 +50,7 @@ export default {
 
   methods: {
     sendMessage() {
-      axios.post(`http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`, {
+      axios.post(`https://gemverse.herokuapp.com/api/messages/${this.getCurrentRoom.slug}`, {
         message: this.message,
         room: this.getCurrentRoom._id,
         user: this.getUserInfo._id,

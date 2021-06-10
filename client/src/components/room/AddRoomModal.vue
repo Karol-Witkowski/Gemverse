@@ -89,7 +89,7 @@ export default {
         name: '',
         password: '',
       },
-      socket: io('http://localhost:3000'),
+      socket: io('https://gemverse.herokuapp.com'),
     };
   },
 
@@ -107,7 +107,7 @@ export default {
     },
 
     createRoom() {
-      axios.post('http://localhost:3000/api/room', this.room)
+      axios.post('https://gemverse.herokuapp.com/api/room', this.room)
         .then((response) => {
           this.socket.emit('createRoom', response.data.data);
           this.closeModal();

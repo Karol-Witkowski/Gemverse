@@ -95,7 +95,7 @@ export default {
     },
 
     passwordVerification() {
-      axios.post('http://localhost:3000/api/room/verification', {
+      axios.post('https://gemverse.herokuapp.com/api/room/verification', {
         name: this.getCurrentRoom.name,
         password: this.privateRoomPassword,
       })
