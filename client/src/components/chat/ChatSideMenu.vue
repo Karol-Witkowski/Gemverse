@@ -13,7 +13,6 @@
     </v-btn>
     <v-navigation-drawer
       app
-      pernament
       width="170"
       v-model="drawer"
     >
