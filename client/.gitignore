@@ -1,7 +1,6 @@
 # Dependencies and dist
 .DS_Store
 node_modules
-/dist
 
 # Tests
 /tests/e2e/videos/
