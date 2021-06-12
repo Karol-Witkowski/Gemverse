@@ -305,9 +305,3 @@ Insert initial data into a database:
 ```console
 npm run db:seed
 ```
-
-Produce a server production-ready bundle in the dist/ directory:
-
-```console
-npm run build
-```
