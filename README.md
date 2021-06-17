@@ -219,7 +219,7 @@ npm run test:e2e-open
 Run all tests headlessly in the Electron browser:
 ```console
 cd client
-npm run test:e2e-open
+npm run test:e2e-run
 ```
 <hr>
 <br>
