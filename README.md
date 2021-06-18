@@ -34,7 +34,11 @@
 
 ## Demo
 
-UNDER DEVELOPMENT
+<p align="center">Try <a href="https://gemverse.herokuapp.com/"><b>Gemverse</b></a> by yourself</p>
+
+<p align="center" font-size="20px"><a href="https://gemverse.herokuapp.com/"><b>Gemverse demo link</b></a></p>
+
+<p align="center"><code><a href="https://gemverse.herokuapp.com/"><img height="400" src="client\src\assets\img\usageexample.gif" alt="usage example"></a></code></p>
 <hr>
 <br>
 
