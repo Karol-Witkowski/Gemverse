@@ -22,7 +22,7 @@ require('./db/mongoose');
 
 /** Middleware's */
 app
-  .use(cors())
+  .use('/api', cors())
   .use(express.urlencoded({ extended: true }))
   .use(express.json())
   .use(helmet())
