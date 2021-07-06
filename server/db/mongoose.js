@@ -14,7 +14,7 @@ const dbConnect = () => {
       }
     })
     .catch((error) => {
-      logger.error(`LOG=DB] ${error}`);
+      logger.error(`[LOG=DB] ${error}`);
     });
 };
 
