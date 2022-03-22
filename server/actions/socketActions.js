@@ -10,9 +10,11 @@ const filterActiveUsers = async (data) => {
   const room = await findRoomById(mongoose.Types.ObjectId(data.currentRoomId));
 
   await setOnlineUsers(room);
+
   if (room) {
     room.activeUsers = room.activeUsers.filter((user) => user.socketId !== data.socketId);
     room.permission.splice(room.permission.indexOf(data.currentUserId), 1);
+
     await saveRoom(room);
 
     return {
@@ -25,6 +27,7 @@ const updateOnlineUsers = async (data) => {
   const room = await findRoomByName(data.room.name);
 
   setOnlineUsers(room);
+
   if (room) {
     if (
       room.activeUsers &&
@@ -43,6 +46,7 @@ const updateOnlineUsers = async (data) => {
 
       if (roomUser.socketId !== data.socketId) {
         roomUser.socketId = data.socketId;
+
         await saveRoom(room);
       }
 

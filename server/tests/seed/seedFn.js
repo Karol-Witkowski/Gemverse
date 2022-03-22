@@ -23,6 +23,7 @@ const populateData = async () => {
       email: user.email,
       password: user.password,
     }).save();
+
     userId = userData._id;
   }
 
@@ -37,6 +38,7 @@ const populateData = async () => {
       access: room.password ? 'private' : 'public',
       password: room.password,
     }).save();
+
     roomId = roomData._id;
   }
 

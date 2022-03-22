@@ -10,6 +10,7 @@ const validatorResult = (req, res, next) => {
       success: false,
     });
   }
+
   next();
 };
 

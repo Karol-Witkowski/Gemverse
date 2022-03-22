@@ -8,7 +8,6 @@ if (process.env.HEROKU_DEPLOYMENT !== 'true') {
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-
 const app = express();
 
 /** Logger */

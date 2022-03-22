@@ -18,9 +18,7 @@ beforeAll(async () => {
 
   user = response.body.data;
   token = response.body.token;
-
   response = await request.get(`/api/room/${roomsSeedData[2].name}`).set('Authorization', token);
-
   room = response.body.data;
 });
 

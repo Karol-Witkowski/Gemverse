@@ -30,6 +30,7 @@ const deleteRoom = async (req, res) => {
 
       await deleteRoomMessages(req.params.id);
       await removeRoom(room);
+
       return res.status(200).json({
         message: 'Room deleted',
         path: roomSlug,
@@ -108,6 +109,7 @@ const setUserOffline = async (req, res) => {
       if (room.permission.find((user) => user.toString() === req.user.id)) {
         room.permission = room.permission.filter((user) => user.toString() !== req.user.id);
       }
+
       await saveRoom(room);
     }
 
@@ -138,7 +140,9 @@ const verify = async (req, res) => {
       if (!room.permission.includes(req.user.id)) {
         room.permission.push(req.user.id);
       }
+
       await saveRoom(room);
+
       return res.status(200).json({
         data: room,
         success: true,

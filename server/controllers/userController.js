@@ -10,6 +10,7 @@ const getUserById = async (req, res) => {
     });
   } else {
     user.password = '';
+
     return res.status(200).json({
       data: user,
       success: true,
@@ -33,6 +34,7 @@ const removeUser = async (req, res) => {
       });
     }
     await removeAccount(user);
+
     return res.status(200).json({
       message: 'Account deleted',
       success: true,

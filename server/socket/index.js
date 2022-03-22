@@ -12,6 +12,7 @@ const io = socketIo({
     origin: 'http://localhost:8080',
   },
 });
+
 const socketApi = {};
 
 socketApi.io = io;
@@ -44,11 +45,13 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', (data) => {
     currentStatus = data;
     data.socketId = socket.id;
+
     handleJoinRoom(socket, data);
   });
 
   socket.on('leaveRoom', (data) => {
     currentStatus = null;
+
     socket.to(data._id).emit('userMoved', data);
     socket.leave(data._id);
   });

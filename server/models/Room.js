@@ -56,7 +56,6 @@ const RoomSchema = new mongoose.Schema({
 });
 
 RoomSchema.plugin(URLSlugs('name', { field: 'slug' }));
-
 RoomSchema.methods.isValidPassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
@@ -66,6 +65,7 @@ RoomSchema.pre('save', function (next) {
     bcrypt.genSalt(parseInt(process.env.SALT_WORK_FACTOR), (error, salt) => {
       bcrypt.hash(this.password, salt, (error, res) => {
         this.password = res;
+
         next();
       });
     });

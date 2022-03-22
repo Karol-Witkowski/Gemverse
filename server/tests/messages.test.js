@@ -10,6 +10,7 @@ let userId;
 
 beforeAll(async () => {
   jest.setTimeout(30000);
+
   response = await request.post('/api/authentication/login').send({
     email: usersSeedData[1].email,
     password: usersSeedData[1].password,
@@ -17,9 +18,7 @@ beforeAll(async () => {
 
   userId = response.body.data._id;
   token = response.body.token;
-
   response = await request.get(`/api/room/${roomsSeedData[1].name}`).set('Authorization', token);
-
   roomId = response.body.data._id;
 });
 

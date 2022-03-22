@@ -3,7 +3,6 @@ const { findUserByQuery } = require('../repositories/userRepository');
 const JwtStrategy = require('passport-jwt').Strategy;
 const keys = require('../config/keys');
 const passport = require('passport');
-
 const opts = {};
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -16,6 +15,7 @@ const jwtLogin = new JwtStrategy(opts, async (payload, done) => {
       if (user) {
         return done(null, user);
       }
+
       return done(null, false);
     })
     .catch((error) => console.error(error));

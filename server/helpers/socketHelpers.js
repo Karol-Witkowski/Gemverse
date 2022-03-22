@@ -8,6 +8,7 @@ module.exports = {
       messages: await emitMessagesToRoom(data.room._id),
       room: await updateOnlineUsers(data),
     });
+
     socket.to(data.room._id).emit('userMoved', await updateOnlineUsers(data));
   },
 };

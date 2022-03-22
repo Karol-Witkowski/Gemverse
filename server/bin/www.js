@@ -8,6 +8,7 @@ const socketApi = require('../socket/index');
 
 /** Set port and create server */
 const port = normalizePort(process.env.PORT || '3000');
+
 app.set('port', port);
 
 const server = http.createServer(app);
@@ -44,7 +45,9 @@ server.on('listening', onListening);
 /** Errors handler */
 app.use((next) => {
   const error = new Error('404 Not Found');
+
   error.status = 404;
+
   next(error);
 });
 
@@ -65,6 +68,7 @@ function normalizePort(val) {
   if (port >= 0) {
     return port;
   }
+
   return false;
 }
 
@@ -92,5 +96,6 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+
   debug('Listening on ' + bind);
 }
