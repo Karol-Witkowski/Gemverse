@@ -4,12 +4,7 @@
       Type password to proceed
     </v-card-title>
     <v-card-text>
-      <v-form
-        onSubmit="return false"
-        ref="form"
-        type="submit"
-        v-model="isFormValid"
-      >
+      <v-form onSubmit="return false" ref="form" type="submit" v-model="isFormValid">
         <v-col cols="12">
           <v-text-field
             :error-messages="error"
@@ -26,15 +21,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions class="pb-4">
-      <v-btn
-        @click="closeModal"
-        color="primary"
-        name="close"
-        outlined
-        text
-      >
-        close
-      </v-btn>
+      <v-btn @click="closeModal" color="primary" name="close" outlined text> close </v-btn>
       <v-spacer />
       <v-btn
         @click.prevent="passwordValidation"
@@ -52,38 +39,38 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapGetters } from 'vuex';
+import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'PrivateRoomModal',
+  name: "PrivateRoomModal",
   data() {
     return {
-      error: '',
+      error: "",
       isFormValid: false,
-      privateRoomPassword: '',
+      privateRoomPassword: "",
       rules: [
-        (value) => value.length <= 128 || 'Given string must be less or equal to 128 characters',
-        (value) => !!value || 'Required',
+        (value) => value.length <= 128 || "Given string must be less or equal to 128 characters",
+        (value) => !!value || "Required",
       ],
     };
   },
 
   computed: {
-    ...mapGetters(['getCurrentRoom']),
+    ...mapGetters(["getCurrentRoom"]),
   },
 
   methods: {
     closeModal() {
-      this.$emit('closeModal');
-      this.error = '';
-      this.privateRoomPassword = '';
+      this.$emit("closeModal");
+      this.error = "";
+      this.privateRoomPassword = "";
       this.$refs.form.resetValidation();
     },
 
     join(roomSlug) {
       this.$router.push({
-        name: 'Room',
+        name: "Room",
         params: { slug: roomSlug },
       });
     },
@@ -95,10 +82,11 @@ export default {
     },
 
     passwordVerification() {
-      axios.post('http://localhost:3000/api/room/verification', {
-        name: this.getCurrentRoom.name,
-        password: this.privateRoomPassword,
-      })
+      axios
+        .post("http://localhost:3000/api/room/verification", {
+          name: this.getCurrentRoom.name,
+          password: this.privateRoomPassword,
+        })
         .then((response) => {
           if (response.data.data.slug) {
             this.join(response.data.data.slug);

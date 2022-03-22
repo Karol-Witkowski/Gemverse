@@ -1,6 +1,6 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Home from '@/views/Home.vue';
+import { createLocalVue, mount } from "@vue/test-utils";
+import Vuetify from "vuetify";
+import Home from "@/views/Home.vue";
 
 const localVue = createLocalVue();
 const vuetify = new Vuetify();
@@ -10,7 +10,7 @@ afterEach(() => {
   wrapper.destroy();
 });
 
-describe('Implementation test for Home.vue - unauthorised', () => {
+describe("Implementation test for Home.vue - unauthorised", () => {
   beforeEach(() => {
     wrapper = mount(Home, {
       localVue,
@@ -25,18 +25,18 @@ describe('Implementation test for Home.vue - unauthorised', () => {
     });
   });
 
-  it('Render correctly', () => {
+  it("Render correctly", () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('Initializes with correct elements', () => {
-    expect(wrapper.findAll('.v-btn').length).toEqual(2);
-    expect(wrapper.find('[name=login]').text()).toMatch('sign in');
-    expect(wrapper.find('[name=register]').text()).toMatch('sign up');
+  it("Initializes with correct elements", () => {
+    expect(wrapper.findAll(".v-btn").length).toEqual(2);
+    expect(wrapper.find("[name=login]").text()).toMatch("sign in");
+    expect(wrapper.find("[name=register]").text()).toMatch("sign up");
   });
 });
 
-describe('Implementation test for Home.vue - authorised', () => {
+describe("Implementation test for Home.vue - authorised", () => {
   beforeEach(() => {
     wrapper = mount(Home, {
       localVue,
@@ -51,8 +51,8 @@ describe('Implementation test for Home.vue - authorised', () => {
     });
   });
 
-  it('Initializes with correct elements', () => {
-    expect(wrapper.findAll('.v-btn').length).toEqual(1);
-    expect(wrapper.find('[name=list]').text()).toMatch('room list');
+  it("Initializes with correct elements", () => {
+    expect(wrapper.findAll(".v-btn").length).toEqual(1);
+    expect(wrapper.find("[name=list]").text()).toMatch("room list");
   });
 });

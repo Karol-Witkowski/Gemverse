@@ -1,8 +1,5 @@
 <template>
-  <v-form
-    @submit.prevent
-    v-model="isFormValid"
-  >
+  <v-form @submit.prevent v-model="isFormValid">
     <v-container>
       <v-row>
         <v-col cols="15">
@@ -29,36 +26,37 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapGetters } from 'vuex';
-import io from 'socket.io-client';
+import axios from "axios";
+import { mapGetters } from "vuex";
+import io from "socket.io-client";
 
 export default {
-  name: 'ChatInput',
+  name: "ChatInput",
   data() {
     return {
-      inputError: '',
+      inputError: "",
       isFormValid: false,
-      message: '',
-      socket: io('http://localhost:3000'),
+      message: "",
+      socket: io("http://localhost:3000"),
     };
   },
 
   computed: {
-    ...mapGetters(['getCurrentRoom', 'getUserInfo']),
+    ...mapGetters(["getCurrentRoom", "getUserInfo"]),
   },
 
   methods: {
     sendMessage() {
-      axios.post(`http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`, {
-        message: this.message,
-        room: this.getCurrentRoom._id,
-        user: this.getUserInfo._id,
-      })
+      axios
+        .post(`http://localhost:3000/api/messages/${this.getCurrentRoom.slug}`, {
+          message: this.message,
+          room: this.getCurrentRoom._id,
+          user: this.getUserInfo._id,
+        })
         .then((response) => {
           if (response.status === 201) {
-            this.socket.emit('sendMessage', response.data.data);
-            this.message = '';
+            this.socket.emit("sendMessage", response.data.data);
+            this.message = "";
           }
         })
         .catch((error) => {
@@ -71,6 +69,6 @@ export default {
 
 <style lang="scss">
 .v-input__icon {
-  font-size: 1.5em!important;
+  font-size: 1.5em !important;
 }
 </style>

@@ -1,18 +1,12 @@
 <template>
   <v-container class="mt-12">
-    <v-card
-      class="mt-12 mx-auto"
-      max-width="500px"
-    >
+    <v-card class="mt-12 mx-auto" max-width="500px">
       <v-card-title>
         <span class="headline grey--text text--darken-2">Create account</span>
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-form
-            ref="form"
-            v-model="isFormValid"
-          >
+          <v-form ref="form" v-model="isFormValid">
             <v-row class="mb-2">
               <v-col cols="12">
                 <v-text-field
@@ -61,15 +55,7 @@
         </v-container>
       </v-card-text>
       <v-card-actions class="pb-4">
-        <v-btn
-          color="primary"
-          name="back"
-          outlined
-          text
-          to="/"
-        >
-          back
-        </v-btn>
+        <v-btn color="primary" name="back" outlined text to="/"> back </v-btn>
         <v-spacer />
         <v-btn
           @click.prevent="formValidation"
@@ -85,70 +71,68 @@
     </v-card>
     <div class="mt-6 text-center">
       <h4 class="grey--text mx-auto mb-2 text--darken-1">Already have an account? Sign in</h4>
-      <v-btn
-        color="blue lighten-1"
-        name="login"
-        outlined
-        text
-        to="/login"
-      >
-        sign in
-      </v-btn>
+      <v-btn color="blue lighten-1" name="login" outlined text to="/login"> sign in </v-btn>
     </div>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios';
-import tokenSetter from '@/utils/authTokenSetter';
+import axios from "axios";
+import tokenSetter from "@/utils/authTokenSetter";
 
 export default {
-  name: 'Register',
+  name: "Register",
   data() {
     return {
-      email: '',
-      emailError: '',
+      email: "",
+      emailError: "",
       errors: {},
       isFormValid: false,
-      password: '',
-      username: '',
-      usernameError: '',
+      password: "",
+      username: "",
+      usernameError: "",
       generalRules: [
-        (value) => !(/[ ]/.test(value)) || 'No blank spaces allowed',
-        (value) => !!value || 'Required',
+        (value) => !/[ ]/.test(value) || "No blank spaces allowed",
+        (value) => !!value || "Required",
       ],
       emailRules: [
-        (value) => (value.length >= 8 && value.length <= 128) || 'E-mail address must be at least 8 characters long',
+        (value) =>
+          (value.length >= 8 && value.length <= 128) ||
+          "E-mail address must be at least 8 characters long",
         (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || 'Invalid e-mail';
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid e-mail";
         },
       ],
       passwordRules: [
-        (value) => (value.length >= 6 && value.length <= 128) || 'Password must be at least 6 characters long',
+        (value) =>
+          (value.length >= 6 && value.length <= 128) ||
+          "Password must be at least 6 characters long",
       ],
       usernameRules: [
-        (value) => (value.length >= 3 && value.length <= 15) || 'Characters range: 3 - 15',
+        (value) => (value.length >= 3 && value.length <= 15) || "Characters range: 3 - 15",
       ],
     };
   },
 
   methods: {
     createUser() {
-      axios.post('http://localhost:3000/api/authentication/register', {
-        email: this.email,
-        password: this.password,
-        username: this.username,
-      })
+      axios
+        .post("http://localhost:3000/api/authentication/register", {
+          email: this.email,
+          password: this.password,
+          username: this.username,
+        })
         .then((response) => {
-          localStorage.setItem('authenticationToken', response.data.token);
+          localStorage.setItem("authenticationToken", response.data.token);
           tokenSetter(response.data.token);
           this.dispatchToken();
-          this.$store.dispatch('saveUser', response.data.user);
+          this.$store.dispatch("saveUser", response.data.user);
 
           if (response.status === 201) {
             this.$router.push({
-              name: 'RoomList',
+              name: "RoomList",
             });
           }
         })
@@ -164,11 +148,11 @@ export default {
     },
 
     dispatchToken() {
-      if (localStorage.getItem('authenticationToken')) {
-        this.$store.dispatch('remitAuthState', true);
+      if (localStorage.getItem("authenticationToken")) {
+        this.$store.dispatch("remitAuthState", true);
       } else {
         localStorage.clear();
-        this.$store.dispatch('remitAuthState', false);
+        this.$store.dispatch("remitAuthState", false);
       }
     },
 

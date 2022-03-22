@@ -11,11 +11,7 @@
     >
       panel
     </v-btn>
-    <v-navigation-drawer
-      app
-      width="170"
-      v-model="drawer"
-    >
+    <v-navigation-drawer app width="170" v-model="drawer">
       <v-list-item class="mt-2 px-1">
         <v-list-item-avatar>
           <img
@@ -29,26 +25,13 @@
       </v-list-item>
       <div align="center">
         <v-divider />
-        <v-btn
-          block
-          elevation="0"
-          name="leave"
-          to="/roomlist"
-          x-small
-        >
-          leave room
-        </v-btn>
-      <v-divider />
-        <v-list-item-title
-          class="ax-auto mt-2 font-weight-bold text-uppercase"
-        >
+        <v-btn block elevation="0" name="leave" to="/roomlist" x-small> leave room </v-btn>
+        <v-divider />
+        <v-list-item-title class="ax-auto mt-2 font-weight-bold text-uppercase">
           users list
         </v-list-item-title>
         <v-list>
-          <v-list-item
-            :key="user.lookup._id"
-            v-for="user in activeUsers"
-          >
+          <v-list-item :key="user.lookup._id" v-for="user in activeUsers">
             <v-list-item-content>
               <v-avatar>
                 <img
@@ -69,11 +52,11 @@
 </template>
 
 <script>
-import { generateFromString } from 'generate-avatar';
-import { mapGetters } from 'vuex';
+import { generateFromString } from "generate-avatar";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'ChatSideMenu',
+  name: "ChatSideMenu",
   props: {
     activeUsers: {},
   },
@@ -84,7 +67,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getUserInfo']),
+    ...mapGetters(["getUserInfo"]),
   },
 
   methods: {
@@ -97,11 +80,11 @@ export default {
 
 <style lang="scss">
 .userName {
-  margin-left: -7px!important;
+  margin-left: -7px !important;
 }
 
 .activeUsersAvatars {
-  height: 33px!important;
-  width: 33px!important;
+  height: 33px !important;
+  width: 33px !important;
 }
 </style>

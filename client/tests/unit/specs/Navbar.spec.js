@@ -1,6 +1,6 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Navbar from '@/components/layout/Navbar.vue';
+import { createLocalVue, mount } from "@vue/test-utils";
+import Vuetify from "vuetify";
+import Navbar from "@/components/layout/Navbar.vue";
 
 const localVue = createLocalVue();
 const mockRouter = {
@@ -21,45 +21,42 @@ const mockStoreUnauthorized = {
 const vuetify = new Vuetify();
 let wrapper;
 
-jest.spyOn(Object.getPrototypeOf(window.localStorage), 'clear');
-jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
+jest.spyOn(Object.getPrototypeOf(window.localStorage), "clear");
+jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
 
 afterEach(() => {
   jest.clearAllMocks();
   wrapper.destroy();
 });
 
-describe('Implementation test for Navbar.vue - unauthorized user', () => {
+describe("Implementation test for Navbar.vue - unauthorized user", () => {
   beforeEach(() => {
     wrapper = mount(Navbar, {
       localVue,
       mocks: {
         $store: mockStoreUnauthorized,
       },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
+      stubs: ["router-link", "router-view"],
       vuetify,
     });
   });
 
-  it('Render correctly', () => {
+  it("Render correctly", () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('Initializes with correct elements', () => {
-    expect(wrapper.findAll('.v-tab').length).toEqual(3);
-    expect(wrapper.find('[name=home]').text()).toMatch('home');
-    expect(wrapper.find('[name=about]').text()).toMatch('about');
-    expect(wrapper.find('[name=logo]').text()).toMatch('gemverse');
+  it("Initializes with correct elements", () => {
+    expect(wrapper.findAll(".v-tab").length).toEqual(3);
+    expect(wrapper.find("[name=home]").text()).toMatch("home");
+    expect(wrapper.find("[name=about]").text()).toMatch("about");
+    expect(wrapper.find("[name=logo]").text()).toMatch("gemverse");
 
     // Check that the mobile menu is rendered
-    expect(wrapper.findAll('button').length).toEqual(1);
-    expect(wrapper.find('button[name=menu]').text()).toMatch('menu');
+    expect(wrapper.findAll("button").length).toEqual(1);
+    expect(wrapper.find("button[name=menu]").text()).toMatch("menu");
   });
 
-  it('Should call dispatch method', () => {
+  it("Should call dispatch method", () => {
     // Check if any action were dispatched
     expect(mockStoreUnauthorized.dispatch).toHaveBeenCalled();
 
@@ -67,14 +64,11 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
     expect(mockStoreUnauthorized.dispatch).toHaveReturnedTimes(1);
   });
 
-  it('Dispatch correct auth state', () => {
-    expect(mockStoreUnauthorized.dispatch).toHaveBeenCalledWith(
-      'remitAuthState',
-      false,
-    );
+  it("Dispatch correct auth state", () => {
+    expect(mockStoreUnauthorized.dispatch).toHaveBeenCalledWith("remitAuthState", false);
   });
 
-  it('Should call store clear method', () => {
+  it("Should call store clear method", () => {
     // Check if the local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
 
@@ -83,9 +77,9 @@ describe('Implementation test for Navbar.vue - unauthorized user', () => {
   });
 });
 
-describe('Implementation test for Navbar.vue - authorized user', () => {
+describe("Implementation test for Navbar.vue - authorized user", () => {
   beforeEach(() => {
-    localStorage.setItem('authenticationToken', 'testToken');
+    localStorage.setItem("authenticationToken", "testToken");
 
     wrapper = mount(Navbar, {
       localVue,
@@ -93,30 +87,27 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
         $router: mockRouter,
         $store: mockStoreAuthorized,
       },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
+      stubs: ["router-link", "router-view"],
       vuetify,
     });
   });
 
-  it('Initializes with correct elements', () => {
+  it("Initializes with correct elements", () => {
     // Check tabs initial state
-    expect(wrapper.findAll('.v-tab').length).toEqual(6);
-    expect(wrapper.find('[name=home]').text()).toMatch('home');
-    expect(wrapper.find('[name=list]').text()).toMatch('rooms');
-    expect(wrapper.find('[name=profile]').text()).toMatch('profile');
-    expect(wrapper.find('[name=about]').text()).toMatch('about');
-    expect(wrapper.find('[name=logo]').text()).toMatch('gemverse');
-    expect(wrapper.find('[name=logout]').text()).toMatch('logout');
+    expect(wrapper.findAll(".v-tab").length).toEqual(6);
+    expect(wrapper.find("[name=home]").text()).toMatch("home");
+    expect(wrapper.find("[name=list]").text()).toMatch("rooms");
+    expect(wrapper.find("[name=profile]").text()).toMatch("profile");
+    expect(wrapper.find("[name=about]").text()).toMatch("about");
+    expect(wrapper.find("[name=logo]").text()).toMatch("gemverse");
+    expect(wrapper.find("[name=logout]").text()).toMatch("logout");
 
     // Check that the mobile menu is rendered
-    expect(wrapper.findAll('button').length).toEqual(1);
-    expect(wrapper.find('button[name=menu]').text()).toMatch('menu');
+    expect(wrapper.findAll("button").length).toEqual(1);
+    expect(wrapper.find("button[name=menu]").text()).toMatch("menu");
   });
 
-  it('Should call dispatch method when created', () => {
+  it("Should call dispatch method when created", () => {
     // Check if any action were dispatched
     expect(mockStoreAuthorized.dispatch).toHaveBeenCalled();
 
@@ -124,14 +115,11 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     expect(mockStoreAuthorized.dispatch).toHaveReturnedTimes(1);
   });
 
-  it('Dispatch correct auth state when created', () => {
-    expect(mockStoreAuthorized.dispatch).toHaveBeenCalledWith(
-      'remitAuthState',
-      true,
-    );
+  it("Dispatch correct auth state when created", () => {
+    expect(mockStoreAuthorized.dispatch).toHaveBeenCalledWith("remitAuthState", true);
   });
 
-  it('Dispatch correct data on logout', () => {
+  it("Dispatch correct data on logout", () => {
     wrapper.vm.logout();
 
     // Check if any action were dispatched
@@ -141,21 +129,13 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     expect(mockStoreAuthorized.dispatch).toHaveReturnedTimes(3);
 
     // Check auth state was dispatched with correct data
-    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
-      1,
-      'remitAuthState',
-      true,
-    );
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(1, "remitAuthState", true);
 
     // Check user data was dispatched with correct data
-    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
-      3,
-      'saveUser',
-      '',
-    );
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(3, "saveUser", "");
   });
 
-  it('Add auth state to the storage object', () => {
+  it("Add auth state to the storage object", () => {
     wrapper.vm.logout();
 
     // Check if the local storage setter was called
@@ -165,13 +145,10 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     expect(localStorage.setItem).toHaveReturnedTimes(1);
 
     // Check if the local storage setter was called with the correct data
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      'authenticationToken',
-      'testToken',
-    );
+    expect(localStorage.setItem).toHaveBeenCalledWith("authenticationToken", "testToken");
   });
 
-  it('Clear the local storage on logout', () => {
+  it("Clear the local storage on logout", () => {
     wrapper.vm.logout();
 
     // Check if the local storage clear method was called
@@ -181,7 +158,7 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
     expect(localStorage.clear).toHaveReturnedTimes(1);
   });
 
-  it('Redirect user to the login page on logout', () => {
+  it("Redirect user to the login page on logout", () => {
     wrapper.vm.logout();
 
     // Check if router push was called
@@ -192,14 +169,14 @@ describe('Implementation test for Navbar.vue - authorized user', () => {
 
     // Check if router push was called with the correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
-      name: 'Login',
+      name: "Login",
     });
   });
 });
 
-describe('Behavioral test for Navbar.vue - authorized user', () => {
+describe("Behavioral test for Navbar.vue - authorized user", () => {
   beforeEach(() => {
-    localStorage.setItem('authenticationToken', 'testToken');
+    localStorage.setItem("authenticationToken", "testToken");
 
     wrapper = mount(Navbar, {
       localVue,
@@ -207,16 +184,13 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
         $router: mockRouter,
         $store: mockStoreAuthorized,
       },
-      stubs: [
-        'router-link',
-        'router-view',
-      ],
+      stubs: ["router-link", "router-view"],
       vuetify,
     });
   });
 
-  it('Dispatch correct data on logout', () => {
-    wrapper.find('[name=logout]').trigger('click');
+  it("Dispatch correct data on logout", () => {
+    wrapper.find("[name=logout]").trigger("click");
 
     // Check if any action were dispatched
     expect(mockStoreAuthorized.dispatch).toHaveBeenCalled();
@@ -225,22 +199,14 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
     expect(mockStoreAuthorized.dispatch).toHaveReturnedTimes(3);
 
     // Check auth state was dispatched with correct data
-    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
-      1,
-      'remitAuthState',
-      true,
-    );
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(1, "remitAuthState", true);
 
     // Check user data was dispatched with correct data
-    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(
-      3,
-      'saveUser',
-      '',
-    );
+    expect(mockStoreAuthorized.dispatch).toHaveBeenNthCalledWith(3, "saveUser", "");
   });
 
-  it('Add auth state to the storage object', () => {
-    wrapper.find('[name=logout]').trigger('click');
+  it("Add auth state to the storage object", () => {
+    wrapper.find("[name=logout]").trigger("click");
 
     // Check if the local storage setter was called
     expect(localStorage.setItem).toHaveBeenCalled();
@@ -249,14 +215,11 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
     expect(localStorage.setItem).toHaveReturnedTimes(1);
 
     // Check if the local storage setter was called with the correct data
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      'authenticationToken',
-      'testToken',
-    );
+    expect(localStorage.setItem).toHaveBeenCalledWith("authenticationToken", "testToken");
   });
 
-  it('Clear the local storage on logout', () => {
-    wrapper.find('[name=logout]').trigger('click');
+  it("Clear the local storage on logout", () => {
+    wrapper.find("[name=logout]").trigger("click");
 
     // Check if the local storage clear method was called
     expect(localStorage.clear).toHaveBeenCalled();
@@ -265,8 +228,8 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
     expect(localStorage.clear).toHaveReturnedTimes(1);
   });
 
-  it('Redirect user to the login page on logout', () => {
-    wrapper.find('[name=logout]').trigger('click');
+  it("Redirect user to the login page on logout", () => {
+    wrapper.find("[name=logout]").trigger("click");
 
     // Check if router push was called
     expect(mockRouter.push).toHaveBeenCalled();
@@ -276,7 +239,7 @@ describe('Behavioral test for Navbar.vue - authorized user', () => {
 
     // Check if router push was called with the correct object
     expect(mockRouter.push).toHaveBeenCalledWith({
-      name: 'Login',
+      name: "Login",
     });
   });
 });

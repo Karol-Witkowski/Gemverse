@@ -12,29 +12,17 @@
           <strong class="mx-auto">{{ redirectError }}</strong>
         </v-col>
         <v-col class="shrink">
-          <v-btn
-            @click="hideRedirectError"
-            name="accept"
-            small
-          >
-            ok
-          </v-btn>
+          <v-btn @click="hideRedirectError" name="accept" small> ok </v-btn>
         </v-col>
       </v-row>
     </v-alert>
-    <v-card
-      class="mt-8 mx-auto"
-      max-width="500"
-    >
+    <v-card class="mt-8 mx-auto" max-width="500">
       <v-card-title>
         <span class="headline grey--text text--darken-2">Sign in to start chatting</span>
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-form
-            ref="form"
-            v-model="isFormValid"
-          >
+          <v-form ref="form" v-model="isFormValid">
             <v-row>
               <v-col cols="12">
                 <v-text-field
@@ -45,7 +33,7 @@
                   required
                   :rules="generalRules.concat(emailRules)"
                   v-model="email"
-                  v-on:keyup="[userError = '', passwordError = '',]"
+                  v-on:keyup="[(userError = ''), (passwordError = '')]"
                   v-on:keyup.enter="formValidation"
                 />
               </v-col>
@@ -68,15 +56,7 @@
         </v-container>
       </v-card-text>
       <v-card-actions class="pb-4">
-        <v-btn
-          color="primary"
-          name="back"
-          text
-          outlined
-          to="/"
-        >
-          back
-        </v-btn>
+        <v-btn color="primary" name="back" text outlined to="/"> back </v-btn>
         <v-spacer />
         <v-btn
           @click.prevent="formValidation"
@@ -92,53 +72,43 @@
     </v-card>
     <div class="mt-6 text-center">
       <h4 class="grey--text mb-2 mx-auto text--darken-1">New to Gemverse? Create a new account</h4>
-      <v-btn
-        color="blue lighten-1"
-        name="register"
-        outlined
-        text
-        to="/register"
-      >
-        sign up
-      </v-btn>
+      <v-btn color="blue lighten-1" name="register" outlined text to="/register"> sign up </v-btn>
     </div>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios';
-import tokenSetter from '@/utils/authTokenSetter';
+import axios from "axios";
+import tokenSetter from "@/utils/authTokenSetter";
 
 export default {
-  name: 'Login',
-  props: ['message'],
+  name: "Login",
+  props: ["message"],
   data() {
     return {
-      email: '',
+      email: "",
       isFormValid: false,
-      password: '',
-      passwordError: '',
+      password: "",
+      passwordError: "",
       redirectError: this.message,
-      userError: '',
+      userError: "",
       emailRules: [
-        (value) => value.length <= 128 || 'E-mail address must be less or equal to 128 characters',
+        (value) => value.length <= 128 || "E-mail address must be less or equal to 128 characters",
       ],
       passwordRules: [
-        (value) => value.length <= 128 || 'Password must be less or equal to 128 characters',
+        (value) => value.length <= 128 || "Password must be less or equal to 128 characters",
       ],
-      generalRules: [
-        (value) => !!value || 'Required',
-      ],
+      generalRules: [(value) => !!value || "Required"],
     };
   },
 
   methods: {
     dispatchToken() {
-      if (localStorage.getItem('authenticationToken')) {
-        this.$store.dispatch('remitAuthState', true);
+      if (localStorage.getItem("authenticationToken")) {
+        this.$store.dispatch("remitAuthState", true);
       } else {
         localStorage.clear();
-        this.$store.dispatch('remitAuthState', false);
+        this.$store.dispatch("remitAuthState", false);
       }
     },
 
@@ -149,23 +119,24 @@ export default {
     },
 
     hideRedirectError() {
-      this.redirectError = '';
+      this.redirectError = "";
     },
 
     login() {
-      axios.post('http://localhost:3000/api/authentication/login', {
-        email: this.email,
-        password: this.password,
-      })
+      axios
+        .post("http://localhost:3000/api/authentication/login", {
+          email: this.email,
+          password: this.password,
+        })
         .then((response) => {
-          localStorage.setItem('authenticationToken', response.data.token);
+          localStorage.setItem("authenticationToken", response.data.token);
           tokenSetter(response.data.token);
           this.dispatchToken();
-          this.$store.dispatch('saveUser', response.data.data);
+          this.$store.dispatch("saveUser", response.data.data);
 
           if (response.status === 200) {
             this.$router.push({
-              name: 'RoomList',
+              name: "RoomList",
             });
           }
         })

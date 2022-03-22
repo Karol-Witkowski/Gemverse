@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
 Vue.use(Vuex);
 
@@ -38,19 +38,19 @@ export default new Vuex.Store({
 
   actions: {
     remitAuthState: (context, payload) => {
-      context.commit('SET_AUTH_STATE', payload);
+      context.commit("SET_AUTH_STATE", payload);
     },
 
     resetState: (context) => {
-      context.commit('SET_INITIAL_STATE');
+      context.commit("SET_INITIAL_STATE");
     },
 
     saveCurrentRoom: (context, payload) => {
-      context.commit('SET_CURRENT_ROOM', payload);
+      context.commit("SET_CURRENT_ROOM", payload);
     },
 
     saveUser: (context, payload) => {
-      context.commit('SET_USER', payload);
+      context.commit("SET_USER", payload);
     },
   },
 });

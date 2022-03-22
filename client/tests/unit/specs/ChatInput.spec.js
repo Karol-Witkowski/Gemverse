@@ -1,14 +1,14 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import MockedSocket from 'socket.io-mock';
-import axios from 'axios';
-import io from 'socket.io-client';
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import ChatInput from '@/components/chat/ChatInput.vue';
+import { createLocalVue, mount } from "@vue/test-utils";
+import MockedSocket from "socket.io-mock";
+import axios from "axios";
+import io from "socket.io-client";
+import Vue from "vue";
+import Vuetify from "vuetify";
+import ChatInput from "@/components/chat/ChatInput.vue";
 
 const localVue = createLocalVue();
 let socket;
-const url = 'http://localhost:3000/api/messages/room-name';
+const url = "http://localhost:3000/api/messages/room-name";
 const vuetify = new Vuetify();
 let wrapper;
 const error = {
@@ -16,7 +16,7 @@ const error = {
     data: {
       errors: {
         message: {
-          msg: 'Message error',
+          msg: "Message error",
         },
       },
     },
@@ -24,7 +24,7 @@ const error = {
 };
 const response = {
   data: {
-    data: 'testMessageData',
+    data: "testMessageData",
     success: true,
   },
 };
@@ -36,11 +36,11 @@ beforeEach(() => {
       $store: {
         getters: {
           getCurrentRoom: {
-            _id: '123testid',
-            slug: 'room-name',
+            _id: "123testid",
+            slug: "room-name",
           },
           getUserInfo: {
-            _id: '321testid',
+            _id: "321testid",
           },
         },
       },
@@ -48,9 +48,9 @@ beforeEach(() => {
     vuetify,
     data() {
       return {
-        inputError: '',
+        inputError: "",
         isFormValid: false,
-        message: '',
+        message: "",
       };
     },
   });
@@ -61,10 +61,10 @@ afterEach(() => {
   wrapper.destroy();
 });
 
-jest.mock('axios');
-jest.mock('socket.io-client');
+jest.mock("axios");
+jest.mock("socket.io-client");
 
-describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
+describe("Implementation test for ChatInput.vue - successful HTTP post", () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
 
@@ -77,60 +77,60 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     wrapper.destroy();
   });
 
-  it('Render correctly', () => {
+  it("Render correctly", () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('Check that socket connection is established', () => {
+  it("Check that socket connection is established", () => {
     expect(io.connect).toHaveBeenCalled();
   });
 
-  it('Should emit a new message', () => {
-    socket.on('sendMessage', (data) => {
-      expect(data).toEqual('message');
+  it("Should emit a new message", () => {
+    socket.on("sendMessage", (data) => {
+      expect(data).toEqual("message");
     });
   });
 
-  it('Initializes with correct elements', () => {
+  it("Initializes with correct elements", () => {
     // Check buttons initial state
-    expect(wrapper.findAll('button').length).toEqual(1);
-    expect(wrapper.find('button').text()).toMatch('send');
+    expect(wrapper.findAll("button").length).toEqual(1);
+    expect(wrapper.find("button").text()).toMatch("send");
 
     // Check input initial state
-    expect(wrapper.findAll('.v-text-field').length).toEqual(1);
-    expect(wrapper.find('input[name=message]').text()).toEqual('');
+    expect(wrapper.findAll(".v-text-field").length).toEqual(1);
+    expect(wrapper.find("input[name=message]").text()).toEqual("");
 
     // Check validation initial state
-    expect(wrapper.findAll('.v-messages').length).toEqual(1);
-    expect(wrapper.find('.v-messages').text()).toEqual('');
+    expect(wrapper.findAll(".v-messages").length).toEqual(1);
+    expect(wrapper.find(".v-messages").text()).toEqual("");
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 
-  it('Enables error messages', async () => {
+  it("Enables error messages", async () => {
     await wrapper.setData({
-      inputError: 'Input error',
+      inputError: "Input error",
     });
 
-    expect(wrapper.findAll('.v-messages').length).toEqual(1);
-    expect(wrapper.find('.v-messages').text()).toEqual('Input error');
+    expect(wrapper.findAll(".v-messages").length).toEqual(1);
+    expect(wrapper.find(".v-messages").text()).toEqual("Input error");
   });
 
-  it('Pass validation when a message is entered', async () => {
+  it("Pass validation when a message is entered", async () => {
     await wrapper.setData({
-      message: 'message',
+      message: "message",
     });
 
     // Check that message was entered
-    expect(wrapper.find('input[name=message').element.value).toEqual('message');
-    expect(wrapper.vm.message).toBe('message');
+    expect(wrapper.find("input[name=message").element.value).toEqual("message");
+    expect(wrapper.vm.message).toBe("message");
 
     // Check if validation pass
     expect(wrapper.vm.isFormValid).toBeTruthy();
   });
 
-  it('Should send a post request with a message on form submit', async () => {
+  it("Should send a post request with a message on form submit", async () => {
     await wrapper.setData({
-      message: 'message',
+      message: "message",
     });
 
     wrapper.vm.sendMessage();
@@ -142,53 +142,50 @@ describe('Implementation test for ChatInput.vue - successful HTTP post', () => {
     expect(axios.post).toHaveReturnedTimes(1);
 
     // Check if a post was called with correct data
-    expect(axios.post).toHaveBeenCalledWith(
-      url,
-      {
-        message: 'message',
-        room: '123testid',
-        user: '321testid',
-      },
-    );
+    expect(axios.post).toHaveBeenCalledWith(url, {
+      message: "message",
+      room: "123testid",
+      user: "321testid",
+    });
   });
 });
 
-describe('Implementation test for ChatInput.vue - failed HTTP post', () => {
+describe("Implementation test for ChatInput.vue - failed HTTP post", () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
   });
 
-  it('Display messages on post error', async () => {
+  it("Display messages on post error", async () => {
     await wrapper.vm.sendMessage();
 
     await Vue.nextTick();
 
-    expect(wrapper.findAll('.v-messages').length).toEqual(1);
-    expect(wrapper.find('.v-messages').text()).toEqual('Message error');
+    expect(wrapper.findAll(".v-messages").length).toEqual(1);
+    expect(wrapper.find(".v-messages").text()).toEqual("Message error");
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 });
 
-describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
+describe("Behavioral test for ChatInput.vue - successful HTTP post", () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
   });
 
-  it('Pass validation when a message is entered', async () => {
-    await wrapper.find('input[name=message').setValue('message');
+  it("Pass validation when a message is entered", async () => {
+    await wrapper.find("input[name=message").setValue("message");
 
     // Check that message was entered
-    expect(wrapper.find('input[name=message').element.value).toEqual('message');
-    expect(wrapper.vm.message).toBe('message');
+    expect(wrapper.find("input[name=message").element.value).toEqual("message");
+    expect(wrapper.vm.message).toBe("message");
 
     // Check if validation pass
     expect(wrapper.vm.isFormValid).toBeTruthy();
   });
 
-  it('Should send a post request with a message on form submit', async () => {
-    await wrapper.find('input[name=message').setValue('message');
+  it("Should send a post request with a message on form submit", async () => {
+    await wrapper.find("input[name=message").setValue("message");
 
-    wrapper.findAll('button').at(1).trigger('click');
+    wrapper.findAll("button").at(1).trigger("click");
 
     // Check if a post was called
     expect(axios.post).toHaveBeenCalled();
@@ -197,70 +194,67 @@ describe('Behavioral test for ChatInput.vue - successful HTTP post', () => {
     expect(axios.post).toHaveReturnedTimes(1);
 
     // Check if a post was called with correct data
-    expect(axios.post).toHaveBeenCalledWith(
-      url,
-      {
-        message: 'message',
-        room: '123testid',
-        user: '321testid',
-      },
-    );
+    expect(axios.post).toHaveBeenCalledWith(url, {
+      message: "message",
+      room: "123testid",
+      user: "321testid",
+    });
   });
 
-  it('Reset message on input clear', async () => {
-    await wrapper.find('input[name=message').setValue('message');
+  it("Reset message on input clear", async () => {
+    await wrapper.find("input[name=message").setValue("message");
 
     // Check that message was entered
-    expect(wrapper.find('input[name=message').element.value).toEqual('message');
+    expect(wrapper.find("input[name=message").element.value).toEqual("message");
 
-    await wrapper.findAll('button').at(0).trigger('click');
+    await wrapper.findAll("button").at(0).trigger("click");
 
     // Check that message was cleared
-    expect(wrapper.find('input[name=message').element.value).toEqual('');
+    expect(wrapper.find("input[name=message").element.value).toEqual("");
   });
 
-  it('Clear empty input error on keyup event', async () => {
+  it("Clear empty input error on keyup event", async () => {
     await wrapper.setData({
-      inputError: 'Input error',
+      inputError: "Input error",
     });
 
     // Check if an error is visible
-    expect(wrapper.find('.v-messages').text()).toEqual('Input error');
+    expect(wrapper.find(".v-messages").text()).toEqual("Input error");
 
-    await wrapper.find('input[name=message').trigger('keyup');
+    await wrapper.find("input[name=message").trigger("keyup");
 
     // Check error message content
-    expect(wrapper.find('.v-messages').text()).toEqual('');
+    expect(wrapper.find(".v-messages").text()).toEqual("");
   });
 });
 
-describe('Behavioral test for ChatInput.vue - failed HTTP post', () => {
+describe("Behavioral test for ChatInput.vue - failed HTTP post", () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
   });
 
-  it('Display errors on failed post', async () => {
-    await wrapper.findAll('button').at(0).trigger('click');
+  it("Display errors on failed post", async () => {
+    await wrapper.findAll("button").at(0).trigger("click");
 
     await Vue.nextTick();
 
-    expect(wrapper.findAll('.v-messages').length).toEqual(1);
-    expect(wrapper.find('.v-messages').text()).toEqual('Message error');
+    expect(wrapper.findAll(".v-messages").length).toEqual(1);
+    expect(wrapper.find(".v-messages").text()).toEqual("Message error");
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 
-  it('Clear post failure error on keyup event', async () => {
-    await wrapper.find('input[name=message').setValue('message');
-    await wrapper.findAll('button').at(1).trigger('click');
+  it("Clear post failure error on keyup event", async () => {
+    await wrapper.find("input[name=message").setValue("message");
+    await wrapper.findAll("button").at(1).trigger("click");
 
     await Vue.nextTick();
 
     // Check if an error is visible
-    expect(wrapper.find('.v-messages').text()).toEqual('Message error');
+    expect(wrapper.find(".v-messages").text()).toEqual("Message error");
 
-    await wrapper.find('input[name=message').trigger('keyup');
+    await wrapper.find("input[name=message").trigger("keyup");
 
     // Check error message content
-    expect(wrapper.find('.v-messages').text()).toEqual('');
+    expect(wrapper.find(".v-messages").text()).toEqual("");
   });
 });

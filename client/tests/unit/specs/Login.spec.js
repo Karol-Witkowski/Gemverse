@@ -1,21 +1,21 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import axios from 'axios';
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import Login from '@/components/authentication/Login.vue';
-import tokenSetter from '@/utils/authTokenSetter';
+import { createLocalVue, mount } from "@vue/test-utils";
+import axios from "axios";
+import Vue from "vue";
+import Vuetify from "vuetify";
+import Login from "@/components/authentication/Login.vue";
+import tokenSetter from "@/utils/authTokenSetter";
 
-const localSetItem = jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem');
+const localSetItem = jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
 const mockStore = { dispatch: jest.fn() };
 const localVue = createLocalVue();
-const url = 'http://localhost:3000/api/authentication/login';
+const url = "http://localhost:3000/api/authentication/login";
 let vuetify = new Vuetify();
 let wrapper;
 const error = {
   response: {
     data: {
-      password: 'Password error',
-      user: 'Email error',
+      password: "Password error",
+      user: "Email error",
     },
   },
 };
@@ -23,14 +23,14 @@ const response = {
   data: {
     auth: true,
     data: {
-      data: 'testData',
+      data: "testData",
     },
     success: true,
-    token: 'testToken',
+    token: "testToken",
   },
 };
 
-jest.mock('axios');
+jest.mock("axios");
 vuetify = new Vuetify();
 
 beforeEach(() => {
@@ -39,21 +39,18 @@ beforeEach(() => {
     mocks: {
       $store: mockStore,
     },
-    stubs: [
-      'router-link',
-      'router-view',
-    ],
+    stubs: ["router-link", "router-view"],
     vuetify,
     data() {
       return {
-        email: '',
+        email: "",
         isFormValid: false,
-        password: '',
+        password: "",
         redirectError: this.message,
       };
     },
     propsData: {
-      message: '',
+      message: "",
     },
   });
 });
@@ -63,86 +60,86 @@ afterEach(() => {
   wrapper.destroy();
 });
 
-describe('Implementation test for Login.vue - successful HTTP post', () => {
+describe("Implementation test for Login.vue - successful HTTP post", () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
   });
 
-  it('Render correctly', () => {
+  it("Render correctly", () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  it('Initializes with correct elements', () => {
+  it("Initializes with correct elements", () => {
     // Check buttons initial state
-    expect(wrapper.findAll('.v-btn').length).toEqual(4);
-    expect(wrapper.find('button[name=accept]').text()).toMatch('ok');
-    expect(wrapper.find('[name=back]').text()).toMatch('back');
-    expect(wrapper.find('button[name=login]').text()).toMatch('sign in');
-    expect(wrapper.find('[name=register]').text()).toMatch('sign up');
-    expect(wrapper.find('button[name=login]').element.disabled).toBeTruthy();
+    expect(wrapper.findAll(".v-btn").length).toEqual(4);
+    expect(wrapper.find("button[name=accept]").text()).toMatch("ok");
+    expect(wrapper.find("[name=back]").text()).toMatch("back");
+    expect(wrapper.find("button[name=login]").text()).toMatch("sign in");
+    expect(wrapper.find("[name=register]").text()).toMatch("sign up");
+    expect(wrapper.find("button[name=login]").element.disabled).toBeTruthy();
 
     // Check auth alert initial state
-    expect(wrapper.find('.v-alert').attributes().class).toContain('whitespace');
+    expect(wrapper.find(".v-alert").attributes().class).toContain("whitespace");
 
     // Check inputs initial state
-    expect(wrapper.findAll('.v-text-field').length).toEqual(2);
-    expect(wrapper.find('input[name=email]').text()).toEqual('');
-    expect(wrapper.find('input[name=password]').text()).toEqual('');
+    expect(wrapper.findAll(".v-text-field").length).toEqual(2);
+    expect(wrapper.find("input[name=email]").text()).toEqual("");
+    expect(wrapper.find("input[name=password]").text()).toEqual("");
 
     // Check validation initial state
-    expect(wrapper.findAll('.v-messages').length).toEqual(2);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
-    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
+    expect(wrapper.findAll(".v-messages").length).toEqual(2);
+    expect(wrapper.findAll(".v-messages").at(0).text()).toEqual("");
+    expect(wrapper.findAll(".v-messages").at(1).text()).toEqual("");
     expect(wrapper.vm.isformValid).toBeFalsy();
   });
 
-  it('Enables log-in button when email address and password are set', async () => {
+  it("Enables log-in button when email address and password are set", async () => {
     await wrapper.setData({
-      email: 'email value',
-      password: 'password value',
+      email: "email value",
+      password: "password value",
     });
 
     await Vue.nextTick();
 
     // Check that the user data was properly set
-    expect(wrapper.find('input[name=email]').element.value).toEqual('email value');
-    expect(wrapper.find('input[name=password]').element.value).toEqual('password value');
-    expect(wrapper.vm.email).toBe('email value');
-    expect(wrapper.vm.password).toBe('password value');
+    expect(wrapper.find("input[name=email]").element.value).toEqual("email value");
+    expect(wrapper.find("input[name=password]").element.value).toEqual("password value");
+    expect(wrapper.vm.email).toBe("email value");
+    expect(wrapper.vm.password).toBe("password value");
 
     // Check if validation pass
     expect(wrapper.vm.isFormValid).toBeTruthy();
 
     // Check that the login button is active
-    expect(wrapper.find('button[name=login]').element.disabled).toBeFalsy();
+    expect(wrapper.find("button[name=login]").element.disabled).toBeFalsy();
   });
 
-  it('Fail validation when one field is empty', async () => {
+  it("Fail validation when one field is empty", async () => {
     await wrapper.setData({
-      email: 'email value',
+      email: "email value",
     });
 
     expect(wrapper.vm.isFormValid).toBeFalsy();
   });
 
-  it('Enables dismissible auth alert when authentication failed', async () => {
+  it("Enables dismissible auth alert when authentication failed", async () => {
     await wrapper.setData({
-      redirectError: 'Access denied',
+      redirectError: "Access denied",
     });
 
     // Check that auth alert is visible
-    expect(wrapper.find('.v-alert').attributes().class).toContain('errorAlert');
+    expect(wrapper.find(".v-alert").attributes().class).toContain("errorAlert");
 
     await wrapper.vm.hideRedirectError();
 
     // Check that auth alert is hidden
-    expect(wrapper.find('.v-alert').attributes().class).toContain('whitespace');
+    expect(wrapper.find(".v-alert").attributes().class).toContain("whitespace");
   });
 
-  it('Should send a post request with correct on form submit', async () => {
+  it("Should send a post request with correct on form submit", async () => {
     await wrapper.setData({
-      email: 'email value',
-      password: 'password value',
+      email: "email value",
+      password: "password value",
     });
 
     await wrapper.vm.login();
@@ -154,16 +151,13 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(axios.post).toHaveReturnedTimes(1);
 
     // Check if a post was called with correct data
-    expect(axios.post).toHaveBeenCalledWith(
-      url,
-      {
-        email: 'email value',
-        password: 'password value',
-      },
-    );
+    expect(axios.post).toHaveBeenCalledWith(url, {
+      email: "email value",
+      password: "password value",
+    });
   });
 
-  it('Should store user data and auth status after successful login', async () => {
+  it("Should store user data and auth status after successful login", async () => {
     wrapper.vm.login();
 
     // Check if any action were dispatched
@@ -173,33 +167,23 @@ describe('Implementation test for Login.vue - successful HTTP post', () => {
     expect(mockStore.dispatch).toHaveReturnedTimes(2);
 
     // Check auth state was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1,
-      'remitAuthState',
-      true,
-    );
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(1, "remitAuthState", true);
 
     // Check user data was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2,
-      'saveUser',
-      response.data.data,
-    );
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(2, "saveUser", response.data.data);
   });
 
-  it('Should store a token on successful login', async () => {
+  it("Should store a token on successful login", async () => {
     wrapper.vm.login();
 
-    await tokenSetter('token', true);
+    await tokenSetter("token", true);
 
     expect(localSetItem).toHaveBeenCalled();
-    expect(localSetItem).toHaveBeenNthCalledWith(
-      1, 'authenticationToken', 'testToken',
-    );
+    expect(localSetItem).toHaveBeenNthCalledWith(1, "authenticationToken", "testToken");
   });
 });
 
-describe('Implementation test for Login.vue - failed HTTP post', () => {
+describe("Implementation test for Login.vue - failed HTTP post", () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
   });
@@ -208,61 +192,61 @@ describe('Implementation test for Login.vue - failed HTTP post', () => {
     jest.clearAllMocks();
   });
 
-  it('Display error messages on HTTP post failure', async () => {
+  it("Display error messages on HTTP post failure", async () => {
     await wrapper.vm.login();
 
     await Vue.nextTick();
 
-    expect(wrapper.findAll('.v-messages').length).toEqual(2);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
-    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
+    expect(wrapper.findAll(".v-messages").length).toEqual(2);
+    expect(wrapper.findAll(".v-messages").at(0).text()).toEqual("Email error");
+    expect(wrapper.findAll(".v-messages").at(1).text()).toEqual("Password error");
   });
 
-  it('Does not dispatch data on a failed HTTP post', () => {
+  it("Does not dispatch data on a failed HTTP post", () => {
     wrapper.vm.login();
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
   });
 
-  it('Does not set token when a failed HTTP post occurs', () => {
+  it("Does not set token when a failed HTTP post occurs", () => {
     wrapper.vm.login();
 
     expect(localSetItem).not.toHaveBeenCalled();
   });
 });
 
-describe('Behavioral test for Login.vue - successful HTTP post', () => {
+describe("Behavioral test for Login.vue - successful HTTP post", () => {
   beforeEach(() => {
     axios.post.mockResolvedValue(response);
   });
 
-  it('Dismiss auth error on click', async () => {
+  it("Dismiss auth error on click", async () => {
     await wrapper.setData({
-      redirectError: 'Access denied',
+      redirectError: "Access denied",
     });
 
     // Check that auth alert is visible
-    expect(wrapper.find('.v-alert').attributes().class).toContain('errorAlert');
+    expect(wrapper.find(".v-alert").attributes().class).toContain("errorAlert");
 
-    await wrapper.find('button[name=accept]').trigger('click');
+    await wrapper.find("button[name=accept]").trigger("click");
 
     // Check that auth alert is hidden after a click
-    expect(wrapper.find('.v-alert').attributes().class).toContain('whitespace');
+    expect(wrapper.find(".v-alert").attributes().class).toContain("whitespace");
   });
 
-  it('Should not send a post request when inputs are empty', async () => {
-    wrapper.find('button[name=login]').trigger('click');
+  it("Should not send a post request when inputs are empty", async () => {
+    wrapper.find("button[name=login]").trigger("click");
 
     expect(axios.post).not.toHaveBeenCalled();
   });
 
-  it('Should send a post request with correct data on form submit', async () => {
-    await wrapper.find('input[name=email]').setValue('email value');
-    await wrapper.find('input[name=password]').setValue('password value');
+  it("Should send a post request with correct data on form submit", async () => {
+    await wrapper.find("input[name=email]").setValue("email value");
+    await wrapper.find("input[name=password]").setValue("password value");
 
     await Vue.nextTick();
 
-    wrapper.find('button[name=login]').trigger('click');
+    wrapper.find("button[name=login]").trigger("click");
 
     // Check if sing in button was clicked
     expect(axios.post).toHaveBeenCalled();
@@ -271,17 +255,14 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     expect(axios.post).toHaveReturnedTimes(1);
 
     // Check if a post was called with correct data
-    expect(axios.post).toHaveBeenCalledWith(
-      url,
-      {
-        email: 'email value',
-        password: 'password value',
-      },
-    );
+    expect(axios.post).toHaveBeenCalledWith(url, {
+      email: "email value",
+      password: "password value",
+    });
   });
 
-  it('Should store user data and auth status after successful login', () => {
-    wrapper.find('button[name=login]').trigger('click');
+  it("Should store user data and auth status after successful login", () => {
+    wrapper.find("button[name=login]").trigger("click");
 
     // Check if any action were dispatched
     expect(mockStore.dispatch).toHaveBeenCalled();
@@ -290,35 +271,23 @@ describe('Behavioral test for Login.vue - successful HTTP post', () => {
     expect(mockStore.dispatch).toHaveReturnedTimes(2);
 
     // Check auth state was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      1,
-      'remitAuthState',
-      true,
-    );
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(1, "remitAuthState", true);
 
     // Check user data was dispatched with correct data
-    expect(mockStore.dispatch).toHaveBeenNthCalledWith(
-      2,
-      'saveUser',
-      response.data.data,
-    );
+    expect(mockStore.dispatch).toHaveBeenNthCalledWith(2, "saveUser", response.data.data);
   });
 
-  it('Should store a token on successful login', async () => {
-    wrapper.find('button[name=login]').trigger('click');
+  it("Should store a token on successful login", async () => {
+    wrapper.find("button[name=login]").trigger("click");
 
-    await tokenSetter('token', true);
+    await tokenSetter("token", true);
 
     expect(localSetItem).toHaveBeenCalled();
-    expect(localSetItem).toHaveBeenNthCalledWith(
-      1,
-      'authenticationToken',
-      'testToken',
-    );
+    expect(localSetItem).toHaveBeenNthCalledWith(1, "authenticationToken", "testToken");
   });
 });
 
-describe('Behavioral test for Login.vue - failed HTTP post', () => {
+describe("Behavioral test for Login.vue - failed HTTP post", () => {
   beforeEach(() => {
     axios.post.mockRejectedValue(error);
   });
@@ -327,42 +296,42 @@ describe('Behavioral test for Login.vue - failed HTTP post', () => {
     jest.clearAllMocks();
   });
 
-  it('Display error messages on HTTP post failure', async () => {
-    await wrapper.find('input[name=email]').setValue('email value');
-    await wrapper.find('input[name=password]').setValue('password value');
+  it("Display error messages on HTTP post failure", async () => {
+    await wrapper.find("input[name=email]").setValue("email value");
+    await wrapper.find("input[name=password]").setValue("password value");
 
     await Vue.nextTick();
 
-    await wrapper.find('button[name=login]').trigger('click');
+    await wrapper.find("button[name=login]").trigger("click");
 
     await Vue.nextTick();
 
-    expect(wrapper.findAll('.v-messages').length).toEqual(2);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('Email error');
-    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('Password error');
+    expect(wrapper.findAll(".v-messages").length).toEqual(2);
+    expect(wrapper.findAll(".v-messages").at(0).text()).toEqual("Email error");
+    expect(wrapper.findAll(".v-messages").at(1).text()).toEqual("Password error");
   });
 
-  it('Hide HTTP post error messages when a user enters new data', async () => {
+  it("Hide HTTP post error messages when a user enters new data", async () => {
     await wrapper.setData({
-      passwordError: 'Password error',
-      userError: 'Email error',
+      passwordError: "Password error",
+      userError: "Email error",
     });
 
-    await wrapper.findAll('input').trigger('keyup');
+    await wrapper.findAll("input").trigger("keyup");
 
-    expect(wrapper.findAll('.v-messages').length).toEqual(2);
-    expect(wrapper.findAll('.v-messages').at(0).text()).toEqual('');
-    expect(wrapper.findAll('.v-messages').at(1).text()).toEqual('');
+    expect(wrapper.findAll(".v-messages").length).toEqual(2);
+    expect(wrapper.findAll(".v-messages").at(0).text()).toEqual("");
+    expect(wrapper.findAll(".v-messages").at(1).text()).toEqual("");
   });
 
-  it('Does not dispatch data when a failed HTTP post occurs', () => {
-    wrapper.find('button[name=login]').trigger('click');
+  it("Does not dispatch data when a failed HTTP post occurs", () => {
+    wrapper.find("button[name=login]").trigger("click");
 
     expect(mockStore.dispatch).not.toHaveBeenCalled();
   });
 
-  it('Does not set token when a failed HTTP post occurs', () => {
-    wrapper.find('button[name=login]').trigger('click');
+  it("Does not set token when a failed HTTP post occurs", () => {
+    wrapper.find("button[name=login]").trigger("click");
 
     expect(localSetItem).not.toHaveBeenCalled();
   });

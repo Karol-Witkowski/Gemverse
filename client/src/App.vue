@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import Navbar from './components/layout/Navbar.vue';
+import Navbar from "./components/layout/Navbar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Navbar,
   },
@@ -18,6 +18,6 @@ export default {
 
 <style lang="scss">
 * {
-  font-size: 0.984em!important;
+  font-size: 0.984em !important;
 }
 </style>

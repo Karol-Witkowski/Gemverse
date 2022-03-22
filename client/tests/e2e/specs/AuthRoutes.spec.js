@@ -1,31 +1,26 @@
-describe('Auth routes test', () => {
+describe("Auth routes test", () => {
   beforeEach(() => {
-    cy.exec('npm run db:seed');
+    cy.exec("npm run db:seed");
     cy.login();
-    cy.visit('/roomlist');
-    cy.get('[role=tab]')
-      .eq(5)
-      .click();
+    cy.visit("/roomlist");
+    cy.get("[role=tab]").eq(5).click();
   });
 
-  it('Forbids visit room list if not authenticated', () => {
-    cy.visit('/roomlist');
+  it("Forbids visit room list if not authenticated", () => {
+    cy.visit("/roomlist");
 
-    cy.url()
-      .should('include', '/login');
+    cy.url().should("include", "/login");
   });
 
-  it('Forbids visit profile panel if not authenticated', () => {
-    cy.visit('/profile');
+  it("Forbids visit profile panel if not authenticated", () => {
+    cy.visit("/profile");
 
-    cy.url()
-      .should('include', '/login');
+    cy.url().should("include", "/login");
   });
 
-  it('Forbids visit specific room if not authenticated', () => {
-    cy.visit('/room/room2');
+  it("Forbids visit specific room if not authenticated", () => {
+    cy.visit("/room/room2");
 
-    cy.url()
-      .should('include', '/login');
+    cy.url().should("include", "/login");
   });
 });
