@@ -65,11 +65,9 @@ export default {
       drawer: false,
     };
   },
-
   computed: {
     ...mapGetters(["getUserInfo"]),
   },
-
   methods: {
     generateAvatar(username) {
       return generateFromString(username);

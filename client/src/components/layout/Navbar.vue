@@ -64,18 +64,17 @@ export default {
   created() {
     this.dispatchToken();
   },
-
   computed: {
     ...mapActions(["remitAuthState"]),
     ...mapGetters(["isAuthorized"]),
   },
-
   methods: {
     dispatchToken() {
       if (localStorage.getItem("authenticationToken")) {
         this.$store.dispatch("remitAuthState", true);
       } else {
         localStorage.clear();
+
         this.$store.dispatch("remitAuthState", false);
       }
     },
@@ -83,6 +82,7 @@ export default {
     logout() {
       if (localStorage.getItem("authenticationToken")) {
         localStorage.clear();
+
         this.$store.dispatch("remitAuthState", false);
         this.$store.dispatch("saveUser", "");
         this.$router.push({ name: "Login" });

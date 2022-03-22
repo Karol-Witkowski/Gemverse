@@ -131,6 +131,7 @@ export default {
         .then((response) => {
           localStorage.setItem("authenticationToken", response.data.token);
           tokenSetter(response.data.token);
+
           this.dispatchToken();
           this.$store.dispatch("saveUser", response.data.data);
 

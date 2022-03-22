@@ -40,11 +40,9 @@ export default {
       socket: io("http://localhost:3000"),
     };
   },
-
   computed: {
     ...mapGetters(["getCurrentRoom", "getUserInfo"]),
   },
-
   methods: {
     sendMessage() {
       axios

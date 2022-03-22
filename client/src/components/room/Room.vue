@@ -10,7 +10,6 @@
 import ChatMessages from "@/components/chat/ChatMessages.vue";
 import ChatInput from "@/components/chat/ChatInput.vue";
 import ChatSideMenu from "@/components/chat/ChatSideMenu.vue";
-
 import axios from "axios";
 import { mapGetters } from "vuex";
 import * as io from "socket.io-client";
@@ -29,19 +28,15 @@ export default {
       socket: io("http://localhost:3000"),
     };
   },
-
   created() {
     this.getRoomData();
   },
-
   beforeDestroy() {
     this.leaveRoom();
   },
-
   computed: {
     ...mapGetters(["getCurrentRoom", "getUserInfo"]),
   },
-
   methods: {
     getRoomData() {
       axios
@@ -99,6 +94,7 @@ export default {
           this.socket.emit("leaveRoom", response.data.data);
         })
         .catch((error) => error);
+
       this.socket.removeListener("joinRoom");
     },
   },

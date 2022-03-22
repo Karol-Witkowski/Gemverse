@@ -175,6 +175,7 @@ export default {
     this.socket.on("removeRoomFromList", (slug) => {
       remove(this.sortedRooms, (room) => room.slug === slug);
       remove(this.rooms, (room) => room.slug === slug);
+
       this.$forceUpdate();
     });
   },
@@ -189,6 +190,7 @@ export default {
             a.name.toLowerCase() < b.name.toLowerCase() ? this.sorting : -this.sorting
           );
       }
+
       return this.rooms;
     },
   },

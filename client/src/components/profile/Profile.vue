@@ -109,19 +109,19 @@ export default {
       deleteUserModal: false,
     };
   },
-
   methods: {
     closeModal() {
       this.deleteError = "";
       this.deleteUserModal = false;
     },
-
     deleteUser() {
       axios
         .delete("http://localhost:3000/api/user/remove/logged", this.getUserInfo)
         .then(() => {
           this.$store.dispatch("resetState", true);
+
           localStorage.clear();
+
           this.$router.push({
             name: "Login",
             params: { message: "Account deleted" },
